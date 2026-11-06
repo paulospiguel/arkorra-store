@@ -1,0 +1,383 @@
+{% assign sst = section.settings %}
+<div class="{% if sst.bg_size == 'full' %}distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% endif %} position-relative{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="{% if sst.bg_size == 'content' %}distance{% if sst.class != blank %} {{ sst.class }}{% endif %} {% endif %}container-inner">
+      {% if sst.heading != blank %}
+        <div class="title_tes {{ sst.title_alignment }}">
+          {% if sst.icon != blank %}
+          <img class="testimonial-icon lazyload mb-40" data-src="{{ sst.icon | img_url: '55x' }}">
+          {% endif %}
+          <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+          {% if sst.subheading != blank %}
+            <span class="sub_title font-400" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+      <div class="testimonial-content overflow_hidden">
+        <div class="testimonials-slider row nov-slick-carousel mb-25" 
+        data-dots="false"
+        data-nav="false"
+        data-items="1"
+        data-items_lg="1"
+        data-items_md="1"
+        data-items_sm="1"
+        data-loop="true"
+        data-fade="true"
+        data-row="1"
+        data-navfor="true">
+          {% for block in section.blocks %}
+            {% assign bst = block.settings %}
+            {% case bst.star %}
+            {% when 1 %}
+              {%- assign ns = '<i class="rating"></i><i></i><i></i><i></i><i></i>' -%}
+            {% when 2 %}
+              {%- assign ns = '<i class="rating"></i><i class="rating"></i><i></i><i></i><i></i>' -%}
+            {% when 3 %}
+              {%- assign ns = '<i class="rating"></i><i class="rating"></i><i class="rating"></i><i></i><i></i>' -%}
+            {% when 4 %}
+              {%- assign ns = '<i class="rating"></i><i class="rating"></i><i class="rating"></i><i class="rating"></i><i></i>' -%}
+            {% when 5 %}
+              {%- assign ns = '<i class="rating"></i><i class="rating"></i><i class="rating"></i><i class="rating"></i><i class="rating"></i>' -%}
+            {% endcase %}
+            <div class="testimonial-item item">
+              <div class="text-center pt-25 position-relative">
+                {% if sst.s_star == true %} 
+                  <div class="testimonial-rating mb-10" style="color: {{ sst.c_star }}">{{ ns }}</div>
+                {% endif %}
+                {% if bst.quote != blank %}<div class="testimonial-item__quote font-600">{{ bst.quote }}</div>{% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="nov-block-navfor">
+          <div class="nov-slick-navfor-carousel row"
+          data-dots="false"
+          data-nav="{{ sst.show_nav }}"
+          data-items_xl="1"
+          data-items_lg="1"
+          data-items_md="1"
+          data-items_sm="1"
+          data-loop="true"
+          data-center="true"
+          data-variablewidth="true"
+          data-navfor="true">
+            {% for block in section.blocks %}
+              {% assign bst = block.settings %}
+              <div class="testimonial-item text-center">
+                {% if sst.show_avatar == true %}
+                  <div class="testimonial-avatar d-inline-block overflow_hidden rounded-circle">
+                  {% if bst.avatar != blank %}
+                    <img class="lazyload" data-src="{{ bst.avatar | img_url: '90x90', crop: 'center' }}">
+                  {% else %}
+                    {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                    {{ 'collection-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+                  {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="testimonials-slider row nov-slick-carousel mt-40" 
+        data-dots="false"
+        data-nav="false"
+        data-items="1"
+        data-items_lg="1"
+        data-items_md="1"
+        data-items_sm="1"
+        data-loop="false"
+        data-fade="true"
+        data-row="1">
+          {% for block in section.blocks %}
+            {% assign bst = block.settings %}
+            <div class="testimonial-item item text-center">
+              {% if bst.info_other != blank %}
+                <div class="testimonial-info_other font-600">{{ bst.info_other }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% if section.blocks.size == 0 %}
+        {% include 'no-blocks' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Testimonials",
+    "class": "section-testimonials",
+    "settings": [
+       {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Testimonials</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Slider options"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav",
+        "label": "Show nav",
+        "default": true
+      },
+      {
+        "type":  "header",
+        "content": "Design Testimonials Item"
+      },
+      {
+        "type": "color",
+        "id": "c_t",
+        "label": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "c_info",
+        "label": "Info colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon",
+        "label": "Icon quote",
+	"info": "55 x 55px recommend"
+      },
+      {
+        "type": "checkbox",
+        "id": "s_star",
+        "label": "Show rating"
+      },
+      {
+        "type": "color",
+        "id": "c_star",
+        "label": "Rating colors"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_avatar",
+        "default": true,
+        "label": "Show avatar"
+      },
+      {
+        "type":  "header",
+        "content": "Design Option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "tl_radius",
+        "label": "Top left radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tr_radius",
+        "label": "Top right radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bl_radius",
+        "label": "Bottom left radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "br_radius",
+        "label": "Bottom right radius",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container"},
+          { "value": "container-fluid", "label": "Container fluid"},
+          { "value": "container-full", "label": "Container full width"}
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "quote",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "avatar",
+            "label": "Avatar"
+          },
+          {
+            "type": "range",
+            "id": "star",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "label": "Rating",
+            "default": 5
+          },
+          {
+            "type": "text",
+            "id": "info_other",
+            "label": "Info",
+            "default": "Christina M. - From Canada"
+          },
+          {
+            "type": "richtext",
+            "id": "quote",
+            "label": "Text",
+            "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Testimonials",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    border-radius: {% if sst.tl_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.tr_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.br_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.bl_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %};
+    transform: translateZ(0);
+    {% if sst.background_color != blank or bg_image != blank %}
+      background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+      background-size: cover;
+      overflow: hidden;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .testimonial-item__quote {
+    color: {{ sst.c_t }};
+  }
+  #shopify-section-{{ section.id }} .testimonial-info_other {
+    color: {{ sst.c_info }};
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+</style>
+

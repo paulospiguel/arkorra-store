@@ -1,0 +1,14 @@
+{% layout none %}
+<div class="products-grid">
+  <div class="grid-item">
+    {% for product in collection.products limit: 20 %}
+    	<div class="block">
+    	  <div>
+    	    <div class="item p_item col">
+    	      {% include 'product-grid-item-style-1' %}
+    	    </div>
+    	  </div>
+    	</div>
+    {% endfor %}
+  </div>
+</div>

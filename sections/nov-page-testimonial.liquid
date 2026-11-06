@@ -1,0 +1,615 @@
+{%- assign sst = section.settings -%}
+{% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<div class="page-width">
+  <div class="container">
+    {% if page.content.size > 0 %}
+      <div class="rte">{{ page.content }}</div>
+    {% endif %}
+    <div class="PageTestimonial">
+      <div class="block_quote d-flex flex-wrap align-items-center {{ sst.class }}" style="background-color: {{ sst.background_color }};">
+        <div class="cos-3 col-lg-3 col-md-3 col-sm-3 cos-img text-center">
+          {% assign image = sst.image_quote %}
+          <div class="respone_image" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+            <img 
+              srcset="{%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if image.width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if image.width >= 535 -%}{{ image | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image.width >= 1070 -%}{{ image | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {{ image | image_url }} {{ image.width }}w"
+              src="{{ image | image_url: width: 1500 }}"
+              sizes="(min-width: 1320px) {{ 1320 | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+              alt="{{ image.alt | escape }}"
+              loading="lazy"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              class="lazyload"
+            >
+          </div>
+        </div>
+        <div class="cos-9 col-lg-9 col-md-9 col-sm-9 cos-content">
+          <div class="d-flex">
+            <img src="{{ sst.icon_quotes | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ sst.icon_quotes.alt }}">
+            <div class="item_content">
+              <span style="color: {{ sst.color_content }};font-size: {{ sst.fz_content }};line-height: {{ sst.lh_content }};">{{ sst.text_content }}</span>
+              {% if sst.author != blank %}
+                <div class="item_author" style="color: {{ sst.color_author }};font-size: {{ sst.fz_author }};">{{ sst.author }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block_content row {{ bst.class }}" style="background-color: {{ bst.background_color }};">
+      {% for block in section.blocks %}
+        {%- assign bst = block.settings -%}
+          <div class="block_text col-xl-3 col-md-6 col-12 {{ bst.class }}">
+            {% if bst.item_1 %}
+              <div class="content" style="color: {{ bst.color_content_1 }};font-size: {{ bst.fz_content_1 }};">
+                {% if bst.icon_quotes_1 != blank %}
+                  <div class="icon_quotes text-center">
+                    <img src="{{ bst.icon_quotes_1 | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes_1.alt }}">
+                  </div>
+                {% endif %}
+                {% if bst.text_content_1 != blank %}
+                  <p class="item_content">{{ bst.text_content_1 | nofilter }}</p>
+                {% endif %}
+                {% if bst.img_author_1 != blank or bst.info_name_1 != blank or bst.info_trade_1 != blank %}
+                  <div class="author d-flex align-items-center" style="color: {{ bst.color_content_1 }};font-size: {{ bst.fz_content_1 }};">
+                    {% if bst.img_author_1 != blank %}
+                      <img data-src="{{ bst.img_author_1 | img_url: '70x70' }}" class="lazyload" alt="{{ bst.img_author_1.alt }}">
+                    {% endif %}
+                    <div class="info_other">
+                      {% if bst.info_name_1 != blank %}
+                      <div class="item_name font-700" style="color: {{ bst.c_name_1 }};font-size: {{ bst.fz_name_1 }};">{{ bst.info_name_1 }}</div>
+                    {% endif %}
+                      {% if bst.info_trade_1 != blank %}
+                      <div class="item_trade" style="color: {{ bst.c_trade_1 }};font-size: {{ bst.fz_trade_1 }};">{{ bst.info_trade_1 }}</div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if bst.item_2 %}
+              <div class="content" style="color: {{ bst.color_content_2 }};font-size: {{ bst.fz_content_2 }};">
+                {% if bst.icon_quotes_2 != blank %}
+                  <div class="icon_quotes text-center">
+                    <img src="{{ bst.icon_quotes_2 | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes_2.alt }}">
+                  </div>
+                {% endif %}
+                {% if bst.text_content_2 != blank %}
+                  <p class="item_content">{{ bst.text_content_2 | nofilter }}</p>
+                {% endif %}
+                {% if bst.img_author_2 != blank or bst.info_name_2 != blank or bst.info_trade_2 != blank %}
+                  <div class="author d-flex align-items-center" style="color: {{ bst.color_content_2 }};font-size: {{ bst.fz_content_2 }};">
+                    {% if bst.img_author_2 != blank %}
+                      <img data-src="{{ bst.img_author_2 | img_url: '70x70' }}" class="lazyload" alt="{{ bst.img_author_2.alt }}">
+                    {% endif %}
+                    <div class="info_other">
+                      {% if bst.info_name_2 != blank %}
+                      <div class="item_name font-700" style="color: {{ bst.c_name_2 }};font-size: {{ bst.fz_name_2 }};">{{ bst.info_name_2 }}</div>
+                    {% endif %}
+                      {% if bst.info_trade_2 != blank %}
+                      <div class="item_trade" style="color: {{ bst.c_trade_2 }};font-size: {{ bst.fz_trade_2 }};">{{ bst.info_trade_2 }}</div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if bst.item_3 %}
+              <div class="content" style="color: {{ bst.color_content_3 }};font-size: {{ bst.fz_content_3 }};">
+                {% if bst.icon_quotes_3 != blank %}
+                  <div class="icon_quotes text-center">
+                    <img src="{{ bst.icon_quotes_3 | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes_3.alt }}">
+                  </div>
+                {% endif %}
+                {% if bst.text_content_3 != blank %}
+                  <p class="item_content">{{ bst.text_content_3 | nofilter }}</p>
+                {% endif %}
+                {% if bst.img_author_3 != blank or bst.info_name_3 != blank or bst.info_trade_3 != blank %}
+                  <div class="author d-flex align-items-center" style="color: {{ bst.color_content_3 }};font-size: {{ bst.fz_content_3 }};">
+                    {% if bst.img_author_3 != blank %}
+                      <img data-src="{{ bst.img_author_3 | img_url: '70x70' }}" class="lazyload" alt="{{ bst.img_author_3.alt }}">
+                    {% endif %}
+                    <div class="info_other">
+                      {% if bst.info_name_3 != blank %}
+                      <div class="item_name font-700" style="color: {{ bst.c_name_3 }};font-size: {{ bst.fz_name_3 }};">{{ bst.info_name_3 }}</div>
+                    {% endif %}
+                      {% if bst.info_trade_3 != blank %}
+                      <div class="item_trade" style="color: {{ bst.c_trade_3 }};font-size: {{ bst.fz_trade_3 }};">{{ bst.info_trade_3 }}</div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if bst.item_4 %}
+              <div class="content" style="color: {{ bst.color_content_4 }};font-size: {{ bst.fz_content_4 }};">
+                {% if bst.icon_quotes_4 != blank %}
+                  <div class="icon_quotes text-center">
+                    <img src="{{ bst.icon_quotes_4 | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes_4.alt }}">
+                  </div>
+                {% endif %}
+                {% if bst.text_content_4 != blank %}
+                  <p class="item_content">{{ bst.text_content_4 | nofilter }}</p>
+                {% endif %}
+                {% if bst.img_author_4 != blank or bst.info_name_4 != blank or bst.info_trade_4 != blank %}
+                  <div class="author d-flex align-items-center" style="color: {{ bst.color_content_4 }};font-size: {{ bst.fz_content_4 }};">
+                    {% if bst.img_author_4 != blank %}
+                      <img data-src="{{ bst.img_author_4 | img_url: '70x70' }}" class="lazyload" alt="{{ bst.img_author_4.alt }}">
+                    {% endif %}
+                    <div class="info_other">
+                      {% if bst.info_name_4 != blank %}
+                      <div class="item_name font-700" style="color: {{ bst.c_name_4 }};font-size: {{ bst.fz_name_4 }};">{{ bst.info_name_4 }}</div>
+                    {% endif %}
+                      {% if bst.info_trade_4 != blank %}
+                      <div class="item_trade" style="color: {{ bst.c_trade_4 }};font-size: {{ bst.fz_trade_4 }};">{{ bst.info_trade_4 }}</div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if bst.item_5 %}
+              <div class="content" style="color: {{ bst.color_content_5 }};font-size: {{ bst.fz_content_5 }};">
+                {% if bst.icon_quotes_5 != blank %}
+                  <div class="icon_quotes text-center">
+                    <img src="{{ bst.icon_quotes_5 | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes_5.alt }}">
+                  </div>
+                {% endif %}
+                {% if bst.text_content_5 != blank %}
+                  <p class="item_content">{{ bst.text_content_5 | nofilter }}</p>
+                {% endif %}
+                {% if bst.img_author_5 != blank or bst.info_name_5 != blank or bst.info_trade_5 != blank %}
+                  <div class="author d-flex align-items-center" style="color: {{ bst.color_content_5 }};font-size: {{ bst.fz_content_5 }};">
+                    {% if bst.img_author_5 != blank %}
+                      <img data-src="{{ bst.img_author_5 | img_url: '70x70' }}" class="lazyload" alt="{{ bst.img_author_5.alt }}">
+                    {% endif %}
+                    <div class="info_other">
+                      {% if bst.info_name_5 != blank %}
+                      <div class="item_name font-700" style="color: {{ bst.c_name_5 }};font-size: {{ bst.fz_name_5 }};">{{ bst.info_name_5 }}</div>
+                    {% endif %}
+                      {% if bst.info_trade_5 != blank %}
+                      <div class="item_trade" style="color: {{ bst.c_trade_5 }};font-size: {{ bst.fz_trade_5 }};">{{ bst.info_trade_5 }}</div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Page Testimonial",
+    "class": "page-inner page-testimonial",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors",
+        "default": "#f1f1f1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_quote",
+        "label": "Image Quote"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_quotes",
+        "label": "Icon Quote"
+      },
+      {
+        "type": "richtext",
+        "id": "text_content",
+        "label": "Content"
+      },
+      {
+        "type": "color",
+        "id": "color_content",
+        "label": "Color Content",
+        "default": "#232630"
+      },
+      {
+        "type": "text",
+        "id": "fz_content",
+        "label": "Font Content",
+        "default": "2rem"
+      },
+      {
+        "type": "text",
+        "id": "lh_content",
+        "label": "Line Height Content",
+        "default": "40px"
+      },
+      {
+        "type": "text",
+        "id": "author",
+        "label": "Author",
+        "default": "Kwang Shang. - CEO Vinovathemes"
+      },
+      {
+        "type": "color",
+        "id": "color_author",
+        "label": "Color Author",
+        "default": "#232630"
+      },
+      {
+        "type": "text",
+        "id": "fz_author",
+        "label": "Font Author",
+        "default": "13px"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "About Text",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "item_1",
+            "label": "Item 1",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes_1",
+            "label": "Icon Quote 1"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content_1",
+            "label": "Content 1"
+          },
+          {
+            "type": "color",
+            "id": "c_content_1",
+            "label": "Color Content 1",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content_1",
+            "label": "Font Content 1",
+            "default": "14px"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_author_1",
+            "label": "Icon Author"
+          },
+          {
+            "type": "text",
+            "id": "info_name_1",
+            "label": "Info Name 1",
+            "default": "Customer"
+          },
+          {
+            "type": "color",
+            "id": "c_name_1",
+            "label": "Color Name 1",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_name_1",
+            "label": "Font Name 1",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "info_trade_1",
+            "label": "Info Trade 1",
+            "default": "From Envato"
+          },
+          {
+            "type": "color",
+            "id": "c_trade_1",
+            "label": "Color Trade 1",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_trade_1",
+            "label": "Font Trade 1",
+            "default": "12px"
+          },
+          {
+            "type": "checkbox",
+            "id": "item_2",
+            "label": "Item 2",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes_2",
+            "label": "Icon Quote 2"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content_2",
+            "label": "Content 2"
+          },
+          {
+            "type": "color",
+            "id": "c_content_2",
+            "label": "Color Content 2",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content_2",
+            "label": "Font Content 2",
+            "default": "14px"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_author_2",
+            "label": "Icon Author"
+          },
+          {
+            "type": "text",
+            "id": "info_name_2",
+            "label": "Info Name 2",
+            "default": "Customer"
+          },
+          {
+            "type": "color",
+            "id": "c_name_2",
+            "label": "Color Name 2",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_name_2",
+            "label": "Font Name 2",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "info_trade_2",
+            "label": "Info Trade 2",
+            "default": "From Envato"
+          },
+          {
+            "type": "color",
+            "id": "c_trade_2",
+            "label": "Color Trade 2",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_trade_2",
+            "label": "Font Trade 2",
+            "default": "12px"
+          },
+          {
+            "type": "checkbox",
+            "id": "item_3",
+            "label": "Item 3",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes_3",
+            "label": "Icon Quote 3"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content_3",
+            "label": "Content 3"
+          },
+          {
+            "type": "color",
+            "id": "c_content_3",
+            "label": "Color Content 3",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content_3",
+            "label": "Font Content 3",
+            "default": "14px"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_author_3",
+            "label": "Icon Author"
+          },
+          {
+            "type": "text",
+            "id": "info_name_3",
+            "label": "Info Name 3",
+            "default": "Customer"
+          },
+          {
+            "type": "color",
+            "id": "c_name_3",
+            "label": "Color Name 3",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_name_3",
+            "label": "Font Name 3",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "info_trade_3",
+            "label": "Info Trade 3",
+            "default": "From Envato"
+          },
+          {
+            "type": "color",
+            "id": "c_trade_3",
+            "label": "Color Trade 3",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_trade_3",
+            "label": "Font Trade 3",
+            "default": "12px"
+          },
+          {
+            "type": "checkbox",
+            "id": "item_4",
+            "label": "Item 4",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes_4",
+            "label": "Icon Quote 4"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content_4",
+            "label": "Content 4"
+          },
+          {
+            "type": "color",
+            "id": "c_content_4",
+            "label": "Color Content 4",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content_4",
+            "label": "Font Content 4",
+            "default": "14px"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_author_4",
+            "label": "Icon Author"
+          },
+          {
+            "type": "text",
+            "id": "info_name_4",
+            "label": "Info Name 4",
+            "default": "Customer"
+          },
+          {
+            "type": "color",
+            "id": "c_name_4",
+            "label": "Color Name 4",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_name_4",
+            "label": "Font Name 4",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "info_trade_4",
+            "label": "Info Trade 4",
+            "default": "From Envato"
+          },
+          {
+            "type": "color",
+            "id": "c_trade_4",
+            "label": "Color Trade 4",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_trade_4",
+            "label": "Font Trade 4",
+            "default": "12px"
+          },
+          {
+            "type": "checkbox",
+            "id": "item_5",
+            "label": "Item 5",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes_5",
+            "label": "Icon Quote 5"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content_5",
+            "label": "Content 5"
+          },
+          {
+            "type": "color",
+            "id": "c_content_5",
+            "label": "Color Content 5",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content_5",
+            "label": "Font Content 5",
+            "default": "14px"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_author_5",
+            "label": "Icon Author"
+          },
+          {
+            "type": "text",
+            "id": "info_name_5",
+            "label": "Info Name 5",
+            "default": "Customer"
+          },
+          {
+            "type": "color",
+            "id": "c_name_5",
+            "label": "Color Name 5",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_name_5",
+            "label": "Font Name 5",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "info_trade_5",
+            "label": "Info Trade 5",
+            "default": "From Envato"
+          },
+          {
+            "type": "color",
+            "id": "c_trade_5",
+            "label": "Color Trade 5",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_trade_5",
+            "label": "Font Trade 5",
+            "default": "12px"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

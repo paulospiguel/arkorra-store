@@ -1,0 +1,552 @@
+{% assign sst = section.settings %}
+{%- if settings.lang_iso_rtl != blank -%}
+  {% assign list_iso_rtl = settings.lang_iso_rtl | downcase %}
+  {% if list_iso_rtl contains request.locale.iso_code %}
+    {% assign iso_rtl = true %}
+  {% else %}
+    {% assign iso_rtl = false %}
+  {% endif %}
+{%- endif -%}
+{% if sst.md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: sst.md | prepend: 'col-md-' -%}
+{% endif %}
+<div class="distance{% if sst.class_section != blank %} {{ sst.class_section }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }}">
+        {% if sst.heading != blank %}<span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>{% endif %}
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="row {% if sst.spacing_1 %}spacing-1{% else %}spacing-{{ sst.spacing }}{% endif %}">
+      {% for block in section.blocks %}
+        {% assign bst = block.settings %}
+        <div class="{{ md }} gallery-image_column{% if sst.spacing_1 == false %}mb-{{ sst.spacing }}{% endif %}{% if bst.class != blank %} {{ bst.class }}{% endif %}">
+          <div class="gallery-image__item overflow_hidden position-relative{% if bst.cta_label != blank or bst.btn_label != blank %} hs-cap{% endif %}{% if sst.style_img_1 %} nov-sh-image-1{% endif %}{% if sst.style_img_2 %} nov-sh-image-2{% endif %}">
+            {% if bst.link != blank %}
+              <a class="w-100 gallery-image__link" href="{{ bst.link }}">
+            {% endif %}
+            {% if bst.image != blank %}
+              {% assign img_url = bst.image %}
+              <div class="respone_image{% if bst.img_xs != blank %} d-none d-sm-block{% endif %}" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                <img class="lazyload"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                  data-src="{{ img_url | img_url: '180x' }}"
+                  data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+              </div>
+            {% else %}
+              {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+              {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+            {% if bst.img_xs != blank %}
+              {% assign img_url = bst.img_xs %}
+              <div class="respone_image d-sm-none" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                <img class="lazyload"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                  data-src="{{ img_url | img_url: '180x' }}"
+                  data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w" data-sizes="auto" alt="{{ img_url.alt }}">
+              </div>
+            {% endif %}
+            {% if bst.link != blank %}
+              </a>
+            {% endif %}
+
+            {% if bst.cta_label != blank or bst.cta_label2 != blank or bst.btn_label != blank %}
+              <div class="gallery-image__caption position-absolute text-{{ bst.text_align }} cap-{{ forloop.index }}">
+                <div class="image-caption__content">
+                  {% if bst.cta_label != blank %}
+                  <div class="gallery-image__text1{% if bst.ff_1 == 'f_pr' %} f_pr{% endif %} font-800" style="color: {{ bst.cta_label_c }}">{{ bst.cta_label }}</div>
+                  {% endif %}
+                  {% if bst.cta_label2 != blank %}
+                    <div class="gallery-image__text2 d-inline-block{% if bst.ff_2 == 'f_pr' %} f_pr{% endif %}" style="color: {{ bst.cta_label2_c }}">{{ bst.cta_label2 }}</div>
+                  {% endif %}
+                  {% if bst.btn_label != blank %}
+                    <a href="{{ bst.link }}" class="btn d-inline-block f_pr font-900" style="color: {{ bst.btn_label_c }}; background-color: {{ bst.btn_label_b }}; border-color: {{ bst.btn_label_br }}">{{ bst.btn_label }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div><!-- End row -->
+  </div><!-- End container -->
+</div>
+{% if section.blocks.size == 0 %}
+  {% include 'no-blocks' %}
+{% endif %}
+{% schema %}
+  {
+    "name": "Vinova Gallery Image",
+    "class": "section-gallery-image",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Gallery Image</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Image item per row"
+      },
+      {
+        "type": "range",
+        "id": "md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Image item per row",
+        "default": 3
+      },
+      {
+        "type": "header",
+        "content": "Item image style"
+      },
+      {
+        "type": "range",
+        "id": "bd_radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius image",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "label": "Spacing items",
+        "default": 20
+      },
+      {
+        "type": "checkbox",
+        "id": "spacing_1",
+        "label": "Spacing 1px"
+      },
+      {
+        "type": "header",
+        "content": "Style hover image"
+      },
+      {
+        "type": "checkbox",
+        "id": "style_img_1",
+        "label": "Style hover image 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "style_img_2",
+        "label": "Style hover image 2",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Design section"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class_section",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "px",
+        "label": "Horizontally spacing section (px)",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_xs",
+            "label": "Image mobile 575px ↓"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "========================"
+          },
+          {
+            "type": "text",
+            "id": "cta_label",
+            "label": "Caption 1",
+            "default": "Lorem ipsum"
+          },
+          {
+            "type": "color",
+            "id": "cta_label_c",
+            "label": "Caption 1 color",
+            "default": "#222222"
+          },
+          {
+            "type": "number",
+            "id": "cta_label_n",
+            "label": "Caption 1 font size",
+            "default": 22
+          },
+          {
+            "type": "radio",
+            "id": "ff_1",
+            "label": "Font family",
+            "default": "f_pr",
+            "options": [
+              {"value": "f_df","label": "Body font"},
+              {"value": "f_pr","label": "Heading font"}
+            ]
+          },
+          {
+            "type": "number",
+            "id": "cta_label_l",
+            "label": "Caption 1 light height"
+          },
+          {
+            "type": "range",
+            "id": "cta_label_mb",
+            "min": 0,
+            "max": 40,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 0,
+            "info": "========================"
+          },
+          {
+            "type": "richtext",
+            "id": "cta_label2",
+            "label": "Caption 2",
+            "default": "<p>Quisque id odio sit amet erat</p>"
+          },
+          {
+            "type": "color",
+            "id": "cta_label2_c",
+            "label": "Caption 2 color",
+            "default": "#222222"
+          },
+          {
+            "type": "number",
+            "id": "cta_label2_n",
+            "label": "Caption 2 font size",
+            "default": 16
+          },
+          {
+            "type": "radio",
+            "id": "ff_2",
+            "label": "Font family",
+            "default": "f_df",
+            "options": [
+              {"value": "f_df","label": "Body font"},
+              {"value": "f_pr","label": "Heading font"}
+            ]
+          },
+          {
+            "type": "number",
+            "id": "cta_label2_l",
+            "label": "Caption 2 light height"
+          },
+          {
+            "type": "number",
+            "id": "mw_2",
+            "label": "Max width",
+            "default": 500
+          },
+          {
+            "type": "range",
+            "id": "cta_label2_mb",
+            "min": 0,
+            "max": 40,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10,
+            "info": "========================"
+          },
+          {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Text button",
+            "default": "Shop now"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_c",
+            "label": "Text button color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_ch",
+            "label": "Button color hover",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_br",
+            "label": "Button border color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_b",
+            "label": "Button background",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_bh",
+            "label": "Button background hover",
+            "default": "#000000"
+          },
+          {
+            "type": "header",
+            "content": "Position block text"
+          },
+          {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text alignment",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "position",
+            "label": "Position (%)",
+            "default": "width: 50%; left:5%; top: 20%",
+            "placeholder": "width: 50%; left:5%; top: 20%"
+          },
+          {
+            "type": "text",
+            "id": "position_lg",
+            "label": "Position desktop 1199px ↓ (%)",
+            "default": "width: 50%; left:0%; top: 40%"
+          },
+          {
+            "type": "text",
+            "id": "position_sm",
+            "label": "Position large mobile 767px ↓ (%)",
+            "default": "width: 80%; left:0%; top: 40%"
+          },
+          {
+            "type": "text",
+            "id": "position_xs",
+            "label": "Position mobile 575px ↓ (%)",
+            "default": "width: 90%; left:0%; top: 40%"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Image Gallery",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    padding-left: {{ sst.px}}px;
+    padding-right: {{ sst.px}}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");background-repeat: no-repeat;background-size: cover;
+    {% endif %}
+  }
+  @media(max-width: 767px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0}}px;{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0}}px;{%- endif -%}
+    }
+  }
+  #shopify-section-{{ section.id }} .gallery-image__item {
+    border-radius: {{ sst.bd_radius }}px 0 {{ sst.bd_radius }}px 0;
+  }
+  {% for block in section.blocks %}
+    {% assign bst = block.settings %}
+    #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .btn:hover {
+      color: {{ bst.btn_label_ch }} !important;
+      border-color: {{ bst.btn_label_bh }} !important;
+      background-color: {{ bst.btn_label_bh }} !important;
+    }
+    #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text1 {
+      font-size: {{ bst.cta_label_n}}px;
+      margin-bottom: {{ bst.cta_label_mb}}px;
+      line-height: {{ bst.cta_label_l }};
+    }
+    #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text2 {
+      font-size: {{ bst.cta_label2_n}}px;
+      margin-bottom: {{ bst.cta_label2_mb}}px;
+      line-height: {{ bst.cta_label2_l }};
+      max-width: {{ bst.mw_2 }}px;
+    }
+    #shopify-section-{{ section.id }} .cap-{{ forloop.index }} {
+      {% if settings.enable_rtl and iso_rtl %}{{ bst.position | downcase | replace: 'left', 'right' }}{% else %}{{ bst.position }}{% endif %};
+    }
+    @media(max-width: 1199px) {
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} {
+        {% if settings.enable_rtl and iso_rtl %}{{ bst.position_lg | downcase | replace: 'left', 'right' }}{% else %}{{ bst.position_lg }}{% endif %};
+      }
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text1 {
+        font-size: {{ bst.cta_label_n | times: 0.8 }}px;
+        margin-bottom: {{ bst.cta_label_mb | times: 0.8 }}px;
+      }
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text2 {
+        font-size: {{ bst.cta_label2_n | times: 0.8 }}px;
+        margin-bottom: {{ bst.cta_label2_mb | times: 0.8 }}px;
+      }
+    }
+    @media(max-width: 767px) {
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} {
+        {% if settings.enable_rtl and iso_rtl %}{{ bst.position_sm | downcase | replace: 'left', 'right' }}{% else %}{{ bst.position_sm }}{% endif %};
+      }
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text1 {
+        font-size: clamp(10px, {{ bst.cta_label_n | times: 0.7 }}px, 20px);
+        margin-bottom: clamp(5px, {{ bst.cta_label_mb | times: 0.7 }}px, 20px);
+      }
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} .gallery-image__text2 {
+        font-size: clamp(10px, {{ bst.cta_label2_n | times: 0.7 }}px, 16px);
+        margin-bottom: clamp(5px, {{ bst.cta_label2_mb | times: 0.7 }}px, 20px);
+      }
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .cap-{{ forloop.index }} {
+        {% if settings.enable_rtl and iso_rtl %}{{ bst.position_xs | downcase | replace: 'left', 'right' }}{% else %}{{ bst.position_xs }}{% endif %};
+      }
+    }
+  {% endfor %}
+</style>

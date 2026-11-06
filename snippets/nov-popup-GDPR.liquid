@@ -1,0 +1,9 @@
+{% if settings.cookiegdpr %}
+	<div id="popup-CookieGDPR" class="position-fixed">
+		<div class="content">{{ settings.cookiegdpr_content }}</div>
+		<div class="bottom-content mt-15">
+			<a href="{{ settings.cookiegdpr_policy_link }}" target="_blank" class="btn hover:bg_df">{{ settings.cookiegdpr_button_policy }}</a>
+			<span class="btn btn-cookie-GDPR hover:bg_df">{{ settings.cookiegdpr_button_accept }}</div>
+		</div>
+	</div>
+{% endif %}

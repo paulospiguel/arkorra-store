@@ -1,0 +1,276 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    {% if sst.heading != blank %}
+      <div class="title_section {{ sst.title_alignment }} mb-100 pb-80">
+        <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+      <div class="block-content position-relative">
+        {% if sst.lookbook_image != blank %}
+          {% assign img_url = sst.lookbook_image %}
+          {%- render 'nov-aspect-image', image: img_url, aspect: 'auto' -%}
+        {% else %}
+          {{ 'hero-apparel-2' | placeholder_svg_tag : 'placeholder-svg' }}
+        {% endif %}
+        {% for block in section.blocks %}
+          <div class="item-lookbook position-absolute {{ block.settings.t_pos }} block-{{ forloop.index }}" style="{{ block.settings.pin_position_1 }}">
+            <span class="pin"><span class="pin-inner"></span></span>
+            <div class="look-content">
+              {% if block.settings.title != blank %}
+                <div class="title font-700 f_pr mb-10">{{ block.settings.title }}</div>
+              {% endif %}
+              {% if block.settings.title != blank %}
+                <div class="content">{{ block.settings.content }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova LookBook Image",
+    "class": "section-lookbook-image",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Lookbook Image</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "lookbook_image",
+        "label": "Image"
+      },
+      {
+        "type":  "header",
+        "content": "Style item lookbook"
+      },
+      {
+        "type": "color",
+        "id": "t_c",
+        "label": "Title color"
+      },
+      {
+        "type": "color",
+        "id": "c_c",
+        "label": "Content color"
+      },
+      {
+        "type": "color",
+        "id": "bg",
+        "label": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "pin_c",
+        "label": "Pin color"
+      },
+      {
+        "type": "color",
+        "id": "l_c",
+        "label": "Line color"
+      },
+      {
+        "type":  "header",
+        "content": "Design Option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "lookbook",
+        "name": "Lookbook Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "pin_position_1",
+            "label": "Pin position",
+            "info": "Example: Top: 50%; Left: 20%",
+            "default": "Top: 50%; Left: 20%"
+          },
+          {
+            "type": "select",
+            "id": "t_pos",
+            "label": "Position content",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "min": 150,
+            "max": 400,
+            "step": 5,
+            "unit": "px",
+            "label": "Width popup",
+            "default": 200
+          },
+          {
+            "type": "inline_richtext",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova LookBook Image",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "lookbook"
+          },
+          {
+            "type": "lookbook"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    {% if sst.background_color != blank or bg_image != blank %}
+      background: {{ sst.background_color }}{% if bg_image != blank %}url("{{ bg_image | img_url: '1920x' }}") no-repeat center top{% endif %}
+      background-size: cover;
+    {% endif %}
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+  {%- if section.blocks.size > 0 -%}
+    #shopify-section-{{ section.id }} .item-lookbook:before {
+      background-color: {{ sst.l_c }};
+    }
+    #shopify-section-{{ section.id }} .look-content {
+      background-color: {{ sst.bg }};
+    }
+    #shopify-section-{{ section.id }} .look-content .title {
+      color:  {{ sst.t_c }};
+    }
+    #shopify-section-{{ section.id }} .look-content .content {
+      color:  {{ sst.c_c }};
+    }
+  {%- endif -%}
+  @media(min-width: 768px) {
+    {% for block in section.blocks %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }} .look-content {
+        width: {{ block.settings.width }}px;
+      }
+    {% endfor %}
+  }
+</style>

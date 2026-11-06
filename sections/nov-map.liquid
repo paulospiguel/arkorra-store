@@ -1,0 +1,75 @@
+{%- assign sst = section.settings -%}
+<div class="distance {{ sst.class }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" style="padding-top: {{ sst.distance_top }}px; padding-bottom: {{ sst.distance_bottom }}px">
+  {% if sst.has_fullwidth == false %}
+    <div class="container">
+  {% endif %}
+    <div id="MapSection--{{ section.id }}" class="map-section w-100 position-relative" data-section-type="map">
+      <div class="page-width map-section__wrapper w-100">
+        <div class="map-section__container h-610">
+          <iframe src="{{ sst.iframe_map }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+        </div>
+    </div>
+  {% if sst.has_fullwidth == false %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Map",
+    "class": "section-maps",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Maps"
+      },
+      {
+        "type": "text",
+        "id": "iframe_map",
+        "label": "Google Maps Iframe",
+        "info": "You’ll need to embed the code on google map",
+        "default": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d23095.519254450588!2d-79.38263233337402!3d43.64941859273796!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x935ab2eb9fd5fb31!2sFirst%20Canadian%20Place!5e0!3m2!1sen!2s!4v1659598435154!5m2!1sen!2s"
+      },
+      {
+        "type": "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full width",
+        "default":   false
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Map",
+        "category": "Store information"
+      }
+    ]
+  }
+{% endschema %}

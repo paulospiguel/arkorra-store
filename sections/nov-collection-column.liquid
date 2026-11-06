@@ -1,0 +1,358 @@
+{% assign sst = section.settings %}
+{%- assign collection = collections[sst.collection] -%}
+{% if sst.xl == 5 %}
+  {%- assign xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign xl = 12 | divided_by: sst.xl | prepend: 'col-xl-' -%}
+{% endif %}
+{% if sst.lg == 5 %}
+  {%- assign lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign lg = 12 | divided_by: sst.lg | prepend: 'col-lg-' -%}
+{% endif %}
+{% if sst.md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: sst.md | prepend: 'col-md-' -%}
+{% endif %}
+{% if sst.sm == 5 %}
+  {%- assign sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign sm = 12 | divided_by: sst.sm | prepend: 'col-sm-' -%}
+{% endif %}
+{% if sst.xs == 5 %}
+  {%- assign xs = 'col-xs-cus-5' -%}
+{% else %}
+  {%- assign xs = 12 | divided_by: sst.xs | prepend: 'col-' -%}
+{% endif %}
+<div class="distance position-relative{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+  {% endif %}
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }}">
+        {% if sst.heading != blank %}
+          <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% endif %}
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="row spacing-{{ sst.spacing }}{% if sst.show_border %} show-border{% endif %}">
+      {% for block in section.blocks %}
+        {% assign bst = block.settings %}
+        <div class="item {{ xl }} {{ lg }} {{ md }} {{ sm }} {{ xs }}">
+          <div class="item-content text-center h-100 position-relative">
+            <div class="block-image nov-sh-image-2">
+              {% if bst.img %}
+                {%- render 'nov-aspect-image', image: bst.img, aspect: sst.aspect -%}
+              {% else %}
+                {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ 'collection-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <div class="block-link pt-25 pb-25 position-relative">
+              {% if bst.title != blank %}
+                <div class="block-title font-700 f_pr mb-15">{{ bst.title }}</div>
+              {% endif %}
+              {{ bst.link }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.blocks.size > 0 %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Collection Column",
+    "class": "section-collection-column",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Collection Column</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Column per row"
+      },
+      {
+        "type": "range",
+        "id": "xl",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Large desktop",
+        "default": 4,
+        "info": "Breakpoint 1200px ↑"
+      },
+      {
+        "type": "range",
+        "id": "lg",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Desktop",
+        "default": 4,
+        "info": "Breakpoint 992px ↑"
+      },
+      {
+        "type": "range",
+        "id": "md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Tablet",
+        "default": 3,
+        "info": "Breakpoint 768px ↑"
+      },
+      {
+        "type": "range",
+        "id": "sm",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Large mobile",
+        "default": 2,
+        "info": "Breakpoint 576px ↑"
+      },
+      {
+        "type": "range",
+        "id": "xs",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Mobile",
+        "default": 2,
+        "info": "Breakpoint 575px ↓"
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 30,
+        "step": 5,
+        "label": "Spacing",
+        "default": 30,
+        "info": "Spacing item"
+      },
+      {
+        "type":  "header",
+        "content": "Style item"
+      },
+      {
+        "type": "select",
+        "id": "aspect",
+        "label": "Item aspect ratio",
+        "default": "34",
+        "options": [
+          {"value": "auto", "label": "auto"},
+          {"value": "11", "label": "1/1"},
+          {"value": "34", "label": "3/4"},
+          {"value": "43", "label": "4/3"}
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_border",
+        "label": "Show border",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "c_border",
+        "label": "Color border",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "c_t",
+        "label": "Color title",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "c_l",
+        "label": "Color text",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "bg_i",
+        "label": "Background item",
+        "default": "#ffffff"
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem ipsum"
+          },
+          {
+            "type": "richtext",
+            "id": "link",
+            "label": "Content",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Collection Column",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    {% if sst.background_color != blank or bg_image != blank %}
+      background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+      background-size: cover;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .block-title {
+    color:  {{ sst.c_t }};
+  }
+  #shopify-section-{{ section.id }} .block-link, #shopify-section-{{ section.id }} .block-link a {
+    color:  {{ sst.c_l }};
+  }
+  #shopify-section-{{ section.id }} .item-content, #shopify-section-{{ section.id }} .item-content:before {
+    background-color:  {{ sst.bg_i }};
+  }
+  #shopify-section-{{ section.id }} .block-link {
+    border-color:  {{ sst.c_border }};
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+</style>

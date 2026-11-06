@@ -1,0 +1,358 @@
+{% assign sst = section.settings %}
+{% if sst.xxl == 5 %}
+  {%- assign xxl = 'col-xxl-cus-5' -%}
+{% else %}
+  {%- assign xxl = 12 | divided_by: sst.xxl | prepend: 'col-xxl-' -%}
+{% endif %}
+{% if sst.xl == 5 %}
+  {%- assign xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign xl = 12 | divided_by: sst.xl | prepend: 'col-xl-' -%}
+{% endif %}
+{% if sst.lg == 5 %}
+  {%- assign lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign lg = 12 | divided_by: sst.lg | prepend: 'col-lg-' -%}
+{% endif %}
+{% if sst.md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: sst.md | prepend: 'col-md-' -%}
+{% endif %}
+{% if sst.sm == 5 %}
+  {%- assign sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign sm = 12 | divided_by: sst.sm | prepend: 'col-sm-' -%}
+{% endif %}
+{% if sst.xs == 5 %}
+  {%- assign xs = 'col-xs-cus-5' -%}
+{% else %}
+  {%- assign xs = 12 | divided_by: sst.xs | prepend: 'col-' -%}
+{% endif %}
+{%- assign collection = collections[sst.collection] -%}
+{%- assign limit = sst.limit-%}
+{% assign products = collections.handle %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}">
+    {% if sst.container == 'container' %}
+        <div class="container">
+    {% elsif sst.container == 'container-fluid' %}
+        <div class="container-fluid">
+    {% else %}
+        <div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+    {% endif %}
+        {% if sst.heading != blank %}
+            <div class="title_section mb-50 {{ sst.title_alignment }}">
+                <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+                {% if sst.subheading != blank %}
+                    <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% paginate collection.products by limit %}
+            <div class="row grid--view-items spacing-{{ sst.spacing }} product__loadmore-{{ section.id }}" data-xxl="{{ sst.xxl }}" data-xl="{{ sst.xl }}" data-lg="{{ sst.lg }}" data-md="{{ sst.md }}" data-sm="{{ sst.sm }}" data-xs="{{ sst.xs }}">
+                {% for product in collection.products %}
+                    {% if sectionId == blank %}
+                      {% assign sectionId = section.id %}
+                    {% endif %}
+                    <div class="item {{ xxl }} {{ xl }} {{ lg }} {{ md }} {{ sm }} {{ xs }} wow fadeInUp animated">
+                        {% render 'product-grid-item-style-1', product: product, sectionId: sectionId %}
+                    </div>
+                {% else %}
+                    {%- for i in (1..8) -%}
+                      {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                      <div class="item {{ xxl }} {{ xl }} {{ lg }} {{ md }} {{ sm }} {{ xs }} mb-30 wow fadeInUp animated">
+                        {{ 'product-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+                      </div>
+                    {%- endfor -%}
+                {% endfor %}
+            </div>
+            {% if paginate.next %}
+                <div class="product-loadmore__bottom text-center mt-55">
+                    <div class="pagination__count pagination__count{{ section.id }} mb-15">
+                        {{ 'collections.general.product_count_html' | t: count: collection.products.size, total: collection.products_count }}
+                    </div>
+                    <div class="pagination__bar pagination__bar{{ section.id }} position-relative mb-30" data-max="{{ collection.products_count }}">
+                        <span class="progress position-absolute" style="width: {{ collection.products.size | times: 100 | divided_by: collection.products_count }}%"></span>
+                    </div>
+                    <div class="btn btn_loadmore {{ section.id }} d-inline-flex align-items-center justify-content-center" btn-handle="{{ section.id }}" link="{{ paginate.next.url }}">
+                        <span>{{ sst.loadmore }}</span>
+                        <div class="load"></div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endpaginate %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Product Load More",
+        "class": "section-product-loadmore",
+        "settings":[
+            {
+                "type": "richtext",
+                "id": "heading",
+                "label": "Heading",
+                "default": "<p>Vinova Product Loadmore</p>"
+            },
+            {
+                "type": "color",
+                "id": "heading_c",
+                "label": "Heading color",
+                "default": "#222222"
+            },
+            {
+                "type": "richtext",
+                "id": "subheading",
+                "label": "Sub heading",
+                "default": "<p>Subtitle from happy customers</p>"
+            },
+            {
+                "type": "color",
+                "id": "subheading_c",
+                "label": "Sub heading color",
+                "default": "#666666"
+            },
+            {
+                "type": "select",
+                "id": "title_alignment",
+                "label": "Heading alignment",
+                "default": "text-center",
+                "options": [
+                    {
+                        "value": "text-left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-right",
+                        "label": "Right"
+                    }
+                ]
+            },
+            {
+                "label": "Collection",
+                "id": "collection",
+                "type": "collection"
+            },
+            {
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "label": "Product initial",
+                "default": 8
+            },
+            {
+                "type":  "header",
+                "content": "Product item per row"
+            },
+            {
+                "type": "range",
+                "id": "xxl",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Extra desktop",
+                "default": 4,
+                "info": "Breakpoint 1440px ↑"
+            },
+            {
+                "type": "range",
+                "id": "xl",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Large desktop",
+                "default": 4,
+                "info": "Breakpoint 1200px ↑"
+            },
+            {
+                "type": "range",
+                "id": "lg",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Desktop",
+                "default": 4,
+                "info": "Breakpoint 992px ↑"
+            },
+            {
+                "type": "range",
+                "id": "md",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Tablet",
+                "default": 4,
+                "info": "Breakpoint 768px ↑"
+            },
+            {
+                "type": "range",
+                "id": "sm",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Large mobile",
+                "default": 4,
+                "info": "Breakpoint 576px ↑"
+            },
+            {
+                "type": "range",
+                "id": "xs",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Mobile",
+                "default": 2,
+                "info": "Breakpoint 575px ↓"
+            },
+            {
+              "type": "range",
+              "id": "spacing",
+              "min": 0,
+              "max": 30,
+              "step": 5,
+              "label": "Spacing",
+              "unit": "px",
+              "default": 30,
+              "info": "Spacing item"
+            },
+            {
+                "type":  "header",
+                "content": "Design option"
+            },
+            {
+                "type": "color",
+                "id": "c_pagination",
+                "label": "Pagination color",
+                "default": "#666666"
+            },
+            {
+                "type": "color",
+                "id": "bg_pagination",
+                "label": "Pagination background",
+                "default": "#b0b0b0"
+            },
+            {
+                "type": "color",
+                "id": "bg_progress",
+                "label": "Progress background",
+                "default": "#000000"
+            },
+            {
+                "type": "text",
+                "id": "loadmore",
+                "label": "Load more button"
+            },
+            {
+                "type": "color",
+                "id": "c_btn",
+                "label": "Button color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "color",
+                "id": "b_btn",
+                "label": "Button background color",
+                "default": "#222222"
+            },
+            {
+                "type": "color",
+                "id": "c_btn_h",
+                "label": "Button color hover",
+                "default": "#ffffff"
+            },
+            {   
+                "type": "color",
+                "id": "b_btn_h",
+                "label": "Button background color hover",
+                "default": "#222222"
+            },
+            {
+                "type": "select",
+                "id": "container",
+                "label": "Container",
+                "default": "container",
+                "options": [
+                  { "value": "container", "label": "Container" },
+                  { "value": "container-fluid", "label": "Container fluid" },
+                  { "value": "container-full", "label": "Container full width" }
+                ]
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background colors"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background image"
+            },
+            {
+                "type": "text",
+                "id": "class",
+                "label": "Class"
+            },
+            {
+                "type": "number",
+                "id": "distance_top",
+                "label": "Top spacing section (px)",
+                "default": 30
+            },
+            {
+                "type": "number",
+                "id": "distance_bottom",
+                "label": "Bottom spacing section (px)",
+                "default": 30
+            }
+        ],
+        "presets":[
+            {
+                "name": "Vinova Product Load More",
+                "category": "Collection"
+            }
+        ]
+    }
+{% endschema %}
+<style>
+    #shopify-section-{{ section.id }} .distance {
+        padding-top: {{ sst.distance_top }}px;
+        padding-bottom: {{ sst.distance_bottom }}px;
+        {%- assign bg_image = sst.background_image -%}
+        {% if sst.background_color != blank %}
+            background-color: {{ sst.background_color }};
+        {% endif %}
+        {% if bg_image.src != blank %}
+            background-image: url("{{ bg_image | img_url: '1920x' }}");
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+        {% endif %}
+    }
+    #shopify-section-{{ section.id }} .pagination__count {
+        color:  {{ sst.c_pagination }};
+    }
+    #shopify-section-{{ section.id }} .pagination__bar {
+        background-color: {{ sst.bg_pagination }};
+    }
+    #shopify-section-{{ section.id }} .progress {
+        background-color: {{ sst.bg_progress }};
+    }
+    #shopify-section-{{ section.id }} .btn_loadmore {
+        color: {{ sst.c_btn }};
+        background-color: {{ sst.b_btn }};
+    }
+    #shopify-section-{{ section.id }} .btn_loadmore:hover, #shopify-section-{{ section.id }} .btn_loadmore.loading {
+        color: {{ sst.c_btn_h }} !important;
+        background-color: {{ sst.b_btn_h }} !important;
+    }
+    #shopify-section-{{ section.id }} .item-product {
+        margin-bottom: {{ sst.spacing | append: 'px' }};
+    }
+</style>

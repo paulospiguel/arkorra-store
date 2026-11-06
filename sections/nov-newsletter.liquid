@@ -1,0 +1,205 @@
+{%- assign sst = section.settings -%}
+<div class="{% if sst.bg_size == 'full' %}distance {% endif %}{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="{% if sst.bg_size == 'content' %}distance {% endif %}container-inner">
+      {% if sst.heading != blank or sst.subheading != blank %}
+        {% if sst.icon_newsletter != blank %}
+          <div class="title-icon text-center mb-10"><img class="lazyload d-inline-block" data-src="{{ sst.icon_newsletter | img_url: '150x' }}" alt=""></div>
+        {% endif %}
+        <div class="title_section text-center mb-35">
+          {% if sst.heading != blank %}
+            <div class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</div>
+          {% endif %}
+          {% if sst.subheading != blank %}
+            <div class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% form 'customer', id: 'section-contact' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+        <p class="form--success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+        <div class="input-group">
+          <i class="zmdi zmdi-email c_df"></i>
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email"
+          name="contact[email]"
+          class="input-group__field newsletter__input form-control"
+          value="{% if customer %}{{ customer.email }}{% endif %}"
+          placeholder="{{ 'general.newsletter_form.email_newsletter' | t }}">
+          <button type="submit" class="newsletter__submit btn text-uppercase" name="commit" title="{{ 'general.newsletter_form.submit' | t }}">
+            {{ 'general.newsletter_form.submit' | t }}
+          </button>
+        </div>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Newsletter",
+    "class": "section-newsletter",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Newsletter</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_newsletter",
+        "label": "Icon newsletter",
+        "info": "50 x 50px recommended"
+      },
+      {
+        "type": "paragraph",
+        "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "tl_radius",
+        "label": "Top left radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tr_radius",
+        "label": "Top right radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bl_radius",
+        "label": "Bottom left radius",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "br_radius",
+        "label": "Bottom right radius",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color_background",
+        "id": "gradient",
+        "label": "Background gradient",
+        "default": "linear-gradient(180deg, rgba(242, 242, 242, 1), rgba(242, 242, 242, 1) 100%)"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [{
+      "name": "Vinova Newsletter",
+      "category": "Promotional"
+    }]
+  }
+{% endschema %}
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    transform: translateZ(0);
+    overflow: hidden;
+    border-radius: {% if sst.tl_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.tr_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.br_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %} {% if sst.bl_radius %}{{ sst.br_container | append: 'px' }}{% else %}0{% endif %};
+    {%- if sst.gradient != blank -%}background: {{ sst.gradient }};{%- endif -%}
+    {%- if bg_image.src != blank -%}background-image: url("{{ bg_image | img_url: '1920x' }}");background-position: center;background-repeat: no-repeat;background-size: cover;{%- endif -%}
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+  #shopify-section-{{ section.id }}  .errors {
+    color: {{ sst.subheading_c }};
+  }
+</style>

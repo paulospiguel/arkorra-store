@@ -1,0 +1,62 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price_min > product.price_min %}
+  {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+<div class="item-product{% if animate %} {{ animate }}{% endif %}{% if settings.b_pro %} h_bd{% endif %}">
+  {% assign variantCount = product.variants | size %}
+  <div class="thumbnail-container{% if product.images.size > 1 %} has-multiimage{% endif %}">
+    <a href="{{ product.url | within: collection }}">
+      {% assign img_url = product.featured_image %}
+      <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+        <img class="product__thumbnail lazyload"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+          data-src="{{ img_url | img_url: '180x' }}"
+          data-srcset="{{ img_url | img_url: '270x' }} 270w,{{ img_url | img_url: '360x' }} 360w,{{ img_url | img_url: '540x' }} 540w,{{ img_url | img_url: '720x' }} 720w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+        {% for image in product.images %}
+          {% assign img_url = image.src %}
+          {% if forloop.first != true %}
+            <img class="product__thumbnail-second lazyload"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+              data-src="{{ img_second | img_url: '180x' }}"
+              data-srcset="{{ img_url | img_url: '270x' }} 270w,{{ img_url | img_url: '360x' }} 360w,{{ img_url | img_url: '540x' }} 540w,{{ img_url | img_url: '720x' }} 720w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+              {% break %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </a>
+    {% assign date_created = product.created_at | date:'%s' %}
+    {% assign     date_now = 'now' | date:'%s' %}
+    {% assign   difference = date_now | minus: date_created %}
+    {% assign     date_end = settings.time_newproduct | times: 86400 %}
+    <div class="product--badge">
+      {% if product.compare_at_price > product.price and settings.show_compare_price %}
+      <span class="badge badge--sale-pt">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round: 4 }}%</span>
+      {% endif %}
+      {% if difference < date_end and settings.show_new %}
+        <div class="badge badge--sale-rt mt-5">{{ 'products.product.new' | t }}</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="product__info">
+    <div class="product__title"><a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title | truncate: 60 }}</a></div>
+    {% if settings.show_rating %}
+      {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+    {% endif %}
+    <div class="price-box mt-5">
+      {% if on_sale %}
+      <div class="price-sale">
+        <span class="special-price" data-price-grid>{{ product.variants[0].price | money }}</span>
+        <span class="old-price" data-compare-price-grid>{{ product.variants[0].compare_at_price | money }}</span>
+      </div>
+      {% else %}
+        <div class="price-regular">
+          <span data-price-grid>{{ product.variants[0].price | money }}</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

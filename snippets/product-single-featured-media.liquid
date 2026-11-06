@@ -1,0 +1,34 @@
+{%- for media in product.media -%}
+  {% case media.media_type %}
+    {% when 'image' %}
+      <a href="javascript:void(0)" class="item item_img{% if forloop.first %} act{% endif %} {{ col }} {{ mb }} {{ class }}" data-media-id="{{ section.id }}-{{ media.id }}" data-pswp-src="{{ media | img_url: '1024x' }}" data-pswp-width="{{ media.width }}" data-pswp-height="{{ media.height }}">
+        {% assign img_url = media %}
+        <div class="item-block">
+          <div class="respone_image{% if section.settings.enable_zoom == true %} image-zoom{% endif %}" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;" data-zoom="{{ media | img_url: product_image }}">
+            <img class="lazyload"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+              data-src="{{ img_url | img_url: '180x' }}"
+              data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}"/>
+          </div>
+        </div>
+      </a>
+    {% when 'external_video' %}
+      <div class="item embed-responsive embed-responsive-16by9{% if forloop.first %} act{% endif %} {{ col }} {{ mb }} {{ class }}" data-media-id="{{ section.id }}-{{ media.id }}">
+        <div class="item-block">{{ media | external_video_tag }}</div>
+      </div>
+    {% when 'video' %}
+      <div class="item {{ col }} {{ mb }} {{ class }}"{% if forloop.first %} act{% endif %} data-media-id="{{ section.id }}-{{ media.id }}">
+        <div class="item-block d-flex">{{ media | video_tag: controls: true, image_size: "1024x", autoplay: true, loop: true, class: "w-100" }}</div>
+      </div>
+    {% when 'model' %}
+      <div class="item {{ col }} {{ mb }} {{ class }}"{% if forloop.first %} act{% endif %} data-media-id="{{ section.id }}-{{ media.id }}">
+        <product-model class="deferred-media media media--transparent gradient global-media-settings no-js-hidden" style="padding-top: 133.3333%">
+          {%- liquid echo media | media_tag: image_size: "2048x", toggleable: true -%}
+        </product-model>
+      </div>
+    {% else %}
+      <div class="item {{ col }} {{ mb }} {{ class }}{% if forloop.first %} act{% endif %}" data-media-id="{{ section.id }}-{{ media.id }}">
+        <div class="item-block">{{ media | media_tag }}</div>
+      </div>
+  {% endcase %}
+{%- endfor -%}

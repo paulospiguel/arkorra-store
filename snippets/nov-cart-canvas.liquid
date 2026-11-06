@@ -1,0 +1,17 @@
+<div class="block_cart_canvas" nov-item-act>
+  <div id="desktop_cart">
+    <div class="block_cart_top d-flex justify-content-between align-items-center">
+      <div class="site-header__cart pointer d-flex justify-content-center align-items-center">
+        <div class="site-header__cart-icon header-center__icon position-relative">
+          <i class="rbb-icon-shopping-{{ settings.cart_type }}-{{ settings.cart }} position-relative"></i>
+          <span class="site-header__cart-count" title="{{ 'layout.cart.title_cart' | t }}">
+            <span id="CartCountCavas">{{ cart.item_count }}</span>
+          </span>
+        </div>
+        <span class="cart__canvas--title font-800 text-uppercase c_h">{{ 'layout.cart.title_cart' | t }}</span>
+      </div>
+      <div class="close_cart d-flex align-items-center justify-content-center"><i class="zmdi zmdi-close"></i></div>
+    </div>
+    <div id="cart-info"></div>
+  </div>
+</div>

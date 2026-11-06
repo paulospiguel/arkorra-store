@@ -1,0 +1,26 @@
+<div id="mobile_menu" mobile-menu>
+  {% if settings.mobile_search %}
+    {% include 'nov-formsearch-inline' %}
+  {% endif %}
+  <div class="canvas-menu">
+  </div>
+  <div class="mobile_bottom">
+    {% if settings.hotline != blank %}
+      <div class="mobile_contact">{{ settings.hotline }}</div>
+    {% endif %}
+    {% if settings.email != blank %}
+      <div class="mobile_email">{{ settings.email }}</div>
+    {% endif %}
+    {% if settings.mobile_social %}
+      {% include 'nov-social' %}
+    {% endif %}
+  </div>
+  <div class="block_multi row spacing-0 mt-10">
+    {% if settings.show_multiple_currencies == true %}
+      <div class="col-6">{% include 'nov-block-currency' %}</div>
+    {% endif %}
+    {%- if localization.available_languages.size > 1 -%}
+      <div class="col-6">{% include 'nov-block-language', id: 'mobile-language' %}</div>
+    {%- endif -%}
+  </div>
+</div>

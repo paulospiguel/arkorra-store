@@ -1,0 +1,111 @@
+<div class="distance{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}{% if section.settings.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if section.settings.container == 'container' %}
+    <div class="container">
+  {% elsif section.settings.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div style="border-top: {{ section.settings.height }}px {{ section.settings.style }} {{ section.settings.color }}; opacity: {{ section.settings.opacity }}%;"></div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Line",
+    "class": "section-line",
+    "settings": [
+      {
+        "type": "number",
+        "id": "height",
+        "label": "Height",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Colors"
+      },
+      {
+        "type": "select",
+        "id": "style",
+        "label": "Style",
+        "options": [
+          {
+            "value": "solid",
+            "label": "Solid"
+          },
+          {
+            "value": "dashed",
+            "label": "Dashed"
+          },
+          {
+            "value": "dotted",
+            "label": "Dotted"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Opacity",
+        "default": 100
+      },
+      
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Line",
+        "category": "Promotional"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ section.settings.distance_top }}px;
+    padding-bottom: {{ section.settings.distance_bottom }}px;
+  }
+</style>

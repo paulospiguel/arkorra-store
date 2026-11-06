@@ -1,0 +1,91 @@
+<script>
+  $(function() {
+    // Current Ajax request.
+    var currentAjaxRequest = null;
+    // Grabbing all search forms on the page, and adding a .search-results list to each.
+    var searchForms = $('form[action="/search"]').css('position','relative').each(function() {
+      // Grabbing text input.
+      var input = $(this).find('input[name="q"]');
+      var searchTrend = $(this).find('.search_trend');
+      var Height = ($(this).parents('.header-search__parent').outerHeight() - $(this).outerHeight()) / 2;
+      var offSetTrend = input.position().top + input.outerHeight() + Height;
+      var offSet = input.position().top + input.innerHeight() + searchTrend.innerHeight() + Height - 10;
+      var offSetleft = $(this).offset().left * -1;
+      var width = $(window).width();
+      
+      $('<div class="search-results__block"></div>').css( { 'position': 'absolute', 'top': offSet} ).appendTo($(this)).hide();
+      if ($(window).width() > 767) {
+        searchTrend.css({'top': offSetTrend, 'width': width, 'left': offSetleft });
+        $(this).find('.search-results__block').css({'width': width, 'left': offSetleft });
+      }
+      $(this).find('.search-results__block').append('<ul class="search-results"></ul>');
+      // Listening to keyup and change on the text field within these search forms.
+      input.attr('autocomplete', 'off').bind('keyup change', function() {
+        // What's the search term?
+        var term = $(this).val();
+        if (term.length > 0) {
+          $('.search-w__animate').hide();
+          $('.btn-search__clear-text').removeClass('hide');
+          $('.search-header__content .icon').hide();
+          $('.search_trend').removeClass('hidden');
+        } else {
+          $('.search-w__animate').show();
+          $('.btn-search__clear-text').addClass('hide');
+          $('.search-header__content .icon').show();
+        }
+        $('.btn-search__clear-text').click(function(){
+          $('.search-w__animate').show();
+          $('.search-header__input').val('');
+          $('.search-header__content .icon').show();
+          $(this).addClass('hide');
+        })
+        // What's the search form?
+        var form = $(this).closest('form');
+        // What's the search URL?
+        var searchURL = '/search?type=product&q=' + term;
+        // What's the search results list?
+        var resultsListBlock = form.find('.search-results__block');
+        var resultsList = form.find('.search-results');
+        // If that's a new term and it contains at least 3 characters.
+        if (term.length > 3 && term != $(this).attr('data-old-term')) {
+          // Saving old query.
+          $(this).attr('data-old-term', term);
+          // Killing any Ajax request that's currently being processed.
+          if (currentAjaxRequest != null) currentAjaxRequest.abort();
+          // Pulling results.
+          currentAjaxRequest = $.getJSON(searchURL + '&view=json', function(data) {
+            // Reset results.
+            resultsList.empty();
+            // If we have no results.
+            if(data.results_count == 0) {
+              // resultsList.html('<li><span class="title">No results.</span></li>');
+              // resultsList.fadeIn(200);
+              resultsListBlock.hide();
+            } else {
+              // If we have results.
+              $.each(data.results, function(index, item) {
+                var link = $('<a class="text-center w-100"></a>').attr('href', item.url);
+                link.append('<div class="thumbnail"><img src="' + item.thumbnail + '" class="w-100" /></div>');
+                link.append('<div class="title">' + item.title + '</div>');
+                link.append('<div class="price">' + item.price + '</div>');
+                link.wrap('<li></li>');
+                resultsList.append(link.parent());
+              });
+              // The Ajax request will return at the most 10 results.
+              // If there are more than 10, let's link to the search results page.
+              if(data.results_count > 4) {
+                resultsListBlock.find('.search-see_all').remove();
+                resultsList.after('<div class="search-see_all"><a class="see_all" href="' + searchURL + '">' + theme.strings.results_all + ' (' + data.results_count + ')</a></div>');
+              }
+              resultsListBlock.fadeIn(200);
+            }        
+          });
+        }
+      });
+    });
+    // Clicking outside makes the results disappear.
+    $('body').bind('click', function(){
+      $('.search-results__block').hide();
+    });
+  });
+</script>

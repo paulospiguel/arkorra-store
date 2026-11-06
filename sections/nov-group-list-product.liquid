@@ -1,0 +1,351 @@
+{% assign sst = section.settings %}
+{% if sst.grid_xl == 5 %}
+  {%- assign grid_width_xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign grid_width_xl = 12 | divided_by: sst.grid_xl | prepend: 'col-xl-' -%}
+{% endif %}
+{% if sst.grid == 5 %}
+  {%- assign grid_width_lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign grid_width_lg = 12 | divided_by: sst.grid | prepend: 'col-lg-' -%}
+{% endif %}
+{% if sst.grid_md == 5 %}
+  {%- assign grid_width_md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign grid_width_md = 12 | divided_by: sst.grid_md | prepend: 'col-md-' -%}
+{% endif %}
+{% if sst.grid_sm == 5 %}
+  {%- assign grid_width_sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign grid_width_sm = 12 | divided_by: sst.grid_sm | prepend: 'col-sm-' -%}
+{% endif %}
+{% if sst.grid_xs == 5 %}
+  {%- assign grid_width_xs = 'col-xs-cus-5' -%}
+{% else %}
+  {%- assign grid_width_xs = 12 | divided_by: sst.grid_xs | prepend: 'col-' -%}
+{% endif %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.has_fullwidth == false %}
+    <div class="container">
+  {% else %}
+    <div class="container-fluid">
+  {% endif %}
+    <div class="row">
+      {% for block in section.blocks %}
+        {% assign bst = block.settings %}
+        <div class="{{ grid_width_xl }} {{ grid_width_lg }} {{ grid_width_md }} {{ grid_width_sm }} {{ grid_width_xs }} mb-30">
+          <div class="block block-{{ forloop.index }}">
+            {%- assign category = bst.collection_handle -%}
+            <div class="title_section d-flex align-items-center justify-content-between mb-45">
+              <span class="title" style="color: {{ bst.title_c }}">{{ bst.title | nofilter  }}</span>
+              {% if sst.viewall == true %}
+                <a href="{{ category.url }}" class="text-uppercase font-700">
+                  {{ 'sections.group_list_product.view_all' | t }}
+                </a>
+              {% endif %}
+            </div>
+            <div class="list--view-items row nov-slick-carousel"
+            data-autoplay="false" 
+            data-autoplayTimeout="6000" 
+            data-loop="false"
+            data-dots="{{ sst.show_dot }}" 
+            data-nav="{{ sst.show_nav }}" 
+            data-row="{{ sst.number_row }}" 
+            data-row_mobile="{{ sst.row_mobile }}"
+            data-items_xxl="{{ sst.grid_number_xxl }}" 
+            data-items="{{ sst.grid_number }}" 
+            data-items_lg="{{ sst.grid_number_lg }}" 
+            data-items_md="{{ sst.grid_number_md }}" 
+            data-items_sm="{{ sst.grid_number_sm }}"
+            data-items_xs="{{ sst.grid_number_xs }}">
+              {% for product in collections[category].products limit:sst.limit %}
+                <div class="col">
+                  {% include 'product-grid-item-style-1' %}
+                </div>
+              {% else %}
+                {%- for i in (1..4) -%}
+                  {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  <div class="col">
+                    <div class="item-product text-center">
+                      {{ 'product-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+                      <div class="product__info mt-20">
+                        <div class="product__title"><a href="/products/cyberpunk-2077" tabindex="0"><span>Lorem ipsum alimet</span></a></div>
+                        <div class="price-box mt-5">
+                          <div class="price-sale">
+                            <span class="special-price" data-price-grid=""><span class="money" data-currency-usd="$100.00">$100.00</span></span>
+                            <span class="old-price" data-compare-price-grid=""><span class="money" data-currency-usd="$150.00">$150.00</span></span>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                {%- endfor -%}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Group List Product",
+  "class": "section-group-list-product",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "limit",
+      "label": "Product limit",
+      "default": "6"
+    },
+    {
+      "type": "header",
+      "content": "Choose group product on row"
+    },
+    {
+      "type": "range",
+      "id": "grid_xl",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Group products per row large desktop",
+      "default": 3,
+      "info": "Breakpoint 1200px ↑"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Group products per row desktop",
+      "default": 3,
+      "info": "Breakpoint 992px ↑"
+    },
+    {
+      "type": "range",
+      "id": "grid_md",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Group products per row tablet",
+      "default": 2,
+      "info": "Breakpoint 991px ↓"
+    },
+    {
+      "type": "range",
+      "id": "grid_sm",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Group products per row mobile",
+      "default": 1,
+      "info": "Breakpoint 768px ↓"
+    },
+    {
+      "type": "range",
+      "id": "grid_xs",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Group products per row small mobile",
+      "default": 1,
+      "info": "Breakpoint 575px ↓"
+    },
+    {
+      "type": "header",
+      "content": "Choose number product on row"
+    },
+    {
+      "type": "range",
+      "id": "grid_number_xxl",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row extra large desktop",
+      "default": 2,
+      "info": "Breakpoint 1440px ↑"
+    },
+    {
+      "type": "range",
+      "id": "grid_number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row large desktop",
+      "default": 2,
+      "info": "Breakpoint 1200px ↑"
+    },
+    {
+      "type": "range",
+      "id": "grid_number_lg",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row desktop",
+      "default": 1,
+      "info": "Breakpoint 1199px ↓"
+    },
+    {
+      "type": "range",
+      "id": "grid_number_md",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row tablet",
+      "default": 1,
+      "info": "Breakpoint 991px ↓"
+    },
+    {
+      "type": "range",
+      "id": "grid_number_sm",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row mobile",
+      "default": 1,
+      "info": "Breakpoint 767px ↓"
+    },
+    {
+      "type": "range",
+      "id": "grid_number_xs",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Products per row small mobile",
+      "default": 1,
+      "info": "Breakpoint 575px ↓"
+    },
+    {
+      "type": "select",
+      "id": "number_row",
+      "label": "Number row",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ]
+    },
+    {
+      "type":  "header",
+      "content": "Design option"
+    },
+    {
+      "type": "checkbox",
+      "id": "viewall",
+      "label": "Show button view all",
+      "default":   true
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Show animated",
+      "default":   true
+    },
+    {
+      "type": "checkbox",
+      "id": "has_fullwidth",
+      "label": "Full Width",
+      "default":   false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colors"
+    },
+    {
+      "type": "text",
+      "id": "class",
+      "label": "Class"
+    },
+    {
+      "type": "number",
+      "id": "distance_top",
+      "label": "Top spacing section (px)",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "distance_bottom",
+      "label": "Bottom spacing section (px)",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "list_product",
+      "name": "Group List Product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product list title",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "color",
+          "id": "title_c",
+          "label": "Title color",
+          "default": "#000"
+        },
+        {
+          "type": "collection",
+          "id": "collection_handle",
+          "label": "Collection"
+        }      
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vinova Group List Product",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type":"list_product",
+          "settings":{
+            "title": "Product List 1",
+            "title_c": "#2BD41D"
+          }
+        },
+        {
+          "type":"list_product",
+          "settings":{
+            "title": "Product List 2",
+            "title_c": "#ED0000"
+          }
+        },
+        {
+          "type":"list_product",
+          "settings":{
+            "title": "Product List 3",
+            "title_c": "#0054FF"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+  }
+</style>

@@ -1,0 +1,33 @@
+{% assign img_url = image %}
+{% if aspect == '11' %}
+  {% assign padding_top = 100 %}
+{% elsif aspect == '34' %}
+  {% assign padding_top = 133.33333333333334 %}
+{% elsif aspect == '43' %}
+  {% assign padding_top = 75 %}
+{% else %}
+  {% assign padding_top = 1 | divided_by: img_url.aspect_ratio | times: 100 %}
+{% endif %}
+<div class="respone_image" style="padding-top: {{ padding_top | append: '%' }}">
+  {% if aspect == '11' %}
+    <img class="lazyload"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+    data-src="{{ img_url | img_url: '180x' }}"
+    data-srcset="{{ img_url | img_url: '380x380', crop: 'center' }} 380w,{{ img_url | img_url: '580x580', crop: 'center' }} 580w,{{ img_url | img_url: '768x768', crop: 'center' }} 768w,{{ img_url | img_url: '900x900', crop: 'center' }} 900w,{{ img_url | img_url: '1080x1080', crop: 'center' }} 1080w,{{ img_url | img_url: '1296x1296', crop: 'center' }} 1296w,{{ img_url | img_url: '1512x1515', crop: 'center' }} 1512w,{{ img_url | img_url: '1728x1728', crop: 'center' }} 1728w, {{ img_url | img_url: '2048x2048', crop: 'center' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+  {% elsif aspect == '34' %}
+    <img class="lazyload"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+    data-src="{{ img_url | img_url: '180x' }}"
+    data-srcset="{{ img_url | img_url: '380x506', crop: 'center' }} 380w,{{ img_url | img_url: '580x773', crop: 'center' }} 580w,{{ img_url | img_url: '768x1024', crop: 'center' }} 768w,{{ img_url | img_url: '900x1120', crop: 'center' }} 900w,{{ img_url | img_url: '1080x1440', crop: 'center' }} 1080w,{{ img_url | img_url: '1296x1728', crop: 'center' }} 1296w,{{ img_url | img_url: '1512x2016', crop: 'center' }} 1512w,{{ img_url | img_url: '1728x2304', crop: 'center' }} 1728w, {{ img_url | img_url: '2048x2730', crop: 'center' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+  {% elsif aspect == '43' %}
+    <img class="lazyload"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+    data-src="{{ img_url | img_url: '180x' }}"
+    data-srcset="{{ img_url | img_url: '380x285', crop: 'center' }} 380w,{{ img_url | img_url: '580x435', crop: 'center' }} 580w,{{ img_url | img_url: '768x576', crop: 'center' }} 768w,{{ img_url | img_url: '900x675', crop: 'center' }} 900w,{{ img_url | img_url: '1080x810', crop: 'center' }} 1080w,{{ img_url | img_url: '1296x972', crop: 'center' }} 1296w,{{ img_url | img_url: '1512x1134', crop: 'center' }} 1512w,{{ img_url | img_url: '1728x1296', crop: 'center' }} 1728w, {{ img_url | img_url: '2048x1536', crop: 'center' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+  {% else %}
+    <img class="lazyload"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+    data-src="{{ img_url | img_url: '180x' }}"
+    data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+  {% endif %}
+</div>

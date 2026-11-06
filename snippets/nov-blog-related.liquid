@@ -1,0 +1,45 @@
+{% assign bloghandle = blog.handle %}
+{% if blogs[bloghandle].articles_count > 1 %}
+  <div class="BlogRelated mt-60">
+    <div class="h1 font-700 c_h f_pr mb-30">{{ 'blogs.related' | t }} {{ blog.title }}</div>
+    <div class="block__content">
+      <div class="blog--list blog--grid-view">
+        <div class="nov-slick-carousel row spacing-30" data-autoplay="false" 
+          data-autoplayTimeout="6000" 
+          data-loop="true"
+          data-dots="false"
+          data-nav="false"
+          data-row="1"
+          data-items="3"
+          data-items_lg="3"
+          data-items_md="2"
+          data-items_sm="2"
+          data-items_xs="1">
+          {% for article in blogs[bloghandle].articles limit:6 %}
+            <div class="item p_item">
+              <div class="article--listing">
+                <div class="article__image">
+                  {% if article.image %}
+                  <a href="{{ article.url }}" class="article__list-image-container">
+                    <img class="article__list-image lazyload w-100" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="{{ article.image | img_url: '330x220', crop: 'center' }}">
+                  </a>
+                  {% endif %}
+                </div>
+                <div class="article-body">
+                  <div class="article__related-title"><a href="{{ article.url }}">{{ article.title | strip_html | truncate: 60 }}</a></div>
+                  <div class="article__excerpt">
+                    {% if article.excerpt.size > 0 %}
+                      {{ article.excerpt | truncate: 120 }}
+                    {% else %}
+                      {{ article.content | strip_html | truncate: 100 }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

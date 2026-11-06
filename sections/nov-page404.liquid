@@ -1,0 +1,150 @@
+<style>
+  .template-404 .page-404 {
+    {% if section.settings.background_color != blank %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
+  }
+  .template-404 .btn_back {
+    background-color: {{ section.settings.bg_back_to_home }};
+  }
+  .template-404 .btn_continue_shopping {
+    background-color: {{ section.settings.bg_continue_shopping }};
+  }
+  .template-404 .btn_back:hover {
+    background-color: {{ section.settings.bg_back_hv }};
+  }
+  .template-404 .btn_continue_shopping:hover {
+    background-color: {{ section.settings.bg_continue_shopping_hv }};
+  }
+</style>
+
+<section id="content" class="page-content page-not-found">
+  <div class="content-404 text-center">
+    {% if section.settings.image != blank %}
+      <div class="image">
+        <img class="img-fluid" src="{{ section.settings.image | img_url: '1920x' }}" alt="Image 404">
+      </div>
+    {% else %}
+      <div class="image">
+        <img class="img-fluid" src="{{ '404.png' | assets_url }}" alt="Image 404">
+      </div>
+    {% endif %}
+    <div class="content text-center">
+      {% if section.settings.title != blank %}
+        <h1 class="font-800 text-uppercase mb-10" style="color: {{ section.settings.color_title }};font-size: {{ section.settings.fz_title }};">{{ section.settings.title }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="sub_title font-500 mb-5" style="color: {{ section.settings.color_sub }};font-size: {{ section.settings.fz_sub }};">
+          <span>{{ section.settings.subheading | escape }}</span>
+        </div>
+      {% endif %}
+      <div class="button-action d-sm-flex d-block justify-content-sm-center mt-50">
+        {% if section.settings.button_back_to_home %}
+          <a href="/" class="btn btn_back mb-xs-10">
+            <span>{{ 'page.404.link' | t }}</span>
+          </a>
+        {% endif %}
+        {% if section.settings.button_continue_shopping %}
+          <a href="/collections/all" class="btn btn_continue_shopping">
+            <span>{{ 'page.404.continue_shopping' | t }}</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Vinova Page 404",
+    "class": "page-404",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Vinova Page 404"
+      },
+      {
+        "type": "color",
+        "id": "color_title",
+        "label": "Color Title",
+        "default": "#0d2235"
+      },
+      {
+        "type": "text",
+        "id": "fz_title",
+        "label": "Font Title",
+        "default": "3rem"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "Subtitle from happy customers"
+      },
+      {
+        "type": "color",
+        "id": "color_sub",
+        "label": "Color Title",
+        "default": "#232630"
+      },
+      {
+        "type": "text",
+        "id": "fz_sub",
+        "label": "Font Title",
+        "default": "2.2rem"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "checkbox",
+        "id": "button_back_to_home",
+        "label": "Enable Back To Home",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "bg_back_to_home",
+        "label": "Background Back To Home",
+        "default": "#e9ebeb"
+      },
+      {
+        "type": "color",
+        "id": "bg_back_hv",
+        "label": "Background Back To Home Hover",
+        "default": "#0d2235"
+      },
+      {
+        "type": "checkbox",
+        "id": "button_continue_shopping",
+        "label": "Enable Continue Shopping",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "bg_continue_shopping",
+        "label": "Background Continue Shopping",
+        "default": "#0d2235"
+      },
+      {
+        "type": "color",
+        "id": "bg_continue_shopping_hv",
+        "label": "Background Continue Shopping Hover",
+        "default": "#e9ebeb"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+{% endschema %}

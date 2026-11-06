@@ -1,0 +1,295 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class_section != blank %} {{ sst.class_section }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="container-inner overflow_hidden">
+      {% if sst.heading != blank or sst.subheading != blank %}
+        <div class="title_section {{ sst.title_alignment }}">
+          {% if sst.heading != blank %}
+            <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+          {% endif %}
+          {% if sst.subheading != blank %}
+            <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="block__parallax {% if sst.reverse %}reverseX_parallax{% else %}itemX_parallax{% endif %}">
+        <div class="d-flex" data-section-id="{{ section.id }}">
+          {% for block in section.blocks %}
+            {% assign bst = block.settings %}
+            <div class="gallery-image__item overflow_hidden position-relative{% if sst.style_img_1 %} nov-sh-image-1{% endif %}{% if sst.style_img_2 %} nov-sh-image-2{% endif %}">
+              {% if bst.image != blank %}
+                {% assign img_url = bst.image %}
+                <a href="{{ img_url | img_url: '1200x' }}" class="d-block" data-fancybox="gallery">
+                  {%- render 'nov-aspect-image', image: img_url, aspect: sst.aspect -%}
+                </a>
+              {% else %}
+                {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+                {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div><!-- End container -->
+</div>
+{% if section.blocks.size == 0 %}
+  {% include 'no-blocks' %}
+{% endif %}
+{% schema %}
+  {
+    "name": "Gallery Image Parallax",
+    "class": "section-gallery-image-parallax",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Gallery Image Parallax</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Item image style"
+      },
+      {
+        "type": "select",
+        "id": "aspect",
+        "label": "Item aspect ratio",
+        "default": "43",
+        "options": [
+          {"value": "auto", "label": "auto"},
+          {"value": "11", "label": "1/1"},
+          {"value": "34", "label": "3/4"},
+          {"value": "43", "label": "4/3"}
+        ]
+      },
+      {
+        "type": "range",
+        "id": "bd_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "label": "Border radius image (px)",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "label": "Spacing items",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "reverse",
+        "label": "Scroll reverse"
+      },
+      {
+        "type": "header",
+        "content": "Style hover image"
+      },
+      {
+        "type": "checkbox",
+        "id": "style_img_1",
+        "label": "Style hover image 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "style_img_2",
+        "label": "Style hover image 2",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Design section"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class_section",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "px",
+        "label": "Horizontally spacing section (px)",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Gallery Image Parallax",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  {% if sst.bg_size == 'full' %}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}") no-repeat center{% endif %};
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% else %}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}") no-repeat center{% endif %};
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% endif %}
+  #shopify-section-{{ section.id }} .gallery-image__item {
+    border-radius: {{ sst.bd_radius | append: 'px' }};
+  }
+  #shopify-section-{{ section.id }} .gallery-image__item:not(:last-child) {
+    margin-right: {{ sst.spacing }}px;
+  }
+</style>

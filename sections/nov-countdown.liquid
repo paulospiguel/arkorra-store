@@ -1,0 +1,222 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="d-xl-flex align-items-center text-center text-xl-left">
+      {% if sst.heading != blank %}
+        <div class="title_section mb-0 mb-lg-25"><span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span></div>
+      {% endif %}
+    {% if sst.countdown_timeend != blank %}
+      <div class="countdownfree d-flex justify-content-center mb-lg-30" data-countdown="{{ sst.countdown_timeend }}" data-restart="{{ settings.restart }}"></div>
+    {% else %}
+      <div class="countdownfree d-flex justify-content-center">
+        <div class="item-time"><span class="data-number">24</span><span class="name-time">Days</span></div>
+        <div class="item-time"><span class="data-number">09</span><span class="name-time">Hours</span></div>
+        <div class="item-time"><span class="data-number">28</span><span class="name-time">Mins</span></div>
+        <div class="item-time"><span class="data-number">21</span><span class="name-time">Secs</span></div>
+      </div>
+    {% endif %}
+      {% if sst.btn != blank %}
+        <a href="{{ sst.btn_link }}" class="btn btn-medium">{{ sst.btn }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Countdown",
+    "class": "section-countdown",
+    "settings": [
+      {
+        "type": "inline_richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Vinova Countdown"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "heading_hl",
+        "label": "Text bold color",
+        "default": "#444444"
+      },
+      {
+        "type": "header",
+        "content": "Countdown time"
+      },
+      {
+        "type": "text",
+        "id": "countdown_timeend",
+        "label": "Time end product",
+        "placeholder": "YYYY\/MM\/DD"
+      },
+      {
+        "type": "paragraph",
+        "content": "Format: 'Year\/Month\/Day'"
+      },
+      {
+        "type": "paragraph",
+        "content": "Example: '2022\/01\/30'"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "label": "Border radius",
+        "default": 5
+      },
+      {
+        "type": "color",
+        "id": "c_cd",
+        "label": "Color",
+	"default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "bg_cd",
+        "label": "Background",
+	"default": "#000"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "text",
+        "id": "btn",
+        "label": "Button",
+        "default": "Shop now"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button link"
+      },
+      {
+        "type": "color",
+        "id": "c_btn",
+        "label": "Button color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "b_btn",
+        "label": "Button background color",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "c_btn_h",
+        "label": "Button color hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "b_btn_h",
+        "label": "Button background color hover",
+        "default": "#222222"
+      },
+      {
+        "type":  "header",
+        "content": "Design Option"
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Colors",
+        "default": "#ffffff"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Countdown",
+        "category": "Promotional"
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  {%- assign bg_color = sst.background_color -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom  | append: 'px'}};
+    {% if bg_color != blank or bg_image != blank -%}
+      background: {{ bg_color }} url("{{ bg_image | img_url: '1920x' }}") no-repeat center top;
+      background-size: cover;
+    {%- endif -%}
+  }
+  @media(max-width: 575px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+  #shopify-section-{{ section.id }} .title_section .title strong {
+    color:  {{ sst.heading_hl }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree .item-time {
+    color:  {{ sst.c_cd }};
+    background-color: {{ sst.bg_cd }};
+    border-radius: {{ sst.border_radius | append: 'px' }};
+  }
+  {% if bg_image != blank or sst.background_color != blank -%}
+  #shopify-section-{{ section.id }} .countdownfree .item-time:after {
+    color:  white;
+  }
+  {%- endif %}
+  #shopify-section-{{ section.id }} .btn {
+    color: {{ sst.c_btn }};
+    background-color: {{ sst.b_btn }};
+  }
+  #shopify-section-{{ section.id }} .btn:hover {
+    color: {{ sst.c_btn_h }} !important;
+    background-color: {{ sst.b_btn_h }} !important;
+  }
+</style>

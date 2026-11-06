@@ -1,0 +1,43 @@
+<form action="/search" method="get" class="search-header-inline" role="search">
+	<div class="search-header__content position-relative">
+		<div class="icon"><i class="zmdi zmdi-search"></i></div>
+		<input type="hidden" name="type" value="product">
+		<input class="search-header__input"
+		type="search"
+		name="q"
+		placeholder="{{ 'general.search.title' | t }}"
+		aria-label="{{ 'general.search.title' | t }}">
+		<div class="search-w__animate"></div>
+		<button class="search-header__submit d-flex align-items-center justify-content-center" type="submit" title="{{ 'general.search.submit' | t }}">
+			<span class="search-header__submit-icon"><i class="rbb-icon-search-10"></i></span>
+		</button>
+		<div class="btn-search__clear-text hide position-absolute pointer hover:c_df"><i class="zmdi zmdi-close-circle"></i></div>
+	</div>
+	{% if settings.show_key_trend == true %}
+	  <div class="search_trend pt-sm-15 pb-sm-15">
+	    <div class="search_trend-content">
+	      <div class="search_trend-title f_pr c_h font-700">{{ 'general.search.search_trend' | t }}</div>
+	      <div class="search_trend-list d-flex mt-10">
+	        {% if settings.key_trend_1 != blank %}
+	          <a href="/search?type=product&q={{ settings.key_trend_1 }}" class="btn font-500">{{ settings.key_trend_1 }}</a>
+	        {% endif %}
+	        {% if settings.key_trend_2 != blank %}
+	          <a href="/search?type=product&q={{ settings.key_trend_2 }}" class="btn font-500">{{ settings.key_trend_2 }}</a>
+	        {% endif %}
+	        {% if settings.key_trend_3 != blank %}
+	          <a href="/search?type=product&q={{ settings.key_trend_3 }}" class="btn font-500">{{ settings.key_trend_3 }}</a>
+	        {% endif %}
+	        {% if settings.key_trend_4 != blank %}
+	          <a href="/search?type=product&q={{ settings.key_trend_4 }}" class="btn font-500">{{ settings.key_trend_4 }}</a>
+	        {% endif %}
+	        {% if settings.key_trend_5 != blank %}
+	          <a href="/search?type=product&q={{ settings.key_trend_5 }}" class="btn font-500">{{ settings.key_trend_5 }}</a>
+	        {% endif %}
+	        {% if settings.key_trend_6 != blank %}
+              <a href="/search?type=product&q={{ settings.key_trend_6 }}" class="btn font-500">{{ settings.key_trend_6 }}</a>
+            {% endif %}
+	      </div>
+	    </div>
+	  </div>
+	{% endif %}
+</form>

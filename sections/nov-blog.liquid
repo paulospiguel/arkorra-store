@@ -1,0 +1,382 @@
+{%- assign sst = section.settings -%}
+{%- assign collection_blog = blogs[sst.blog] -%}
+{%- assign blog_limit = sst.limit -%}
+{%- assign xl = 100 | divided_by: sst.grid_number -%}
+{%- assign lg = 100 | divided_by: sst.grid_number_lg -%}
+{%- assign md = 100 | divided_by: sst.grid_number_md -%}
+{%- assign sm = 100 | divided_by: sst.grid_number_sm -%}
+<div data-section-id="{{ section.id }}" class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="{% if sst.view_blog != blank %}d-flex{% endif %} flex-column flex-md-row align-items-center justify-content-between mb-50 mb-sm-30">
+      {% if sst.heading != blank %}
+        <div class="title_section mb-0 {{ sst.title_alignment }}">
+          <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+          {% if sst.subheading != blank %}
+            <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if sst.view_blog != blank %}
+        <a href="{{ collection_blog.url }}" class="btn--viewall btn mt-sm-10">{{ sst.view_blog }}</a>
+      {% endif %}
+    </div>
+    <div class="row spacing-{{ sst.spacing }} spacing-md-30 nov-slick-carousel"
+      data-autoplay="false" 
+      data-autoplayTimeout="6000"
+      data-loop="false" 
+      data-margin="{{ sst.spacing }}"
+      data-dots="{{ sst.show_dots }}"
+      data-nav="false"
+      data-row="{{ sst.row_number }}"
+      data-row_mobile="1"
+      data-items="{{ sst.grid_number }}"
+      data-items_lg="{{ sst.grid_number_lg }}"
+      data-items_md="{{ sst.grid_number_md }}"
+      data-items_sm="{{ sst.grid_number_sm }}"
+      data-items_xs="1"
+      {% if sst.show_nav == true %}data-custnav{% endif %}>
+      {% for article in collection_blog.articles limit: blog_limit %}
+        <div class="item p_item mb-20">
+          <div class="article--listing"> 
+            {% if sst.show_image == true and article.image %}
+              <a href="{{ article.url }}" class="article__list-image-container position-relative d-block">
+                <img class="w-100 lazyload" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 0.6'%3E%3C/svg%3E" data-src="{{ article.image | img_url: '520x420', crop: 'center' }}" alt="{{ article.title }}">
+              </a>
+            {% endif %}
+            <div class="media-body position-relative">
+              <div class="article__title">
+                <a href="{{ article.url }}" class="font-700 f_pr c_h hover:c_df">{{ article.title | truncate: 70 }}</a>
+              </div>
+              
+              {% if sst.blog_show_excerpt %}
+                <div class="article__excerpt mt-20">
+                  {% if article.excerpt.size > 0 %}
+                  {{ article.excerpt | truncate: 150 }}
+                  {% else %}
+                  {{ article.content | strip_html | truncate: 150 }}
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if sst.blog_show_author or sst.blog_show_comments or sst.blog_show_date %}
+              <div class="article_cs pt-25 mt-25">
+                {% if sst.blog_show_author %}
+                  <span class="article__author">
+                    <i class="zmdi zmdi-account-o"></i>
+                    <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
+                  </span>
+                {% endif %}
+                {% if sst.blog_show_date %}
+                  <span class="article__date">
+                    <i class="zmdi zmdi-calendar-note"></i>
+                    {{ article.published_at | date: "%d" }} {{ article.published_at | date: "%B" }} {{ article.published_at | date: "%Y" }}
+                  </span>
+                {% endif %}
+                {% if sst.blog_show_comments %}
+                  <span class="article__countcomment">
+                    <i class="zmdi zmdi-comments"></i>
+                    <span>{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</span>
+                  </span>
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if sst.show_view_all == true %}
+                <a href="{{ article.url }}" class="view_all font-500 d-inline-block c_df text-uppercase hover:c_df mt-20">{{ 'sections.blog.continue_reading' | t }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+          {%- for i in (1..4) -%}
+            {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+            <div class="item p_item">
+              {{ 'blog-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+            </div>
+          {%- endfor -%}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Blog",
+    "class": "nov-section-blog",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Blogs</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "view_blog",
+        "label": "Button view all",
+        "default": "View all blogs"
+      },
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Blog"
+      },
+      {
+        "type":  "header",
+        "content": "Blog item per row"
+      },
+      {
+        "type": "range",
+        "id": "grid_number",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Large desktop",
+        "default": 3,
+        "info": "Breakpoint 1200px ↑"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_lg",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Desktop",
+        "default": 3,
+        "info": "Breakpoint 992px ↑"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Tablet",
+        "default": 3,
+        "info": "Breakpoint 768px ↑"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_sm",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Mobile",
+        "default": 2,
+        "info": "Breakpoint 767px ↓"
+      },
+      {
+        "type": "range",
+        "id": "row_number",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Number row",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "min": 4,
+        "max": 30,
+        "step": 1,
+        "label": "Limit",
+        "default": 8,
+        "info": "Select number limit post"
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 5,
+        "max": 80,
+        "step": 5,
+        "label": "Spacing item",
+        "default": 30,
+        "info": "Choose the spacing between items (px)"
+      },
+      {
+        "type":  "header",
+        "content": "Blog item option"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_image",
+        "label": "Show image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_comments",
+        "label": "Show comments",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_excerpt",
+        "label": "Show excerpt",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show view more button",
+        "default": false
+      },
+      {
+        "type":  "header",
+        "content": "Slider Option"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav",
+        "label": "Show navigation",
+        "default": false
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image",
+        "info": "1920 x 920px recommended"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Blog",
+        "category": "Blog"
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+    width: {{ sm }}%;
+    flex: 0 0 {{ sm }}%;
+  }
+  @media(min-width:  768px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ md }}%;
+      flex: 0 0 {{ md }}%;
+    }
+  }
+  @media(min-width:  992px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ lg }}%;
+      flex: 0 0 {{ lg }}%;
+    }
+  }
+  @media(min-width:  1200px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ xl }}%;
+      flex: 0 0 {{ xl }}%;
+    }
+  }
+  {%- assign bg_image = sst.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+      padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
+  }
+</style>

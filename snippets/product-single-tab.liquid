@@ -1,0 +1,141 @@
+<div class="product-single__tab mt-60"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="container">
+    <ul class="nav nav-tabs">
+      {% if section.settings.show_description %}
+        <li><a class="active" href="#proTabs1" data-toggle="tab">{{ 'products.product.tabdes' | t }}</a></li>
+      {% endif %}
+      {% for block in section.blocks %}
+        {% if block.type == 'block_text' %}
+          <li><a href="#tabCustom-{{ forloop.index }}" data-toggle="tab">{{ block.settings.custom_title }}</a></li>
+        {% endif %}
+        {% if block.type == 'block_img' %}
+          <li><a href="#tabCustom-{{ forloop.index }}" data-toggle="tab">{{ block.settings.custom_title }}</a></li>
+        {% endif %}
+        {% if block.type == 'block_video' %}
+          <li><a href="#tabCustom-{{ forloop.index }}" data-toggle="tab">{{ block.settings.custom_title }}</a></li>
+        {% endif %}
+        {% if block.type == 'block_customtab' %}
+          <li><a href="#tabCustom-{{ forloop.index }}" data-toggle="tab">{{ block.settings.custom_title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="tab-content">
+      {% if section.settings.show_description %}
+      <div class="tab-pane active" id="proTabs1">{{ product.description }}</div>
+      {% endif %}
+      {% for block in section.blocks %}
+        {% if block.type == 'block_text' %}
+          <div class="tab-pane" id="tabCustom-{{ forloop.index }}">
+            <div class="block_text">{{ block.settings.custom_content }}</div>
+          </div>
+        {% endif %}
+        {% if block.type == 'block_img' %}
+          <div class="tab-pane" id="tabCustom-{{ forloop.index }}">
+            <div class="block_img mt-20">
+              {% assign img_url = block.settings.custom_content %}
+              <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                <img class="lazyload"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                  data-src="{{ img_url | img_url: '180x' }}"
+                  data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% if block.type == 'block_video' %}
+          <div class="tab-pane" id="tabCustom-{{ forloop.index }}">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}" id="video" allowfullscreen></iframe>
+            </div>
+          </div>
+        {% endif %}
+        {% if block.type == 'block_customtab' %}
+          <div class="tab-pane" id="tabCustom-{{ forloop.index }}">
+            <ul class="product-single__customtab list-unstyled">
+              {% if block.settings.t1 != blank or block.settings.c1 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t1 }}</div>
+                    <div class="content col-8">{{ block.settings.c1 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t2 != blank or block.settings.c2 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t2 }}</div>
+                    <div class="content col-8">{{ block.settings.c2 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t3 != blank or block.settings.c3 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t3 }}</div>
+                    <div class="content col-8">{{ block.settings.c3 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t4 != blank or block.settings.c4 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t4 }}</div>
+                    <div class="content col-8">{{ block.settings.c4 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t5 != blank or block.settings.c5 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t5 }}</div>
+                    <div class="content col-8">{{ block.settings.c5 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t6 != blank or block.settings.c6 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t6 }}</div>
+                    <div class="content col-8">{{ block.settings.c6 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t7 != blank or block.settings.c7 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t7 }}</div>
+                    <div class="content col-8">{{ block.settings.c7 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t8 != blank or block.settings.c8 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t8 }}</div>
+                    <div class="content col-8">{{ block.settings.c8 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t9 != blank or block.settings.c9 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t9 }}</div>
+                    <div class="content col-8">{{ block.settings.c9 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+              {% if block.settings.t10 != blank or block.settings.c10 != blank %}
+                <li>
+                  <div class="row align-items-center p-4 pt-10 pb-10">
+                    <div class="title col-4">{{ block.settings.t10 }}</div>
+                    <div class="content col-8">{{ block.settings.c10 }}</div>
+                  </div>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,316 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.animate == true %} wow fadeInUp animated{% endif %}{% if sst.class != blank %} {{ sst.class }}{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="container-inner">
+      {% if sst.heading != blank or sst.subheading != blank %}
+        <div class="title_section {{ sst.title_alignment }}">
+          {% if sst.heading != blank %}
+            <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+          {% endif %}
+          {% if sst.subheading != blank %}
+            <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="block_accordion">
+        <div class="nov-accordion">
+          {% for block in section.blocks %}
+            <div class="nov-accordion__item{% if forloop.last == false %} mb-5{% endif %}">
+              <div class="nov-accordion__title{% if forloop.first == true %} act{% endif %}">{{ block.settings.title }}</div>
+              <div class="nov-accordion__content">
+                <div class="block">
+                  {{ block.settings.content }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Accordion",
+    "class": "section-accordion",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Accordion</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Style item"
+      },
+      {
+        "type": "color",
+        "id": "title_c",
+        "label": "Title color",
+        "default": "#222"
+      },
+      {
+        "type": "color",
+        "id": "title_ca",
+        "label": "Title active color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "title_bg",
+        "label": "Title background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "title_bga",
+        "label": "Title active background",
+        "default": "#f1f1f1"
+      },
+      {
+        "type": "color",
+        "id": "content_c",
+        "label": "Content color",
+        "default": "#666"
+      },
+      {
+        "type": "color",
+        "id": "border_c",
+        "label": "Border color",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "color",
+        "id": "item_bg",
+        "label": "Item background",
+        "default": "#fff"
+      },
+      {
+        "type": "range",
+        "id": "br_item",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius item",
+        "default": 0
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   false
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "content",
+        "name": "Content",
+        "settings": [
+          {
+            "type": "inline_richtext",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Accordion",
+        "category": "Text",
+        "blocks": [
+          {
+            "type":"content",
+            "settings":{
+              "title": "Lorem ipsum dolor sit amet",
+              "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet augue sit amet magna vestibulum pharetra. Vivamus ut est orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>"
+            }
+          },
+          {
+            "type":"content",
+            "settings":{
+              "title": "Lorem ipsum dolor sit amet",
+              "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet augue sit amet magna vestibulum pharetra. Vivamus ut est orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>"
+            }
+          },
+          {
+            "type":"content",
+            "settings":{
+              "title": "Lorem ipsum dolor sit amet",
+              "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet augue sit amet magna vestibulum pharetra. Vivamus ut est orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {%- assign bg_image = section.settings.background_image -%}
+  {%- if sst.bg_size == 'full' -%}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {%- else -%}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image.src != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {%- endif -%}
+  #shopify-section-{{ section.id }} .nov-accordion__item {
+    border-color: {{ sst.border_c }};
+    border-radius: {{ sst.br_item }}px;
+  }
+  #shopify-section-{{ section.id }} .nov-accordion__title, #shopify-section-{{ section.id }} .nov-accordion__title:after {
+    color:  {{ sst.title_c }};
+    background-color: {{ sst.title_bg }};
+  }
+  #shopify-section-{{ section.id }} .nov-accordion__title.act, #shopify-section-{{ section.id }} .nov-accordion__title.act:after {
+    color:  {{ sst.title_ca }};
+    background-color: {{ sst.title_bga }};
+  }
+  #shopify-section-{{ section.id }} .nov-accordion__item {
+    background-color: {{ sst.item_bg }};
+  }
+  #shopify-section-{{ section.id }} .nov-accordion__content {
+    color:  {{ sst.content_c }};
+  }
+</style>

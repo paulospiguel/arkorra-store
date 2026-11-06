@@ -1,0 +1,230 @@
+{% assign sst = section.settings %}
+<div class="distance position-relative{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+  {% endif %}
+    <div class="container-inner position-relative">
+      {% assign product = all_products[sst.product] %}
+      <div class="nov-product-video grid--view-items row spacing-0">
+        <div class="col-md-6 d-flex">
+          {% if sst.video_url != blank %}
+            <video playsinline autoplay loop muted style="width: 100%;max-width: 100%; height: auto;">
+              <source src="{{ sst.video_url }}" type="video/mp4" />
+            </video>
+          {% else %}
+            {{ 'hero-apparel-3' | placeholder_svg_tag : 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <div class="block-product item w-50">
+            {% if sst.heading != blank or sst.subheading != blank %}
+              <div class="title_section {{ sst.title_alignment }} mb-md-20">
+                {% if sst.heading != blank %}
+                  <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+                {% endif %}
+                {% if sst.subheading != blank %}
+                  <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if sectionId == blank %}
+              {% assign sectionId = section.id %}
+            {% endif %}
+            {% if sst.product != blank %}
+              {% render 'product-grid-item-style-1', product: product, sectionId: sectionId %}
+            {% else %}
+              {{ 'product-apparel-1' | placeholder_svg_tag : 'placeholder-svg' }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Products Video",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Product Video</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Video"
+      },
+      {
+        "type": "url",
+        "id": "video_url",
+        "label": "Video link",
+        "info": "Only For Links"
+      },
+      {
+        "type": "paragraph",
+        "content": "You can update the file here. [View customers](/admin/content/files)"
+      },
+      {
+        "type":  "header",
+        "content": "Block product"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Products Video",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+    {% if sst.bg_size == 'full' %}
+      #shopify-section-{{ section.id }} .distance {
+        padding-top: {{ sst.distance_top | append: 'px' }};
+        padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+        border-radius: {{ sst.br_container | append: 'px' }};
+        {% if sst.background_color != blank %}
+          background-color: {{ sst.background_color }};
+        {% endif %}
+        {% if bg_image.src != blank %}
+          background-image: url("{{ bg_image | img_url: '1920x' }}");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        {% endif %}
+      }
+      @media(max-width: 575px) {
+        #shopify-section-{{ section.id }} .distance {
+          {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+          {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        }
+      }
+    {% else %}
+      #shopify-section-{{ section.id }} .container-inner {
+        padding-top: {{ sst.distance_top | append: 'px' }};
+        padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+        {% if sst.background_color != blank %}
+          background-color: {{ sst.background_color }};
+        {% endif %}
+        {% if bg_image.src != blank %}
+          background-image: url("{{ bg_image | img_url: '1920x' }}");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        {% endif %}
+      }
+      @media(max-width: 575px) {
+        #shopify-section-{{ section.id }} .container-inner {
+          {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+          {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        }
+      }
+    {% endif %}
+</style>

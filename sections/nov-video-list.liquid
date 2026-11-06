@@ -1,0 +1,299 @@
+{% if section.settings.grid_number == 5 %}
+  {%- assign xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign xl = 12 | divided_by: section.settings.grid_number | prepend: 'col-xl-' -%}
+{% endif %}
+{% if section.settings.grid_number_lg == 5 %}
+  {%- assign lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign lg = 12 | divided_by: section.settings.grid_number_lg | prepend: 'col-lg-' -%}
+{% endif %}
+{% if section.settings.grid_number_md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: section.settings.grid_number_md | prepend: 'col-md-' -%}
+{% endif %}
+{% if section.settings.grid_number_sm == 5 %}
+  {%- assign sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign sm = 12 | divided_by: section.settings.grid_number_sm | prepend: 'col-sm-' -%}
+{% endif %}
+<div class="distance{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}">
+  {% if section.settings.has_fullwidth == false %}
+    <div class="container">
+  {% endif %}
+
+  {% if section.settings.heading != blank %}
+    <div class="title_section {{ section.settings.title_alignment }}">
+      <div><span class="title" style="color: {{ section.settings.heading_c }};">{{ section.settings.heading }}</span></div>
+      {% if section.settings.subheading != blank %}
+        <span class="sub_title" style="color: {{ section.settings.subheading_c }};">{{ section.settings.subheading }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="row spacing-md-15">
+    {% for block in section.blocks %}
+      <div class="{{ xl }} {{ lg }} {{ md }} {{ sm }}{% if block.settings.class != blank %} {{ block.settings.class }}{% endif %}">
+        <div class="block-video position-relative">
+          {% if block.settings.img_cover != blank %}
+            <img class="lazyload w-100 h-100" data-src="{{ block.settings.img_cover | img_url: '1920x'}}" alt="img video">
+          {% else %}
+            {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+            {{ 'collection-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          <div class="block-video__info position-absolute w-100" style="color: {{ block.settings.color }};">
+            {% if section.settings.video_number %}
+              <div class="block-video__number font-600">0{{ forloop.index }}</div>
+            {% endif %}
+            <div class="block-video__text-icon position-relative d-flex justify-content-between align-items-center" style="background-color: {{ block.settings.bg_c }};">
+              {% if block.settings.title != blank or block.settings.subtitle != blank %}
+                <div class="block-video__text">
+                  {% if block.settings.title != blank %}
+                  <div class="block-video__title font-600">{{ block.settings.title }}</div>
+                  {% endif %}
+                  {% if block.settings.subtitle != blank %}
+                  <div class="block-video__sub-title font-500 mt-5">{{ block.settings.subtitle }}</div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              <div class="block-video__icon">
+                <div class="icon_play rounded-circle text-center" data-toggle="modal" data-target="#ModalVideo" data-src="{% if block.settings.video_url.type == "youtube"  %}https://www.youtube.com/embed/{{ block.settings.video_url.id }}?rel=0&showinfo=0&vq=720{% endif %}{% if block.settings.video_url.type == "vimeo" %}//player.vimeo.com/video/{{ block.settings.video_url.id }}?byline=0&portrait=0&badge=0{% endif %}">
+                  <i class="fa fa-video-camera" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.settings.has_fullwidth == false %}
+    </div>
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": "Vinova Video List",
+    "class": "section-video-list",
+    "max_blocks": 9,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Video List</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Video item per row"
+      },
+      {
+        "type": "range",
+        "id": "grid_number",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row 1200px ↑",
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "grid_number_lg",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products desktop 992px ↑",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "grid_number_md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row tablet 768px ↑",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "grid_number_sm",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row mobile 575px ↑",
+        "default": 1
+      },
+      {
+        "type": "checkbox",
+        "id": "video_number",
+        "label": "Show video number",
+        "default":   true
+      },
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full Width",
+        "default":   false
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "label": "Video link",
+            "accept": ["youtube", "vimeo"],
+            "info": "Only For Youtube And Vimeo"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_cover",
+            "label": "Image cover"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem ipsum"
+          },
+          {
+            "type": "richtext",
+            "id": "subtitle",
+            "label": "Sub Title",
+            "default": "<p>Lorem ipsum dolor sit amet consectetur</p>"
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "label": "Color text",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "bg_c",
+            "label": "Background color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "bg_hover",
+            "label": "Background color hover",
+            "default": "#000000"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Video List",
+        "category": "Video",
+        "blocks": [
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = section.settings.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ section.settings.distance_top }}px;
+    padding-bottom: {{ section.settings.distance_bottom }}px;
+    {% if section.settings.background_color != blank %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}  
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
+  }
+  {% for block in section.blocks %}
+    #shopify-section-{{ section.id }} .block-video:hover .block-video__text-icon {
+      background-color: {{ block.settings.bg_hover }} !important;
+    }
+  {% endfor %}
+</style>

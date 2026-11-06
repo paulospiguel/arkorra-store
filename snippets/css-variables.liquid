@@ -1,0 +1,139 @@
+{% comment %}
+  This is used to create CSS custom variables with Liquid references
+  The file variables.scss is referring these CSS custom variables as Sass variables
+  to use throughout the stylesheet
+{% endcomment %}
+{%- liquid
+  assign body_font_light = settings.type_base_family | font_modify: 'weight', '300'
+  assign body_font_medium = settings.type_base_family | font_modify: 'weight', '500'
+  assign body_font_semibold = settings.type_base_family | font_modify: 'weight', '600'
+  assign body_font_bold = settings.type_base_family | font_modify: 'weight', '700'
+  assign body_font_extrabold = settings.type_base_family | font_modify: 'weight', '800'
+  assign body_font_black = settings.type_base_family | font_modify: 'weight', '900'
+  assign body_font_italic = settings.type_base_family | font_modify: 'style', 'italic'
+  assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+  assign heading_font_light = settings.type_header_family | font_modify: 'weight', '300'
+  assign heading_font_medium = settings.type_header_family | font_modify: 'weight', '500'
+  assign heading_font_semibold = settings.type_header_family | font_modify: 'weight', '600'
+  assign heading_font_bold = settings.type_header_family | font_modify: 'weight', '700'
+  assign heading_font_extrabold = settings.type_header_family | font_modify: 'weight', '800'
+  assign heading_font_black = settings.type_header_family | font_modify: 'weight', '900'
+  assign heading_font_italic = settings.type_header_family | font_modify: 'style', 'italic'
+  assign heading_font_bold_italic = heading_font_bold | font_modify: 'style', 'italic'
+  assign heading_font_extrabold_italic = heading_font_extrabold | font_modify: 'style', 'italic'
+%}
+{% style %}
+    {%- if settings.type_google == false -%}
+        {{ body_font_light | font_face: font_display: 'swap' }}
+        {{ settings.type_base_family | font_face: font_display: 'swap' }}
+        {{ body_font_medium | font_face: font_display: 'swap' }}
+        {{ body_font_semibold | font_face: font_display: 'swap' }}
+        {{ body_font_bold | font_face: font_display: 'swap' }}
+        {{ body_font_extrabold | font_face: font_display: 'swap' }}
+        {{ body_font_black | font_face: font_display: 'swap' }}
+        {{ body_font_italic | font_face: font_display: 'swap' }}
+        {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+        {%- if settings.type_base_family != settings.type_header_family -%}
+            {{ heading_font_light | font_face: font_display: 'swap' }}
+            {{ settings.type_header_family | font_face: font_display: 'swap' }}
+            {{ heading_font_medium | font_face: font_display: 'swap' }}
+            {{ heading_font_semibold | font_face: font_display: 'swap' }}
+            {{ heading_font_bold | font_face: font_display: 'swap' }}
+            {{ heading_font_extrabold | font_face: font_display: 'swap' }}
+            {{ heading_font_black | font_face: font_display: 'swap' }} 
+            {{ heading_font_italic | font_face: font_display: 'swap' }}
+            {{ heading_font_bold_italic | font_face: font_display: 'swap' }}
+            {{ heading_font_extrabold_italic | font_face: font_display: 'swap' }}
+        {%- endif -%}
+    {% endif %}
+    {%- if settings.body_bg != blank -%}
+        .template-index {
+            background-image: url({{ settings.body_bg | img_url: '1920x' }});
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    {%- endif -%}
+    {%- if settings.color_body != blank and settings.color_body != 'rgba(0,0,0,0)' and settings.color_product_item == blank -%}
+        {% assign brightness = settings.color_body | color_brightness %}
+        {% if brightness <= 131 %}
+          .template-index .item-product .product__title a {
+            color: white;
+          }
+          .template-index .item-product .item-product__count-color {
+            color: #4f4d4d;
+          }
+          .template-index .item-swatch li label.color:hover {
+            border: 3px solid #000!important;
+          }
+          .template-index .item-swatch li label.color.active {
+            box-shadow: 0 0 0 1px #bbbbbb;
+            border: 3px solid #000!important;
+          }
+          .template-index .item-swatch li label.color.variant-color-black {
+            border: 1px solid #bbbbbb;
+          }
+        {% endif %}
+        {% if settings.color_product_item != blank %}
+            .template-index .item-swatch li label.color.active, .template-index .item-swatch li label.color:hover {
+                border-color:  {{ settings.color_product_item }} !important;
+            }
+        {% endif %}
+    {%- endif -%}
+    :root {
+        {%- if settings.type_google == true -%}
+            --font-family-primary: {{ settings.type_header_family_google }};
+            --font-family-default: {{ settings.type_base_family_google }};
+        {%- else -%}
+            --font-family-primary: {{ settings.type_header_family.family }}, {{ settings.type_header_family.fallback_families }};
+            --font-family-default: {{ settings.type_base_family.family }}, {{ settings.type_base_family.fallback_families }};
+        {%- endif -%}
+        --brightness:  {{ brightness }};
+        --font-size-base: {{ settings.type_base_size | divided_by: 10.0 | append: 'rem' }};
+        --bg-body: {{ settings.color_body }};
+        --theme-color-default: {{ settings.theme_color_default }};
+        --theme-color-primary: {{ settings.theme_color_primary }};
+        --theme-color-default-rgb: {{ settings.theme_color_default | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --theme-color-primary-rgb: {{ settings.theme_color_primary | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --color-heading: {{ settings.heading_text }};
+        --color-heading-rgb: {{ settings.heading_text | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --color-menu: {{ settings.color_menu }};
+        --color-menu-act: {{ settings.color_menu_ac }};
+        --color-menu-sticky: {{ settings.color_menu_sticky }};
+        --color-menu-sticky-act: {{ settings.color_menu_sticky_ac }};
+        --color-sub-menu: {{ settings.color_sub_menu }};
+        --color-title-megamenu: {{ settings.color_title_megamenu }};
+        --color-body-text: {{ settings.color_body_text }};
+        --color-body-text-rgb: {{ settings.color_body_text | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --color-button: {{ settings.color_button }};
+        --color-button-hover: {{ settings.color_button_hover }};
+        --color-button-text: {{ settings.color_button_text }};
+        --color-button-text-hover: {{ settings.color_button_text_hover }};
+        --transition-drawer: all 0.45s cubic-bezier(0.29, 0.63, 0.44, 1);
+        --color-border: {{ settings.color_borders }};
+        --color-border-rgb: {{ settings.color_borders | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --border-radius-product-image: {{ settings.br_pi }}px;
+        --color-product-item: {{ settings.color_product_item }};
+        --color-product-name: {{ settings.color_product_name }};
+        --color-product-name-rgb: {{ settings.color_product_name | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --color-price: {{ settings.color_price }};
+        --color-reduced-price: {{ settings.color_reduced_price }};
+        --bg-product-icon: {{ settings.bg_pi }};
+        --color-product-border: {{ settings.b_pro_color }};
+        --color-product-icon: {{ settings.color_product_icon }};
+        --color-product-icon-rgb: {{ settings.color_product_icon | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --color-product-count:  {{ settings.color_product_count }};
+        --color-badge-new: {{ settings.color_badge_new }};
+        --color-badge-sale: {{ settings.color_badge_sale }};
+        --color-breacrumb-heading-default: {{ settings.c_br_h_df }};
+        --color-breacrumb-text-default: {{ settings.c_br_t_df }};
+        --bg-breacrumb-default: {{ settings.bg_br_df }};
+        --spacing-breacrumb-df-t: {{ settings.spacing_br_t }}px;
+        --spacing-breacrumb-df-b: {{ settings.spacing_br_b }}px;
+        --color-breacrumb-collec:  {{ settings.c_br_collec }};
+        --bg-breacrumb-collec:  {{ settings.bgc_br_collec }};
+        --spacing-breacrumb-collec-t: {{ settings.spacing_t_collec }}px;
+        --spacing-breacrumb-collec-b: {{ settings.spacing_b_collec }}px;
+        --spacing-breacrumb-inner-t: {{ settings.spacing_t_inner }}px;
+        --spacing-breacrumb-inner-b: {{ settings.spacing_b_inner }}px;
+    }
+{% endstyle %}

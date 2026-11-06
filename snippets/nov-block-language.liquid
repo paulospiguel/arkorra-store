@@ -1,0 +1,16 @@
+{%- form 'localization', id: id, class: 'nov-language' -%}
+  <div class="dropdown">
+    <button type="button" class="dropdown-toggle btn w-100 text-left d-flex align-items-center justify-content-between" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ localization.language.endonym_name | capitalize }}
+      <i class="zmdi zmdi-caret-down"></i>
+    </button>
+    <div class="lang__list dropdown-menu dropdown-menu-right w-100" aria-labelledby="Language">
+      {%- for language in localization.available_languages -%}
+        <div class="lang__item font-500 text-uppercase pointer{% if language.iso_code == localization.language.iso_code %} active{% endif %}" data-value="{{ language.iso_code }}">
+          {{ language.endonym_name | capitalize }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+{%- endform -%}

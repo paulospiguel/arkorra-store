@@ -1,0 +1,921 @@
+{% assign sst = section.settings %}
+{% if template == "product.left" %}
+  {% assign viewtype = 'left' %}
+{% elsif template == "product.lefttwo" %}
+  {% assign viewtype = 'lefttwo' %}
+{% elsif template == "product.right" %}
+  {% assign viewtype = 'right' %}
+{% elsif template == "product.grid" %}
+  {% assign viewtype = 'grid' %}
+{% elsif template == "product.gridtwo" %}
+  {% assign viewtype = 'gridtwo' %}
+{% elsif template == "product.scroll" %}
+  {% assign viewtype = 'scroll' %}
+{% elsif template == "product.imggrid" %}
+  {% assign viewtype = 'imggrid' %}
+{% elsif template == "product.sliderimg" %}
+  {% assign viewtype = 'sliderimg' %}
+{% elsif template == "product.sliderimgtwo" %}
+  {% assign viewtype = 'sliderimgtwo' %}
+{% elsif template == "product.accordion" %}
+  {% assign viewtype = 'accordion' %}
+{% elsif template == "product.accordiontwo" %}
+  {% assign viewtype = 'accordiontwo' %}
+{% else %}
+  {% if settings.type_sidebar_product == 'left' %}
+    {% assign viewtype = 'left' %}
+  {% elsif settings.type_sidebar_product == 'lefttwo' %}
+    {% assign viewtype = 'lefttwo' %}
+  {% elsif settings.type_sidebar_product == 'right' %}
+    {% assign viewtype = 'right' %}
+  {% elsif settings.type_sidebar_product == 'grid' %}
+    {% assign viewtype = 'grid' %}
+  {% elsif settings.type_sidebar_product == 'gridtwo' %}
+    {% assign viewtype = 'gridtwo' %}
+  {% elsif settings.type_sidebar_product == 'scroll' %}
+    {% assign viewtype = 'scroll' %}
+  {% elsif settings.type_sidebar_product == 'imggrid' %}
+    {% assign viewtype = 'imggrid' %}
+  {% elsif settings.type_sidebar_product == 'sliderimg' %}
+    {% assign viewtype = 'sliderimg' %}
+  {% elsif settings.type_sidebar_product == 'sliderimgtwo' %}
+    {% assign viewtype = 'sliderimgtwo' %}
+  {% elsif settings.type_sidebar_product == 'accordion' %}
+    {% assign viewtype = 'accordion' %}
+  {% elsif settings.type_sidebar_product == 'accordiontwo' %}
+    {% assign viewtype = 'accordiontwo' %}
+  {% else %}
+    {% assign viewtype = 'default' %}
+  {% endif %}
+{% endif %}
+
+{% if viewtype =='left' %}
+  {% assign name_template = 'product-template__left' %}
+{% elsif viewtype =='lefttwo' %}
+  {% assign name_template = 'product-template__lefttwo' %}
+{% elsif viewtype =='right' %}
+  {% assign name_template = 'product-template__right' %}
+{% elsif viewtype =='grid' %}
+  {% assign name_template = 'product-template__grid thumbgrid' %}
+{% elsif viewtype =='gridtwo' %}
+  {% assign name_template = 'product-template__gridtwo thumbgrid' %}
+{% elsif viewtype =='scroll' %}
+  {% assign name_template = 'product-template__scroll' %}
+{% elsif viewtype =='imggrid' %}
+  {% assign name_template = 'product-template__imggrid' %}
+{% elsif viewtype =='sliderimg' %}
+  {% assign name_template = 'product-template__sliderimg' %}
+{% elsif viewtype =='sliderimgtwo' %}
+  {% assign name_template = 'product-template__sliderimgtwo' %}
+{% elsif viewtype =='accordion' %}
+  {% assign name_template = 'product-template__accordion' %}
+{% elsif viewtype =='accordiontwo' %}
+  {% assign name_template = 'product-template__accordiontwo' %}
+{% else %}
+  {% assign name_template = 'product-template__default' %}
+{% endif %}
+{%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+{%- if first_3d_model -%}
+  <link
+    id="ModelViewerStyle"
+    rel="stylesheet"
+    href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+    media="print"
+    onload="this.media='all'"
+  >
+{%- endif -%}
+{%- if sst.aspect == '11' -%}
+  {% assign aspect = '150x150' %}
+{% elsif sst.aspect == '34' %}
+  {% assign aspect = '150x200' %}
+{% elsif sst.aspect == '43' %}
+  {% assign aspect = '200x150' %}
+{% else %}
+  {% assign aspect = '150x' %}
+{%- endif -%}
+<div class="{{ name_template }}">
+  {% include 'nov-breadcrumb', class_br: 'breadcrumb_default' %}
+  <div class="product-template__container" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-enable-history-state="true" data-type="product-template" data-wishlist-product>
+    <meta itemprop="name" content="{{ product.title }}">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
+
+    {%- assign variantCount = product.variants | size -%}
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+    {%- assign product_image = '1120x' -%} 
+    {% if viewtype =='left' %}
+      {% include 'product-template-left', aspect_ratio: aspect %}
+    {% elsif viewtype =='lefttwo' %}
+      {% include 'product-template-lefttwo', aspect_ratio: aspect %}
+    {% elsif viewtype =='right' %}
+      {% include 'product-template-right', aspect_ratio: aspect %}
+    {% elsif viewtype =='grid' %}
+      {% include 'product-template-grid', aspect_ratio: aspect %}
+    {% elsif viewtype =='gridtwo' %}
+      {% include 'product-template-gridtwo', aspect_ratio: aspect %}
+    {% elsif viewtype =='scroll' %}
+      {% include 'product-template-scroll', aspect_ratio: aspect %}
+    {% elsif viewtype =='imggrid' %}
+      {% include 'product-template-img-grid', aspect_ratio: aspect %}
+    {% elsif viewtype =='sliderimg' %}
+      {% include 'product-template-slider-img', aspect_ratio: aspect %}
+    {% elsif viewtype =='sliderimgtwo' %}
+      {% include 'product-template-slider-imgtwo', aspect_ratio: aspect %}
+    {% elsif viewtype =='accordion' %}
+      {% include 'product-template-accordion', aspect_ratio: aspect %}
+    {% elsif viewtype =='accordiontwo' %}
+      {% include 'product-template-accordiontwo', aspect_ratio: aspect %}
+    {% else %}
+      {% include 'product-template-default', aspect_ratio: aspect %}
+    {% endif %}
+    {% if sst.show_policy %}
+      <div class="ProductSignlePolicy section-policy pt-55 pb-55 overflow_hidden">
+        <div class="container">
+          <div class="row">
+            {% for block in section.blocks %}
+              {% if block.type == 'policy' %}
+                {% assign bst = block.settings %}
+                <div class="nov-policy-item style2 style-product-detail{% if sst.bg_i == true %} bg-icon{% endif %} {{ sst.width_xl }} {{ sst.width_lg }} {{ sst.width_md }} {{ sst.width_sm }} {{ sst.width_xs }}{% if bst.class != blank %} {{ bst.class }}{% endif %}">
+                  <div class="policy__item--content d-flex d-md-block d-lg-flex">
+                    {% if bst.policy_icon != blank %}
+                      <div class="policy-icon d-inline-flex align-items-center justify-content-center position-relative mb-md-20 mb-sm-0">
+                        <img class="lazyload" data-src="{{ bst.policy_icon | img_url: '200x' }}" alt="icon_policy">
+                      </div>
+                    {% endif %}
+                    <div class="heading--policy">
+                      {% if bst.title_policy != blank %}
+                        <div class="title-policy f_pr font-800" style="color: {{ sst.text_color }}">{{ bst.title_policy }}</div>
+                      {% endif %}
+                      {% if bst.desc_policy != blank %}
+                        <div class="desc-policy{% if bst.title_policy != blank %} mt-10{% endif %}" style="color: {{ sst.desc_color }}">{{ bst.desc_policy }}</div>
+                      {% endif %}
+                      {% if bst.link != blank %}
+                        <a href="{{ bst.link }}" class="font-600">
+                          {{ bst.tl }}
+                          <i class="zmdi zmdi-chevron-right"></i>
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>  
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% if sst.show_review and settings.show_rating %}
+    <div id="ProductSignleReview" class="product-single__review pt-100 pb-100" style="background: {{ sst.bg_review }};">
+      <div class="container">
+        {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+      </div>
+    </div>
+    {% endif %}
+    {% if sst.show_related %}
+      <div class="BottomContent overflow_hidden">
+        <div class="container">
+          {% include 'nov-related' %}
+        </div>
+      </div>
+    {% endif %}
+    {% if sst.show_stick_product %}
+      {% include 'nov-product-single-sticky-add' %}
+    {% endif %}
+  </div>
+</div>
+{% include 'nov-popup-share' %}
+{% include 'nov-popup-ask' %}
+{%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+{%- if first_3d_model -%}
+  <script type="application/json" id="ProductJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+  <script type="module" defer="" src="https://cdn.shopify.com/shopifycloud/model-viewer-ui/v1.0/model-viewer-ui.en.js"></script>
+  <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+{%- endif -%}
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+{{ 'jquery.products.min.js' | asset_url | script_tag }}
+<script>Shopify.Products.recordRecentlyViewed();</script>
+<script type="module">
+  import Lightbox from '{{ 'photoswipe-lightbox.esm.min.js' | asset_url }}';
+  const leftArrowSVGString = '<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 11 21"> <polyline fill="none" stroke="currentColor"  points="10.5 0.5 0.5 10.5 10.5 20.5" stroke-width="1.25"></polyline></svg>';
+  const rightArrowSVGString = '<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 11 21"><polyline fill="none" stroke="currentColor" points="0.5 0.5 10.5 10.5 0.5 20.5" stroke-width="1.25"></polyline></svg>';
+  const closeArrowSVGString = '<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg>'
+  const lightbox = new Lightbox({
+    gallery: '#proFeaturedImageZoom',
+    children: '.item_img',
+    bgOpacity: 1,
+    showHideAnimationType: 'zoom',
+    loop: false,
+    counter: false,
+    zoom: false,
+    bgClickAction: false,
+    arrowPrevSVG: leftArrowSVGString,
+    arrowNextSVG: rightArrowSVGString,
+    closeSVG: closeArrowSVGString,
+    pswpModule: () => import('{{ 'photoswipe.esm.min.js' | asset_url }}')
+  });
+  lightbox.on('uiRegister', function() {
+    lightbox.pswp.ui.registerElement({
+      name: 'bulletsIndicator',
+      className: 'pswp__bullets-navigation',
+      appendTo: 'wrapper',
+      onInit: (el, pswp) => {
+        let prev;
+        let close;
+        let next;
+        prev = document.createElement('div');
+        prev.className = 'pswp__bullets-prev';
+        close = document.createElement('div');
+        close.className = 'pswp__bullets-close';
+        next = document.createElement('next');
+        next.className = 'pswp__bullets-next';
+
+      }
+    });
+  });
+  lightbox.init();
+</script>
+<script>
+  jQuery('variant-radios :radio, variant-selects select').change(function() {
+    var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+    var optionValue = jQuery(this).val();
+    jQuery(this).parents('fieldset, .product-form__input').find('.variant_current').text(optionValue);
+    // Style image grid
+    if ($(window).width() > 991 ) {
+      if ($('.product-template__imggrid').length > 0 || $('.product-template__scroll').length > 0) {
+        setTimeout(function() {
+            var parent = $('.product-template__imggrid .proFeaturedImage, .product-template__scroll .proFeaturedImage'),
+                active = parent.find('.act'),
+                offset = active.offset().top;
+                $("body,html").animate({scrollTop: offset}, "normal");
+        }, 200);
+      }
+    }
+  });
+</script>
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "aspect",
+        "label": "Product thumb aspect ratio",
+        "default": "34",
+        "options": [
+          {"value": "auto", "label": "auto"},
+          {"value": "11", "label": "1/1"},
+          {"value": "34", "label": "3/4"},
+          {"value": "43", "label": "4/3"}
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_border_thumb",
+        "label": "Show border"
+      },
+      {
+        "type": "color",
+        "id": "c_border",
+        "label": "Border color",
+        "default": "#ececec"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_stick_product",
+        "label": "Show sticky add to cart",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_swatch_enable",
+        "label": "Enable swatch",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "img_swatch",
+        "label": "Enable image swatch",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share",
+        "label": "Show share",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_ask",
+        "label": "Show ask a question",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sizeguide",
+        "label": "Show size guide",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_faq",
+        "label": "Show FAQ",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "faq",
+        "label": "Link to FAQ"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show sku",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_categories",
+        "label": "Show categories",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tags",
+        "label": "Show tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_available",
+        "label": "Show available",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_des",
+        "label": "Show summary description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_zoom",
+        "label": "Enable image zoom",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_progress_deals",
+        "label": "Enable progress bar",
+        "default": true,
+        "info": "[Create metafields 'initial'](https://shopifymate.com/documentation/guide/countdown.html) and add products to display"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_countdown",
+        "label": "Enable countdown day",
+        "default": true,
+        "info": "[Create metafields 'countdownt'](https://shopifymate.com/documentation/guide/countdown.html) and add products to display"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related",
+        "label": "Show Related product",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "related_limit",
+        "label": "Related product limit",
+        "default": 10
+      },
+      {
+        "type": "header",
+        "content": "Accordion"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_description",
+        "label": "Show Description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payments",
+        "label": "Show payments",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "title_payments",
+        "label": "Title payments",
+        "default": "Guaranteed safe checkout:"
+      },
+      {
+        "type": "image_picker",
+        "id": "payments",
+        "label": "Upload Image Payments"
+      },
+      { 
+        "type": "text",
+        "id": "time",
+        "label": "Ship Time",
+        "default": "Orders ship within 5 to 10 business days."
+      },
+      {
+        "type": "text",
+        "id": "size_time",
+        "label": "Size ships time",
+        "default": "12px"
+      },
+      {
+        "type": "color",
+        "id": "color_time",
+        "label": "Color ships time",
+        "default": "#494949"
+      },
+      {
+        "type": "text",
+        "id": "truck",
+        "label": "Transport",
+        "default": "Hoorey ! This item ships free to the US"
+      },
+      {
+        "type": "text",
+        "id": "size_truck",
+        "label": "Size transport",
+        "default": "12px"
+      },
+      {
+        "type": "color",
+        "id": "color_truck",
+        "label": "Color transport",
+        "default": "#494949"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color Tab Description"
+      },
+      {
+        "type": "header",
+        "content": "Block policy"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_policy",
+        "label": "Show policy",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "width_icon",
+        "label": "Max width icon policy (px)",
+        "default": 90
+      },
+      {
+        "type": "number",
+        "id": "height_icon",
+        "label": "Max height icon policy (px)",
+        "default": 30
+      },
+      {
+        "type": "checkbox",
+        "id": "bg_i",
+        "label": "Show background icon"
+      },
+      {
+        "type": "number",
+        "id": "bg_i_w",
+        "label": "Width background icon policy (px)",
+        "default": 85
+      },
+      {
+        "type": "color",
+        "id": "bg_icon",
+        "label": "Background icon",
+        "default": "#ffffff"
+      },
+      {
+        "type": "number",
+        "id": "text_fz",
+        "label": "Title policy font size (px)",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "width_xl",
+        "label": "Width policy large desktop",
+        "info": "Breakpoint 1200px ↑",
+        "default": "col-xl-4",
+        "options": [
+          {"value": "col-xl-1", "label": "1/12"},
+          {"value": "col-xl-2", "label": "2/12"},
+          {"value": "col-xl-3", "label": "3/12"},
+          {"value": "col-xl-4", "label": "4/12"},
+          {"value": "col-xl-5", "label": "5/12"},
+          {"value": "col-xl-6", "label": "6/12"},
+          {"value": "col-xl-7", "label": "7/12"},
+          {"value": "col-xl-8", "label": "8/12"},
+          {"value": "col-xl-9", "label": "9/12"},
+          {"value": "col-xl-10", "label": "10/12"},
+          {"value": "col-xl-11", "label": "11/12"},
+          {"value": "col-xl-12", "label": "12/12"},
+          {"value": "col-xl-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_lg",
+        "label": "Width policy desktop",
+        "info": "Breakpoint 992px ↑",
+        "default": "col-lg-4",
+        "options": [
+          {"value": "col-lg-1", "label": "1/12"},
+          {"value": "col-lg-2", "label": "2/12"},
+          {"value": "col-lg-3", "label": "3/12"},
+          {"value": "col-lg-4", "label": "4/12"},
+          {"value": "col-lg-5", "label": "5/12"},
+          {"value": "col-lg-6", "label": "6/12"},
+          {"value": "col-lg-7", "label": "7/12"},
+          {"value": "col-lg-8", "label": "8/12"},
+          {"value": "col-lg-9", "label": "9/12"},
+          {"value": "col-lg-10", "label": "10/12"},
+          {"value": "col-lg-11", "label": "11/12"},
+          {"value": "col-lg-12", "label": "12/12"},
+          {"value": "col-lg-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_md",
+        "label": "Width policy tablet",
+        "info": "Breakpoint 768px ↑",
+        "default": "col-md-4",
+        "options": [
+          {"value": "col-md-1", "label": "1/12"},
+          {"value": "col-md-2", "label": "2/12"},
+          {"value": "col-md-3", "label": "3/12"},
+          {"value": "col-md-4", "label": "4/12"},
+          {"value": "col-md-5", "label": "5/12"},
+          {"value": "col-md-6", "label": "6/12"},
+          {"value": "col-md-7", "label": "7/12"},
+          {"value": "col-md-8", "label": "8/12"},
+          {"value": "col-md-9", "label": "9/12"},
+          {"value": "col-md-10", "label": "10/12"},
+          {"value": "col-md-11", "label": "11/12"},
+          {"value": "col-md-12", "label": "12/12"},
+          {"value": "col-md-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_sm",
+        "label": "Width policy large mobile",
+        "info": "Breakpoint 576px ↑",
+        "default": "col-sm-12",
+        "options": [
+          {"value": "col-sm-1", "label": "1/12"},
+          {"value": "col-sm-2", "label": "2/12"},
+          {"value": "col-sm-3", "label": "3/12"},
+          {"value": "col-sm-4", "label": "4/12"},
+          {"value": "col-sm-5", "label": "5/12"},
+          {"value": "col-sm-6", "label": "6/12"},
+          {"value": "col-sm-7", "label": "7/12"},
+          {"value": "col-sm-8", "label": "8/12"},
+          {"value": "col-sm-9", "label": "9/12"},
+          {"value": "col-sm-10", "label": "10/12"},
+          {"value": "col-sm-11", "label": "11/12"},
+          {"value": "col-sm-12", "label": "12/12"},
+          {"value": "col-sm-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_xs",
+        "label": "Width policy mobile",
+        "info": "Breakpoint 575px ↓",
+        "default": "col-12",
+        "options": [
+          {"value": "col-1", "label": "1/12"},
+          {"value": "col-2", "label": "2/12"},
+          {"value": "col-3", "label": "3/12"},
+          {"value": "col-4", "label": "4/12"},
+          {"value": "col-5", "label": "5/12"},
+          {"value": "col-6", "label": "6/12"},
+          {"value": "col-7", "label": "7/12"},
+          {"value": "col-8", "label": "8/12"},
+          {"value": "col-9", "label": "9/12"},
+          {"value": "col-10", "label": "10/12"},
+          {"value": "col-11", "label": "11/12"},
+          {"value": "col-12", "label": "12/12"}
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Title policy colors",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "desc_color",
+        "label": "Description policy colors",
+        "default": "#666666"
+      },
+      {
+        "type": "header",
+        "content": "Block review"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_review",
+        "label": "Show review",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "bg_review",
+        "label": "Background review",
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block_text",
+        "name": "Block Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "custom_title",
+            "label": "Block title"
+          },
+          {
+            "type": "richtext",
+            "id": "custom_content",
+            "label": "Block text"
+          }
+        ]
+      },
+      {
+        "type": "block_img",
+        "name": "Block Image",
+        "settings": [
+          {
+            "type": "text",
+            "id": "custom_title",
+            "label": "Block title"
+          },
+          {
+            "type": "image_picker",
+            "id": "custom_content",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "block_video",
+        "name": "Block Video",
+        "settings": [
+          {
+            "type": "text",
+            "id": "custom_title",
+            "label": "Block title"
+          },
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "label": "Video link",
+            "accept": ["youtube", "vimeo"],
+            "info": "Only For Youtube And Vimeo"
+          }
+        ]
+      },
+      {
+        "type": "policy",
+        "name": "Policy Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "policy_icon",
+            "label": "Policy icon"
+          },
+          {
+            "type": "text",
+            "id": "title_policy",
+            "label": "Title policy",
+            "default": "Free Delivery From $ 250"
+          },
+          {
+            "type": "richtext",
+            "id": "desc_policy",
+            "label": "Description policy",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit eiusmod tempor</p>"
+          },
+          {
+            "type": "text",
+            "id": "tl",
+            "label": "Link text"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      },
+      {
+        "type": "block_customtab",
+        "name": "Block Custom Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "custom_title",
+            "label": "Block title"
+          },
+          {
+            "type": "header",
+            "content": "Tab 1"
+          },
+          {
+            "type": "text",
+            "id": "t1",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c1",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 2"
+          },
+          {
+            "type": "text",
+            "id": "t2",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c2",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 3"
+          },
+          {
+            "type": "text",
+            "id": "t3",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c3",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 4"
+          },
+          {
+            "type": "text",
+            "id": "t4",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c4",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 5"
+          },
+          {
+            "type": "text",
+            "id": "t5",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c5",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 6"
+          },
+          {
+            "type": "text",
+            "id": "t6",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c6",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 7"
+          },
+          {
+            "type": "text",
+            "id": "t7",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c7",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 8"
+          },
+          {
+            "type": "text",
+            "id": "t8",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c8",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 9"
+          },
+          {
+            "type": "text",
+            "id": "t9",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c9",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Tab 10"
+          },
+          {
+            "type": "text",
+            "id": "t10",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "c10",
+            "label": "Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% style %}
+  .template-product .style-product-detail img {
+    max-width: {{ sst.width_icon | append: 'px' }};
+    max-height: {{ sst.height_icon | append: 'px' }};
+  }
+  .template-product .style-product-detail.bg-icon .policy-icon {
+    width: {{ sst.bg_i_w | append: 'px' }};
+    min-width: {{ sst.bg_i_w | append: 'px' }};
+    height: {{ sst.bg_i_w | append: 'px' }};
+    border-radius: 100%;
+    background-color: {{ sst.bg_icon }};
+  }
+  {% if sst.show_border_thumb %}
+    .template-product .proFeaturedImage,
+    .template-product .product-template__scroll .proFeaturedImage .item,
+    .template-product .product-template__imggrid .proFeaturedImage .item-block,
+    .template-product .product-template__sliderimg .proFeaturedImage .item-block,
+    .template-product .product-template__sliderimgtwo .proFeaturedImage .item-block {
+      border: 1px solid {{ sst.c_border }};
+    } 
+  {% endif %}
+{% endstyle %}

@@ -1,0 +1,192 @@
+{%- assign sst = section.settings -%}
+{% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<div class="container">
+  {% if page.content.size > 0 %}
+    <div class="rte">{{ page.content }}</div>
+  {% endif %}
+  <div class="PageAboutUs">
+    {% for block in section.blocks %}
+      {%- assign bst = block.settings -%}
+      {% if block.type == 'image' %}
+        {% assign img_url = bst.img %}
+        <div class="respone_image block_img" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+          <img class="lazyload"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+            data-src="{{ img_url | img_url: '180x' }}"
+            data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '1024x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+        </div>
+      {% endif %}
+      {% if block.type == 'text' %}
+        <div class="block_text {{ bst.class }}">
+          {% if bst.title != blank %}
+          <div class="title" style="color: {{ bst.color_title }};font-size: {{ bst.fz_title }};">{{ bst.title }}</div>
+          {% endif %}
+          {% if bst.text_content != blank %}
+            <div class="block_content" style="color: {{ bst.color_content }};font-size: {{ bst.fz_content }};"><p>{{ bst.text_content | nofilter }}</p></div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block.type == 'quote' %}
+        <div class="block_quote d-flex flex-wrap align-items-center {{ bst.class }}" style="background-color: {{ bst.background_color }};">
+          <div class="cos-3 col-lg-3 col-md-3 col-sm-3 cos-img text-center">
+            {% assign img_url = bst.image_quote %}
+            <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+              <img class="lazyload"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                data-src="{{ img_url | img_url: '180x' }}"
+                data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '1024x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+            </div>
+          </div>
+          <div class="cos-9 col-lg-9 col-md-9 col-sm-9 cos-content">
+            <div class="d-flex">
+              <img src="{{ bst.icon_quotes | img_url: '40x32' }}" style="max-height: 32px;" class="lazyload img-fluid" alt="{{ bst.icon_quotes.alt }}">
+              <div class="item_content">
+                <span style="color: {{ bst.color_content }};font-size: {{ bst.fz_content }};line-height: {{ bst.lh_content }};">{{ bst.text_content }}</span>
+                {% if bst.author != blank %}
+                  <div class="item_author" style="color: {{ bst.color_author }};font-size: {{ bst.fz_author }};">{{ bst.author }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Page About Us",
+    "class": "page-inner page-about-us",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "About Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Item image"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "About Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "color",
+            "id": "color_title",
+            "label": "Color Title",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_title",
+            "label": "Font Title",
+            "default": "14px"
+          },
+          {
+            "type": "textarea",
+            "id": "text_content",
+            "label": "Content"
+          },
+          {
+            "type": "color",
+            "id": "color_content",
+            "label": "Color Content",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content",
+            "label": "Font Content",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      },
+      {
+        "type": "quote",
+        "name": "About Quote",
+        "settings": [
+          {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background colors",
+            "default": "#f1f1f1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_quote",
+            "label": "Image Quote"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_quotes",
+            "label": "Icon Quote"
+          },
+          {
+            "type": "richtext",
+            "id": "text_content",
+            "label": "Content"
+          },
+          {
+            "type": "color",
+            "id": "color_content",
+            "label": "Color Content",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content",
+            "label": "Font Content",
+            "default": "2rem"
+          },
+          {
+            "type": "text",
+            "id": "lh_content",
+            "label": "Line Height Content",
+            "default": "40px"
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author",
+            "default": "Kwang Shang. - CEO Vinovathemes"
+          },
+          {
+            "type": "color",
+            "id": "color_author",
+            "label": "Color Author",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_author",
+            "label": "Font Author",
+            "default": "13px"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

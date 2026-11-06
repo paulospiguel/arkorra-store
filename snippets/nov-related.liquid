@@ -1,0 +1,58 @@
+{% assign novLimit = section.settings.related_limit %}
+{% assign currentProduct = product %}
+{% if collection == null or collection.handle == 'all' %}
+    {% assign foundCollection = false %}
+    {% for item in product.collections %}
+        {% if foundCollection == false and item.handle != 'all' and item.all_products_count > 1 %}
+            {% assign foundCollection = true %}
+            {% assign collection = item %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% if collection and collection.products_count > 1 %}
+    <div class="ProductRelated mt-90" data-wishlist-related>
+        <div class="title_block text-uppercase text-center">
+            <span class="c_pr">{{ 'products.product.related' | t }}</span>
+        </div>
+        <div class="grid grid--view-items">
+            <div class="nov-mobile-block">
+                <div class="slick-relatedproduct row spacing-30" data-autoplay="false" data-nav="true" data-dots="false" data-loop="true" data-items="4" data-lg="4" data-md="3" data-sm="2" data-xs="1">
+                    {% for product in collection.products limit: novLimit %}
+                        {% if sectionId == blank %}
+                          {% assign sectionId = section.id %}
+                        {% endif %}
+                        {% unless product.handle == currentProduct.handle %}
+                            <div class="p_item item">
+                                {% render 'product-grid-item-style-1', product: product, sectionId: sectionId %}
+                            </div>
+                        {% endunless %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<style>
+    .slick-relatedproduct:not(.slick-initialized) .item {
+      width: 50%;
+      flex: 0 0 50%;
+    }
+    @media(min-width:  768px) {
+      .slick-relatedproduct:not(.slick-initialized) .item {
+        width: 33.333333%;
+        flex: 0 0 33.333333%;
+      }
+    }
+    @media(min-width:  992px) {
+      .slick-relatedproduct:not(.slick-initialized) .item {
+        width: 25%;
+        flex: 0 0 25%;
+      }
+    }
+    @media(min-width:  1200px) {
+      .slick-relatedproduct:not(.slick-initialized) .item {
+        width: 25%;
+        flex: 0 0 25%;
+      }
+    }
+</style>

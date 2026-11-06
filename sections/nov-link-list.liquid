@@ -1,0 +1,368 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }}">
+        {% if sst.heading != blank %}
+          <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% endif %}
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="row nov-slick-carousel"
+      data-autoplay="false" 
+      data-autoplayTimeout="6000" 
+      data-loop="false"
+      data-nav="false"
+      data-items="{{ sst.grid_number }}" 
+      data-items_lg="{{ sst.grid_number_lg }}" 
+      data-items_md="{{ sst.grid_number_md }}" 
+      data-items_sm="{{ sst.grid_number_sm }}"
+      data-items_xs="{{ sst.grid_number_xs }}"
+      data-unslick="true">
+      {% for block in section.blocks %}
+        {% assign bst = block.settings %}
+        {% assign collection = collections[bst.collection] %}
+        <div class="col">
+          <div class="block_content text-center">
+            <div class="b_img position-relative{% if bst.image_h != blank %} h_img_h{% else %} n_img_h{% endif %}">
+              <a href="{{ collection.url }}" class="d-block">
+                {% if bst.image != blank %}
+                  <img class="img d-inline-block" src="{{ bst.image | img_url: '200x'}}">
+                {% else %}
+                  {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  {{ 'collection-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+                {% if bst.image_h != blank %}
+                  <img class="img_h" src="{{ bst.image_h | img_url: '200x'}}">
+                {% endif %}
+                {% if sst.icon_h != blank %}
+                  <img class="icon_h" src="{{ sst.icon_h | img_url: '50x' }}">
+                {% endif %}
+              </a>
+            </div>
+            <a href="{{ collection.url }}" class="name_item d-block position-relative f_pr font-700 mt-15">{{ collection.title }}</a>
+            {% if collection.products_count.size > 0 %}
+              <div class="sub_text mt-5">{{ collection.products_count }}&nbsp;{{ 'sections.link_list.product' | t }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Link List",
+    "class": "section-link-list",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Link List</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Item style"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius image",
+        "default": 10
+      },
+      {
+        "type": "color",
+        "id": "color_link",
+        "label": "Link text colors",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "color_link_h",
+        "label": "Link text colors hover",
+        "default": "#222222"
+      },
+      {
+        "type": "select",
+        "id": "tt",
+        "label": "Link text transform",
+        "default": "none",
+        "options": [
+          { "value": "capitalize", "label": "Capitalize" },
+          { "value": "uppercase", "label": "Uppercase" },
+          { "value": "none", "label": "None" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_c",
+        "label": "Color text",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "background_i",
+        "label": "Background item",
+        "default": "#f3f3f3"
+      },
+      {
+        "type": "color",
+        "id": "background_i_h",
+        "label": "Background item hover",
+        "default": "#f3f3f3"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_h",
+        "label": "Icon when hover image",
+        "info": "50 x 50px recommended"
+      },
+      {
+        "type":  "header",
+        "content": "Item per row"
+      },
+      {
+        "type": "range",
+        "id": "grid_number",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Item per row large desktop",
+        "default": 3,
+        "info": "Breakpoint 1200px ↑"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_lg",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Item per row desktop",
+        "default": 3,
+        "info": "Breakpoint 1199px ↓"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Item per row tablet",
+        "default": 3,
+        "info": "Breakpoint 991px ↓"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_sm",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Item per row mobile",
+        "default": 2,
+        "info": "Breakpoint 767px ↓"
+      },
+      {
+        "type": "range",
+        "id": "grid_number_xs",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "label": "Item per row small mobile",
+        "default": 1,
+        "info": "Breakpoint 575px ↓"
+      },
+      {
+        "type":  "header",
+        "content": "Design Option"
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Colors",
+        "default": "#ffffff"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "featured_collection",
+        "name": "Link",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "190 x 190px recommended"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_h",
+            "label": "Image hover",
+            "info": "190 x 190px recommended"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Link List",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "featured_collection",
+            "settings":{
+              "collection": "frontpage"
+            }
+          },
+          {
+            "type": "featured_collection",
+            "settings":{
+              "collection": "frontpage"
+            }
+          },
+          {
+            "type": "featured_collection",
+            "settings":{
+              "collection": "frontpage"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");
+      background-repeat: no-repeat;
+      background-position: center top;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .b_img {
+    background: {{ sst.background_i }};
+  }
+  #shopify-section-{{ section.id }} .b_img:hover {
+    background: {{ sst.background_i_h }};
+  }
+  #shopify-section-{{ section.id }} .name_item {
+    color: {{ sst.color_link }};
+    text-transform: {{ sst.tt }};
+  }
+  #shopify-section-{{ section.id }} .name_item:hover {
+    color: {{ sst.color_link_h }};
+  }
+  #shopify-section-{{ section.id }} .sub_text {
+    color: {{ sst.text_c }};
+  }
+  #shopify-section-{{ section.id }} .b_img, #shopify-section-{{ section.id }} .n_img_h a:before {
+    border-radius: {{ sst.border_radius }}%;
+    overflow: hidden;
+  }
+  @media(max-width: 575px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+</style>

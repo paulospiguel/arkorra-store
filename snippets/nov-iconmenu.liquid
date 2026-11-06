@@ -1,0 +1,72 @@
+{% if linklists[child_list_handle].links != blank %}
+  <li class="nav--lv1 parent--lv1 site-nav--Default{{ class_hidden }}{% if link.active %} site-nav--active{% endif %}{% if forloop.last %} last{% endif %}">
+    <a href="{{ link.url }}" class="site-nav__link--main d-flex align-items-center" title="{{ link.title }}">
+      {% if block.settings.icon_menus != blank %}
+        <div class="site-nav--icon">
+          <img class="img-fluid" src="{{ block.settings.icon_menus | img_url: '50x' }}" alt="" />
+        </div>
+      {% endif %}
+      <div class="site-nav--title">
+      {{ link.title }}
+      {% if block.settings.desc != blank %}
+        <div class="site-nav--desc">{{ block.settings.desc }}</div>
+      {% endif %}
+      </div>
+      <span class="site-nav--direc d-none"><i class="zmdi zmdi-chevron-down"></i></span>
+    </a>
+    <div class="nav-dropdown--lv1 MenuDefault">
+      {% if three_level_nav %}
+        {% if linklists[child_list_handle].links != blank %}
+          <ul>
+            {% for childlink in linklists[child_list_handle].links %}
+              {% assign grand_child_list_handle = childlink.title | handle %}
+              <li class="nav--lv2 parent--lv2">
+                <a href="{{ childlink.url }}" class="site-nav__link--second site-nav__link">
+                  <span>{{ childlink.title | escape }}</span>
+                  {% if linklists[grand_child_list_handle].links != blank %}
+                  <span class="site-nav--direc d-none"><i class="zmdi zmdi-chevron-down"></i></span>
+                  {% endif %}
+                </a>
+                {% if linklists[grand_child_list_handle].links != blank %}
+                <div class="nav-dropdown--lv2">
+                  <ul>
+                    {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                      <li>
+                        <a href="{{ grandchildlink.url }}" class="site-nav__link">{{ grandchildlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% else %}
+        <ul>
+          {% for childlink in linklists[child_list_handle].links %}
+            <li {% if childlink.active %}class="site-nav--active"{% endif %}>
+              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </li>
+{% else %}
+  <li class="nav--lv1{% if link.active %} site-nav--active{% endif %}{{ class_hidden }}{% if forloop.last %} last{% endif %}">
+    <a href="{{ link.url }}" class="site-nav__link--main d-flex align-items-center" title="{{ link.title }}">
+      {% if block.settings.icon_menus != blank %}
+        <div class="site-nav--icon">
+          <img class="img-fluid" src="{{ block.settings.icon_menus | img_url: '50x' }}" alt=""/>
+        </div>
+      {% endif %}
+      <div class="site-nav--title">
+        {{ link.title }}
+        {% if block.settings.desc != blank %}
+          <div class="site-nav--desc">{{ block.settings.desc }}</div>
+        {% endif %}
+      </div>
+    </a>
+  </li>
+{% endif %}

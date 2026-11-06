@@ -1,0 +1,497 @@
+{% assign sst = section.settings %}
+{%- assign xxl = 100 | divided_by: sst.xxl -%}
+{%- assign xl = 100 | divided_by: sst.xl -%}
+{%- assign lg = 100 | divided_by: sst.lg -%}
+{%- assign md = 100 | divided_by: sst.md -%}
+{%- assign sm = 100 | divided_by: sst.sm -%}
+{%- assign xs = 100 | divided_by: sst.xs -%}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+  {% endif %}
+    <div class="container-inner position-relative">
+      <div class="d-md-flex justify-content-between align-items-center mb-25">
+        {% if sst.heading != blank or sst.subheading != blank %}
+          <div class="title_section mb-0 mb-sm-10">
+            {% if sst.heading != blank %}
+              <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+            {% endif %}
+            {% if sst.subheading != blank %}
+              <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+        <div class="block-countdown d-md-flex align-items-center text-center text-md-left">
+          {% if sst.countdown_title != blank %}
+            <span class="countdownfree-title text-uppercase font-700 d-flex align-items-center justify-content-center mb-sm-10">
+              {% if sst.icon_cd !=blank %}<i class="{{ sst.icon_cd }}"></i>{% endif %}
+              <span>{{ sst.countdown_title }}</span>
+            </span>
+          {% endif %}
+          <div class="countdownfree d-flex justify-content-center mb-sm-15" data-countdown="{{ sst.countdown_timeend }}" data-show-days="{{ settings.show_day }}" data-restart="{{ settings.restart }}"></div>
+          {% if sst.shop_link != blank %}
+            <a href="{{ sst.shop_link }}" class="countdownfree-link d-inline-block font-700">{{ sst.shop_link_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+      {% comment %} Deal {% endcomment %}
+        <div class="nov-slick-carousel row spacing-{{ sst.spacing }} grid--view-items"
+        data-autoplay="false"
+        data-autoplayTimeout="6000"
+        data-loop="true"
+        data-dots="{{ sst.show_dot }}"
+        data-nav="{{ sst.show_nav }}"
+        data-items_xxl="{{ sst.xxl }}" 
+        data-items="{{ sst.xl }}" 
+        data-items_lg="{{ sst.lg }}" 
+        data-items_md="{{ sst.md }}" 
+        data-items_sm="{{ sst.sm }}"
+        data-items_xs="{{ sst.xs }}"
+        data-row="1">
+          {% for block in section.blocks %}
+            {% assign product = all_products[block.settings.product_handle] %}
+            {% if sectionId == blank %}
+              {% assign sectionId = section.id %}
+            {% endif %}
+            {% if product != empty %}
+              <div class="item p_item col">
+                {% render 'product-grid-item-style-deal', product: product, sectionId: sectionId  %}
+              </div>
+            {% else %}
+              {%- for i in (1..6) -%}
+                {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                <div class="item p_item mb-30">
+                  {{ 'product-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+                </div>
+              {%- endfor -%}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% comment %} End Deal {% endcomment %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vinova Product Deals",
+  "class": "index-section section-product-deals",
+  "settings":[
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Vinova Product Deals</p>"
+    },
+    {
+      "type": "color",
+      "id": "heading_c",
+      "label": "Heading color",
+      "default": "#222222"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub heading",
+      "default": "<p>Subtitle from happy customers</p>"
+    },
+    {
+      "type": "color",
+      "id": "subheading_c",
+      "label": "Sub heading color",
+      "default": "#666666"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Heading alignment",
+      "default": "text-left",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Countdown time"
+    },
+    {
+      "type": "text",
+      "id": "countdown_timeend",
+      "label": "Time end product",
+      "placeholder": "YYYY\/MM\/DD"
+    },
+    {
+      "type": "paragraph",
+      "content": "Format: 'Year\/Month\/Day'"
+    },
+    {
+      "type": "paragraph",
+      "content": "Example: '2022\/01\/30'"
+    },
+    {
+      "type": "text",
+      "id": "countdown_title",
+      "label": "Countdown title"
+    },
+    {
+      "type": "text",
+      "id": "icon_cd",
+      "label": "Icon title countdown",
+      "default": "zmdi zmdi-flash",
+      "info": "Get the icon here: https:\/\/zavoloklom.github.io\/material-design-iconic-font\/icons.html"
+    },
+    {
+      "type": "color",
+      "id": "c_cd",
+      "label": "Color countdown"
+    },
+    {
+      "type": "color",
+      "id": "bg_cd",
+      "label": "Background countdown"
+    },
+    {
+      "type": "text",
+      "id": "shop_link_text",
+      "label": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "shop_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "c_shop_link",
+      "label": "Color link"
+    },
+    {
+      "type": "color",
+      "id": "bg_shop_link",
+      "label": "Background link"
+    },
+    {
+      "type": "color",
+      "id": "c_shop_link_h",
+      "label": "Color link hover"
+    },
+    {
+      "type": "color",
+      "id": "bg_shop_link_h",
+      "label": "Background link hover"
+    },
+    {
+      "type":  "header",
+      "content": "Product item per row"
+    },
+    {
+      "type": "range",
+      "id": "xxl",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Extra desktop",
+      "default": 4,
+      "info": "Breakpoint 1440px ↑"
+    },
+    {
+      "type": "range",
+      "id": "xl",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Large desktop",
+      "default": 4,
+      "info": "Breakpoint 1200px ↑"
+    },
+    {
+      "type": "range",
+      "id": "lg",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Desktop",
+      "default": 4,
+      "info": "Breakpoint 992px ↑"
+    },
+    {
+      "type": "range",
+      "id": "md",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Tablet",
+      "default": 3,
+      "info": "Breakpoint 768px ↑"
+    },
+    {
+      "type": "range",
+      "id": "sm",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Large mobile",
+      "default": 2,
+      "info": "Breakpoint 576px ↑"
+    },
+    {
+      "type": "range",
+      "id": "xs",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Mobile",
+      "default": 2,
+      "info": "Breakpoint 575px ↓"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "label": "Spacing",
+      "default": 30,
+      "info": "Spacing item"
+    },
+    {
+      "type": "header",
+      "content": "Slider options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dot",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "c_dot",
+      "label": "Dots color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav",
+      "label": "Show navigation",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Design options"
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Show animated",
+      "default":   true
+    },
+    {
+      "type": "range",
+      "id": "br_container",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius container",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container",
+      "default": "container",
+      "options": [
+        { "value": "container", "label": "Container" },
+        { "value": "container-fluid", "label": "Container fluid" },
+        { "value": "container-full", "label": "Container full width" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colors"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "bg_size",
+      "label": "Background size",
+      "default": "full",
+      "options": [
+        { "value": "content", "label": "Container" },
+        { "value": "full", "label": "Full width" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "class",
+      "label": "Class"
+    },
+    {
+      "type": "number",
+      "id": "distance_top",
+      "label": "Top spacing section (px)",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "distance_bottom",
+      "label": "Bottom spacing section (px)",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "productcountdownlist",
+      "name": "Product Item",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_handle",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vinova Product Deals",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "productcountdownlist"
+        },
+        {
+          "type": "productcountdownlist"
+        },
+        {
+          "type": "productcountdownlist"
+        },
+        {
+          "type": "productcountdownlist"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  {% if sst.bg_size == 'full' %}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% else %}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      padding-left: {{ sst.spacing | append: 'px' }};
+      padding-right: {{ sst.spacing | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image.src != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% endif %}
+  #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+    width: {{ xs }}%;
+    flex: 0 0 {{ xs }}%;
+  }
+  @media(min-width:  576px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ sm }}%;
+      flex: 0 0 {{ sm }}%;
+    }
+  }
+  @media(min-width:  768px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ md }}%;
+      flex: 0 0 {{ md }}%;
+    }
+  }
+  @media(min-width:  992px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ lg }}%;
+      flex: 0 0 {{ lg }}%;
+    }
+  }
+  @media(min-width:  1200px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ xl }}%;
+      flex: 0 0 {{ xl }}%;
+    }
+  }
+  @media(min-width:  1440px) {
+    #shopify-section-{{ section.id }} .nov-slick-carousel:not(.slick-initialized) .item {
+      width: {{ xxl }}%;
+      flex: 0 0 {{ xxl }}%;
+    }
+  }
+  #shopify-section-{{ section.id }} .progress__bar {
+    background: {{ settings.gradient_deal }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree .item-time {
+    color:  {{ sst.c_cd }};
+    background-color: {{ sst.bg_cd }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree .item-time:after, #shopify-section-{{ section.id }} .countdownfree-title {
+    color: {{ sst.heading_c }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree-title i {
+    color:  {{ sst.bg_cd }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree-link {
+    color: {{ sst.c_shop_link }};
+    background-color: {{ sst.bg_shop_link }};
+  }
+  #shopify-section-{{ section.id }} .countdownfree-link:hover {
+    color: {{ sst.c_shop_link_h }};
+    background-color: {{ sst.bg_shop_link_h }};
+  }
+  #shopify-section-{{ section.id }} .slick-slider .slick-dots button {
+    background-color: {{ sst.c_dot }};
+  }
+  #shopify-section-{{ section.id }} .slick-slider .slick-dots li.slick-active {
+    border-color:  {{ sst.c_dot }};
+  }
+</style>
+

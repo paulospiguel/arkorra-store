@@ -1,0 +1,1183 @@
+{%- assign sst = section.settings -%}
+<div class="{% if sst.bg_size == 'full' %}distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="{% if sst.bg_size == 'content' %}distance{% if sst.class != blank %} {{ sst.class }}{% endif %} {% endif %}container-inner position-relative{% if sst.br_container != 0 %} overflow_hidden{% endif %}">
+      {% if sst.heading != blank or sst.subheading != blank %}
+        <div class="title_section {{ sst.title_alignment }}">
+          {% if sst.heading != blank %}
+            <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+          {% endif %}
+          {% if sst.subheading != blank %}
+            <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="row content-{{ sst.image_size }} spacing-{{ sst.spacing }}{% if sst.position == 'under' %} flex-column-reverse{% endif %}{% if sst.position_lg == 'right' %} flex-lg-row-reverse{% endif %}">
+        <div class="{{ sst.width_img }}">
+          <div class="block-image h-100">
+            {% if sst.image2 != blank or sst.image3 != blank %}
+              <div class="nov-slick-carousel" data-autoplay="{{ sst.autoplay }}" data-autoplaytimeout="{{ sst.time }}000"  data-loop="true" data-dots="{{ sst.show_dots }}" data-nav="false" data-items="1">
+            {% endif %}
+              {% if sst.image != blank %}
+                {% if sst.image2 != blank or sst.image3 != blank or sst.image4 != blank %}
+                  <div class="item">
+                {% endif %}
+                  <div class="h-100 {% if sst.image_animate %}nov-sh-image-2{% endif %}">
+                    {%- render 'nov-aspect-image', image: sst.image, aspect: 'auto' -%}
+                  </div>
+                {% if sst.image2 != blank or sst.image3 != blank or sst.image4 != blank %}
+                  </div>
+                {% endif %}
+              {% else %}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+              {% if sst.image2 != blank %}
+                <div class="item">
+                  <div class="h-100 {% if sst.image_animate %}nov-sh-image-2{% endif %}">
+                    {%- render 'nov-aspect-image', image: sst.image2, aspect: 'auto' -%}
+                  </div>
+                </div>
+              {% endif %}
+              {% if sst.image3 != blank %}
+                <div class="item">
+                  <div class="h-100 {% if sst.image_animate %}nov-sh-image-2{% endif %}">
+                    {%- render 'nov-aspect-image', image: sst.image3, aspect: 'auto' -%}
+                  </div>
+                </div>
+              {% endif %}
+              {% if sst.image4 != blank %}
+                <div class="item">
+                  <div class="h-100 {% if sst.image_animate %}nov-sh-image-2{% endif %}">
+                    {%- render 'nov-aspect-image', image: sst.image4, aspect: 'auto' -%}
+                  </div>
+                </div>
+              {% endif %}
+              {% if sst.image2 != blank or sst.image3 != blank or sst.image4 != blank %}
+              </div>
+              {% endif %}
+          </div>
+        </div>
+        <div class="{{ sst.width_text }} d-flex align-items-{{ sst.text_position_vertical }} justify-content-lg-{{ sst.text_position_horizontal }} mt-md-30">
+          <div class="block-text {{ sst.alignment }} p-4">
+            {% for block in section.blocks %}
+              {% assign bst = block.settings %}
+              {% if block.type == 'text' %}
+                <div class="nov-text {{ bst.t_fw }} block-{{ forloop.index }}{% if bst.ff == 'f_pr' %} f_pr{% endif %}{% if bst.icon != blank %} list-icon{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">{{ bst.text }}</div>
+              {% endif %}
+              {% if block.type == 'btn' %}
+                <div class="block-btn block-{{ forloop.index }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">
+                  <a href="{{ bst.btn_link }}" class="btn btn-1 btn-{{ bst.btn_size }}">{{ bst.btn }}</a>
+                  {% if bst.btn2 != blank %}
+                    <a href="{{ bst.btn_link2 }}" class="btn btn-2 btn-{{ bst.btn_size }}">{{ bst.btn2 }}</a>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if block.type == 'policy' %}
+                <div class="policy block-{{ forloop.index }} {{ bst.style }}{% if bst.p4 != blank %} h-p4{% endif %}{% if bst.bg_icon != 'rgba(0,0,0,0)' and bst.bg_icon != blank %} bg_icon{% endif %}">
+                  {% if bst.p1 != blank or bst.icon1 != blank %}
+                    <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">
+                      <div class="policy-item-content">
+                        {% if bst.icon1 != blank %}
+                          <div class="p-icon text-center icon1">
+                            {% if bst.l1 != blank %}
+                              <a href="{{ bst.l1 }}">
+                            {% endif %}
+                            <img data-src="{{ bst.icon1 | img_url: '250x' }}" class="lazyload d-inline-block">
+                            {% if bst.l1 != blank %}</a>{% endif %}
+                          </div>
+                        {% endif %}
+                        <div class="p-text">
+                          <div class="title">{{ bst.p1 }}</div>
+                          <div class="desc">{{ bst.d1 }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.p2 != blank or bst.icon2 != blank %}
+                    <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.15 }}s">
+                      <div class="policy-item-content">
+                        {% if bst.icon2 != blank %}
+                          <div class="p-icon text-center icon2">
+                            {% if bst.l2 != blank %}
+                              <a href="{{ bst.l2 }}">
+                            {% endif %}
+                            <img data-src="{{ bst.icon2 | img_url: '250x' }}" class="lazyload d-inline-block">
+                            {% if bst.l2 != blank %}</a>{% endif %}
+                          </div>
+                        {% endif %}
+                        <div class="p-text">
+                          <div class="title">{{ bst.p2 }}</div>
+                          <div class="desc">{{ bst.d2 }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.p3 != blank or bst.icon3 != blank %}
+                    <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.2 }}s">
+                      <div class="policy-item-content">
+                        {% if bst.icon3 != blank %}
+                          <div class="p-icon text-center icon3">
+                            {% if bst.l3 != blank %}
+                              <a href="{{ bst.l3 }}">
+                            {% endif %}
+                            <img data-src="{{ bst.icon3 | img_url: '250x' }}" class="lazyload d-inline-block">
+                            {% if bst.l3 != blank %}</a>{% endif %}
+                          </div>
+                        {% endif %}
+                        <div class="p-text">
+                          <div class="title">{{ bst.p3 }}</div>
+                          <div class="desc">{{ bst.d3 }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.p4 != blank or bst.icon4 != blank %}
+                    <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.25 }}s">
+                      <div class="policy-item-content">
+                        {% if bst.icon4 != blank %}
+                          <div class="p-icon text-center icon4">
+                            {% if bst.l4 != blank %}
+                              <a href="{{ bst.l4 }}">
+                            {% endif %}
+                            <img data-src="{{ bst.icon4 | img_url: '250x' }}" class="lazyload d-inline-block">
+                            {% if bst.l4 != blank %}</a>{% endif %}
+                          </div>
+                        {% endif %}
+                        <div class="p-text">
+                          <div class="title">{{ bst.p4 }}</div>
+                          <div class="desc">{{ bst.d4 }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if block.type == 'contact' %}
+                <div class="contact block-{{ forloop.index }}}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">
+                  {% if bst.hotline != blank %}
+                    <div class="item-contact d-flex align-items-center">
+                      <div class="item-icon"><i class="rbb-icon-phone-2"></i></div>
+                      <span class="font-700">{{ bst.hotline }}</span>
+                    </div>
+                  {% endif %}
+                  {% if bst.email != blank %}
+                    <div class="item-contact d-flex align-items-center">
+                      <div class="item-icon"><i class="rbb-icon-email-6"></i></div>
+                      <span>{{ bst.email }}</span>
+                    </div>
+                  {% endif %}
+                  {% if bst.time != blank %}
+                    <div class="item-contact d-flex align-items-center">
+                      <div class="item-icon"><i class="rbb-icon-time-1"></i></div>
+                      <span>{{ bst.time }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Image Width Text",
+    "class": "section-img-text overflow_hidden",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Image Width Text</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Block Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image3",
+        "label": "Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "image4",
+        "label": "Image 4",
+        "info": "=========================="
+      },
+      {
+        "type": "select",
+        "id": "width_img",
+        "label": "Large desktop",
+        "info": "Breakpoint 992px ↑",
+        "default": "col-lg-6",
+        "options": [
+          {"value": "col-lg-1", "label": "1/12"},
+          {"value": "col-lg-2", "label": "2/12"},
+          {"value": "col-lg-3", "label": "3/12"},
+          {"value": "col-lg-4", "label": "4/12"},
+          {"value": "col-lg-5", "label": "5/12"},
+          {"value": "col-lg-6", "label": "6/12"},
+          {"value": "col-lg-7", "label": "7/12"},
+          {"value": "col-lg-8", "label": "8/12"},
+          {"value": "col-lg-9", "label": "9/12"},
+          {"value": "col-lg-10", "label": "10/12"},
+          {"value": "col-lg-11", "label": "11/12"},
+          {"value": "col-lg-12", "label": "12/12"},
+          {"value": "col-lg-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_object_fit",
+        "label": "Image object fit",
+        "default": "cover",
+        "options": [
+          {
+            "value": "cover",
+            "label": "Cover"
+          },
+          {
+            "value": "contain",
+            "label": "Contain"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_size",
+        "label": "Image size",
+        "default": "full",
+        "options": [
+          {
+            "value": "container",
+            "label": "Container"
+          },
+          {
+            "value": "full",
+            "label": "Full"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "img_radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Image radius",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "position_lg",
+        "label": "Image position desktop",
+        "default": "left",
+        "info": "Breakpoint 992px ↑",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "position",
+        "label": "Image position under desktop",
+        "default": "up",
+        "info": "Breakpoint 991px ↓",
+        "options": [
+          {
+            "value": "up",
+            "label": "Up"
+          },
+          {
+            "value": "under",
+            "label": "Under"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "image_animate",
+        "label": "Image animate",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto play slider"
+      },
+      {
+        "type": "range",
+        "id": "time",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Time auto play (seconds)",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "show_dots",
+        "label": "Show dots",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "dots_c",
+        "label": "Dots colors"
+      },
+      {
+        "type": "color",
+        "id": "dots_ca",
+        "label": "Dots active colors"
+      },
+      {
+        "type":  "header",
+        "content": "Block Text"
+      },
+      {
+        "type": "select",
+        "id": "width_text",
+        "label": "Large desktop",
+        "info": "Breakpoint 992px ↑",
+        "default": "col-lg-6",
+        "options": [
+          {"value": "col-lg-1", "label": "1/12"},
+          {"value": "col-lg-2", "label": "2/12"},
+          {"value": "col-lg-3", "label": "3/12"},
+          {"value": "col-lg-4", "label": "4/12"},
+          {"value": "col-lg-5", "label": "5/12"},
+          {"value": "col-lg-6", "label": "6/12"},
+          {"value": "col-lg-7", "label": "7/12"},
+          {"value": "col-lg-8", "label": "8/12"},
+          {"value": "col-lg-9", "label": "9/12"},
+          {"value": "col-lg-10", "label": "10/12"},
+          {"value": "col-lg-11", "label": "11/12"},
+          {"value": "col-lg-12", "label": "12/12"},
+          {"value": "col-lg-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "alignment",
+        "label": "Content alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_position_horizontal",
+        "label": "Content position horizontal",
+        "default": "center",
+        "info": "Breakpoint 992px ↑",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_position_vertical",
+        "label": "Content position vertical",
+        "default": "center",
+        "info": "Breakpoint 992px ↑",
+        "options": [
+          {
+            "value": "start",
+            "label": "Top"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "label": "Spacing",
+        "unit": "px",
+        "default": 30,
+        "info": "Spacing item"
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Vinova Text</p>"
+          },
+          {
+            "type": "color",
+            "id": "tb_c",
+            "label": "Text bold color"
+          },
+          {
+            "type": "range",
+            "id": "t_s",
+            "min": 11,
+            "max": 50,
+            "step": 1,
+            "label": "Text size",
+            "default": 13
+          },
+          {
+            "type": "range",
+            "id": "t_s_md",
+            "min": 11,
+            "max": 50,
+            "step": 1,
+            "label": "Text size tablet",
+            "default": 13,
+            "info": "Breakpoint 991px ↓"
+          },
+          {
+            "type": "color",
+            "id": "t_c",
+            "label": "Text color",
+            "default": "#222222"
+          },
+          {
+            "type": "radio",
+            "id": "ff",
+            "label": "Font family",
+            "default": "f_df",
+            "options": [
+              {"value": "f_df","label": "Body font"},
+              {"value": "f_pr","label": "Heading font"}
+            ]
+          },
+          {
+            "type": "select",
+            "id": "t_fw",
+            "label": "Text font weight",
+            "default": "font-400",
+            "options": [
+              {"value": "font-300","label": "Light"},
+              {"value": "font-400","label": "Regular"},
+              {"value": "font-500","label": "Medium"},
+              {"value": "font-600","label": "SemiBold"},
+              {"value": "font-700","label": "Bold"},
+              {"value": "font-800","label": "ExtraBold"},
+              {"value": "font-900","label": "Black"}
+            ]
+          },
+          {
+            "type": "select",
+            "id": "t_tt",
+            "label": "Text transform",
+            "default": "none",
+            "options": [
+              { "value": "capitalize", "label": "Capitalize" },
+              { "value": "uppercase", "label": "Uppercase" },
+              { "value": "none", "label": "None" }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "t_lh",
+            "label": "Text line height",
+            "default": "1.5"
+          },
+          {
+            "type": "text",
+            "id": "t_lt",
+            "label": "Text letter spacing",
+            "default": "0"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon list",
+            "info": "Icon for unordered list"
+          },
+          {
+            "type": "number",
+            "id": "t_m",
+            "label": "Text max with (px)",
+            "default": 1320
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "btn",
+        "name": "Button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Button",
+            "default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button link"
+          },
+          {
+            "type": "text",
+            "id": "btn2",
+            "label": "Button 2"
+          },
+          {
+            "type": "url",
+            "id": "btn_link2",
+            "label": "Button 2 link"
+          },
+          {
+            "type": "select",
+            "id": "btn_size",
+            "label": "Button size",
+            "default": "normal",
+            "options": [
+              { "value": "normal", "label": "Normal" },
+              { "value": "medium", "label": "Medium" },
+              { "value": "large", "label": "Large" },
+              { "value": "xlarge", "label": "Extra Large" }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "c_btn",
+            "label": "Button color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "b_btn",
+            "label": "Button background color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "c_btn_h",
+            "label": "Button color hover",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "b_btn_h",
+            "label": "Button background color hover",
+            "default": "#222222"
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "policy",
+        "name": "Policy",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Policy 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon1",
+            "label": "Icon"
+          },
+          {
+            "type": "url",
+            "id": "l1",
+            "label": "Link"
+          },
+          {
+            "type": "number",
+            "id": "icon1m",
+            "label": "Icon max width"
+          },
+          {
+            "type": "richtext",
+            "id": "p1",
+            "label": "Text"
+          },
+          {
+            "type": "richtext",
+            "id": "d1",
+            "label": "Description"
+          },
+          {
+            "type": "header",
+            "content": "Policy 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon2",
+            "label": "Icon"
+          },
+          {
+            "type": "url",
+            "id": "l2",
+            "label": "Link"
+          },
+          {
+            "type": "number",
+            "id": "icon2m",
+            "label": "Icon max width"
+          },
+          {
+            "type": "richtext",
+            "id": "p2",
+            "label": "Text"
+          },
+          {
+            "type": "richtext",
+            "id": "d2",
+            "label": "Description"
+          },
+          {
+            "type": "header",
+            "content": "Policy 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon3",
+            "label": "Icon"
+          },
+          {
+            "type": "url",
+            "id": "l3",
+            "label": "Link"
+          },
+          {
+            "type": "number",
+            "id": "icon3m",
+            "label": "Icon max width"
+          },
+          {
+            "type": "richtext",
+            "id": "p3",
+            "label": "Text"
+          },
+          {
+            "type": "richtext",
+            "id": "d3",
+            "label": "Description"
+          },
+          {
+            "type": "header",
+            "content": "Policy 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon4",
+            "label": "Icon"
+          },
+          {
+            "type": "url",
+            "id": "l4",
+            "label": "Link"
+          },
+          {
+            "type": "number",
+            "id": "icon4m",
+            "label": "Icon max width"
+          },
+          {
+            "type": "richtext",
+            "id": "p4",
+            "label": "Text"
+          },
+          {
+            "type": "richtext",
+            "id": "d4",
+            "label": "Description"
+          },
+          {
+            "type": "header",
+            "content": "Style"
+          },
+          {
+            "type": "radio",
+            "id": "style",
+            "label": "Policy style",
+            "default": "style1",
+            "options": [
+              {"value": "style1","label": "Style 1"},
+              {"value": "style2","label": "Style 2"},
+              {"value": "style3","label": "Style 3"}
+            ]
+          },
+          {
+            "type": "color",
+            "id": "bg_icon",
+            "label": "Background icon"
+          },
+          {
+            "type": "range",
+            "id": "w",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "label": "Item per row",
+            "default": 4,
+            "info": "Breakpoint 768px ↑"
+          },
+          {
+            "type": "range",
+            "id": "w_sm",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "label": "Item per row",
+            "default": 2,
+            "info": "Breakpoint 767px ↓"
+          },
+          {
+            "type": "checkbox",
+            "id": "w_auto",
+            "label": "Width item auto"
+          },
+          {
+            "type": "color",
+            "id": "c_p",
+            "label": "Color text",
+            "default": "#222222"
+          },
+          {
+            "type": "number",
+            "id": "p_s",
+            "label": "Font size text (px)",
+            "default": 13
+          },
+          {
+            "type": "color",
+            "id": "c_d",
+            "label": "Color description",
+            "default": "#666666"
+          },
+          {
+            "type": "number",
+            "id": "d_s",
+            "label": "Font size description (px)",
+            "default": 12
+          },
+          {
+            "type": "color",
+            "id": "bg",
+            "label": "Background color"
+          },
+          {
+            "type": "number",
+            "id": "p_m",
+            "label": "Block max with (px)",
+            "default": 1320
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 30
+          }
+        ]
+      },
+      {
+        "type": "contact",
+        "name": "Contact",
+        "settings": [
+          {
+            "type": "color",
+            "id": "c_c",
+            "label": "Color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "c_ic",
+            "label": "Color icon",
+            "default": "#000000"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "hotline",
+            "label": "Hotline"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "email",
+            "label": "Email"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "time",
+            "label": "Open hour"
+          },
+          {
+            "type": "header",
+            "content": "Style"
+          },
+          {
+            "type": "number",
+            "id": "c_s",
+            "label": "Font size (px)",
+            "default": 13
+          },
+          {
+            "type": "number",
+            "id": "c_m",
+            "label": "Block max with (px)",
+            "default": 1320
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 30
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Images With Text",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "text",
+            "settings": {
+              "text": "<p>Lorem ipsum</p>",
+              "t_s": 20,
+              "t_fw": "font-700"
+            }
+          },
+          {
+            "type": "text",
+            "settings": {
+              "text": "<p>Maecenas eu nibh pulvinar, mattis lorem eget, convallis turpis. Maecenas sollicitudin lectus augue, vel vehicula nulla condimentum sit amet. Nam id tellus convallis, sollicitudin est a, rhoncus quam. Ut a sem aliquam, aliquet tortor non, cursus enim. Cras at aliquet risus.</p>",
+              "t_s": 16,
+              "t_fw": "font-400"
+            }
+          },
+          {
+            "type": "btn",
+            "settings": {
+              "btn": "Shop now"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    border-radius: {{ sst.br_container | append: 'px' }};
+    transform: translateZ(0);
+    {% if sst.background_color != blank or bg_image != blank %}
+      background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+      background-size: cover;
+    {% endif %}
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+  #shopify-section-{{ section.id }} .respone_image {
+    border-radius: {{ sst.img_radius }}px 0 {{ sst.img_radius }}px 0;
+    transform: translateZ(0);
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .respone_image img {
+    object-fit: {{ sst.image_object_fit }};
+  }
+  {%- if sst.show_dots -%}
+    #shopify-section-{{ section.id }} .slick-dots li button {
+      background-color: {{ sst.dots_c }};
+    }
+    #shopify-section-{{ section.id }} .slick-dots .slick-active button {
+      background-color: {{ sst.dots_ca }};
+    }
+  {%- endif -%}
+  {% for block in section.blocks %}
+    {% assign bst = block.settings %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text, #shopify-section-{{ section.id }} .nov-text.block-{{ forloop.index }} a {
+      color: {{ bst.t_c }};
+      font-size: {{ bst.t_s | divided_by: 10.0 | append: 'rem' }};
+      line-height: {{ bst.t_lh }};
+      letter-spacing: {{ bst.t_lt | append: 'px' }};
+      text-transform: {{ bst.t_tt }};
+      max-width: {{ bst.t_m | append: 'px' }};
+      margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+    }
+    {% if block.type == 'text' %}
+      {% if bst.icon != blank %}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text li:before {
+          content:  url("{{ bst.icon | img_url: '15x' }}");
+        }
+      {% endif %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text strong {
+        color:  {{ bst.tb_c }};
+      }
+    {% endif %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.block-btn {
+      margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn-1 {
+      color: {{ bst.c_btn }};
+      background-color: {{ bst.b_btn }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn-1:hover {
+      color: {{ bst.c_btn_h }} !important;
+      background-color: {{ bst.b_btn_h }} !important;
+    }
+     #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn-2 {
+      color: {{ bst.b_btn }};
+      border: 1px solid {{ bst.b_btn }};
+      background-color: {{ bst.c_btn }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn-2:hover {
+      color: {{ bst.c_btn_h }} !important;
+      border-color:  transparent;
+      background-color: {{ bst.b_btn_h }} !important;
+    }
+    {% if block.type == 'policy' %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy {
+        color: {{ bst.c_p }} !important;
+        max-width: {{ bst.p_m | append: 'px' }};
+        font-size: {{ bst.p_s | divided_by: 10.0 | append: 'rem' }};
+        margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .desc {
+        color: {{ bst.c_d }} !important;
+        font-size: {{ bst.d_s | divided_by: 10.0 | append: 'rem' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .icon1 img {
+        max-width: {{ bst.icon1m | append: 'px' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .icon2 img {
+        max-width: {{ bst.icon2m | append: 'px' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .icon3 img {
+        max-width: {{ bst.icon3m | append: 'px' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .icon4 img {
+        max-width: {{ bst.icon4m | append: 'px' }};
+      }
+      {% if bst.bg_icon != 'rgba(0,0,0,0)' and bst.bg_icon != blank %}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy .p-icon {
+          background-color: {{ bst.bg_icon }};
+        }
+      {% endif %}
+      {% if bst.bg != 'rgba(0,0,0,0)' and bst.bg != blank %}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }} .policy-item-content {
+          background-color: {{ bst.bg }};
+          border-radius: 10px;
+          overflow: hidden;
+          transform: translateZ(0);
+        }
+      {% endif %}
+      {% if bst.w_auto == false %}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }} .policy-item {
+          width: {{ 100 | divided_by:  bst.w_sm }}%;
+          flex: 0 0 {{ 100 | divided_by:  bst.w_sm }}%;
+        }
+        @media(min-width:  768px) {
+          #shopify-section-{{ section.id }} .block-{{ forloop.index }} .policy-item {
+            width: {{ 100 | divided_by:  bst.w }}%;
+            flex: 0 0 {{ 100 | divided_by:  bst.w }}%;
+          }
+        }
+      {% endif %}
+    {% endif %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.contact {
+      color: {{ bst.c_c }} !important;
+      max-width: {{ bst.c_m | append: 'px' }};
+      font-size: {{ bst.c_s | divided_by: 10.0 | append: 'rem' }};
+      margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.contact .item-icon {
+      color: {{ bst.c_ic }} !important;
+    }
+  {% endfor %}
+  @media(max-width: 991px) {
+    {% for block in section.blocks %}
+      {% assign bst = block.settings %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text {
+        font-size: {{ bst.t_s_md | divided_by: 10.0 | append: 'rem' }};
+      }
+    {% endfor %}
+  }
+</style>

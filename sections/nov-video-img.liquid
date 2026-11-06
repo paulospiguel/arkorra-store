@@ -1,0 +1,319 @@
+{% assign sst = section.settings %}
+{% if sst.xl == 5 %}
+  {%- assign xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign xl = 12 | divided_by: sst.xl | prepend: 'col-xl-' -%}
+{% endif %}
+{% if sst.lg == 5 %}
+  {%- assign lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign lg = 12 | divided_by: sst.lg | prepend: 'col-lg-' -%}
+{% endif %}
+{% if sst.md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: sst.md | prepend: 'col-md-' -%}
+{% endif %}
+{% if sst.sm == 5 %}
+  {%- assign sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign sm = 12 | divided_by: sst.sm | prepend: 'col-sm-' -%}
+{% endif %}
+<div data-section-id="{{ section.id }}">
+  <div class="distance {% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+    {% if sst.container == 'container' %}
+      <div class="container">
+    {% elsif sst.container == 'container-fluid' %}
+      <div class="container-fluid">
+    {% else %}
+      <div class="container-full">
+    {% endif %}
+      <div class="row spacing-{{ sst.spacing }}">
+        {% for block in section.blocks %}
+          {% assign bst = block.settings %}
+          <div class="block-{{ forloop.index }} {{ xl }} {{ lg }} {{ md }} {{ sm }} text-center{% if bst.class != blank %} {{ bst.class }}{% endif %} mb-xs-10">
+            <div class="item youtube position-relative{% if bst.video_url == blank %} n_video{% endif %}">
+              <video playsinline autoplay loop muted style="width: 100%;max-width: 100%; height: 100%; object-fit: cover; position: absolute;left: 0;">
+                <source src="{{ bst.video_url }}" type="video/mp4" />
+              </video>
+              {% assign img_url = bst.image %}
+                {% if img_url != blank %}
+                  <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                    <img class="lazyload"
+                      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                      data-src="{{ img_url | img_url: '180x' }}"
+                      data-srcset="{{ img_url | img_url: '180x' }} 180w,{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1170x' }} 1200w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+                  </div>
+                {% else %}
+                  {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+                  {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              <div class="block_title position-absolute">
+                {% if bst.title_video != blank %}
+                  <div class="title_block text-uppercase mb-35 font-900">{{ bst.title_video }}</div>
+                {% endif %}
+                {% if bst.title_link != blank %}
+                  <a class="cap_link btn" href="{{ bst.cap_link }}">{{ bst.title_link }}</a>
+                {% endif %}
+              </div>
+            </div>
+            {% if bst.subheading_1 != blank %}
+              <div class="sub-title-1 font-700 text-uppercase mt-40">{{ bst.subheading_1 }}</div>
+            {% endif %}
+            {% if bst.subheading_2 != blank %}
+              <div class="sub-title-2{% if bst.subheading_1 == blank %} mt-40{% else %} mt-10{% endif %}">{{ bst.subheading_2 }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Video - Image",
+    "class": "section-video-img",
+    "settings": [
+      {
+        "type":  "header",
+        "content": "Video item per row"
+      },
+      {
+        "type": "range",
+        "id": "xl",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row 1200px ↑",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "lg",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products desktop 992px ↑",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "md",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row tablet 768px ↑",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "sm",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Products per row mobile 575px ↑",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 30,
+        "step": 5,
+        "label": "Spacing",
+        "default": 30,
+        "info": "Spacing item"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video link",
+            "info": "Only for youtube and vimeo"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image cover"
+          },
+          {
+            "type": "text",
+            "id": "title_video",
+            "label": "Title Video",
+            "default": "Autumn is coming"
+          },
+          {
+            "type": "number",
+            "id": "size_title",
+            "label": "Size title",
+            "default": 30
+          },
+          {
+            "type": "color",
+            "id": "color_title",
+            "label": "Color title",
+            "default": "#222"
+          },
+          {
+            "type": "text",
+            "id": "subheading_1",
+            "label": "Subheading",
+            "default": "New arrivals"
+          },
+          {
+            "type": "number",
+            "id": "size_subheading",
+            "label": "Size subheading",
+            "default": 18
+          },
+          {
+            "type": "color",
+            "id": "color_subheading",
+            "label": "Color subheading",
+            "default": "#222"
+          },
+          {
+            "type": "text",
+            "id": "subheading_2",
+            "label": "Description"
+          },
+          {
+            "type": "number",
+            "id": "size_subheading2",
+            "label": "Size description",
+            "default": 13
+          },
+          {
+            "type": "color",
+            "id": "color_subheading2",
+            "label": "Color description",
+            "default": "#222"
+          },
+          {
+            "type": "text",
+            "id": "title_link",
+            "label": "Text button",
+            "default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "cap_link",
+            "label": "Link button"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_c",
+            "label": "Text button color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_ch",
+            "label": "Button color hover",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_br",
+            "label": "Button border color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_b",
+            "label": "Button background",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "btn_label_bh",
+            "label": "Button background hover",
+            "default": "#000000"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Video - Image",
+        "category": "Video",
+        "blocks": [
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .youtube::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, {{ sst.image_overlay_opacity }}%);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  {% for block in section.blocks %}
+    {% assign bst = block.settings %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .title_block {
+      color: {{ bst.color_title }};
+      font-size: {{ bst.size_title | divided_by: 10.0 | append: 'rem' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .sub-title-1 {
+      color: {{ bst.color_subheading }};
+      font-size: {{ bst.size_subheading | divided_by: 10.0 | append: 'rem' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .sub-title-2 {
+      color: {{ bst.color_subheading2 }};
+      font-size: {{ bst.size_subheading2 | divided_by: 10.0 | append: 'rem' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn {
+      color: {{ bst.btn_label_c }} !important;
+      border-color: {{ bst.btn_label_br }} !important;
+      background-color: {{ bst.btn_label_b }} !important;
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .btn:hover {
+      color: {{ bst.btn_label_ch }} !important;
+      border-color: {{ bst.btn_label_bh }} !important;
+      background-color: {{ bst.btn_label_bh }} !important;
+    }
+  {% endfor %}
+</style>

@@ -1,0 +1,571 @@
+{%- assign sst = section.settings -%}
+<style>
+  .page-faqs .nov-slick-carousel .item-content {
+    background-color: {{ sst.bg_name }};
+  }
+  .page-faqs .nov-slick-carousel .item-content:hover {
+    background-color: {{ sst.bg_name_hv }};
+  }
+</style>
+{% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<div class="page-width" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  <div class="container">
+    {% if page.content.size > 0 %}
+      <div class="rte">{{ page.content }}</div>
+    {% endif %}
+
+    <div class="nov-slick-carousel row mb-60"
+      data-autoplay="false" 
+      data-autoplaytimeout="6000"
+      data-loop="true"
+      data-dots="false"
+      data-nav="{{ sst.nav }}"
+      data-items_xxl="{{ sst.xl }}"
+      data-items="{{ sst.xl }}"
+      data-items_lg="{{ sst.lg }}" 
+      data-items_md="{{ sst.md }}" 
+      data-items_sm="{{ sst.sm }}"
+      data-items_xs="{{ sst.xs }}">
+        {% if sst.image1 != blank %}
+        <div class="col">
+          <div class="item-content text-center">
+            {% if sst.link1 != blank %}
+              <a href="{{ sst.link1 }}" class="item-content--block d-block">
+            {% else %}
+              <div class="item-content--block d-block pt-20 pb-15">
+            {% endif %}
+            {% if sst.image1 != blank %}
+              <div class="b_img"><img src="{{ sst.image1 | img_url: '140x'}}" alt=""></div>
+            {% endif %}
+            {% if sst.text1 != blank %}
+              <div class="name_link font-700" style="color: {{ sst.color_link }};font-size: {{ sst.fz_name }};">{{ sst.text1 }}</div>
+            {% endif %}
+            {% if sst.link1 != blank %}
+              </a>
+            {% else %}
+              </div>  
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if sst.image2 != blank %}
+        <div class="col">
+          <div class="item-content text-center">
+            {% if sst.link2 != blank %}
+              <a href="{{ sst.link2 }}" class="item-content--block d-block">
+            {% else %}
+              <div class="item-content--block d-block pt-20 pb-15">
+            {% endif %}
+            {% if sst.image2 != blank %}
+              <div class="b_img"><img src="{{ sst.image2 | img_url: '140x'}}" alt=""></div>
+            {% endif %}
+            {% if sst.text2 != blank %}
+              <div class="name_link font-700" style="color: {{ sst.color_link }};font-size: {{ sst.fz_name }};">{{ sst.text2 }}</div>
+            {% endif %}
+            {% if sst.link2 != blank %}
+              </a>
+            {% else %}
+              </div>  
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if sst.image3 != blank %}
+        <div class="col">
+          <div class="item-content text-center">
+            {% if sst.link3 != blank %}
+              <a href="{{ sst.link3 }}" class="item-content--block d-block">
+            {% else %}
+              <div class="item-content--block d-block pt-20 pb-15">
+            {% endif %}
+            {% if sst.image3 != blank %}
+              <div class="b_img"><img src="{{ sst.image3 | img_url: '140x'}}" alt=""></div>
+            {% endif %}
+            {% if sst.text3 != blank %}
+              <div class="name_link font-700" style="color: {{ sst.color_link }};font-size: {{ sst.fz_name }};">{{ sst.text3 }}</div>
+            {% endif %}
+            {% if sst.link3 != blank %}
+              </a>
+            {% else %}
+              </div>  
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if sst.image4 != blank %}
+        <div class="col">
+          <div class="item-content text-center">
+            {% if sst.link4 != blank %}
+              <a href="{{ sst.link4 }}" class="item-content--block d-block">
+            {% else %}
+              <div class="item-content--block d-block pt-20 pb-15">
+            {% endif %}
+            {% if sst.image4 != blank %}
+              <div class="b_img"><img src="{{ sst.image4 | img_url: '140x'}}" alt=""></div>
+            {% endif %}
+            {% if sst.text4 != blank %}
+              <div class="name_link font-700" style="color: {{ sst.color_link }};font-size: {{ sst.fz_name }};">{{ sst.text4 }}</div>
+            {% endif %}
+            {% if sst.link4 != blank %}
+              </a>
+            {% else %}
+              </div>  
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if sst.image5 != blank %}
+        <div class="col">
+          <div class="item-content text-center">
+            {% if sst.link5 != blank %}
+              <a href="{{ sst.link5 }}" class="item-content--block d-block">
+            {% else %}
+              <div class="item-content--block d-block pt-20 pb-15">
+            {% endif %}
+            {% if sst.image5 != blank %}
+              <div class="b_img"><img src="{{ sst.image5 | img_url: '140x'}}" alt=""></div>
+            {% endif %}
+            {% if sst.text5 != blank %}
+              <div class="name_link font-700" style="color: {{ sst.color_link }};font-size: {{ sst.fz_name }};">{{ sst.text5 }}</div>
+            {% endif %}
+            {% if sst.link5 != blank %}
+              </a>
+            {% else %}
+              </div>  
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if sst.title != blank or sst.text_content != blank %}
+      <div class="faqText">
+        <div class="block_text {{ sst.class }}">
+          {% if sst.title != blank %}
+            <div class="title" style="color: {{ sst.color_title }};font-size: {{ sst.fz_title }};">{{ sst.title }}</div>
+          {% endif %}
+          {% if sst.text_content != blank %}
+            <div class="block_content" style="color: {{ sst.color_content }};font-size: {{ sst.fz_content }};">
+              <p>{{ sst.text_content | nofilter }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="faqWrapper">
+      {% if section.blocks.size > 0 %}
+        <div id="Accordion" role="tablist">
+          {% for block in section.blocks %}
+            {%- assign bst = block.settings -%}
+            <div class="faqs-main {{ bst.class }}{% if forloop.first %} active{% endif %}">
+              <div class="panel-group">
+                <div class="panel-header collapsed"{% if forloop.first %} aria-expanded="true"{% endif %} data-toggle="collapse" href="#Item-{{ forloop.index }}" aria-expanded="false" aria-controls="#Item-{{ forloop.index }}" style="color: {{ bst.color_title }};font-size: {{ bst.fz_title }};">
+                  {{ block.settings.item_title }}
+                </div>
+                <div class="panel-body">
+                  <div id="Item-{{ forloop.index }}" data-parent="#Accordion" class="collapse{% if forloop.first %} show{% endif %}">
+                    <div class="item-content" style="color: {{ bst.color_content }};font-size: {{ bst.fz_content }};">
+                      {{ block.settings.item_content }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if sst.eb_contact %}
+      <div class="faqContact {{ sst.title_alignment }}">
+        {% if sst.title_answer != blank or sst.text_content != blank %}
+          <div class="block_text {{ sst.class }}">
+            {% if sst.sub_answer != blank %}
+              <div class="sub_answer font-700" style="color: {{ sst.c_answer }};font-size: {{ sst.fz_subanswer }};">{{ sst.sub_answer | nofilter }}</div>
+            {% endif %}
+            {% if sst.title_answer != blank %}
+              <div class="title_answer text-uppercase font-800" style="color: {{ sst.c_answer }};font-size: {{ sst.fz_answer }};">{{ sst.title_answer | nofilter }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if sst.eb_button %}
+          <button class="btn btn-2 btn_submit text-center" type="submit" data-toggle="modal" data-target="#popup_contact_faq" >
+            <span>{{ sst.text_button }}</span>
+          </button>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova page FAQs",
+    "class": "page-inner page-faqs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Block list collection"
+      },
+      {
+        "type": "range",
+        "id": "xl",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "label": "Group products per row large desktop",
+        "default": 3,
+        "info": "Breakpoint 1200px ↑"
+      },
+      {
+        "type": "range",
+        "id": "lg",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "label": "Group products per row desktop",
+        "default": 3,
+        "info": "Breakpoint 992px ↑"
+      },
+      {
+        "type": "range",
+        "id": "md",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "label": "Group products per row tablet",
+        "default": 2,
+        "info": "Breakpoint 991px ↓"
+      },
+      {
+        "type": "range",
+        "id": "sm",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "label": "Group products per row mobile",
+        "default": 1,
+        "info": "Breakpoint 768px ↓"
+      },
+      {
+        "type": "range",
+        "id": "xs",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "label": "Group products per row small mobile",
+        "default": 1,
+        "info": "Breakpoint 575px ↓"
+      },
+      {
+        "type": "text",
+        "id": "fz_name",
+        "label": "Font size text",
+        "default": "14px"
+      },
+      {
+        "type": "color",
+        "id": "color_link",
+        "label": "Link text colors",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "bg_name",
+        "label": "Background Name Link",
+        "default": "#f0f0f0"
+      },
+      {
+        "type": "color",
+        "id": "bg_name_hv",
+        "label": "Background Hover Name Link",
+        "default": "#e2e2e2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image 1"
+      },
+      {
+        "type": "text",
+        "id": "text1",
+        "label": "Name Link 1",
+        "default": "Delivery Policy"
+      },
+      {
+        "type": "url",
+        "id": "link1",
+        "label": "Link 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image 2"
+      },
+      {
+        "type": "text",
+        "id": "text2",
+        "label": "Name Link 2",
+        "default": "Delivery Policy"
+      },
+      {
+        "type": "url",
+        "id": "link2",
+        "label": "Link 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image3",
+        "label": "Image 3"
+      },
+      {
+        "type": "text",
+        "id": "text3",
+        "label": "Name Link 3",
+        "default": "Delivery Policy"
+      },
+      {
+        "type": "url",
+        "id": "link3",
+        "label": "Link 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "image4",
+        "label": "Image 4"
+      },
+      {
+        "type": "text",
+        "id": "text4",
+        "label": "Name Link ",
+        "default": "Delivery Policy"
+      },
+      {
+        "type": "url",
+        "id": "link4",
+        "label": "Link 4"
+      },
+      {
+        "type": "image_picker",
+        "id": "image5",
+        "label": "Image 5"
+      },
+      {
+        "type": "text",
+        "id": "text5",
+        "label": "Name Link 5",
+        "default": "Delivery Policy"
+      },
+      {
+        "type": "url",
+        "id": "link5",
+        "label": "Link 5"
+      },
+      {
+        "type": "header",
+        "content": "Block faq"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "color",
+        "id": "color_title",
+        "label": "Color Title",
+        "default": "#232630"
+      },
+      {
+        "type": "text",
+        "id": "fz_title",
+        "label": "Font Title",
+        "default": "14px"
+      },
+      {
+        "type": "textarea",
+        "id": "text_content",
+        "label": "Content"
+      },
+      {
+        "type": "color",
+        "id": "color_content",
+        "label": "Color Content",
+        "default": "#232630"
+      },
+      {
+        "type": "text",
+        "id": "fz_content",
+        "label": "Font Content",
+        "default": "14px"
+      },
+      {
+        "type": "header",
+        "content": "Contact"
+      },
+      {
+        "type": "checkbox",
+        "id": "eb_contact",
+        "label": "Show Contact",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "title_answer",
+        "label": "Title",
+        "default": "We're Here to Help!"
+      },
+      {
+        "type": "color",
+        "id": "c_answer",
+        "label": "Color",
+        "default": "#0d2235"
+      },
+      {
+        "type": "text",
+        "id": "fz_answer",
+        "label": "Font Size",
+        "default": "2.2rem"
+      },
+      {
+        "type": "text",
+        "id": "sub_answer",
+        "label": "Sub Title",
+        "default": "Can't find the answer you are looking for?"
+      },
+      {
+        "type": "color",
+        "id": "c_subanswer",
+        "label": "Color",
+        "default": "#0d2235"
+      },
+      {
+        "type": "text",
+        "id": "fz_subanswer",
+        "label": "Font",
+        "default": "2.2rem"
+      },
+      {
+        "type": "text",
+        "id": "text_button",
+        "label": "Text Button",
+        "default": "Contact us now"
+      },
+      {
+        "type": "text",
+        "id": "fz_button",
+        "label": "Font size",
+        "default": "10px"
+      },
+      {
+        "type": "checkbox",
+        "id": "eb_button",
+        "label": "Color text button customize",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "c_button",
+        "label": "Color",
+        "default": "#fff"
+      },
+      {
+        "type": "checkbox",
+        "id": "eb_bg_button",
+        "label": "Background button customize",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "bg_button",
+        "label": "Background Button",
+        "default": "#0d2235"
+      },
+      {
+        "type": "checkbox",
+        "id": "eb_bg_button_hv",
+        "label": "Background button hover customize",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "bg_button_hv",
+        "label": "Background Button Hover",
+        "default": "#167bd3"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "faq",
+        "name": "FAQs Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "item_title",
+            "label": "Item title"
+          },
+          {
+            "type": "color",
+            "id": "color_title",
+            "label": "Color Title",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_title",
+            "label": "Font Title",
+            "default": "16px"
+          },
+          {
+            "type": "textarea",
+            "id": "item_content",
+            "label": "Item Content"
+          },
+          {
+            "type": "color",
+            "id": "color_content",
+            "label": "Color Content",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_content",
+            "label": "Font Content",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          } 
+        ]
+      }
+    ]
+  }
+{% endschema %}

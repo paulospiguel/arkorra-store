@@ -1,0 +1,227 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.animate == true %} wow fadeInUp animated{% endif %}{% if sst.class != blank %} {{ sst.class }}{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }}">
+        {% if sst.heading != blank %}
+          <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% endif %}
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="block-container position-relative" style="padding-bottom: {{ sst.pb }}%;">
+    {% if sst.media != blank %}
+    <model-viewer toggleable="true" src="{{ sst.media }}" disable-zoom camera-controls="true" style="--poster-color: transparent; position: absolute; top: 0; left: 0; width: 100%; height: 100%" data-shopify-feature="1.12" alt="{{ sst.media.alt }}" poster="{{ sst.media.preview_image }}" data-js-focus-visible="" ar-status="not-presenting" camera-orbit="{{ sst.orbit }}deg" field-of-view="{{ sst.view }}deg" loading="eager"></model-viewer>
+    {% else %}
+      {{ 'hero-apparel-3' | placeholder_svg_tag : 'placeholder-svg' }}
+    {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Image 360 Model",
+    "class": "section-image-360",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Image 360</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "id": "media",
+        "label": "Media",
+        "info": "[Upload file here](/admin/content/files)"
+      },
+      {
+        "type": "range",
+        "id": "pb",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Height",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "view",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "deg",
+        "label": "Field of view",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "orbit",
+        "min": 0,
+        "max": 360,
+        "step": 5,
+        "unit": "deg",
+        "label": "Camera orbit",
+        "default": 0
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Image 360 Model",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {%- assign bg_image = section.settings.background_image -%}
+  {%- if sst.bg_size == 'full' -%}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {%- else -%}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image.src != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {%- endif -%}
+</style>

@@ -1,0 +1,600 @@
+{% assign sst = section.settings %}
+<div class="{% if sst.bg_size == 'full' %}distance{% endif %}{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %} 
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }} mb-70 mb-lg-40">
+        <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="container-inner{% if sst.bg_size == 'content' %} distance{% endif %} position-relative{% if sst.bg_size == 'content' %} overflow_hidden{% endif %}">
+        <div class="row spacing-{{ sst.spacing }}">
+          {% for block in section.blocks %}
+            {% assign bst = block.settings %}
+            <div class="nov-policy-item {{ sst.width_xl }} {{ sst.width_lg }} {{ sst.width_md }} {{ sst.width_sm }} {{ sst.width_xs }}{% if sst.bg_i == true %} bg-icon{% endif %}{% if sst.show_border_item == true %} show-border{% endif %} {% if bst.class != blank %} {{ bst.class }}{% endif %}">
+              {% if sst.style == 'style1' %}
+                <div class="policy__item--content h-100 style1 block-{{ forloop.index }} text-md-center d-flex align-items-center d-md-block">
+                  {% if bst.policy_icon != blank %}
+                    <div class="policy-icon d-inline-flex align-items-center justify-content-center mb-20 mb-sm-0 position-relative">
+                      <img class="lazyload" data-src="{{ bst.policy_icon | img_url: '200x' }}" alt="icon_policy">
+                    </div>
+                  {% endif %}
+                  <div class="heading--policy">
+                    {% if bst.title_policy != blank %}<div class="title-policy f_pr font-800">{{ bst.title_policy }}</div>{% endif %}
+                    {% if bst.sub_policy != blank %}<div class="sub-policy f_pr">{{ bst.sub_policy }}</div>{% endif %}
+                    {% if bst.desc_policy != blank %}<div class="desc-policy{% if bst.title_policy != blank %} mt-15{% endif %}">{{ bst.desc_policy }}</div>{% endif %}
+                    {% if bst.tl != blank %}
+                      <a href="{{ bst.link }}" class="d-block font-600 mt-10 hover:c_df">
+                        {{ bst.tl }}
+                        <i class="zmdi zmdi-chevron-right"></i>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+              {% if sst.style == 'style2' %}
+                <div class="policy__item--content style2 h-100 block-{{ forloop.index }} d-flex align-items-center">
+                  {% if bst.policy_icon != blank %}
+                    <div class="policy-icon d-inline-flex align-items-center justify-content-center position-relative">
+                      <img class="lazyload" data-src="{{ bst.policy_icon | img_url: '200x' }}" alt="icon_policy">
+                    </div>
+                  {% endif %}
+                  <div class="heading--policy">
+                    {% if bst.title_policy != blank %}<div class="title-policy f_pr font-800">{{ bst.title_policy }}</div>{% endif %}
+                    {% if bst.sub_policy != blank %}<div class="sub-policy f_pr">{{ bst.sub_policy }}</div>{% endif %}
+                    {% if bst.desc_policy != blank %}<div class="desc-policy{% if bst.title_policy != blank %} mt-10{% endif %}">{{ bst.desc_policy }}</div>{% endif %}
+                    {% if bst.tl != blank %}
+                      <a href="{{ bst.link }}" class="font-600 hover:c_df">
+                        {{ bst.tl }}
+                        <i class="zmdi zmdi-chevron-right"></i>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>  
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Policy",
+    "class": "section-policy",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Policy</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type":  "header",
+        "content": "Style item policy"
+      },
+      {
+        "type": "select",
+        "id": "style",
+        "label": "Style",
+        "default": "style1",
+        "options": [
+          {"value": "style1", "label": "Style 1"},
+          {"value": "style2", "label": "Style 2"}
+        ],
+        "info": "=========================="
+      },
+      {
+        "type": "number",
+        "id": "width_icon",
+        "label": "Max width icon policy (px)",
+        "default": 90
+      },
+      {
+        "type": "number",
+        "id": "height_icon",
+        "label": "Max height icon policy (px)",
+        "default": 30
+      },
+      {
+        "type": "checkbox",
+        "id": "bg_i",
+        "label": "Show background icon"
+      },
+      {
+        "type": "number",
+        "id": "bg_i_w",
+        "label": "Width background icon policy (px)",
+        "default": 85
+      },
+      {
+        "type": "color",
+        "id": "bg_icon",
+        "label": "Background icon",
+        "default": "#ffffff"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_icon_img",
+        "label": "Background image",
+        "info": "=========================="
+      },
+      {
+        "type": "number",
+        "id": "text_fz",
+        "label": "Title policy font size (px)",
+        "default": 16
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Title policy colors",
+        "default": "#222222"
+      },
+      {
+        "type": "number",
+        "id": "sub_fz",
+        "label": "Sub title policy font size (px)",
+        "default": 14
+      },
+      {
+        "type": "color",
+        "id": "sub_color",
+        "label": "Sub title policy colors",
+        "default": "#444"
+      },
+      {
+        "type": "number",
+        "id": "desc_fz",
+        "label": "Description policy font size (px)",
+        "default": 13
+      },
+      {
+        "type": "color",
+        "id": "desc_color",
+        "label": "Description policy colors",
+        "default": "#666666",
+        "info": "=========================="
+      },
+      {
+        "type": "checkbox",
+        "id": "bg_item",
+        "label": "Show background item"
+      },
+      {
+        "type": "color",
+        "id": "bg_itemcolor",
+        "label": "Item background color"
+      },
+      {
+        "type": "range",
+        "id": "bd_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius item when show background",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "show_border_item",
+        "label": "Show border item"
+      },
+      {
+        "type": "color",
+        "id": "c_border",
+        "label": "Border color"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_boxshadow",
+        "label": "Box shadow item"
+      },
+      {
+        "type": "color",
+        "id": "c_boxshadow",
+        "label": "Box shadow color"
+      },
+      {
+        "type":  "header",
+        "content": "Width policy item per row"
+      },
+      {
+        "type": "select",
+        "id": "width_xl",
+        "label": "Large desktop",
+        "info": "Breakpoint 1200px ↑",
+        "default": "col-xl-4",
+        "options": [
+          {"value": "col-xl-1", "label": "1/12"},
+          {"value": "col-xl-2", "label": "2/12"},
+          {"value": "col-xl-3", "label": "3/12"},
+          {"value": "col-xl-4", "label": "4/12"},
+          {"value": "col-xl-5", "label": "5/12"},
+          {"value": "col-xl-6", "label": "6/12"},
+          {"value": "col-xl-7", "label": "7/12"},
+          {"value": "col-xl-8", "label": "8/12"},
+          {"value": "col-xl-9", "label": "9/12"},
+          {"value": "col-xl-10", "label": "10/12"},
+          {"value": "col-xl-11", "label": "11/12"},
+          {"value": "col-xl-12", "label": "12/12"},
+          {"value": "col-xl-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_lg",
+        "label": "Desktop",
+        "info": "Breakpoint 992px ↑",
+        "default": "col-lg-4",
+        "options": [
+          {"value": "col-lg-1", "label": "1/12"},
+          {"value": "col-lg-2", "label": "2/12"},
+          {"value": "col-lg-3", "label": "3/12"},
+          {"value": "col-lg-4", "label": "4/12"},
+          {"value": "col-lg-5", "label": "5/12"},
+          {"value": "col-lg-6", "label": "6/12"},
+          {"value": "col-lg-7", "label": "7/12"},
+          {"value": "col-lg-8", "label": "8/12"},
+          {"value": "col-lg-9", "label": "9/12"},
+          {"value": "col-lg-10", "label": "10/12"},
+          {"value": "col-lg-11", "label": "11/12"},
+          {"value": "col-lg-12", "label": "12/12"},
+          {"value": "col-lg-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_md",
+        "label": "Tablet",
+        "info": "Breakpoint 768px ↑",
+        "default": "col-md-4",
+        "options": [
+          {"value": "col-md-1", "label": "1/12"},
+          {"value": "col-md-2", "label": "2/12"},
+          {"value": "col-md-3", "label": "3/12"},
+          {"value": "col-md-4", "label": "4/12"},
+          {"value": "col-md-5", "label": "5/12"},
+          {"value": "col-md-6", "label": "6/12"},
+          {"value": "col-md-7", "label": "7/12"},
+          {"value": "col-md-8", "label": "8/12"},
+          {"value": "col-md-9", "label": "9/12"},
+          {"value": "col-md-10", "label": "10/12"},
+          {"value": "col-md-11", "label": "11/12"},
+          {"value": "col-md-12", "label": "12/12"},
+          {"value": "col-md-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_sm",
+        "label": "Large mobile",
+        "info": "Breakpoint 576px ↑",
+        "default": "col-sm-12",
+        "options": [
+          {"value": "col-sm-1", "label": "1/12"},
+          {"value": "col-sm-2", "label": "2/12"},
+          {"value": "col-sm-3", "label": "3/12"},
+          {"value": "col-sm-4", "label": "4/12"},
+          {"value": "col-sm-5", "label": "5/12"},
+          {"value": "col-sm-6", "label": "6/12"},
+          {"value": "col-sm-7", "label": "7/12"},
+          {"value": "col-sm-8", "label": "8/12"},
+          {"value": "col-sm-9", "label": "9/12"},
+          {"value": "col-sm-10", "label": "10/12"},
+          {"value": "col-sm-11", "label": "11/12"},
+          {"value": "col-sm-12", "label": "12/12"},
+          {"value": "col-sm-cus-5", "label": "1/5"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "width_xs",
+        "label": "Mobile",
+        "info": "Breakpoint 575px ↓",
+        "default": "col-12",
+        "options": [
+          {"value": "col-1", "label": "1/12"},
+          {"value": "col-2", "label": "2/12"},
+          {"value": "col-3", "label": "3/12"},
+          {"value": "col-4", "label": "4/12"},
+          {"value": "col-5", "label": "5/12"},
+          {"value": "col-6", "label": "6/12"},
+          {"value": "col-7", "label": "7/12"},
+          {"value": "col-8", "label": "8/12"},
+          {"value": "col-9", "label": "9/12"},
+          {"value": "col-10", "label": "10/12"},
+          {"value": "col-11", "label": "11/12"},
+          {"value": "col-12", "label": "12/12"}
+        ]
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "unit": "px",
+        "label": "Spacing item",
+        "default": 30
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          {"value": "container", "label": "Container"},
+          {"value": "container-fluid", "label": "Container fluid"},
+          {"value": "container-full", "label": "Container full width"}
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "range",
+        "id": "bg_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "label": "Background opacity",
+        "default": 100
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item_policy",
+        "name": "Policy Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "policy_icon",
+            "label": "Policy icon"
+          },
+          {
+            "type": "text",
+            "id": "title_policy",
+            "label": "Title policy",
+            "default": "Free Delivery From $ 250"
+          },
+          {
+            "type": "text",
+            "id": "sub_policy",
+            "label": "Sub title policy"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "desc_policy",
+            "label": "Description policy",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit eiusmod tempor"
+          },
+          {
+            "type": "number",
+            "id": "mw",
+            "label": "Max width",
+            "default": 500
+          },
+          {
+            "type": "text",
+            "id": "tl",
+            "label": "Link text"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Policy",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "item_policy"
+          },
+          {
+            "type": "item_policy"
+          },
+          {
+            "type": "item_policy"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    border-radius: {{ sst.br_container | append: 'px' }};
+    {% if sst.background_color != blank or bg_image != blank %}
+      background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+      background-size: cover;
+    {% endif %}
+  }
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+  #shopify-section-{{ section.id }} .title-policy {
+    font-size: {{ sst.text_fz | divided_by: 10.0 | append: 'rem' }};
+    color: {{ sst.text_color }};
+  }
+  #shopify-section-{{ section.id }} .sub-policy {
+    font-size: {{ sst.sub_fz | divided_by: 10.0 | append: 'rem' }};
+    color: {{ sst.sub_color }};
+  }
+  #shopify-section-{{ section.id }} .desc-policy {
+    font-size: {{ sst.desc_fz | divided_by: 10.0 | append: 'rem' }};
+    color: {{ sst.desc_color }};
+  }
+  #shopify-section-{{ section.id }} a {
+    color: {{ sst.desc_color }};
+  }
+
+  #shopify-section-{{ section.id }} img {
+    max-width: {{ sst.width_icon | append: 'px' }};
+    max-height: {{ sst.height_icon | append: 'px' }};
+  }
+  #shopify-section-{{ section.id }} .bg-icon .policy-icon {
+    width: {{ sst.bg_i_w | append: 'px' }};
+    min-width: {{ sst.bg_i_w | append: 'px' }};
+    height: {{ sst.bg_i_w | append: 'px' }};
+    border-radius: 100%;
+    {% if sst.bg_icon != blank or sst.bg_icon_img != blank -%}
+      background: {{ sst.bg_icon }}{% if sst.bg_icon_img != blank %} url("{{ sst.bg_icon_img | img_url: '1920x' }}"){% endif %} no-repeat center;
+      background-size: cover;
+    {%- endif -%}
+  }
+  {%- if sst.bg_item %}
+    #shopify-section-{{ section.id }} .policy__item--content {
+      background-color: {{ sst.bg_itemcolor }};
+      border-radius: {{ sst.bd_radius }}px 0 {{ sst.bd_radius }}px 0;
+      padding: 1.5rem 2rem;
+    }
+    @media(min-width:  768px) {
+      #shopify-section-{{ section.id }} .policy__item--content {
+        padding: 2rem;
+      }
+    }
+    @media(min-width:  1200px) {
+      #shopify-section-{{ section.id }} .policy__item--content {
+        padding: 4rem 3rem;
+      }
+    }
+  {% endif -%}
+  {%- if sst.show_border_item %}
+    #shopify-section-{{ section.id }} .show-border:not(:last-child) {
+      border-color: {{ sst.c_border }};
+    }
+  {% endif -%}
+  {%- if sst.show_boxshadow %}
+    #shopify-section-{{ section.id }} .policy__item--content {
+      box-shadow: 5px 5px 15px rgba({{ sst.c_boxshadow | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 10%);
+    }
+  {% endif -%}
+  {% for block in section.blocks %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }} .desc-policy {
+      max-width: {{ block.settings.mw | append: 'px' }};
+    }
+  {% endfor %}
+</style>

@@ -1,0 +1,299 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}"  data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.has_fullwidth == false %}
+    <div class="container">
+  {% endif %}
+    {% if sst.heading != blank %}
+      <div class="title_section {{ sst.title_alignment }} mb-100 mb-lg-50">
+        <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="nov-slick-carousel row{% if sst.show_dot %} pb-90 pb-sm-30{% endif %}"
+        data-autoplay="false" 
+        data-autoplayTimeout="6000" 
+        data-loop="false"
+        data-dots="{{ sst.show_dot }}" 
+        data-nav="false"
+        data-items_xl="1"
+        data-items="1" 
+        data-items_lg_tablet="1" 
+        data-items_tablet="1" 
+        data-items_mobile="1"
+        data-items_mobile_xs="1">
+        {% for block in section.blocks %}
+        {% assign bst = block.settings %}
+          <div class="col block_content{% if bst.class != blank %} {{ bst.class }}{% endif %}">
+            <div class="row align-items-center">
+              <div class="text--item w-lg-29 col-md-4 pt-20 pb-20 position-relative">
+                {% if bst.price != blank %}
+                  <div class="price pb-20 font-700 f_pr" style="color: {{ sst.price_c }}">{{ bst.price }}</div>
+                {% endif %}
+                {% if bst.subtitle != blank %}
+                  <div class="sub_title mt-25 text-uppercase font-800" style="color: {{ sst.subtitle_c }}">{{ bst.subtitle }}</div>
+                {% endif %}
+                {% if bst.des != blank %}
+                  <div class="des mt-10" style="color: {{ sst.desc_c }}">{{ bst.des }}</div>
+                {% endif %}
+              </div>
+              <div class="image--item w-lg-42 col-md-4 text-center position-relative">
+                {% if bst.image != blank %}
+                  <img class="image m-auto" src="{{ bst.image | img_url: '570x' }}" alt="image">
+                {% else %}
+                  {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  {{ 'collection-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg m-auto image' }}
+                {% endif %}
+              </div>
+              <div class="text--item w-lg-29 col-md-4 pt-20 pb-20 position-relative">
+                {% if bst.name != blank %}
+                  <div class="name font-700 f_pr text-uppercase" style="color: {{ sst.name_c }}">{{ bst.name }}</div>
+                {% endif %}
+                {% if bst.btn != blank %}
+                  <a href="{{ bst.link }}" class="btn w-100 mt-40 black font-700">{{ bst.btn }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% if sst.has_fullwidth == false %}
+    </div>
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": "Product Image Slider",
+    "class": "section-product-img-slider",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<p>Vinova Product Image</p>"
+      },
+      {
+        "type": "color",
+        "id": "heading_c",
+        "label": "Heading color",
+        "default": "#222222"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Subtitle from happy customers</p>"
+      },
+      {
+        "type": "color",
+        "id": "subheading_c",
+        "label": "Sub heading color",
+        "default": "#666666"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_dot",
+        "label": "Show dots",
+        "default": true
+      },
+      {
+        "type":  "header",
+        "content": "Style item"
+      },
+      {
+        "type": "color",
+        "id": "price_c",
+        "label": "Price color",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "subtitle_c",
+        "label": "Sub title color",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "desc_c",
+        "label": "Description color",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "name_c",
+        "label": "Product name color",
+        "default": "#222222"
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full Width",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image_i",
+        "label": "Background image item"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block_item",
+        "name": "Block Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "price",
+            "label": "Price",
+            "default": "Price: $736.00"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Sub title",
+            "default": "Lorem ipsum"
+          },
+          {
+            "type": "richtext",
+            "id": "des",
+            "label": "Description",
+            "default": "<p>Adipiscing elit. Proin gravida tempor ante et placerat. Curabitur lobortis augue diam, nec laoreet tortor elementum ut.</p>"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Product name",
+            "default": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Button",
+            "default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Product Image Slider",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "block_item"
+          },
+          {
+            "type": "block_item"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{%- assign bg_image = sst.background_image -%}
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    {% endif %}
+  }
+  {% if sst.background_image_i != blank %}
+    #shopify-section-{{ section.id }} .image--item:before {
+      background-image: url({{ sst.background_image_i | img_url: '720x' }});
+      background-size: cover;
+      background-position: center;
+    }
+  {% endif %}
+  @media(max-width: 991px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+</style>

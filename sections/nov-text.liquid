@@ -1,0 +1,788 @@
+{% assign sst = section.settings %}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    <div class="container-inner position-relative overflow_hidden">
+      <div class="nov-block__text {{ sst.title_alignment }}"{% if sst.show_seemore %} nov-item-act data-act="{{ section.id }}"{% endif %}>
+        {% for block in section.blocks %}
+          {% assign bst = block.settings %}
+          {% if block.type == 'text' %}
+            <div class="nov-text {{ bst.t_fw }}{% if bst.ff == 'f_pr' %} f_pr{% endif %} block-{{ forloop.index }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">{{ bst.text }}</div>
+          {% endif %}
+          {% if block.type == 'btn' %}
+            <a href="{{ bst.btn_link }}" class="btn btn-{{ bst.btn_size }} block-{{ forloop.index }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">{{ bst.btn }}</a>
+          {% endif %}
+          {% if block.type == 'image' %}
+            <div class="nov-image block-{{ forloop.index }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">
+              <div class="image-content">
+                {% if bst.link != blank %}
+                  <a href="{{ bst.btn_link }}">
+                {% endif %}
+                  {%- render 'nov-aspect-image', image: bst.image, aspect: 'auto' -%}
+                {% if bst.link != blank %}</a>{% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% if block.type == 'policy' %}
+            <div class="policy block-{{ forloop.index }} {{ bst.style }}{% if bst.bg_p != 'rgba(0,0,0,0)' and bst.bg_p != blank %} bg_item{% endif %}">
+              {% if bst.p1 != blank %}
+                <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.1 }}s">
+                  <div class="policy-content">
+                    {% if bst.icon1 != blank %}
+                      <div class="p-icon text-center"><img data-src="{{ bst.icon1 | img_url: '100x' }}" class="lazyload d-inline-block"></div>
+                    {% endif %}
+                    <span>{{ bst.p1 }}</span>
+                  </div>
+                </div>
+              {% endif %}
+              {% if bst.p2 != blank %}
+                <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.15 }}s">
+                  <div class="policy-content">
+                    {% if bst.icon2 != blank %}
+                      <div class="p-icon text-center"><img data-src="{{ bst.icon2 | img_url: '100x' }}" class="lazyload d-inline-block"></div>
+                    {% endif %}
+                    <span>{{ bst.p2 }}</span>
+                  </div>
+                </div>
+              {% endif %}
+              {% if bst.p3 != blank %}
+                <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.2 }}s">
+                  <div class="policy-content">
+                    {% if bst.icon3 != blank %}
+                      <div class="p-icon text-center"><img data-src="{{ bst.icon3 | img_url: '100x' }}" class="lazyload d-inline-block"></div>
+                    {% endif %}
+                    <span>{{ bst.p3 }}</span>
+                  </div>
+                </div>
+              {% endif %}
+              {% if bst.p4 != blank %}
+                <div class="policy-item{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.25 }}s">
+                  <div class="policy-content">
+                    {% if bst.icon4 != blank %}
+                      <div class="p-icon text-center"><img data-src="{{ bst.icon4 | img_url: '100x' }}" class="lazyload d-inline-block"></div>
+                    {% endif %}
+                    <span>{{ bst.p4 }}</span>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if block.type == 'number' %}
+            <div class="nov-number block-{{ forloop.index }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-wow-delay="{{ forloop.index | times: 0.3 }}s">
+              <div class="number-content d-flex align-items-center">
+                {% if bst.n1 != blank %}
+                  <div class="number-item">
+                    <div class="number"><span class="number-animate">{{ bst.n1 }}</span>+</div>
+                    {% if bst.n1t != blank %}
+                      <div class="number-title">{{ bst.n1t }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if bst.n2 != blank %}
+                  <div class="number-item">
+                    <div class="number"><span class="number-animate">{{ bst.n2 }}</span>+</div>
+                    {% if bst.n2t != blank %}
+                      <div class="number-title">{{ bst.n2t }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if bst.n3 != blank %}
+                  <div class="number-item">
+                    <div class="number"><span class="number-animate">{{ bst.n3 }}</span>+</div>
+                    {% if bst.n3t != blank %}
+                      <div class="number-title">{{ bst.n3t }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if bst.n4 != blank %}
+                  <div class="number-item">
+                    <div class="number"><span class="number-animate">{{ bst.n4 }}</span>+</div>
+                    {% if bst.n4t != blank %}
+                      <div class="number-title">{{ bst.n4t }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if sst.show_seemore %}
+        <div class="btn-show__content text-center font-600 text-uppercase mt-20" nov-btn-act data-toggle="{{ section.id }}">
+          <span class="see_more pointer c_df hover:c_pr">{{ 'general.button.see_more' | t }}</span>
+          <span class="see_less pointer c_df hover:c_pr">{{ 'general.button.see_less' | t }}</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Text",
+    "class": "section-text",
+    "settings": [
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Content alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_seemore",
+        "label": "Show button see more"
+      },
+      {
+        "type":  "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "range",
+        "id": "br_container",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius container",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "show_boxshadow",
+        "label": "Box shadow item"
+      },
+      {
+        "type": "color",
+        "id": "c_boxshadow",
+        "label": "Box shadow color"
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "bg_size",
+        "label": "Background size",
+        "default": "full",
+        "options": [
+          { "value": "content", "label": "Container" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Vinova Text</p>"
+          },
+          {
+            "type": "color",
+            "id": "tb_c",
+            "label": "Text bold color"
+          },
+          {
+            "type": "range",
+            "id": "t_s",
+            "min": 11,
+            "max": 50,
+            "step": 1,
+            "label": "Text size",
+            "default": 13
+          },
+          {
+            "type": "range",
+            "id": "t_s_md",
+            "min": 11,
+            "max": 50,
+            "step": 1,
+            "label": "Text size tablet",
+            "default": 13,
+            "info": "Breakpoint 991px ↓"
+          },
+          {
+            "type": "color",
+            "id": "t_c",
+            "label": "Text color",
+            "default": "#222222"
+          },
+          {
+            "type": "radio",
+            "id": "ff",
+            "label": "Font family",
+            "default": "f_df",
+            "options": [
+              {"value": "f_df","label": "Body font"},
+              {"value": "f_pr","label": "Heading font"}
+            ]
+          },
+          {
+            "type": "select",
+            "id": "t_fw",
+            "label": "Text font weight",
+            "default": "font-400",
+            "options": [
+              {"value": "font-300","label": "Light"},
+              {"value": "font-400","label": "Regular"},
+              {"value": "font-500","label": "Medium"},
+              {"value": "font-600","label": "SemiBold"},
+              {"value": "font-700","label": "Bold"},
+              {"value": "font-800","label": "ExtraBold"},
+              {"value": "font-900","label": "Black"}
+            ]
+          },
+          {
+            "type": "select",
+            "id": "t_tt",
+            "label": "Text transform",
+            "default": "none",
+            "options": [
+              { "value": "capitalize", "label": "Capitalize" },
+              { "value": "uppercase", "label": "Uppercase" },
+              { "value": "none", "label": "None" }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "t_lh",
+            "label": "Text line height",
+            "default": "1.5"
+          },
+          {
+            "type": "text",
+            "id": "t_lt",
+            "label": "Text letter spacing",
+            "default": "0"
+          },
+          {
+            "type": "number",
+            "id": "t_m",
+            "label": "Text max with (px)",
+            "default": 1320
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "btn",
+        "name": "Button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Button",
+            "default": "Read more"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button link"
+          },
+          {
+            "type": "select",
+            "id": "btn_size",
+            "label": "Button size",
+            "default": "normal",
+            "options": [
+              { "value": "normal", "label": "Normal" },
+              { "value": "medium", "label": "Medium" },
+              { "value": "large", "label": "Large" },
+              { "value": "xlarge", "label": "Extra Large" }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "c_btn",
+            "label": "Button color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "b_btn",
+            "label": "Button background color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "c_btn_h",
+            "label": "Button color hover",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "b_btn_h",
+            "label": "Button background color hover",
+            "default": "#222222"
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "policy",
+        "name": "Policy",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Policy 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon1",
+            "label": "Icon 1"
+          },
+          {
+            "type": "richtext",
+            "id": "p1",
+            "label": "Text 1"
+          },
+          {
+            "type": "header",
+            "content": "Policy 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon2",
+            "label": "Icon 2"
+          },
+          {
+            "type": "richtext",
+            "id": "p2",
+            "label": "Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Policy 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon3",
+            "label": "Icon 3"
+          },
+          {
+            "type": "richtext",
+            "id": "p3",
+            "label": "Text 3"
+          },
+          {
+            "type": "header",
+            "content": "Policy 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon4",
+            "label": "Icon 4"
+          },
+          {
+            "type": "richtext",
+            "id": "p4",
+            "label": "Text 4",
+            "info": "======================="
+          },
+          {
+            "type": "radio",
+            "id": "style",
+            "label": "Policy style",
+            "default": "style1",
+            "options": [
+              {"value": "style1","label": "Style 1"},
+              {"value": "style2","label": "Style 2"}
+            ]
+          },
+          {
+            "type": "range",
+            "id": "w",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "label": "Item per row",
+            "default": 4,
+            "info": "Breakpoint 576px ↑"
+          },
+          {
+            "type": "number",
+            "id": "p_s",
+            "label": "Font size (px)",
+            "default": 13
+          },
+          {
+            "type": "color",
+            "id": "c_p",
+            "label": "Color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "bg_p",
+            "label": "Background item",
+            "default": "#fff"
+          },
+          {
+            "type": "number",
+            "id": "p_m",
+            "label": "Block max with (px)",
+            "default": 1320
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 30
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "max_w",
+            "label": "Max width"
+          },
+          {
+            "type": "number",
+            "id": "w",
+            "label": "Width (px)"
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 30
+          }
+        ]
+      },
+      {
+        "type": "number",
+        "name": "Number",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Number 1"
+          },
+          {
+            "type": "number",
+            "id": "n1",
+            "label": "Number"
+          },
+          {
+            "type": "text",
+            "id": "n1t",
+            "label": "Text"
+          },
+          {
+            "type": "header",
+            "content": "Number 2"
+          },
+          {
+            "type": "number",
+            "id": "n2",
+            "label": "Number"
+          },
+          {
+            "type": "text",
+            "id": "n2t",
+            "label": "Text"
+          },
+          {
+            "type": "header",
+            "content": "Number 3"
+          },
+          {
+            "type": "number",
+            "id": "n3",
+            "label": "Number"
+          },
+          {
+            "type": "text",
+            "id": "n3t",
+            "label": "Text"
+          },
+          {
+            "type": "header",
+            "content": "Number 4"
+          },
+          {
+            "type": "number",
+            "id": "n4",
+            "label": "Number"
+          },
+          {
+            "type": "text",
+            "id": "n4t",
+            "label": "Text"
+          },
+          {
+            "type": "header",
+            "content": "Style"
+          },
+          {
+            "type": "number",
+            "id": "fzn",
+            "label": "Number font size (px)",
+            "default": 16
+          },
+          {
+            "type": "number",
+            "id": "fzt",
+            "label": "Text font size (px)",
+            "default": 13
+          },
+          {
+            "type": "color",
+            "id": "c_n",
+            "label": "Number color",
+            "default": "#222222"
+          },
+          {
+            "type": "color",
+            "id": "c_t",
+            "label": "Text color",
+            "default": "#666666"
+          },
+          {
+            "type": "number",
+            "id": "distance_bottom",
+            "label": "Bottom spacing section (px)",
+            "default": 30
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Text",
+        "blocks": [
+          {
+            "type": "text",
+            "settings": {
+              "text": "<p>Lorem ipsum</p>",
+              "t_s": 20,
+              "t_fw": "font-700",
+              "distance_bottom": 20
+            }
+          },
+          {
+            "type": "text",
+            "settings": {
+              "text": "<p>Maecenas eu nibh pulvinar, mattis lorem eget, convallis turpis. Maecenas sollicitudin lectus augue, vel vehicula nulla condimentum sit amet. Nam id tellus convallis, sollicitudin est a, rhoncus quam. Ut a sem aliquam, aliquet tortor non, cursus enim. Cras at aliquet risus.</p>",
+              "t_s": 16,
+              "t_fw": "font-400",
+              "distance_bottom": 30
+            }
+          },
+          {
+            "type": "btn",
+            "settings": {
+              "btn": "Shop now"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  {%- assign bg_image = sst.background_image -%}
+  {% if sst.bg_size == 'full' %}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% else %}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      padding-left: 4rem;
+      padding-right: 4rem;
+      {% if sst.background_color != blank or bg_image.src != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 991px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% endif %}
+  {%- if sst.show_boxshadow %}
+    #shopify-section-{{ section.id }} .container-inner {
+      box-shadow: 5px 5px 15px rgba({{ sst.c_boxshadow | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 10%);
+    }
+  {% endif -%}
+  {% if sst.show_seemore %}
+    {% if sst.background_color != 'rgba(0,0,0,0)' and sst.background_color != blank %}
+      #shopify-section-{{ section.id }} [nov-item-act]:before {
+        background: linear-gradient(to top,rgba({{ sst.background_color | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 90%),rgba({{ sst.background_color | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 10%));
+      }
+    {% endif %}
+  {% endif %}
+  {% for block in section.blocks %}
+    {% assign bst = block.settings %}
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text {
+      color: {{ bst.t_c }};
+      font-size: {{ bst.t_s | divided_by: 10.0 | append: 'rem' }};
+      line-height: {{ bst.t_lh }};
+      letter-spacing: {{ bst.t_lt | append: 'px' }};
+      text-transform: {{ bst.t_tt }};
+      max-width: {{ bst.t_m | append: 'px' }};
+      margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text strong {
+      color:  {{ bst.tb_c }};
+    }
+    #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text li::marker {
+      color: rgba({{ bst.t_c | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 65%);
+    }
+    {% if block.type == 'btn' %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.btn {
+        color: {{ bst.c_btn }};
+        background-color: {{ bst.b_btn }};
+        margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.btn:hover {
+        color: {{ bst.c_btn_h }} !important;
+        background-color: {{ bst.b_btn_h }} !important;
+      }
+    {% endif %}
+    {% if block.type == 'policy' %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.policy {
+        color: {{ bst.c_p }} !important;
+        max-width: {{ bst.p_m | append: 'px' }};
+        font-size: {{ bst.p_s | divided_by: 10.0 | append: 'rem' }};
+        margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+      }
+      {% if bst.bg_p != 'rgba(0,0,0,0)' and bst.bg_p != blank %}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }} .policy-content {
+          background-color: {{ bst.bg_p }};
+        }
+      {% endif %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }} .policy-item {
+        width: {{ 100 | divided_by:  bst.w }}%;
+        flex: 0 0 {{ 100 | divided_by:  bst.w }}%;
+      }
+    {% endif %}
+    {% if block.type == 'image' %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-image {
+        margin-bottom: {{ bst.distance_bottom | append: 'px' }};
+      }
+      {%- if bst.max_w -%}
+        #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-image .image-content {
+          max-width: {{ bst.w | append: 'px' }};
+        }
+      {%- endif %}
+    {% endif %}
+    {% if block.type == 'number' %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-number .number {
+        color: {{ bst.c_n }} !important;
+        font-size: {{ bst.fzn | divided_by: 10.0 | append: 'rem' }};
+      }
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-number .number-title {
+        color: {{ bst.c_t }} !important;
+        font-size: {{ bst.fzt | divided_by: 10.0 | append: 'rem' }};
+      }
+    {% endif %}
+  {% endfor %}
+  @media(max-width: 991px) {
+    {% for block in section.blocks %}
+      {% assign bst = block.settings %}
+      #shopify-section-{{ section.id }} .block-{{ forloop.index }}.nov-text {
+        font-size: {{ bst.t_s_md | divided_by: 10.0 | append: 'rem' }};
+      }
+    {% endfor %}
+  }
+</style>

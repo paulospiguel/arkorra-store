@@ -1,0 +1,497 @@
+{% assign sst = section.settings %}
+{% if sst.xxl == 5 %}
+  {%- assign xxl = 'col-xxl-cus-5' -%}
+{% else %}
+  {%- assign xxl = 12 | divided_by: sst.xxl | prepend: 'col-xxl-' -%}
+{% endif %}
+{% if sst.xl == 5 %}
+  {%- assign xl = 'col-xl-cus-5' -%}
+{% else %}
+  {%- assign xl = 12 | divided_by: sst.xl | prepend: 'col-xl-' -%}
+{% endif %}
+{% if sst.lg == 5 %}
+  {%- assign lg = 'col-lg-cus-5' -%}
+{% else %}
+  {%- assign lg = 12 | divided_by: sst.lg | prepend: 'col-lg-' -%}
+{% endif %}
+{% if sst.md == 5 %}
+  {%- assign md = 'col-md-cus-5' -%}
+{% else %}
+  {%- assign md = 12 | divided_by: sst.md | prepend: 'col-md-' -%}
+{% endif %}
+{% if sst.sm == 5 %}
+  {%- assign sm = 'col-sm-cus-5' -%}
+{% else %}
+  {%- assign sm = 12 | divided_by: sst.sm | prepend: 'col-sm-' -%}
+{% endif %}
+{% if sst.xs == 5 %}
+  {%- assign xs = 'col-xs-cus-5' -%}
+{% else %}
+  {%- assign xs = 12 | divided_by: sst.xs | prepend: 'col-' -%}
+{% endif %}
+{%- assign limit = sst.limit-%}
+<div class="distance{% if sst.class_section != blank %} {{ sst.class_section }}{% endif %}">
+    {% if sst.container == 'container' %}
+        <div class="container">
+    {% elsif sst.container == 'container-fluid' %}
+        <div class="container-fluid">
+    {% else %}
+        <div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+    {% endif %}
+        {% if sst.heading != blank or sst.subheading != blank %}
+            <div class="title_section {{ sst.title_alignment }}">
+                {% if sst.heading != blank %}
+                    <span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+                {% endif %}
+                {% if sst.subheading != blank %}
+                    <span class="sub_title" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="d-flex justify-content-center mb-60 {{ sst.nav_style }}">
+            <ul class="nav nav-tabs list-unstyled nov-btn-click-slider d-none d-sm-flex">
+                <li class="el-slider"></li>
+                {% for block in section.blocks %}
+                    <li class="nav-item position-relative">
+                        <a href="#" class="nav-link tab-links{% if forloop.first %} active{% endif %} btn-slider__el text-center position-relative"
+                        data-target="#collection{{ forloop.index }}{{ section.id }}"
+                        data-toggle="tab">
+                            <span>{{ block.settings.tab_title }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="nav-mobile dropdown d-md-none">
+              <div class="dropdown-toggle nav-mobile__title d-flex align-items-center w-100" data-toggle="dropdown" aria-expanded="false">
+              </div>
+              <div class="dropdown-menu nav dropdown-menu-right w-100">
+                {% for block in section.blocks %}
+                    <div class="nav-link tab-links{% if forloop.first %} active{% endif %}" data-target="#collection{{ forloop.index }}{{ section.id }}" data-toggle="tab">{{ block.settings.tab_title }}</div>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+        <div class="tab-content collection-tabs-content position-relative">
+            {% for block in section.blocks %}
+                {%- assign bst = block.settings -%}
+                {%- assign collection = collections[bst.collection_handle] -%}
+                {%- assign products = collections.handle -%}
+                <div class="tab-content{% if forloop.first %} active{% endif %}" id="collection{{ forloop.index }}{{ section.id }}">
+                    {% paginate collection.products by limit %}
+                        <div class="row spacing-{{ sst.spacing }} grid--view-items product__loadmore-{{ forloop.index }}{{ section.id }}" data-xxl="{{ sst.xxl }}" data-xl="{{ sst.xl }}" data-lg="{{ sst.lg }}" data-md="{{ sst.md }}" data-sm="{{ sst.sm }}" data-xs="{{ sst.xs }}">
+                            {% for product in collection.products %}
+                                {% if sectionId == blank %}
+                                  {% assign sectionId = section.id %}
+                                {% endif %}
+                                <div class="item {{ xxl }} {{ xl }} {{ lg }} {{ md }} {{ sm }} {{ xs }}">
+                                    {% render 'product-grid-item-style-1', product: product, sectionId: block.id %}
+                                </div>
+                            {% else %}
+                                {%- for i in (1..8) -%}
+                                  {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                                  <div class="item {{ xxl }} {{ xl }} {{ lg }} {{ md }} {{ sm }} {{ xs }} mb-30">
+                                    {{ 'product-apparel-' | append: current | placeholder_svg_tag : 'placeholder-svg' }}
+                                  </div>
+                                {%- endfor -%}
+                                <div class="text-center col-12">
+                                    <div class="btn btn-xlarge btn_loadmore d-inline-flex align-items-center justify-content-center">
+                                        <span>{{ sst.loadmore }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if paginate.next %}
+                            <div class="product-loadmore__bottom text-center mt-30">
+                                <div class="pagination__count pagination__count{{ forloop.index }}{{ section.id }} mb-20">
+                                    {{ 'collections.general.product_count_html' | t: count: collection.products.size, total: collection.products_count }}
+                                </div>
+                                <div class="pagination__bar pagination__bar{{ forloop.index }}{{ section.id }} position-relative mb-30" data-max="{{ collection.products_count }}">
+                                    <span class="progress position-absolute" style="width: {{ collection.products.size | times: 100 | divided_by: collection.products_count }}%"></span>
+                                </div>
+                                <div class="btn btn-xlarge btn_loadmore {{ forloop.index }}{{ section.id }} d-inline-flex align-items-center justify-content-center" btn-handle="{{ forloop.index }}{{ section.id }}" link="{{ paginate.next.url }}">
+                                    <span>{{ sst.loadmore }}</span>
+                                    <div class="load"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endpaginate %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Collection Load More",
+        "class": "section-collection-loadmore",
+        "settings":[
+            {
+                "type": "richtext",
+                "id": "heading",
+                "label": "Heading",
+                "default": "<p>Vinova Collection Tab Loadmore</p>"
+            },
+            {
+                "type": "color",
+                "id": "heading_c",
+                "label": "Heading color",
+                "default": "#222222"
+            },
+            {
+                "type": "richtext",
+                "id": "subheading",
+                "label": "Sub heading",
+                "default": "<p>Subtitle from happy customers</p>"
+            },
+            {
+                "type": "color",
+                "id": "subheading_c",
+                "label": "Sub heading color",
+                "default": "#666666"
+            },
+            {
+                "type": "select",
+                "id": "title_alignment",
+                "label": "Heading alignment",
+                "default": "text-center",
+                "options": [
+                    {
+                        "value": "text-left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-right",
+                        "label": "Right"
+                    }
+                ]
+            },
+            {
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "label": "Product initial",
+                "default": 8
+            },
+            {
+                "type":  "header",
+                "content": "Product item per row"
+            },
+            {
+                "type": "range",
+                "id": "xxl",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row extra desktop 1440px ↑",
+                "default": 4
+            },
+            {
+                "type": "range",
+                "id": "xl",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row large desktop 1200px ↑",
+                "default": 4
+            },
+            {
+                "type": "range",
+                "id": "lg",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row desktop 992px ↑",
+                "default": 4
+            },
+            {
+                "type": "range",
+                "id": "md",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row tablet 768px ↑",
+                "default": 4
+            },
+            {
+                "type": "range",
+                "id": "sm",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row large mobile 576px ↑",
+                "default": 4
+            },
+            {
+                "type": "range",
+                "id": "xs",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "Products per row mobile 575px ↓",
+                "default": 1
+            },
+            {
+                "type": "range",
+                "id": "spacing",
+                "min": 0,
+                "max": 30,
+                "step": 5,
+                "label": "Spacing",
+                "unit": "px",
+                "default": 30,
+                "info": "Spacing item"
+            },
+            {
+                "type":  "header",
+                "content": "Design option"
+            },
+            {
+                "type": "select",
+                "id": "nav_style",
+                "label": "Nav style",
+                "default": "style1",
+                "options": [
+                    {
+                        "value": "style1",
+                        "label": "Style 1"
+                    },
+                    {
+                        "value": "style2",
+                        "label": "Style 2"
+                    }
+                ]
+            },
+            {
+                "type": "color",
+                "id": "nav_c",
+                "label": "Nav colors",
+                "default": "#b0b0b0"
+            },
+            {
+                "type": "color",
+                "id": "nav_ca",
+                "label": "Nav active colors",
+                "default": "#ffffff"
+            },
+            {
+                "type": "color",
+                "id": "nav_bg",
+                "label": "Nav background",
+                "default": "#222222"
+            },
+            {
+                "type": "color",
+                "id": "nav_bga",
+                "label": "Nav active background",
+                "default": "#222222"
+            },
+            {
+                "type": "color",
+                "id": "nav_bd",
+                "label": "Nav border",
+                "default": "#b0b0b0"
+            },
+            {
+                "type": "color",
+                "id": "c_pagination",
+                "label": "Pagination color",
+                "default": "#666666"
+            },
+            {
+                "type": "color",
+                "id": "bg_pagination",
+                "label": "Pagination background",
+                "default": "#b0b0b0"
+            },
+            {
+                "type": "color",
+                "id": "bg_progress",
+                "label": "Progress background",
+                "default": "#000000"
+            },
+            {
+                "type": "text",
+                "id": "loadmore",
+                "label": "Load more button",
+                "default": "Load more items"
+            },
+            {
+              "type": "color",
+              "id": "c_btn",
+              "label": "Button color",
+              "default": "#ffffff"
+            },
+            {
+              "type": "color",
+              "id": "b_btn",
+              "label": "Button background color",
+              "default": "#222222"
+            },
+            {
+              "type": "color",
+              "id": "c_btn_h",
+              "label": "Button color hover",
+              "default": "#ffffff"
+            },
+            {
+              "type": "color",
+              "id": "b_btn_h",
+              "label": "Button background color hover",
+              "default": "#222222"
+            },
+            {
+                "type": "select",
+                "id": "container",
+                "label": "Container",
+                "default": "container",
+                "options": [
+                  { "value": "container", "label": "Container" },
+                  { "value": "container-fluid", "label": "Container fluid" },
+                  { "value": "container-full", "label": "Container full width" }
+                ]
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background colors"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background image"
+            },
+            {
+                "type": "text",
+                "id": "class",
+                "label": "Class"
+            },
+            {
+                "type": "number",
+                "id": "distance_top",
+                "label": "Top spacing section (px)",
+                "default": 30
+            },
+            {
+                "type": "number",
+                "id": "distance_bottom",
+                "label": "Bottom spacing section (px)",
+                "default": 30
+            }
+        ],
+        "blocks": [
+            {
+                "type": "tabitem",
+                "name": "Tab Item",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "tab_title",
+                        "label": "Tab title"
+                    },
+                    {
+                        "type": "collection",
+                        "id": "collection_handle",
+                        "label": "Collection"
+                    }
+                ]
+            }
+        ],
+        "presets":[
+            {
+                "name": "Vinova Collection Load More",
+                "category": "Collection",
+                "blocks": [
+                    {
+                        "type":"tabitem",
+                        "settings":{
+                            "tab_title": "Tab one"
+                        }
+                    },
+                    {
+                        "type":"tabitem",
+                        "settings":{
+                            "tab_title": "Tab Two"
+                        }
+                    },
+                    {
+                        "type":"tabitem",
+                        "settings":{
+                            "tab_title": "Tab Three"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}
+<style>
+    #shopify-section-{{ section.id }} .distance {
+        padding-top: {{ sst.distance_top }}px;
+        padding-bottom: {{ sst.distance_bottom }}px;
+        {%- assign bg_image = sst.background_image -%}
+        {% if sst.background_color != blank %}
+            background-color: {{ sst.background_color }};
+        {% endif %}
+        {% if bg_image.src != blank %}
+            background-image: url("{{ bg_image | img_url: '1920x' }}");
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+        {% endif %}
+    }
+    {%- if sst.nav_style == 'style1' -%}
+        #shopify-section-{{ section.id }} .nav-tabs .nav-link:after {
+            background-color: {{ sst.nav_ca }};
+        }
+        #shopify-section-{{ section.id }} .nav-link {
+            color:  {{ sst.nav_c }};
+            background-color: {{ sst.nav_bg }};
+            border-color: {{ sst.nav_bd }};
+        }
+        #shopify-section-{{ section.id }} .nav-link:hover, #shopify-section-{{ section.id }} .nav-link.active {
+            color:  {{ sst.nav_ca }};
+            background-color: {{ sst.nav_bga }};
+        } 
+    {%- endif -%}
+    {%- if sst.nav_style == 'style2' -%}
+        #shopify-section-{{ section.id }} .nav-tabs {
+            background-color: {{ sst.nav_bg }};
+        }
+        #shopify-section-{{ section.id }} .nav-link {
+            color:  {{ sst.nav_c }};
+        }
+        #shopify-section-{{ section.id }} .nav-link.active {
+            color:  {{ sst.nav_ca }};
+        }
+        #shopify-section-{{ section.id }} .el-slider, #shopify-section-{{ section.id }} .nav-mobile__title {
+            background-color: {{ sst.nav_bga }};
+        } 
+    {%- endif -%}
+    #shopify-section-{{ section.id }} .pagination__count {
+        color:  {{ sst.c_pagination }};
+    }
+    #shopify-section-{{ section.id }} .pagination__bar {
+        background-color: {{ sst.bg_pagination }};
+    }
+    #shopify-section-{{ section.id }} .progress {
+        background-color: {{ sst.bg_progress }};
+    }
+    #shopify-section-{{ section.id }} .btn_loadmore {
+      color: {{ sst.c_btn }};
+      background-color: {{ sst.b_btn }};
+    }
+    #shopify-section-{{ section.id }} .btn_loadmore:hover, #shopify-section-{{ section.id }} .btn_loadmore.loading {
+      color: {{ sst.c_btn_h }} !important;
+      background-color: {{ sst.b_btn_h }} !important;
+    }
+    #shopify-section-{{ section.id }} .item-product {
+        margin-bottom: {{ sst.spacing | append: 'px' }};
+    }
+</style>

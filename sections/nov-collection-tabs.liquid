@@ -1,0 +1,836 @@
+{% assign sst = section.settings %}
+{%- assign xxl = sst.xxl | plus:0 -%}
+{%- assign xl = sst.xl | plus:0 -%}
+{%- assign lg = sst.lg | plus:0 -%}
+{%- assign md = sst.md | plus:0 -%}
+{%- assign sm = sst.sm | plus:0 -%}
+{%- assign xs = sst.xs | plus:0 -%}
+{%- assign row_number = sst.row_number | plus:0 -%}
+{%- assign row_mobile = sst.row_mobile | plus:0 -%}
+{%- assign limit = sst.limit | plus:0 -%}
+
+<div data-section-id="{{ section.id }}" class="distance position-relative{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-product-tabs>
+	{% if sst.snow %}
+	  <div class="nov-snow position-absolute overflow_hidden" data-limit="50"></div>
+	{% endif %}
+	{% if sst.container == 'container' %}
+		<div class="container">
+	{% elsif sst.container == 'container-fluid' %}
+		<div class="container-fluid">
+	{% else %}
+		<div class="container-full" style="padding: 0 {{ sst.spacing | append: 'px' }}">
+	{% endif %}
+		<div class="container-inner position-relative{% if sst.bg_size == 'content' %} overflow_hidden{% endif %}">
+			{% if sst.nav_style == 'style3' or sst.nav_style == 'style5' %}
+				<div class="d-md-flex align-items-center justify-content-between nov-btn-click-slider mb-50 mb-sm-20 {{ sst.nav_style }}">
+					{% if sst.heading != blank or sst.subheading != blank %}
+						<div class="title_section {{ sst.title_alignment }} position-relative mb-0">
+							{% if sst.heading != blank %}
+							<span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+							{% endif %}
+							{% if sst.subheading != blank %}
+								<span class="sub_title mt-20" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+							{% endif %}
+						</div>
+					{% endif %}
+					<div class="block-nav d-flex justify-content-center">
+						<ul class="nav nav-tabs list-product-tabs list-unstyled d-none d-md-flex">
+							<li class="el-slider"></li>
+							{% for block in section.blocks %}
+								<li class="nav-item position-relative">
+									<a class="nav-link tab-links{% if forloop.first %} active{% endif %} text-center position-relative btn-slider__el"
+									data-product-tabTop
+									href="#producttab{{ forloop.index }}{{ section.id }}" 
+									data-target="#producttab{{ forloop.index }}{{ section.id }}"
+									data-href="/collections/{{ block.settings.collection_handle }}?view=tab"
+									id="tab-{{ forloop.index }}{{ section.id }}" data-id="{{ forloop.index }}{{ section.id }}"
+									data-toggle="tab"
+									data-limit="{{ limit }}">
+										<span>{{ block.settings.tab_title }}</span>
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			{% else %}
+				{% if sst.heading != blank or sst.subheading != blank %}
+					<div class="title_section {{ sst.title_alignment }} position-relative">
+						{% if sst.heading != blank %}
+						<span class="title" style="color: {{ sst.heading_c }};">{{ sst.heading }}</span>
+						{% endif %}
+						{% if sst.subheading != blank %}
+							<span class="sub_title mt-20" style="color: {{ sst.subheading_c }};">{{ sst.subheading }}</span>
+						{% endif %}
+					</div>
+				{% endif %}
+				<div class="d-none d-md-flex justify-content-center nov-btn-click-slider">
+					<ul class="nav nav-tabs list-product-tabs list-unstyled mb-60 {{ sst.nav_style }}">
+						{% for block in section.blocks %}
+							{% if sst.nav_style == 'style4' %}
+								<li class="el-slider"></li>
+							{% endif %}
+							<li class="nav-item position-relative">
+								<a class="nav-link tab-links{% if forloop.first %} active{% endif %} text-center position-relative btn-slider__el"
+								data-product-tabTop
+								href="#producttab{{ forloop.index }}{{ section.id }}" 
+								data-target="#producttab{{ forloop.index }}{{ section.id }}"
+								data-href="/collections/{{ block.settings.collection_handle }}?view=tab"
+								id="tab-{{ forloop.index }}{{ section.id }}" data-id="{{ forloop.index }}{{ section.id }}"
+								data-toggle="tab"
+								data-limit="{{ limit }}">
+									<span>{{ block.settings.tab_title }}</span>
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			<div class="nav-mobile dropdown d-md-none">
+			  <div class="dropdown-toggle nav-mobile__title d-flex align-items-center justify-content-between w-100" data-toggle="dropdown" aria-expanded="false">
+			  </div>
+			  <div class="dropdown-menu dropdown-menu-right list-product-tabs w-100">
+			    {% for block in section.blocks %}
+		    		<a class="nav-link tab-links{% if forloop.first %} active{% endif %}"
+		    		data-product-tabTop
+		    		href="#producttab{{ forloop.index }}{{ section.id }}" 
+		    		data-target="#producttab{{ forloop.index }}{{ section.id }}"
+		    		data-href="/collections/{{ block.settings.collection_handle }}?view=tab"
+		    		id="tab-{{ forloop.index }}{{ section.id }}" data-id="{{ forloop.index }}{{ section.id }}"
+		    		data-toggle="tab">
+		    			<span>{{ block.settings.tab_title }}</span>
+		    		</a>
+			    {% endfor %}
+			  </div>
+			</div>
+			{% if sst.show_image_slider %}
+			  <div class="row spacing-{{ sst.spacing }}">
+			  	<div class="block-image col-xl-40 col-lg-6 mb-md-30 position-relative" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+	          <div class="row spacing-1 nov-slick-navfor-carousel nov-dot-style dot-small" data-items="1"{% if sst.img2 != blank or sst.img3 != blank %} data-items_md="2"{% endif %} data-autoplay="{{ sst.autoplay }}" data-autoplaytimeout="{{ sst.autoplay_speed }}" data-dots="{{ sst.img_slider_dot }}" data-nav="false" data-focus="false" data-hover="false" data-row="1">
+	            {% assign img_url = sst.img1 %}
+	            <div class="p_item">
+	              <div class="item position-relative nov-sh-image-2">
+	              {% if img_url != blank %}
+		              {% if sst.l1 != blank %}
+		              	<a href="{{ sst.l1 }}">
+		              {% endif %}
+		                {%- render 'nov-aspect-image', image: img_url, aspect: 'auto' -%}
+		              {% if sst.l1 != blank %}
+		              	</a>
+		              {% endif %}
+	              {% else %}
+	                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+	              {% endif %}
+	                {% if sst.t1 != blank or sst.st1 != blank %}
+	                  <div class="block-image__caption position-absolute bottom-center">
+	                  	{% if sst.t1 != blank %}
+	                  		<div class="title font-700 f_pr">{{ sst.t1 }}</div>
+	                  	{% endif %}
+	                  	{% if sst.st1 != blank %}
+	                  		<div class="sub-title font-700 f_pr">{{ sst.t1 }}</div>
+	                  	{% endif %}
+	                  </div>
+	                {% endif %}
+	              </div>
+              </div>
+	            {% assign img_url = sst.img2 %}
+	            {% if img_url != blank %}
+	            <div class="p_item">
+	              <div class="item position-relative nov-sh-image-2">
+	              	{% if sst.l2 != blank %}
+	              		<a href="{{ sst.l2 }}">
+	              	{% endif %}
+	                	{%- render 'nov-aspect-image', image: img_url, aspect: 'auto' -%}
+	                {% if sst.l2 != blank %}
+	                	</a>
+	                {% endif %}
+	                {% if sst.t2 != blank or sst.st2 != blank %}
+                  <div class="block-image__caption position-absolute bottom-center">
+                  	{% if sst.t2 != blank %}
+                  		<div class="title font-700 f_pr">{{ sst.t2 }}</div>
+                  	{% endif %}
+                  	{% if sst.st2 != blank %}
+                  		<div class="sub-title font-700 f_pr">{{ sst.t2 }}</div>
+                  	{% endif %}
+                  </div>
+                {% endif %}
+	              </div>
+	            </div>
+	            {% endif %}
+	            {% assign img_url = sst.img3 %}
+	            {% if img_url != blank %}
+	            <div class="p_item">
+	              <div class="item position-relative nov-sh-image-2">
+	              	{% if sst.l3 != blank %}
+	              		<a href="{{ sst.l3 }}">
+	              	{% endif %}
+	                {%- render 'nov-aspect-image', image: img_url, aspect: 'auto' -%}
+	                {% if sst.l3 != blank %}
+	                	</a>
+	                {% endif %}
+	                {% if sst.t3 != blank or sst.st3 != blank %}
+                  <div class="block-image__caption position-absolute bottom-center">
+                  	{% if sst.t3 != blank %}
+                  		<div class="title font-700 f_pr">{{ sst.t3 }}</div>
+                  	{% endif %}
+                  	{% if sst.st3 != blank %}
+                  		<div class="sub-title font-700 f_pr">{{ sst.t3 }}</div>
+                  	{% endif %}
+                  </div>
+                {% endif %}
+	              </div>
+	            </div>
+	            {% endif %}
+	          </div> 
+	        </div>
+	        <div class="col-xl-60 col-lg-6">
+			{% endif %}
+
+			<div class="product_tab_content tab-content product-tabs-content position-relative">
+				{% for block in section.blocks %}
+				<div class="tab-content{% if forloop.first %} active{% endif %}" data-product-TabContent id="producttab{{ forloop.index }}{{ section.id }}">
+					<div class="products-grid grid--view-items row spacing-{{ sst.spacing }} collection-carousel"
+						data-items_xxl="{{ xxl }}"
+						data-items="{{ xl }}"
+						data-items_lg="{{ lg }}"
+						data-items_md="{{ md }}"
+						data-items_sm="{{ sm }}"
+						data-items_xs="{{ xs }}"
+						data-row="{{ row_number }}"
+						data-row_mobile="{{ row_mobile }}"
+						data-loop="false"
+						data-dots="{{ sst.show_dot }}"
+						data-nav="{{ sst.show_nav }}"
+						data-autoplay="false"
+						{% if sst.show_nav == true %}data-custnav{% endif %}>
+						{%- for i in (1..6) limit: xxl -%}
+						  <div class="col position-relative">
+						   	<div style="padding-top: 133.3333333%; background-color: #f5f5f5;"></div>
+						   	<div class="lds-facebook"><div></div><div></div><div></div></div>
+						  </div>
+						{%- endfor -%}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+			{% if sst.show_image_slider %}
+			  </div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Vinova Collection Tabs",
+	"class": "section-collection-tabs",
+	"settings": [
+		{
+			"type": "richtext",
+			"id": "heading",
+			"label": "Heading",
+			"default": "<p>Vinova Collection Tab</p>"
+		},
+		{
+			"type": "color",
+			"id": "heading_c",
+			"label": "Heading color",
+			"default": "#222222"
+		},
+		{
+			"type": "richtext",
+			"id": "subheading",
+			"label": "Sub heading",
+			"default": "<p>Subtitle from happy customers</p>"
+		},
+		{
+			"type": "color",
+			"id": "subheading_c",
+			"label": "Sub heading color",
+			"default": "#666666"
+		},
+		{
+			"type": "select",
+			"id": "title_alignment",
+			"label": "Heading alignment",
+			"default": "text-center",
+			"options": [
+				{
+					"value": "text-left",
+					"label": "Left"
+				},
+				{
+					"value": "text-center",
+					"label": "Center"
+				},
+				{
+					"value": "text-right",
+					"label": "Right"
+				}
+			]
+		},
+		{
+			"type":  "header",
+			"content": "Product item per row"
+		},
+		{
+			"type": "range",
+			"id": "xxl",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Extra desktop 1440px ↑",
+			"default": 4
+		},
+		{
+			"type": "range",
+			"id": "xl",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Large desktop 1200px ↑",
+			"default": 4
+		},
+		{
+			"type": "range",
+			"id": "lg",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Desktop 992px ↑",
+			"default": 3
+		},
+		{
+			"type": "range",
+			"id": "md",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Tablet 768px ↑",
+			"default": 3
+		},
+		{
+			"type": "range",
+			"id": "sm",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Large mobile 576px ↑",
+			"default": 2
+		},
+		{
+			"type": "range",
+			"id": "xs",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Mobile 575px ↓",
+			"default": 2
+		},
+		{
+			"type": "range",
+			"id": "row_number",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Number row",
+			"default": 1
+		},
+		{
+			"type": "range",
+			"id": "row_mobile",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Number row mobile",
+			"default": 1
+		},
+		{
+			"type": "range",
+			"id": "limit",
+			"min": 4,
+			"max": 30,
+			"step": 1,
+			"label": "Limit",
+			"default": 30,
+			"info": "Select number limit products"
+	    },
+		{
+			"type": "range",
+			"id": "spacing",
+			"min": 0,
+			"max": 30,
+			"step": 5,
+			"label": "Spacing",
+			"default": 30,
+			"info": "Spacing item"
+		},
+		{
+			"type":  "header",
+			"content": "Slider option"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_dot",
+			"label": "Show dots",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "show_nav",
+			"label": "Show nav",
+			"default": true
+		},
+		{
+			"type":  "header",
+			"content": "Block image slider"
+		},
+		{
+		  "type": "checkbox",
+		  "id": "show_image_slider",
+		  "label": "Show image slider"
+		},
+		{
+		  "type":  "header",
+		  "content": "Image 1"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "img1",
+		  "label": "Image"
+		},
+		{
+		  "type": "text",
+		  "id": "t1",
+		  "label": "Title"
+		},
+		{
+		  "type": "text",
+		  "id": "st1",
+		  "label": "Sub title"
+		},
+		{
+		  "type": "url",
+		  "id": "l1",
+		  "label": "Link"
+		},
+		{
+		  "type":  "header",
+		  "content": "Image 2"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "img2",
+		  "label": "Image 2"
+		},
+		{
+		  "type": "text",
+		  "id": "t2",
+		  "label": "Title"
+		},
+		{
+		  "type": "text",
+		  "id": "st2",
+		  "label": "Sub title"
+		},
+		{
+		  "type": "url",
+		  "id": "l2",
+		  "label": "Link"
+		},
+		{
+		  "type":  "header",
+		  "content": "Image 3"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "img3",
+		  "label": "Image 3"
+		},
+		{
+		  "type": "text",
+		  "id": "t3",
+		  "label": "Title"
+		},
+		{
+		  "type": "text",
+		  "id": "st3",
+		  "label": "Sub title"
+		},
+		{
+		  "type": "url",
+		  "id": "l3",
+		  "label": "Link"
+		},
+		{
+		  "type":  "header",
+		  "content": "Style item"
+		},
+		{
+		   "type": "range",
+		   "id": "image_radius",
+		   "min": 0,
+		   "max": 100,
+		   "step": 1,
+		   "unit": "px",
+		   "label": "Border radius image",
+		   "default": 0
+		},
+		{
+		  "type": "color",
+		  "id": "c_img_t",
+		  "label": "Title color"
+		},
+		{
+		  "type": "color",
+		  "id": "c_img_st",
+		  "label": "Sub title color"
+		},
+		{
+		  "type": "number",
+		  "id": "caption_p",
+		  "label": "Title bottom position (%)",
+		  "default": 10
+		},
+		{
+		  "type": "checkbox",
+		  "id": "autoplay",
+		  "label": "Auto-rotate slides",
+		  "default": true
+		},
+		{
+		  "type": "select",
+		  "id": "autoplay_speed",
+		  "label": "Change slides every",
+		  "options": [
+		    { "value": "1000", "label": "1 seconds" },
+		    { "value": "2000", "label": "2 seconds" },
+		    { "value": "3000", "label": "3 seconds" },
+		    { "value": "4000", "label": "4 seconds" },
+		    { "value": "5000", "label": "5 seconds" },
+		    { "value": "6000", "label": "6 seconds" },
+		    { "value": "7000", "label": "7 seconds" },
+		    { "value": "8000", "label": "8 seconds" },
+		    { "value": "9000", "label": "9 seconds" },
+		    { "value": "10000", "label": "10 seconds" }
+		  ],
+		  "default": "4000"
+		},
+		{
+		  "type": "checkbox",
+		  "id": "img_slider_dot",
+		  "label": "Show dots",
+		  "default": false
+		},
+		{
+			"type":  "header",
+			"content": "Design option"
+		},
+		{
+			"type": "select",
+			"id": "nav_style",
+			"label": "Nav style",
+			"default": "style1",
+			"options": [
+				{
+					"value": "style1",
+					"label": "Style 1"
+				},
+				{
+					"value": "style2",
+					"label": "Style 2"
+				},
+				{
+					"value": "style3",
+					"label": "Style 3"
+				},
+				{
+					"value": "style4",
+					"label": "Style 4"
+				},
+				{
+					"value": "style5",
+					"label": "Style 5"
+				}
+			]
+		},
+		{
+			"type": "color",
+			"id": "nav_c",
+			"label": "Nav colors",
+			"default": "#b0b0b0"
+		},
+		{
+			"type": "color",
+			"id": "nav_ca",
+			"label": "Nav active colors",
+			"default": "#ffffff"
+		},
+		{
+			"type": "color",
+			"id": "nav_bg",
+			"label": "Nav background",
+			"default": "#222222"
+		},
+		{
+			"type": "color",
+			"id": "nav_bga",
+			"label": "Nav active background",
+			"default": "#222222"
+		},
+		{
+			"type": "color",
+			"id": "nav_bd",
+			"label": "Nav border",
+			"default": "#b0b0b0"
+		},
+		{
+		  "type": "checkbox",
+		  "id": "show_boxshadow",
+		  "label": "Box shadow item"
+		},
+		{
+		  "type": "color",
+		  "id": "c_boxshadow",
+		  "label": "Box shadow color"
+		},
+		{
+			"type": "checkbox",
+			"id": "animate",
+			"label": "Show animated",
+			"default":   false
+		},
+		{
+      "type": "checkbox",
+      "id": "snow",
+      "label": "Show snow animate",
+      "default":   false
+    },
+    {
+      "type": "range",
+      "id": "br_container",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius container",
+      "default": 0
+   	},
+		{
+			"type": "select",
+			"id": "container",
+			"label": "Container",
+			"default": "container",
+			"options": [
+				{ "value": "container", "label": "Container" },
+				{ "value": "container-fluid", "label": "Container fluid" },
+				{ "value": "container-full", "label": "Container full width" }
+			]
+		},
+		{
+			"type": "color",
+			"id": "background_color",
+			"label": "Background colors"
+		},
+		{
+			"type": "image_picker",
+			"id": "background_image",
+			"label": "Background image"
+		},
+		{
+			"type": "select",
+			"id": "bg_size",
+			"label": "Background size",
+			"default": "full",
+			"options": [
+				{ "value": "content", "label": "Container" },
+				{ "value": "full", "label": "Full width" }
+			]
+		},
+		{
+			"type": "text",
+			"id": "class",
+			"label": "Class"
+		},
+		{
+			"type": "number",
+			"id": "distance_top",
+			"label": "Top spacing section (px)",
+			"default": 30
+		},
+		{
+			"type": "number",
+			"id": "distance_bottom",
+			"label": "Bottom spacing section (px)",
+			"default": 30
+		}
+	],
+	"blocks": [
+		{
+			"type": "tabitem",
+			"name": "Tab Item",
+			"settings": [
+				{
+					"type": "text",
+					"id": "tab_title",
+					"label": "Tab title"
+				},
+				{
+					"type": "collection",
+					"id": "collection_handle",
+					"label": "Collection"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Vinova Collection Tabs",
+			"category": "Collection",
+			"blocks": [
+				{
+					"type":"tabitem",
+					"settings":{
+						"tab_title": "Tab one",
+						"collection_handle": "frontpage"
+					}
+				},
+				{
+					"type":"tabitem",
+					"settings":{
+						"tab_title": "Tab Two",
+						"collection_handle": "frontpage"
+					}
+				},
+				{
+					"type":"tabitem",
+					"settings":{
+						"tab_title": "Tab Three",
+						"collection_handle": "frontpage"
+					}
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+<style>
+	{%- assign bg_image = sst.background_image -%}
+	{% if sst.bg_size == 'full' %}
+    #shopify-section-{{ section.id }} .distance {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}") no-repeat center{% endif %};
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .distance {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% else %}
+    #shopify-section-{{ section.id }} .container-inner {
+      padding-top: {{ sst.distance_top | append: 'px' }};
+      padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+      border-radius: {{ sst.br_container | append: 'px' }};
+      {% if sst.background_color != blank or bg_image.src != blank %}
+        background: {{ sst.background_color }}{% if bg_image != blank %} url("{{ bg_image | img_url: '1920x' }}"){% endif %} no-repeat center;
+        background-size: cover;
+      {% endif %}
+    }
+    @media(max-width: 575px) {
+      #shopify-section-{{ section.id }} .container-inner {
+        {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+        {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      }
+    }
+  {% endif %}
+  {% if sst.background_color != 'rgba(0,0,0,0)' and sst.background_color != blank %}
+  	{% assign bg = true %}
+  {% endif %}
+  #shopify-section-{{ section.id }} .item-product {
+  	margin-bottom: {{ sst.spacing | append: 'px' }};
+  }
+  {% if bg_image != blank or bg == true %}
+  	#shopify-section-{{ section.id }} .title_section {
+  		padding-left: 30px;
+  		padding-right: 30px;
+  	}
+  {% endif %}
+	{%- if sst.nav_style == 'style1' -%}
+		#shopify-section-{{ section.id }} .style1 .nav-link {
+			border-color: {{ sst.nav_bd }};
+		}
+	{%- endif -%}
+	{%- if sst.nav_style == 'style2' -%}
+		#shopify-section-{{ section.id }} .style2 {
+			border-color: {{ sst.nav_bd }};
+		}
+		#shopify-section-{{ section.id }} .style2 .nav-link:after {
+			background-color: {{ sst.nav_ca }};
+		}
+	{%- endif -%}
+	{%- if sst.nav_style == 'style3' or sst.nav_style == 'style4' -%}
+		#shopify-section-{{ section.id }} .nav-tabs {
+		  background-color: {{ sst.nav_bg }};
+		}
+		#shopify-section-{{ section.id }} .nav-link {
+		  color:  {{ sst.nav_c }};
+		}
+		#shopify-section-{{ section.id }} .nav-link.active {
+		  color:  {{ sst.nav_ca }};
+		}
+		#shopify-section-{{ section.id }} .el-slider, #shopify-section-{{ section.id }} .nav-mobile__title {
+		  background-color: {{ sst.nav_bga }};
+		}
+		#shopify-section-{{ section.id }} .style3 .nav-link, #shopify-section-{{ section.id }} .style4 .nav-link {
+			border-color:  {{ sst.nav_bd }};
+		}
+	{% else %}
+		#shopify-section-{{ section.id }} .nav-link {
+			color:  {{ sst.nav_c }};
+			background-color: {{ sst.nav_bg }};
+		}
+		#shopify-section-{{ section.id }} .nav-link:hover, #shopify-section-{{ section.id }} .nav-link.active , #shopify-section-{{ section.id }} .nav-mobile__title {
+			color:  {{ sst.nav_ca }};
+			border-color: transparent;
+			background-color: {{ sst.nav_bga }};
+		}
+	{%- endif -%}
+	#shopify-section-{{ section.id }} .nav-mobile__title {
+		border-color: {{ sst.nav_bd }};
+	}
+	{%- if sst.show_boxshadow %}
+	  #shopify-section-{{ section.id }} .container-inner {
+	    box-shadow: 5px 5px 15px rgba({{ sst.c_boxshadow | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 10%);
+	  }
+	{% endif -%}
+	{% if sst.show_image_slider %}
+		#shopify-section-{{ section.id }} .block-image .nov-sh-image-2 {
+			border-radius: {{ sst.image_radius | append: 'px' }};
+		}
+		#shopify-section-{{ section.id }} .block-image__caption {
+			bottom: {{ sst.caption_p | append: '%' }};
+		}
+		#shopify-section-{{ section.id }} .block-image .title {
+			color:  {{ sst.c_img_t }};
+		}
+		#shopify-section-{{ section.id }} .block-image .sub-title {
+			color:  {{ sst.c_img_st }};
+		}
+		#shopify-section-{{ section.id }} .block-image .slick-active:before {
+		  animation-duration: {{ sst.autoplay_speed | divided_by: 1000 | append: 's' }};
+		}
+	{% endif -%}
+	@media(max-width: 575px) {
+		.collection-carousel:not(.slick-initialized) .col:nth-child(3), .collection-carousel:not(.slick-initialized) .col:nth-child(4) {
+			display: none;
+		}
+	}
+</style>

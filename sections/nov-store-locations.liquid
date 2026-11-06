@@ -1,0 +1,235 @@
+{%- assign sst = section.settings -%}
+<div class="distance {{ sst.class }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.has_fullwidth == false %}
+    <div class="container">
+  {% else %}
+  <div class="container-fluid">
+  {% endif %}
+    {% if sst.heading != blank or sst.subheading != blank %}
+      <div class="title_section {{ sst.title_alignment }}">
+        {% if sst.heading != blank %}
+          <h3 class="title" style="font-size: {{ sst.fz_title }};color: {{ sst.c_title }};">{{ sst.title }}</h3>
+        {% endif %}
+        {% if sst.subheading != blank %}
+          <span class="sub_title" style="font-size: {{ sst.fz_sub }};color: {{ sst.c_sub }};">{{ sst.subheading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="row align-items-center">
+      {% for block in section.blocks %}
+        {%- assign bst = block.settings -%}
+        {% if block.type == 'text' %}
+          <div class="{{ bst.width_xl }} {{ bst.width_lg }} {{ bst.width_md }} {{ bst.width_xs }} {{ bst.class }}">
+            <div class="block-text__item-text block-text__item-{{ forloop.index }}">
+              <div class="boxInfor" style="background: {{ sst.bg_boxinfor }};">
+                {% if sst.address != blank %}
+                  <div class="address mb-25" style="color: {{ sst.c_address }};font-size: {{ sst.fz_address }};line-height: {{ sst.lh_address }};"><label>{{ 'page.contact.address' | t }}</label> {{ sst.address }}</div>
+                {% endif %}
+                {% if sst.email != blank %}
+                  <div class="email mb-5" style="color: {{ sst.c_email }};font-size: {{ sst.fz_email }};line-height: {{ sst.lh_email }};"><label>{{ 'page.contact.email' | t }}</label> {{ sst.email }}</div>
+                {% endif %}
+                {% if sst.call != blank %}
+                  <div class="call mb-20" style="color: {{ sst.c_call }};font-size: {{ sst.fz_call }};line-height: {{ sst.lh_call }};"><label>{{ 'page.contact.call' | t }}</label> {{ sst.call }}</div>
+                {% endif %}
+                {% if sst.time != true %}
+                  <div class="time mb-35" style="color: {{ sst.c_time }};font-size: {{ sst.fz_time }};line-height: {{ sst.lh_time }};"><label>{{ 'page.contact.time' | t }}</label> {{ sst.time }}</div>
+                {% endif %}
+                {% if sst.social == true %}
+                  {% include 'nov-social' %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% if block.type == 'image' %}
+          <div class="{{ bst.width_xl }} {{ bst.width_lg }} {{ bst.width_md }} {{ bst.width_xs }} {{ bst.class }}">
+            {% if bst.image != blank %}
+              {% assign image = bst.image %}
+              <div class="respone_image" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+                <img 
+                  srcset="{%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+                  {%- if image.width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if image.width >= 535 -%}{{ image | image_url: width: 535 }} 535w,{%- endif -%}
+                  {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image.width >= 1070 -%}{{ image | image_url: width: 1070 }} 1070w,{%- endif -%}
+                  {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {{ image | image_url }} {{ image.width }}w"
+                  src="{{ image | image_url: width: 1500 }}"
+                  sizes="(min-width: 1320px) {{ 1320 | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                  alt="{{ image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                >
+              </div>
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Nov Store Direction",
+    "class": "nov-store-direction",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full width",
+        "default":   false
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "About Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Item image"
+          },
+          {
+            "type": "text",
+            "id": "class",
+            "label": "Class"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Info",
+        "settings": [
+          {
+            "type": "text",
+            "id": "address",
+            "label": "Address",
+            "default": "123 Suspendis matti, Visaosang Building VST District, NY Accums, North American"
+          },
+          {
+            "type": "color",
+            "id": "c_address",
+            "label": "Color Address",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_address",
+            "label": "Font Address",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_address",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "email",
+            "label": "Email",
+            "default": "support@domain.com"
+          },
+          {
+            "type": "color",
+            "id": "c_email",
+            "label": "Color Email",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_email",
+            "label": "Font Email",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_email",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "call",
+            "label": "Call",
+            "default": "(012)-345-67890"
+          },
+          {
+            "type": "color",
+            "id": "c_call",
+            "label": "Color Call",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_call",
+            "label": "Font Call",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_call",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "time",
+            "label": "Time",
+            "default": "Our store has re-opened for shopping, exchanges every day 11am to 7pm"
+          },
+          {
+            "type": "color",
+            "id": "c_time",
+            "label": "Color Time",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_time",
+            "label": "Font Time",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_time",
+            "label": "Line Height",
+            "default": "20px"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

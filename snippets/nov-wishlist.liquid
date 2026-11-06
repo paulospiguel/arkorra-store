@@ -1,0 +1,13 @@
+<div class="productWishList">
+  <a class="btnProductWishlist item-product__wishlist" 
+    data-icon-wishlist href="#" 
+    data-product-handle="{{ handle }}"
+    data-id="{{ id | json }}"
+    {% if settings.tooltip_enable %}
+      data-toggle="tooltip" 
+      data-placement="top" 
+      title="{{ 'products.butttons.wishlist' | t }}"
+    {% endif %}>
+    <i class="zmdi zmdi-favorite-outline"></i>
+  </a>
+</div>

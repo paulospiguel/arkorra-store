@@ -1,0 +1,219 @@
+<li class="nav--lv1 parent--lv1 site-nav--Megamenu{{ class_hidden }}{% if block.settings.fw == true %} site-nav--fw{% endif %}{% if link.active %} site-nav--active{% endif %}{% if forloop.last %} last{% endif %}">
+  <a class="site-nav__link--main d-flex align-items-center" href="{{ link.url }}" title="{{ link.title }}">
+    {% if block.settings.icon_menu != blank %}
+    <div class="site-nav--icon">
+      <img class="img-fluid" src="{{ block.settings.icon_menu | img_url: '50x' }}" alt="image" />
+    </div>
+    {% endif %}
+    <div class="site-nav--title">
+    {{ link.title }}
+    {% if block.settings.desc != blank %}
+      <div class="site-nav--desc">{{ block.settings.desc }}</div>
+    {% endif %}
+    </div>
+    <span class="site-nav--direc d-none"><i class="zmdi zmdi-chevron-down"></i></span>
+  </a>
+  <div class="nav-dropdown--lv1 megaMenu" style="{% if block.settings.img_bg != blank %}background-image: url({{ block.settings.img_bg | img_url: 'master' }});background-repeat: no-repeat;background-size: cover;{% endif %}">
+    <div class="site-nav__mega--content row">
+      {% if block.settings.collection_enable %}
+        <div class="{{ block.settings.collection_xl }} {{ block.settings.collection_lg }} site--nav-collection mb-md-30">
+          {% if block.settings.name_collec_1 != blank %}
+            <div class="nav--collec-item">
+              <a href="{{ block.settings.link_1 }}">
+                <span>{{ block.settings.name_collec_1 }}</span>
+                <i class="zmdi zmdi-chevron-right"></i>
+              </a>
+            </div>
+          {% endif %}
+          {% if block.settings.name_collec_2 != blank %}
+            <div class="nav--collec-item">
+              <a href="{{ block.settings.link_2 }}">
+                <span>{{ block.settings.name_collec_2 }}</span>
+                <i class="zmdi zmdi-chevron-right"></i>
+              </a>
+            </div>
+          {% endif %}
+          {% if block.settings.name_collec_3 != blank %}
+            <div class="nav--collec-item">
+              <a href="{{ block.settings.link_3 }}">
+                <span>{{ block.settings.name_collec_3 }}</span>
+                <i class="zmdi zmdi-chevron-right"></i>
+              </a>
+            </div>
+          {% endif %}
+          {% if block.settings.name_collec_4 != blank %}
+            <div class="nav--collec-item">
+              <a href="{{ block.settings.link_4 }}">
+                <span>{{ block.settings.name_collec_4 }}</span>
+                <i class="zmdi zmdi-chevron-right"></i>
+              </a>
+            </div>
+          {% endif %}
+          {% if block.settings.name_collec_5 != blank %}
+            <div class="nav--collec-item">
+              <a href="{{ block.settings.link_5 }}">
+                <span>{{ block.settings.name_collec_5 }}</span>
+                <i class="zmdi zmdi-chevron-right"></i>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block.settings.novmenu_menu_enable %}
+        <div class="{{ block.settings.novmenu_xl }} {{ block.settings.novmenu_lg }}">
+          <div class="row">
+            {% for novLink1 in linklists[child_list_handle].links %}
+            {% assign linkHandle = novLink1.title | handleize %}
+            <div class="{{ block.settings.submenu_xl }} {{ block.settings.submenu_lg }} mb-md-20">
+              <ul class="site-nav--MenuLinks">
+                <li{% if three_level_nav %} class="site-nav__link--title{% if show_title == false %} hidden{% endif %}"{% endif %}>
+                  <a href="{{ novLink1.url }}">{{ novLink1.title }}</a>
+                </li>
+                {% for novLink2 in linklists[linkHandle].links %}
+                  <li>
+                    <a href="{{ novLink2.url }}" class="site-nav__link">{{ novLink2.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.novmenu_banner_enable1 %}
+        <div class="{{ block.settings.banner_1_xl }} {{ block.settings.banner_1_lg }}{% if block.settings.class_bn1 != blank %} {{ block.settings.class_bn1 }}{% endif %}">
+          <div class="novMenuBanner" style="border-radius: {{ block.settings.banner_br }}px; overflow: hidden;">
+            {% if block.settings.novmenu_banner_link1 != blank %}<a href="{{ block.settings.novmenu_banner_link1 }}">{% endif %}
+              {% if block.settings.novmenu_banner1 != blank %}
+                <img class="img-fluid lazyload w-100" alt="{{ block.settings.novmenu_banner1.alt | default: shop.name }}" data-src="{{ block.settings.novmenu_banner1 | img_url: block.settings.image_size1 }}" />
+              {% else %}
+                <img class="img-fluid lazyload w-100" alt="{{ shop.name }}" data-src="https://via.placeholder.com/{{ block.settings.image_size1 }}" />
+              {% endif %}
+            {% if block.settings.novmenu_banner_link1 != blank %}</a>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.novmenu_banner_enable2 %}
+        <div class="{{ block.settings.banner_2_xl }} {{ block.settings.banner_2_lg }}{% if block.settings.class_bn2 != blank %} {{ block.settings.class_bn1 }}{% endif %}">
+          <div class="novMenuBanner" style="border-radius: {{ block.settings.banner_br }}px; overflow: hidden;">
+            {% if block.settings.novmenu_banner_link2 != blank %}<a href="{{ block.settings.novmenu_banner_link2 }}">{% endif %}
+              {% if block.settings.novmenu_banner2 != blank %}
+              <img class="img-fluid lazyload w-100" alt="{{ block.settings.novmenu_banner2.alt | default: shop.name }}" data-src="{{ block.settings.novmenu_banner2 | img_url: block.settings.image_size2 }}" />
+              {% else %}
+              <img class="img-fluid lazyload w-100" alt="{{ shop.name }}" data-src="https://via.placeholder.com/{{ block.settings.image_size2 }}" />
+              {% endif %}
+            {% if block.settings.novmenu_banner_link2 != blank %}</a>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.novmenu_banner_enable3 %}
+        <div class="{{ block.settings.banner_3_xl }} {{ block.settings.banner_3_lg }}{% if block.settings.class_bn3 != blank %} {{ block.settings.class_bn1 }}{% endif %}">
+          <div class="novMenuBanner" style="border-radius: {{ block.settings.banner_br }}px; overflow: hidden;">
+            {% if block.settings.novmenu_banner_link3 != blank %}<a href="{{ block.settings.novmenu_banner_link3 }}">{% endif %}
+              {% if block.settings.novmenu_banner3 != blank %}
+                <img class="img-fluid lazyload w-100" alt="{{ block.settings.novmenu_banner3.alt | default: shop.name }}" data-src="{{ block.settings.novmenu_banner3 | img_url: block.settings.image_size3 }}" />
+              {% else %}
+                <img class="img-fluid lazyload w-100" alt="{{ shop.name }}" data-src="https://via.placeholder.com/{{ block.settings.image_size3 }}" />
+              {% endif %}
+            {% if block.settings.novmenu_banner_link3 != blank %}</a>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.product_enable %}
+        <div class="{{ block.settings.product_xl }} {{ block.settings.product_lg }} nav--product mt-sm-30">
+          <div class="site-nav--title__product"><span class="text-uppercase">{{ block.settings.title_product }}</span></div>
+          <div class="grid--view-items row" data-autoplay= "{{ block.settings.autoplay }}">
+            {%- assign img_size = '260x' -%}
+            {% if block.settings.product_1 != blank %}
+              {% assign product = all_products[block.settings.product_1] %}
+              <div class="item col">
+                <div class="item-product mb-0 pb-10">
+                  <div class="thumbnail-container">
+                    <a href="{{ product.url | within: collection }}">
+                      {% assign img_url = product.featured_image %}
+                      <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                        <img class="product__thumbnail lazyload"
+                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                          data-src="{{ img_url | img_url: '360x' }}"
+                          data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="product__info">
+                    <div class="product__title">
+                      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                    </div>
+                    <div class="product__price">
+                      {% include 'product-price' %}
+                    </div>
+                    {% if settings.show_rating %}
+                      <div class="d-none">
+                       {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: block.settings.product_1 %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            {% if block.settings.product_2 != blank %}
+              {% assign product = all_products[block.settings.product_2] %}
+              <div class="item col">
+                <div class="item-product mb-0 pb-10">
+                  <div class="thumbnail-container">
+                    <a href="{{ product.url | within: collection }}">
+                      {% assign img_url = product.featured_image %}
+                      <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                        <img class="product__thumbnail lazyload"
+                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                          data-src="{{ img_url | img_url: '360x' }}"
+                          data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="product__info">
+                    <div class="product__title">
+                      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                    </div>
+                    <div class="product__price">
+                      {% include 'product-price' %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            {% if block.settings.product_3 != blank %}
+              {% assign product = all_products[block.settings.product_3] %}
+              <div class="item col">
+                <div class="item-product mb-0 pb-10">
+                  <div class="thumbnail-container">
+                    <a href="{{ product.url | within: collection }}">
+                      {% assign img_url = product.featured_image %}
+                      <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                        <img class="product__thumbnail lazyload"
+                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                          data-src="{{ img_url | img_url: '360x' }}"
+                          data-srcset="{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1296x' }} 1296w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="product__info">
+                    <div class="product__title">
+                      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                    </div>
+                    <div class="product__price">
+                      {% include 'product-price' %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</li>

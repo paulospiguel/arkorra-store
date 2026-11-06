@@ -1,0 +1,367 @@
+{%- assign sst = section.settings -%}
+<style>
+  .page-width {
+    margin: 0 auto;
+    max-width: {{ sst.w_page }}px;
+    padding: 0 15px;
+  }
+  .size-guides__links-division li a {
+    font-size: {{ sst.fz_jump_to }};
+    color: {{ sst.c_jump_to }};
+  }
+</style>
+{% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<div class="page-width">
+  <div class="container">
+    {% if page.content.size > 0 %}
+      <div class="rte">{{ page.content }}</div>
+    {% endif %}
+    <div class="list-item-chart">
+      <ul class="nav nav-tabs">
+        {% for block in section.blocks %}
+          {%- assign bst = block.settings -%}
+          <li class="nav-item">
+            <a class="nav-link{% if forloop.first %} active{% endif %} font-600" data-toggle="tab" href="#Tab-{{ forloop.index }}" style="font-size: {{ bst.fz_title_tab }};color: {{ bst.c_title_tab }}">{{ bst.title_tab | escape }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      
+      <div class="tab-content">
+        {% for block in section.blocks %}
+          {%- assign bst = block.settings -%}
+          <div class="chart-size tab-pane{% if forloop.first %} active{% endif %}" id="Tab-{{ forloop.index }}">
+            <div class="title_tb_chart text-uppercase font-800 black">{{ bst.title_tab | escape }}</div>
+            <div class="size_guides_division d-flex align-items-center flex-wrap">
+              <label for="" class="font-600">{{ 'page.sizeguide.jump_to' | t }}</label>
+              <ul class="size-guides__links-division d-flex align-items-center flex-wrap">
+                {% if bst.jump_to_1 != blank %}
+                  <li>
+                    <a href="#" data-scroll="{{ forloop.index }}-{{ bst.jump_to_1 | downcase | handle }}">{{ bst.jump_to_1 }}</a>
+                  </li>
+                {% endif %}
+                {% if bst.jump_to_2 != blank %}
+                  <li>
+                    <a href="#" data-scroll="{{ forloop.index }}-{{ bst.jump_to_2 | downcase | handle }}">{{ bst.jump_to_2 }}</a>
+                  </li>
+                {% endif %}
+                {% if bst.jump_to_3 != blank %}
+                  <li>
+                    <a href="#" data-scroll="{{ forloop.index }}-{{ bst.jump_to_3 | downcase | handle }}">{{ bst.jump_to_3 }}</a>
+                  </li>
+                {% endif %}
+                {% if bst.jump_to_4 != blank %}
+                  <li>
+                    <a href="#" data-scroll="{{ forloop.index }}-{{ bst.jump_to_4 | downcase | handle }}">{{ bst.jump_to_4 }}</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+            <div class="size-guides__division-content">
+              {% if bst.jump_to_1 != blank %}
+                <div class="size-guides__container" data-scrolled="{{ forloop.index }}-{{ bst.jump_to_1 | downcase | handle }}">
+                  <div class="size-guides__title">{{ bst.jump_to_1 | escape }}</div>
+                  {% if bst.radio_jump_to_1a != blank or bst.radio_jump_to_1b != blank %}
+                    <div class="size-guides__unit-toggle-container position-relative">
+                      <div class="size-guides__switch position-absolute"></div>
+                      <div class=" d-inline-flex position-relative w-100">
+                        {% if bst.radio_jump_to_1a != blank %}
+                        <div class="size-guide__btn-switch act font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_1a }}</div>
+                        {% endif %}
+                        {% if bst.radio_jump_to_1b != blank %}
+                        <div class="size-guide__btn-switch font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_1b }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.html_jump_to_1a != blank or bst.html_jump_to_1b != blank %}
+                    <div class="size-guides__charts">
+                      {% if bst.html_jump_to_1a != blank %}
+                        <div class="size-chart__dialog-table size-chart__1">{{ bst.html_jump_to_1a }}</div>
+                      {% endif %}
+                      {% if bst.html_jump_to_1b != blank %}
+                        <div class="size-chart__dialog-table size-chart__2">{{ bst.html_jump_to_1b }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if bst.jump_to_2 != blank %}
+                <div class="size-guides__container" data-scrolled="{{ forloop.index }}-{{ bst.jump_to_2 | downcase | handle }}">
+                  <div class="size-guides__title">{{ bst.jump_to_2 | escape }}</div>
+                  {% if bst.radio_jump_to_2a != blank or bst.radio_jump_to_2b != blank %}
+                    <div class="size-guides__unit-toggle-container position-relative">
+                      <div class="size-guides__switch position-absolute"></div>
+                      <div class=" d-inline-flex position-relative w-100">
+                        {% if bst.radio_jump_to_2a != blank %}
+                        <div class="size-guide__btn-switch act font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_2a }}</div>
+                        {% endif %}
+                        {% if bst.radio_jump_to_2b != blank %}
+                        <div class="size-guide__btn-switch font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_2b }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.html_jump_to_2a != blank or bst.html_jump_to_2b != blank %}
+                    <div class="size-guides__charts">
+                      {% if bst.html_jump_to_2a != blank %}
+                        <div class="size-chart__dialog-table size-chart__1">{{ bst.html_jump_to_2a }}</div>
+                      {% endif %}
+                      {% if bst.html_jump_to_2b != blank %}
+                        <div class="size-chart__dialog-table size-chart__2">{{ bst.html_jump_to_2b }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if bst.jump_to_3 != blank %}
+                <div class="size-guides__container" data-scrolled="{{ forloop.index }}-{{ bst.jump_to_3 | downcase | handle }}">
+                  <div class="size-guides__title">{{ bst.jump_to_3 | escape }}</div>
+                  {% if bst.radio_jump_to_3a != blank or bst.radio_jump_to_3b != blank %}
+                    <div class="size-guides__unit-toggle-container position-relative">
+                      <div class="size-guides__switch position-absolute"></div>
+                      <div class=" d-inline-flex position-relative w-100">
+                        {% if bst.radio_jump_to_3a != blank %}
+                        <div class="size-guide__btn-switch act font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_3a }}</div>
+                        {% endif %}
+                        {% if bst.radio_jump_to_3b != blank %}
+                        <div class="size-guide__btn-switch font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_3b }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.html_jump_to_3a != blank or bst.html_jump_to_3b != blank %}
+                    <div class="size-guides__charts">
+                      {% if bst.html_jump_to_3a != blank %}
+                        <div class="size-chart__dialog-table size-chart__1">{{ bst.html_jump_to_3a }}</div>
+                      {% endif %}
+                      {% if bst.html_jump_to_3b != blank %}
+                        <div class="size-chart__dialog-table size-chart__2">{{ bst.html_jump_to_3b }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if bst.jump_to_4 != blank %}
+                <div class="size-guides__container" data-scrolled="{{ forloop.index }}-{{ bst.jump_to_4 | downcase | handle }}">
+                  <div class="size-guides__title">{{ bst.jump_to_4 | escape }}</div>
+                  {% if bst.radio_jump_to_4a != blank or bst.radio_jump_to_4b != blank %}
+                   <div class="size-guides__unit-toggle-container position-relative">
+                      <div class="size-guides__switch position-absolute"></div>
+                      <div class=" d-inline-flex position-relative w-100">
+                        {% if bst.radio_jump_to_4a != blank %}
+                        <div class="size-guide__btn-switch act font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_4a }}</div>
+                        {% endif %}
+                        {% if bst.radio_jump_to_4b != blank %}
+                        <div class="size-guide__btn-switch font-700 c_h pointer w-50 text-center">{{ bst.radio_jump_to_4b }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if bst.html_jump_to_4a != blank or bst.html_jump_to_4b != blank %}
+                    <div class="size-guides__charts">
+                      {% if bst.html_jump_to_4a != blank %}
+                        <div class="size-chart__dialog-table size-chart__1">{{ bst.html_jump_to_4a }}</div>
+                      {% endif %}
+                      {% if bst.html_jump_to_4b != blank %}
+                        <div class="size-chart__dialog-table size-chart__2">{{ bst.html_jump_to_4b }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page Size Guide",
+    "class": "page-inner page-size-guide",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Option Jump To"
+      },
+      {
+        "type": "color",
+        "id": "c_jump_to",
+        "label": "Color List Jump To",
+        "default": "#272727"
+      },
+      {
+        "type": "text",
+        "id": "fz_jump_to",
+        "label": "Font List Jump To",
+        "default": "12px"
+      },
+      {
+        "type": "number",
+        "id": "w_page",
+        "label": "Width Page",
+        "default": 690
+      }
+    ],
+    "blocks": [
+      {
+        "type": "size_tab",
+        "name": "Size Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title_tab",
+            "label": "Title Tab",
+            "default": "Women"
+          },
+          {
+            "type": "color",
+            "id": "c_title_tab",
+            "label": "Color Title Tab",
+            "default": "#000"
+          },
+          {
+            "type": "text",
+            "id": "fz_title_tab",
+            "label": "Font Title Tab",
+            "default": "15px"
+          },
+          {
+            "type": "header",
+            "content": "Option Jump To"
+          },
+          {
+            "type": "header",
+            "content": "Jump To 1"
+          },
+          {
+            "type": "text",
+            "id": "jump_to_1",
+            "label": "Jump To 1",
+            "default": "Tops + Dresses"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_1a",
+            "label": "Radio Text",
+            "default": "in."
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_1a",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_1b",
+            "label": "Radio Text",
+            "default": "cm"
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_1b",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "header",
+            "content": "Jump To 2"
+          },
+          {
+            "type": "text",
+            "id": "jump_to_2",
+            "label": "Jump To 2",
+            "default": "Tops + Dresses"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_2a",
+            "label": "Radio Text",
+            "default": "in."
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_2a",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_2b",
+            "label": "Radio Text",
+            "default": "cm"
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_2b",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "header",
+            "content": "Jump To 3"
+          },
+          {
+            "type": "text",
+            "id": "jump_to_3",
+            "label": "Jump To 3",
+            "default": "Tops + Dresses"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_3a",
+            "label": "Radio Text",
+            "default": "in."
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_3a",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_3b",
+            "label": "Radio Text",
+            "default": "cm"
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_3b",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "header",
+            "content": "Jump To 4"
+          },
+          {
+            "type": "text",
+            "id": "jump_to_4",
+            "label": "Jump To 4",
+            "default": "Tops + Dresses"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_4a",
+            "label": "Radio Text",
+            "default": "in."
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_4a",
+            "label": "Html Jump To"
+          },
+          {
+            "type": "text",
+            "id": "radio_jump_to_4b",
+            "label": "Radio Text",
+            "default": "cm"
+          },
+          {
+            "type": "html",
+            "id": "html_jump_to_4b",
+            "label": "Html Jump To"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,102 @@
+<!doctype html>
+<!-- Onemate 6 v.1.7.0 -->
+{%- if settings.lang_iso_rtl != blank -%}
+  {% assign list_iso_rtl = settings.lang_iso_rtl | downcase %}
+  {% if list_iso_rtl contains request.locale.iso_code %}
+    {% assign iso_rtl = true %}
+  {% else %}
+    {% assign iso_rtl = false %}
+  {% endif %}
+{%- endif -%}
+<html class="no-js{% if settings.enable_rtl and iso_rtl %} lang-rtl{% endif %}"{% if settings.enable_rtl and iso_rtl %} dir="rtl"{% endif %} lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+    {%- unless settings.type_header_family.system? and settings.type_base_family.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+    {% if settings.type_google == true %}
+      {%- assign type_base = settings.type_base_family_google | strip | replace: ' ', '+' -%}
+      {%- assign type_header = settings.type_header_family_google | strip | replace: ' ', '+' -%}
+      <link rel="preload" href="https://fonts.googleapis.com/css?family={{ type_base }}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+      {% if type_base != type_header %}
+        <link rel="preload" href="https://fonts.googleapis.com/css?family={{ type_header }}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+      {% endif %}
+    {% endif %}
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% include 'social-meta-tags' %}
+    {{ content_for_header }}
+    {% render 'judgeme_core' %}
+    {% include 'css-variables' %}
+    {% include 'nov-head-css' %}
+    {% include 'nov-head-js' %}
+    {% render 'variant-options' %}
+    <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body class="template-{{ template | split: '.' | first }}">
+    <a class="in-page-link hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    {% section 'nov-promotion-bar' %}
+    {% section 'nov-header' %}
+    <main class="main-content" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+    {% section 'nov-footer' %}
+    <div class="sidebar-overlay"></div>
+    {% include 'nov-cart-canvas' %}
+    {% include 'nov-popup-newsletter' %}
+    {% include 'nov-popup-faqs' %}
+    {% include 'nov-popup-video' %}
+    {% include 'nov-product-newsletter' %}
+    {% include 'icon-font' %}
+    {% include 'nov-cart-empty' %}
+    {% include 'nov-mobile-canvas' %}
+    {% if settings.enable_stickymenu_mobile %}
+      {% include 'nov-stickymenu-mobile' %}
+    {% endif %}
+    {% if settings.show_fake_order_inner_page %}
+      {% include 'nov-popup-fake-order' %}
+    {% else %}
+      {% if template.name == 'index' %}
+        {% include 'nov-popup-fake-order' %}
+      {% endif %}
+    {% endif %}
+    {% include 'nov-popup-GDPR' %}
+    {% if template.name == 'product' %}
+      <div id="nov-sizeguide-product" nov-item-act data-act="CanvasSizeGuide">
+        <div class="pointer mb-40" nov-btn-close data-close="CanvasSizeGuide"><svg aria-hidden="true" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></div>
+        {% section 'nov-page-sizeguide' %}
+      </div>
+    {% endif %}
+    {% if settings.wishlist_enable and settings.show_popup_wishlist %}
+      {% include 'nov-popup-wishlist' %}
+    {% endif %}
+    <div id="_desktop_back_top">
+      <div id="back-top">
+        <span>
+          <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+      </div>
+    </div>
+    {% include 'nov-currency' %}
+    <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
+    {{ 'nuranium.js' | asset_url | script_tag }}
+    
+  </body>
+</html>

@@ -1,0 +1,378 @@
+{% assign sst = section.settings %}
+{%- assign lg = 100 | divided_by: sst.lg -%}
+{%- assign md = 100 | divided_by: sst.md -%}
+{%- assign sm = 100 | divided_by: sst.sm -%}
+{%- assign xs = 100 | divided_by: sst.xs -%}
+<div class="distance{% if sst.class != blank %} {{ sst.class }}{% endif %}{% if sst.animate == true %} wow fadeInUp animated{% endif %}" data-section-id="{{ section.id }}" data-section-type="nov-slick">
+  {% if sst.container == 'container' %}
+    <div class="container">
+  {% elsif sst.container == 'container-fluid' %}
+    <div class="container-fluid">
+  {% else %}
+    <div class="container-full">
+  {% endif %}
+    {% if section.blocks.size > 0 %}
+      <div class="nov-opposite-slider overflow_hidden position-relative">
+        <div class="d-flex position-relative">
+          <div class="nov-slick-carousel w-50"
+            data-autoplay="true" 
+            data-autoplaytimeout="{{ sst.time | append: '000' }}" 
+            data-loop="true" 
+            data-dots="false" 
+            data-nav="false" 
+            data-items="1"
+            data-focus="false"
+            data-hover="false"
+            data-vertical="true"
+            data-speed="{{ sst.speed }}">
+            {% for block in section.blocks %}
+              <div class="item">
+                {% if block.settings.image != blank %}
+                  {%- render 'nov-aspect-image', image: block.settings.image, aspect: sst.aspect -%}
+                {% else %}
+                  {%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+                  {{ 'collection-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="nov-slick-carousel w-50">
+            {% for block in section.blocks %}
+              <div class="item">
+                {% if block.settings.image_2 != blank %}
+                  {%- render 'nov-aspect-image', image: block.settings.image_2, aspect: sst.aspect -%}
+                {% else %}
+                  {%- capture current -%}{% cycle 3, 1, 2 %}{%- endcapture -%}
+                  {{ 'collection-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          {% if sst.s_dot == true %}
+            <div class="nov-slick-dot position-absolute pointer">
+              {% for block in section.blocks %}
+                <div data-slick-to data-index="{{ forloop.index0 }}"{% if forloop.first == true %} current{% endif %}></div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="nov-slick-navfor-carousel slider-text mt-md-40"
+          data-autoplay="true" 
+          data-autoplaytimeout="{{ sst.time | append: '000' }}" 
+          data-loop="true" 
+          data-dots="false" 
+          data-nav="false" 
+          data-items_xl="1"
+          data-focus="false"
+          data-hover="false"
+          data-fade="true"
+          data-speed="{{ sst.speed }}">
+          {% for block in section.blocks %}
+          {% assign bst = block.settings %}
+            <div class="item text-center p-1">
+              {% if bst.title != blank %}<div class="title font-700 text-uppercase">{{ bst.title }}</div>{% endif %}
+              {% if bst.stitle != blank %}<div class="stitle{% if bst.title != blank %} mt-15{% endif %}">{{ bst.stitle }}</div>{% endif %}
+              {% if bst.btn != blank %}<a href="{{ bst.btn_link }}" class="btn{% if bst.title != blank or bst.stitle != blank %} mt-60 mt-md-30{% endif %}">{{ bst.btn }}</a>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Vinova Opposite Slider",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slider options"
+      },
+      {
+        "type": "range",
+        "id": "time",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Time auto play (seconds)",
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "min": 300,
+        "max": 2000,
+        "step": 100,
+        "label": "Slider change time (millisecond)",
+        "default": 500,
+        "info": "1 seconds =  1000 millisecond"
+      },
+      {
+        "type": "checkbox",
+        "id": "s_dot",
+        "label": "Show dots"
+      },
+      {
+        "type": "checkbox",
+        "id": "s_nav",
+        "label": "Show navigation"
+      },
+      {
+        "type": "header",
+        "content": "Style item"
+      },
+      {
+        "type": "select",
+        "id": "aspect",
+        "label": "Item aspect ratio",
+        "default": "34",
+        "options": [
+          {"value": "auto", "label": "auto"},
+          {"value": "11", "label": "1/1"},
+          {"value": "34", "label": "3/4"},
+          {"value": "43", "label": "4/3"}
+        ]
+      },
+      {
+        "type": "number",
+        "id": "mw_t",
+        "label": "Slider text max width",
+        "default": 500
+      },
+      {
+        "type": "color",
+        "id": "t_c",
+        "label": "Title color",
+        "default": "#222222"
+      },
+      {
+        "type": "range",
+        "id": "t_s",
+        "min": 11,
+        "max": 50,
+        "step": 1,
+        "label": "Text size",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "t_s_md",
+        "min": 11,
+        "max": 50,
+        "step": 1,
+        "label": "Text size tablet",
+        "default": 13,
+        "info": "Breakpoint 991px ↓"
+      },
+      {
+        "type": "color",
+        "id": "st_c",
+        "label": "Sub title color",
+        "default": "#666666"
+      },
+      {
+        "type": "range",
+        "id": "st_s",
+        "min": 11,
+        "max": 50,
+        "step": 1,
+        "label": "Text size",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "st_s_md",
+        "min": 11,
+        "max": 50,
+        "step": 1,
+        "label": "Text size tablet",
+        "default": 13,
+        "info": "Breakpoint 991px ↓"
+      },
+      {
+        "type": "color",
+        "id": "c_btn",
+        "label": "Button text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "b_btn",
+        "label": "Button background color",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "c_btn_h",
+        "label": "Button text color hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "b_btn_h",
+        "label": "Button background color hover",
+        "default": "#222222"
+      },
+      {
+        "type": "header",
+        "content": "Design option"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default":   true
+      },
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid" },
+          { "value": "container-full", "label": "Container full width" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#fff"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image opposite"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "header",
+            "content": "Title"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem ipsum"
+          },
+          {
+            "type": "header",
+            "content": "Sub title"
+          },
+          {
+            "type": "text",
+            "id": "stitle",
+            "label": "Sub title",
+            "default": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "header",
+            "content": "Button"
+          },
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Button",
+            "default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Opposite Slider",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ sst.distance_top | append: 'px' }};
+    padding-bottom: {{ sst.distance_bottom | append: 'px' }};
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .slider-text {
+    max-width: {{ sst.mw_t | append: 'px' }};
+    margin: auto;
+    padding: 10px;
+  }
+  #shopify-section-{{ section.id }} .title {
+    color: {{ sst.t_c }};
+    font-size: {{ sst.t_s | divided_by: 10.0 | append: 'rem' }};
+  }
+  #shopify-section-{{ section.id }} .stitle {
+    color: {{ sst.st_c }};
+    font-size: {{ sst.st_s | divided_by: 10.0 | append: 'rem' }};
+  }
+  #shopify-section-{{ section.id }} .btn {
+    color: {{ sst.c_btn }};
+    background-color: {{ sst.b_btn }};
+  }
+  #shopify-section-{{ section.id }} .btn:hover {
+    color: {{ sst.c_btn_h }} !important;
+    background-color: {{ sst.b_btn_h }} !important;
+  }
+  @media(max-width: 575px) {
+    #shopify-section-{{ section.id }} .distance {
+      {%- if sst.distance_top > 20 -%}padding-top: {{ sst.distance_top | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+      {%- if sst.distance_bottom > 20 -%}padding-bottom: {{ sst.distance_bottom | times: 0.7 | round: 0 | append: 'px' }};{%- endif -%}
+    }
+  }
+</style>

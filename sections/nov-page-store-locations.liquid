@@ -1,0 +1,300 @@
+{%- assign sst = section.settings -%}
+{% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<div class="distance {{ sst.class }}{% if sst.animate == true %} wow fadeInUp animated{% endif %}">
+  {% if sst.has_fullwidth == false %}
+    <div class="container">
+  {% endif %}
+    <div class="store-direction_content">
+      {% for block in section.blocks %}
+        <div class="item row align-items-center spacing-{{ sst.spacing }}{% if forloop.last == false %} mb-md-50{% endif %}">
+          {%- assign bst = block.settings -%}
+          <div class="col-md-6">
+            <div class="block-image">
+              {% if bst.img != blank %}
+                {% assign img_url = bst.img %}
+                <div class="respone_image" style="padding-top:{{ 1 | divided_by: img_url.aspect_ratio | times: 100}}%;">
+                  <img class="lazyload"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                    data-src="{{ img_url | img_url: '180x' }}"
+                    data-srcset="{{ img_url | img_url: '180x' }} 180w,{{ img_url | img_url: '380x' }} 380w,{{ img_url | img_url: '580x' }} 580w,{{ img_url | img_url: '768x' }} 768w,{{ img_url | img_url: '900x' }} 900w,{{ img_url | img_url: '1080x' }} 1080w,{{ img_url | img_url: '1170x' }} 1200w,{{ img_url | img_url: '1512x' }} 1512w,{{ img_url | img_url: '1728x' }} 1728w, {{ img_url | img_url: '2048x' }} 2048w" data-sizes="auto" alt="{{ img_url.alt }}">
+                </div>
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-6 mt-sm-30">
+            <div class="block-text">
+              <div class="boxInfor" style="background: {{ bst.bg_boxinfor }};">
+                {% if bst.store != blank %}
+                  <div class="store font-700 mb-20" style="color: {{ bst.c_store }};font-size: {{ bst.fz_store }};">{{ bst.store }}</div>
+                {% endif %}
+                {% if bst.address != blank %}
+                  <div class="address mb-20" style="color: {{ bst.c_address }};font-size: {{ bst.fz_address }};line-height: {{ bst.lh_address }};"><label>{{ 'page.contact.address' | t }}</label> {{ bst.address }}</div>
+                {% endif %}
+                {% if bst.email != blank %}
+                  <div class="email mb-5" style="color: {{ bst.c_email }};font-size: {{ bst.fz_email }};line-height: {{ bst.lh_email }};"><label>{{ 'page.contact.email' | t }}</label> {{ bst.email }}</div>
+                {% endif %}
+                {% if bst.call != blank %}
+                  <div class="call mb-15" style="color: {{ bst.c_call }};font-size: {{ bst.fz_call }};line-height: {{ bst.lh_call }};"><label>{{ 'page.contact.call' | t }}</label> {{ bst.call }}</div>
+                {% endif %}
+                {% if bst.time != true %}
+                  <div class="time mb-35" style="color: {{ bst.c_time }};font-size: {{ bst.fz_time }};line-height: {{ bst.lh_time }};"><label>{{ 'page.contact.time' | t }}</label> {{ bst.time }}</div>
+                {% endif %}
+                {% if bst.eb_button %}
+                  <button class="btn btn_submit text-center" type="submit" data-toggle="modal" data-target="#popup_contact_faq" style="background: {% if bst.eb_bg_button %}{{ bst.bg_button }}{% else %}{{ settings.theme_color_primary }}{% endif %};color: {% if bst.eb_c_button %}{{ bst.c_button }}{% else %}{{ settings.color_button_text_hover }}{% endif %};font-size: {{ bst.fz_button }};">
+                    <span>{{ bst.text_button }}</span>
+                  </button>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% if sst.has_fullwidth == false %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Page Store Direction",
+    "class": "page-inner page-store-direction",
+    "settings": [
+      {
+        "type": "range",
+        "id": "spacing",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "label": "Spacing items",
+        "default": 30
+      },
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full width",
+        "default":   false
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "number",
+        "id": "distance_top",
+        "label": "Top spacing section (px)",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "distance_bottom",
+        "label": "Bottom spacing section (px)",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Item image"
+          },
+          {
+            "type": "text",
+            "id": "store",
+            "label": "Store",
+            "default": "Store in New York"
+          },
+          {
+            "type": "color",
+            "id": "c_store",
+            "label": "Color Store",
+            "default": "#0d2235"
+          },
+          {
+            "type": "text",
+            "id": "fz_store",
+            "label": "Font Store",
+            "default": "22px"
+          },
+          {
+            "type": "text",
+            "id": "address",
+            "label": "Address",
+            "default": "123 Suspendis matti, Visaosang Building VST District, NY Accums, North American"
+          },
+          {
+            "type": "color",
+            "id": "c_address",
+            "label": "Color Address",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_address",
+            "label": "Font Address",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_address",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "email",
+            "label": "Email",
+            "default": "support@domain.com"
+          },
+          {
+            "type": "color",
+            "id": "c_email",
+            "label": "Color Email",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_email",
+            "label": "Font Email",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_email",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "call",
+            "label": "Call",
+            "default": "(012)-345-67890"
+          },
+          {
+            "type": "color",
+            "id": "c_call",
+            "label": "Color Call",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_call",
+            "label": "Font Call",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_call",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "time",
+            "label": "Time",
+            "default": "Our store has re-opened for shopping, exchanges every day 11am to 7pm"
+          },
+          {
+            "type": "color",
+            "id": "c_time",
+            "label": "Color Time",
+            "default": "#232630"
+          },
+          {
+            "type": "text",
+            "id": "fz_time",
+            "label": "Font Time",
+            "default": "14px"
+          },
+          {
+            "type": "text",
+            "id": "lh_time",
+            "label": "Line Height",
+            "default": "20px"
+          },
+          {
+            "type": "text",
+            "id": "text_button",
+            "label": "Text Button",
+            "default": "Get Direction"
+          },
+          {
+            "type": "text",
+            "id": "fz_button",
+            "label": "Font size",
+            "default": "10px"
+          },
+          {
+            "type": "checkbox",
+            "id": "eb_button",
+            "label": "Color text button customize",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "c_button",
+            "label": "Color",
+            "default": "#fff"
+          },
+          {
+            "type": "checkbox",
+            "id": "eb_bg_button",
+            "label": "Background button customize",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "bg_button",
+            "label": "Background Button",
+            "default": "#0d2235"
+          },
+          {
+            "type": "checkbox",
+            "id": "eb_bg_button_hv",
+            "label": "Background button hover customize",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "bg_button_hv",
+            "label": "Background Button Hover",
+            "default": "#167bd3"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{ section.id }}.nov-store-direction {
+    padding-top: {{ sst.distance_top }}px;
+    padding-bottom: {{ sst.distance_bottom }}px;
+    {% if sst.background_color != blank %}
+      background-color: {{ sst.background_color }};
+    {% endif %}
+    {%- assign bg_image = sst.background_image -%}
+    {% if bg_image.src != blank %}
+      background-image: url("{{ bg_image | img_url: '1920x' }}");background-repeat: no-repeat;background-size: cover;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }}.nov-store-direction .btn_submit:hover {
+    background: {% if sst.eb_bg_button_hv %}{{ sst.bg_button_hv }}{% else %}{{ settings.theme_color_default }}{% endif %} !important;
+  }
+</style>
