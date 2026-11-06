@@ -18,3 +18,4 @@ We decided to bypass external CSS frameworks (both Bootstrap and Tailwind) and m
 ## Considered Options
 - **Bootstrap 4 (Status Quo)**: Rejected due to monolithic bundle size (581 KB), legacy grid calculations with negative margins, and heavy jQuery/Bootstrap JS dependencies.
 - **Tailwind CSS v4**: Rejected due to the operational overhead of a build pipeline, class pollution in Liquid templates, and lack of support for direct Shopify Admin editing.
+
