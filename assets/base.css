@@ -1,7 +1,7 @@
 /*
   Arkorra Design System — base layer (ADR-0001: native modular CSS, BEM).
 
-  - Tokens live on :root with the --ark- prefix.
+  - Tokens live on :root with the --ark- prefix (Stitch Design System).
   - Primitives are scoped under `.ark` so they win over the legacy
     Bootstrap bundle (novstyle.css) without leaking into legacy pages.
   - Section/component styles live in assets/section-ark-*.css and
@@ -9,41 +9,96 @@
 */
 
 :root {
-  /* Colour — brand */
+  /* Primary scale (#1E3A34) */
+  --ark-primary-950: #051a14;
+  --ark-primary-900: #06241f;
+  --ark-primary-800: #0e2f29;
+  --ark-primary-700: #1e3a34;
+  --ark-primary-600: #334f49;
+  --ark-primary-500: #49655e;
+  --ark-primary-400: #617c75;
+  --ark-primary-300: #7a948d;
+  --ark-primary-200: #95aea7;
+  --ark-primary-100: #b1c8c2;
+  --ark-primary-50: #cee2dd;
+
+  /* Secondary scale (#D96B27) */
+  --ark-secondary-950: #2e1100;
+  --ark-secondary-900: #522100;
+  --ark-secondary-800: #783200;
+  --ark-secondary-700: #9e4300;
+  --ark-secondary-600: #c4560e;
+  --ark-secondary-500: #d96b27;
+  --ark-secondary-400: #e8874a;
+  --ark-secondary-300: #f4a472;
+  --ark-secondary-200: #fcc19c;
+  --ark-secondary-100: #ffdcc7;
+  --ark-secondary-50: #fff0e6;
+
+  /* Tertiary scale (#2E7D5B) */
+  --ark-tertiary-950: #002114;
+  --ark-tertiary-900: #0b3b2d;
+  --ark-tertiary-800: #065238;
+  --ark-tertiary-700: #1b6a4b;
+  --ark-tertiary-600: #2e7d5b;
+  --ark-tertiary-500: #479673;
+  --ark-tertiary-400: #61b08c;
+  --ark-tertiary-300: #7ccba6;
+  --ark-tertiary-200: #98e7c1;
+  --ark-tertiary-100: #b4ffda;
+  --ark-tertiary-50: #d9ffeb;
+
+  /* Neutral scale (#F7F5F0) */
+  --ark-neutral-950: #1a1c1b;
+  --ark-neutral-900: #2e312f;
+  --ark-neutral-800: #333534;
+  --ark-neutral-700: #444745;
+  --ark-neutral-600: #5c5f5d;
+  --ark-neutral-500: #747875;
+  --ark-neutral-400: #8e918f;
+  --ark-neutral-300: #a9aca9;
+  --ark-neutral-200: #c4c7c4;
+  --ark-neutral-100: #e6e4df;
+  --ark-neutral-50: #f7f5f0;
+
+  /* Semantic aliases — Stitch Design System */
   --ark-primary: #06241f;
   --ark-pine-deep: #1e3a34;
-  --ark-pine-light: #2c524a;
+  --ark-pine-light: #334f49;
   --ark-terracotta: #d96b27;
-  --ark-terracotta-hover: #b8561a;
+  --ark-terracotta-hover: #c4560e;
   --ark-secondary: #9e4300;
-  --ark-secondary-container: #ff8843;
+  --ark-secondary-container: #d96b27;
+  --ark-tertiary: #2e7d5b;
   --ark-sage: #2e7d5b;
   --ark-amber: #c88a1e;
-  --ark-on-primary-container: #86a49c;
-  --ark-primary-fixed-dim: #aecdc4;
-  --ark-secondary-fixed: #ffdbcb;
+  --ark-on-primary-container: #95aea7;
+  --ark-primary-fixed-dim: #b1c8c2;
+  --ark-secondary-fixed: #ffdcc7;
   --ark-error: #ba1a1a;
   --ark-error-container: #ffdad6;
   --ark-on-error-container: #93000a;
 
-  /* Colour — neutrals */
+  /* Surfaces & neutrals */
   --ark-white: #ffffff;
-  --ark-surface: #fbf9f4;
-  --ark-surface-low: #f5f3ee;
-  --ark-surface-container: #f0eee9;
-  --ark-surface-high: #eae8e3;
-  --ark-surface-highest: #e4e2dd;
+  --ark-surface: #f7f5f0;
+  --ark-surface-low: #f0eee9;
+  --ark-surface-container: #eae8e3;
+  --ark-surface-high: #e4e2dd;
+  --ark-surface-highest: #dcdad4;
   --ark-sand: #f7f5f0;
-  --ark-linen: #e2ddd5;
-  --ark-outline: #727976;
-  --ark-outline-variant: #c1c8c5;
+  --ark-linen: #dcd9d0;
+  --ark-outline: #747875;
+  --ark-outline-variant: #c4c7c4;
   --ark-slate: #525b58;
-  --ark-charcoal: #1a1d1c;
-  --ark-on-surface: #1b1c19;
+  --ark-charcoal: #1a1c1b;
+  --ark-inverted: #333534;
+  --ark-on-surface: #1a1c1b;
 
   /* Typography */
   --ark-font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ark-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ark-font-label: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --ark-text-headline-xl: clamp(2rem, 1.35rem + 2vw, 2.75rem);
   --ark-text-headline-lg: clamp(1.625rem, 1.4rem + 0.8vw, 2rem);
@@ -68,19 +123,19 @@
   --ark-page-width: 80rem;
 
   /* Shape & depth */
-  --ark-radius-sm: 0.25rem;
+  --ark-radius-sm: 0.375rem;
   --ark-radius-md: 0.5rem;
   --ark-radius-lg: 0.75rem;
   --ark-radius-xl: 1rem;
   --ark-radius-2xl: 1.5rem;
   --ark-radius-full: 9999px;
-  --ark-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
-  --ark-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
-  --ark-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.06);
-  --ark-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.06);
+  --ark-shadow-sm: 0 1px 2px rgb(30 58 52 / 0.05);
+  --ark-shadow-md: 0 4px 8px -2px rgb(30 58 52 / 0.08), 0 2px 4px -2px rgb(30 58 52 / 0.05);
+  --ark-shadow-lg: 0 12px 20px -4px rgb(30 58 52 / 0.1), 0 4px 6px -4px rgb(30 58 52 / 0.06);
+  --ark-shadow-xl: 0 20px 28px -6px rgb(30 58 52 / 0.12), 0 8px 10px -6px rgb(30 58 52 / 0.06);
 
   --ark-ease: cubic-bezier(0.2, 0, 0, 1);
-  --ark-focus-ring: 0 0 0 3px rgb(30 58 52 / 0.35);
+  --ark-focus-ring: 0 0 0 3px rgb(30 58 52 / 0.28);
 }
 
 /* ---------- Shell body (overrides legacy .template-index background) ---------- */
@@ -132,7 +187,7 @@ body.ark-shell {
     color: var(--ark-pine-deep);
     font-weight: 700;
     text-transform: none;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     text-wrap: balance;
   }
 
@@ -148,7 +203,7 @@ body.ark-shell {
   & a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s var(--ark-ease), background-color 0.2s var(--ark-ease);
+    transition: color 0.2s var(--ark-ease), background-color 0.2s var(--ark-ease), border-color 0.2s var(--ark-ease);
   }
 
   & a:hover {
@@ -234,28 +289,29 @@ body.ark-shell {
 /* ---------- Typography helpers ---------- */
 
 .ark-eyebrow {
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   line-height: 1.4;
   letter-spacing: 0.06em;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--ark-secondary);
+  color: var(--ark-terracotta);
 }
 
 .ark-heading-xl {
   font-size: var(--ark-text-headline-xl);
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .ark-heading-md {
   font-size: var(--ark-text-headline-md);
-  line-height: 1.33;
+  line-height: 1.3;
 }
 
 .ark-heading-sm {
   font-size: var(--ark-text-headline-sm);
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .ark-lede {
@@ -323,31 +379,32 @@ body.ark-shell {
   flex-shrink: 0;
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons (Stitch Design System: Primary, Secondary, Inverted, Outlined, Accent) ---------- */
 
 .ark-button {
-  --ark-button-bg: var(--ark-terracotta);
-  --ark-button-bg-hover: var(--ark-terracotta-hover);
+  --ark-button-bg: var(--ark-pine-deep);
+  --ark-button-bg-hover: var(--ark-primary);
   --ark-button-fg: var(--ark-white);
+  --ark-button-border: transparent;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--ark-space-sm);
-  min-height: 3rem;
-  padding: 0.75rem 1.75rem;
-  border: 0;
-  border-radius: var(--ark-radius-full);
+  min-height: 2.875rem;
+  padding: 0.6875rem 1.5rem;
+  border: 1px solid var(--ark-button-border);
+  border-radius: var(--ark-radius-md);
   background: var(--ark-button-bg);
   color: var(--ark-button-fg);
-  font-family: var(--ark-font-body);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-lg);
-  font-weight: 600;
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 1.4;
   letter-spacing: 0.01em;
   text-align: center;
-  box-shadow: var(--ark-shadow-md);
-  transition: background-color 0.2s var(--ark-ease), transform 0.2s var(--ark-ease), box-shadow 0.2s var(--ark-ease);
+  box-shadow: var(--ark-shadow-sm);
+  transition: background-color 0.2s var(--ark-ease), border-color 0.2s var(--ark-ease), color 0.2s var(--ark-ease), transform 0.2s var(--ark-ease), box-shadow 0.2s var(--ark-ease);
 
   &:hover {
     background: var(--ark-button-bg-hover);
@@ -361,43 +418,81 @@ body.ark-shell {
   }
 }
 
+/* Primary: #1E3A34 / #06241F */
+.ark-button--primary,
+.ark-button--pine {
+  --ark-button-bg: var(--ark-pine-deep);
+  --ark-button-bg-hover: var(--ark-primary);
+  --ark-button-fg: var(--ark-white);
+}
+
+/* Secondary: soft neutral surface (#E4E2DD / #EAE8E3) */
+.ark-button--secondary {
+  --ark-button-bg: var(--ark-surface-high);
+  --ark-button-bg-hover: var(--ark-surface-highest);
+  --ark-button-fg: var(--ark-charcoal);
+  box-shadow: none;
+}
+
+/* Inverted: dark charcoal (#333534) */
+.ark-button--inverted {
+  --ark-button-bg: var(--ark-inverted);
+  --ark-button-bg-hover: var(--ark-charcoal);
+  --ark-button-fg: var(--ark-white);
+}
+
+/* Outlined: 1px solid border on neutral surface */
+.ark-button--outlined,
+.ark-button--ghost {
+  --ark-button-bg: transparent;
+  --ark-button-bg-hover: var(--ark-surface-container);
+  --ark-button-fg: var(--ark-charcoal);
+  --ark-button-border: var(--ark-neutral-600);
+  box-shadow: none;
+}
+
+/* Accent / Secondary brand color (#D96B27) */
+.ark-button--accent,
+.ark-button--terracotta {
+  --ark-button-bg: var(--ark-terracotta);
+  --ark-button-bg-hover: var(--ark-terracotta-hover);
+  --ark-button-fg: var(--ark-white);
+  font-weight: 600;
+}
+
+/* Tertiary brand color (#2E7D5B) */
+.ark-button--tertiary {
+  --ark-button-bg: var(--ark-tertiary);
+  --ark-button-bg-hover: var(--ark-tertiary-700);
+  --ark-button-fg: var(--ark-white);
+}
+
 .ark-button--lg {
-  min-height: 3.5rem;
-  padding-inline: 2rem;
-  box-shadow: var(--ark-shadow-lg);
+  min-height: 3.375rem;
+  padding-inline: 1.75rem;
+  font-weight: 600;
+  box-shadow: var(--ark-shadow-md);
 
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 }
 
 .ark-button--sm {
-  min-height: 3rem;
+  min-height: 2.75rem;
   padding-inline: 1rem;
   font-size: var(--ark-text-label-md);
-  box-shadow: var(--ark-shadow-sm);
+  font-weight: 600;
 }
 
 .ark-button--block {
   width: 100%;
 }
 
-.ark-button--ghost {
-  --ark-button-bg: var(--ark-white);
-  --ark-button-bg-hover: var(--ark-surface-container);
-  --ark-button-fg: var(--ark-pine-deep);
-
-  box-shadow: var(--ark-shadow-sm);
-}
-
-.ark-button--pine {
-  --ark-button-bg: var(--ark-pine-deep);
-  --ark-button-bg-hover: var(--ark-pine-light);
-}
-
 .ark-button.is-success {
-  --ark-button-bg: var(--ark-sage);
-  --ark-button-bg-hover: var(--ark-sage);
+  --ark-button-bg: var(--ark-tertiary);
+  --ark-button-bg-hover: var(--ark-tertiary);
+  --ark-button-fg: var(--ark-white);
 }
 
 .ark-button.is-loading {
@@ -411,6 +506,156 @@ body.ark-shell {
   }
 }
 
+/* ---------- Stitch Action Buttons (Square Icon, Label Button, Circular Icon Buttons) ---------- */
+
+.ark-action-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 0;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-tertiary-900);
+  color: var(--ark-tertiary-400);
+  transition: transform 0.2s var(--ark-ease), background-color 0.2s var(--ark-ease);
+  --ark-icon-size: 1.375rem;
+
+  &:hover {
+    background: var(--ark-pine-deep);
+    transform: translateY(-1px);
+  }
+}
+
+.ark-label-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.125rem;
+  border: 0;
+  border-radius: var(--ark-radius-sm);
+  background: var(--ark-pine-deep);
+  color: var(--ark-primary-200);
+  font-family: var(--ark-font-label);
+  font-size: var(--ark-text-label-md);
+  font-weight: 500;
+  transition: background-color 0.2s var(--ark-ease), color 0.2s var(--ark-ease);
+  --ark-icon-size: 1.125rem;
+
+  &:hover {
+    background: var(--ark-primary);
+    color: var(--ark-white);
+  }
+}
+
+.ark-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ark-primary);
+  color: var(--ark-white);
+  transition: transform 0.2s var(--ark-ease), opacity 0.2s var(--ark-ease);
+  --ark-icon-size: 1.25rem;
+
+  &:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+  }
+}
+
+.ark-icon-circle--primary {
+  background: var(--ark-primary);
+}
+
+.ark-icon-circle--secondary {
+  background: var(--ark-secondary);
+}
+
+.ark-icon-circle--tertiary {
+  background: var(--ark-tertiary-900);
+}
+
+.ark-icon-circle--danger {
+  background: var(--ark-error);
+}
+
+/* ---------- Stitch Segmented Navigation Pill Bar ---------- */
+
+.ark-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--ark-radius-full);
+  background: var(--ark-surface-high);
+}
+
+.ark .ark-nav-pill__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ark-charcoal);
+  transition: background-color 0.2s var(--ark-ease), color 0.2s var(--ark-ease);
+  --ark-icon-size: 1.25rem;
+
+  &:hover {
+    background: var(--ark-surface-highest);
+    color: var(--ark-pine-deep);
+  }
+
+  &.is-active {
+    background: var(--ark-primary);
+    color: var(--ark-white);
+  }
+}
+
+/* ---------- Stitch Progress Bars ---------- */
+
+.ark-progress-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+}
+
+.ark-progress {
+  width: 100%;
+  height: 0.375rem;
+  overflow: hidden;
+  border-radius: var(--ark-radius-full);
+  background: var(--ark-surface-high);
+}
+
+.ark-progress__bar {
+  height: 100%;
+  border-radius: var(--ark-radius-full);
+  background: var(--ark-primary);
+  transition: width 0.35s var(--ark-ease);
+}
+
+.ark-progress__bar--primary {
+  background: var(--ark-primary);
+}
+
+.ark-progress__bar--secondary {
+  background: var(--ark-secondary);
+}
+
+.ark-progress__bar--tertiary {
+  background: var(--ark-tertiary-900);
+}
+
 /* ---------- Chips / pills ---------- */
 
 .ark-chip {
@@ -418,18 +663,19 @@ body.ark-shell {
   align-items: center;
   gap: 0.375rem;
   padding: 0.25rem 0.75rem;
-  border-radius: var(--ark-radius-full);
+  border-radius: var(--ark-radius-sm);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   line-height: 1.4;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   background: var(--ark-surface-container);
   color: var(--ark-pine-deep);
   --ark-icon-size: 1rem;
 }
 
 .ark-chip--accent {
-  background: rgb(158 67 0 / 0.1);
+  background: rgb(217 107 39 / 0.14);
   color: var(--ark-secondary);
 }
 
@@ -438,7 +684,7 @@ body.ark-shell {
 }
 
 .ark-chip--secondary {
-  background: var(--ark-secondary);
+  background: var(--ark-terracotta);
   color: var(--ark-white);
   font-weight: 700;
   box-shadow: var(--ark-shadow-sm);
@@ -447,11 +693,17 @@ body.ark-shell {
 .ark-chip--pine {
   background: var(--ark-pine-deep);
   color: var(--ark-white);
-  font-weight: 700;
+  font-weight: 600;
+}
+
+.ark-chip--tertiary {
+  background: var(--ark-tertiary);
+  color: var(--ark-white);
+  font-weight: 600;
 }
 
 .ark-chip--glass {
-  background: rgb(255 255 255 / 0.9);
+  background: rgb(247 245 240 / 0.92);
   backdrop-filter: blur(12px);
   font-weight: 700;
 }
@@ -459,7 +711,7 @@ body.ark-shell {
 .ark-chip--square {
   border-radius: var(--ark-radius-sm);
   padding: 0.25rem 0.625rem;
-  background: var(--ark-sand);
+  background: var(--ark-surface-low);
 }
 
 .ark-chip__dot {
@@ -475,7 +727,7 @@ body.ark-shell {
 }
 
 .ark-chip__dot--pulse {
-  background: var(--ark-secondary-container);
+  background: var(--ark-terracotta);
   animation: ark-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
@@ -503,7 +755,8 @@ body.ark-shell {
 /* ---------- Cards ---------- */
 
 .ark-card {
-  background: var(--ark-white);
+  background: var(--ark-surface-low);
+  border: 1px solid rgb(196 199 196 / 0.35);
   border-radius: var(--ark-radius-xl);
   box-shadow: var(--ark-shadow-sm);
   padding: var(--ark-space-lg);
@@ -515,7 +768,7 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   gap: 0.125rem;
-  color: var(--ark-amber);
+  color: var(--ark-terracotta);
   --ark-icon-size: 1.125rem;
 }
 
@@ -523,9 +776,10 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   gap: var(--ark-space-xs);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 600;
-  color: var(--ark-sage);
+  color: var(--ark-tertiary);
   --ark-icon-size: 0.875rem;
 }
 
@@ -552,7 +806,7 @@ body.ark-shell {
   text-decoration: line-through;
 }
 
-/* ---------- Form fields ---------- */
+/* ---------- Form & Search fields (Stitch Search Input style) ---------- */
 
 .ark-field {
   display: flex;
@@ -561,29 +815,56 @@ body.ark-shell {
 }
 
 .ark-field__label {
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   color: var(--ark-charcoal);
 }
 
-.ark .ark-field__input {
+.ark .ark-field__input,
+.ark .ark-search__input {
   display: block;
   width: 100%;
   height: 3rem;
   padding: 0 1rem;
-  border: 1px solid transparent;
+  border: 1px solid var(--ark-outline-variant);
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-low);
   color: var(--ark-on-surface);
+  font-family: var(--ark-font-body);
   font-size: var(--ark-text-body-sm);
   line-height: 1.5;
   box-shadow: none;
+  transition: border-color 0.2s var(--ark-ease), box-shadow 0.2s var(--ark-ease);
+
+  &::placeholder {
+    color: var(--ark-neutral-600);
+  }
 
   &:focus {
     outline: none;
     box-shadow: var(--ark-focus-ring);
     border-color: var(--ark-pine-deep);
   }
+}
+
+.ark-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ark-search__icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--ark-neutral-600);
+  pointer-events: none;
+  --ark-icon-size: 1.25rem;
+}
+
+.ark .ark-search__input {
+  padding-left: 2.75rem;
 }
 
 .ark-notice {
@@ -593,12 +874,14 @@ body.ark-shell {
   padding: 0.75rem;
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-container);
-  color: var(--ark-sage);
+  color: var(--ark-tertiary);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   --ark-icon-size: 1.125rem;
 }
 
 .ark-notice--error {
-  color: var(--ark-error);
+  background: var(--ark-error-container);
+  color: var(--ark-on-error-container);
 }

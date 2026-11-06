@@ -8,9 +8,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--ark-space-sm);
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--ark-radius-sm);
+  background: var(--ark-surface-container);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-md);
   font-weight: 600;
-  color: var(--ark-sage);
+  color: var(--ark-tertiary);
   --ark-icon-size: 1.25rem;
 }
 
@@ -50,15 +54,18 @@
   justify-content: space-between;
   gap: var(--ark-space-sm);
   padding-top: var(--ark-space-sm);
+  border-top: 1px solid rgb(196 199 196 / 0.35);
 }
 
 .ark-testimonial__author {
   display: flex;
   flex-direction: column;
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   color: var(--ark-slate);
 
   & strong {
+    font-family: var(--ark-font-heading);
     font-size: var(--ark-text-label-md);
     font-weight: 700;
     color: var(--ark-pine-deep);
@@ -68,8 +75,9 @@
 .ark-testimonial__tag {
   padding: 0.25rem 0.625rem;
   border-radius: var(--ark-radius-sm);
-  background: var(--ark-surface-container);
-  color: var(--ark-sage);
+  background: var(--ark-pine-deep);
+  color: var(--ark-primary-200);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   flex-shrink: 0;

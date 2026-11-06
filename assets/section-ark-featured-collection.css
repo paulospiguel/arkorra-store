@@ -5,6 +5,7 @@
 }
 
 .ark-catalog__filter-label {
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   color: var(--ark-slate);
@@ -13,12 +14,19 @@
 .ark .ark-catalog__filter-pill {
   display: inline-flex;
   align-items: center;
+  gap: 0.375rem;
   padding: 0.5rem 1rem;
-  border-radius: var(--ark-radius-full);
+  border-radius: var(--ark-radius-sm);
   background: var(--ark-pine-deep);
-  color: var(--ark-white);
+  color: var(--ark-primary-200);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 600;
+
+  &:hover {
+    background: var(--ark-primary);
+    color: var(--ark-white);
+  }
 }
 
 .ark-catalog__grid {

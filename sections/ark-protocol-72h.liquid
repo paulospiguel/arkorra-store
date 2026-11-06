@@ -23,13 +23,29 @@
     {%- if phases.size > 0 -%}
       <ol class="ark-protocol__phases">
         {%- for block in phases -%}
+          {%- liquid
+            assign bar_mod = 'primary'
+            assign bar_w = '68%'
+            if forloop.index == 2
+              assign bar_mod = 'secondary'
+              assign bar_w = '82%'
+            elsif forloop.index >= 3
+              assign bar_mod = 'tertiary'
+              assign bar_w = '60%'
+            endif
+          -%}
           <li class="ark-card ark-protocol__phase" {{ block.shopify_attributes }}>
-            <span class="ark-protocol__step" aria-hidden="true">{{ forloop.index }}</span>
-            {%- if block.settings.window != blank -%}
-              <span class="ark-eyebrow">{{ block.settings.window }}</span>
-            {%- endif -%}
+            <div class="ark-protocol__phase-head">
+              <span class="ark-icon-circle ark-icon-circle--{{ bar_mod }} ark-protocol__step" aria-hidden="true">{{ forloop.index }}</span>
+              {%- if block.settings.window != blank -%}
+                <span class="ark-eyebrow">{{ block.settings.window }}</span>
+              {%- endif -%}
+            </div>
             <h3 class="ark-heading-sm">{{ block.settings.title }}</h3>
             <p class="ark-protocol__phase-text">{{ block.settings.text }}</p>
+            <div class="ark-progress" aria-hidden="true">
+              <div class="ark-progress__bar ark-progress__bar--{{ bar_mod }}" style="width: {{ bar_w }}"></div>
+            </div>
             {%- if block.settings.solution != blank -%}
               <p class="ark-protocol__solution">
                 <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
@@ -49,7 +65,7 @@
         <ul class="ark-protocol__pillars">
           {%- for block in pillars -%}
             <li class="ark-protocol__pillar" {{ block.shopify_attributes }}>
-              <span class="ark-protocol__pillar-icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
+              <span class="ark-action-square ark-protocol__pillar-icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
               <strong class="ark-protocol__pillar-name">{{ block.settings.title }}</strong>
               <span class="ark-protocol__pillar-sub">{{ block.settings.subtitle }}</span>
             </li>

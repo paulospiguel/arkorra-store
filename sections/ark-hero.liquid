@@ -39,9 +39,9 @@
             </span>
           {%- endif -%}
           {%- if s.badge_secondary != blank -%}
-            <span class="ark-chip">
-              <span class="ark-icon ark-hero__badge-icon" aria-hidden="true">verified</span>
-              {{ s.badge_secondary }}
+            <span class="ark-label-btn ark-hero__label-badge">
+              <span class="ark-icon" aria-hidden="true">verified</span>
+              <span>{{ s.badge_secondary }}</span>
             </span>
           {%- endif -%}
         </div>
@@ -60,7 +60,9 @@
         <ul class="ark-hero__bullets">
           {%- for block in section.blocks -%}
             <li class="ark-hero__bullet" {{ block.shopify_attributes }}>
-              <span class="ark-icon ark-hero__bullet-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span class="ark-action-square ark-hero__bullet-square" aria-hidden="true">
+                <span class="ark-icon">{{ block.settings.icon }}</span>
+              </span>
               <span class="ark-hero__bullet-text">
                 <strong>{{ block.settings.title }}</strong>
                 <span>{{ block.settings.subtitle }}</span>
@@ -72,13 +74,13 @@
 
       <div class="ark-hero__actions">
         {%- if s.cta_label != blank -%}
-          <a href="{{ s.cta_link | default: '#catalogo' }}" class="ark-button ark-button--lg">
+          <a href="{{ s.cta_link | default: '#catalogo' }}" class="ark-button ark-button--primary ark-button--lg">
             <span>{{ s.cta_label }}</span>
             <span class="ark-icon" aria-hidden="true">arrow_forward</span>
           </a>
         {%- endif -%}
         {%- if s.cta2_label != blank -%}
-          <a href="{{ s.cta2_link | default: '#guia' }}" class="ark-button ark-button--lg ark-button--ghost">
+          <a href="{{ s.cta2_link | default: '#guia' }}" class="ark-button ark-button--outlined ark-button--lg">
             <span class="ark-icon ark-hero__download-icon" aria-hidden="true">download</span>
             <span>{{ s.cta2_label }}</span>
           </a>
@@ -158,6 +160,30 @@
           {%- endif -%}
         </div>
 
+        <div class="ark-hero-card__meters" aria-label="Índices de autonomia 72h">
+          <div class="ark-hero-card__meter">
+            <div class="ark-hero-card__meter-head">
+              <span>Autonomia Energética & Rádio</span>
+              <strong>72h</strong>
+            </div>
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--primary" style="width: 78%"></div></div>
+          </div>
+          <div class="ark-hero-card__meter">
+            <div class="ark-hero-card__meter-head">
+              <span>Reserva Calórica & Térmica</span>
+              <strong>92%</strong>
+            </div>
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--secondary" style="width: 92%"></div></div>
+          </div>
+          <div class="ark-hero-card__meter">
+            <div class="ark-hero-card__meter-head">
+              <span>Purificação Hídrica Homologada</span>
+              <strong>2000L</strong>
+            </div>
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--tertiary" style="width: 64%"></div></div>
+          </div>
+        </div>
+
         {%- assign specs = s.card_specs | split: ',' -%}
         {%- if specs.size > 0 -%}
           <ul class="ark-hero-card__specs">
@@ -171,14 +197,14 @@
           {%- if product != blank -%}
             {%- form 'product', product, data-ark-add-form: '', class: 'ark-hero-card__form' -%}
               <input type="hidden" name="id" value="{{ variant.id }}">
-              <button type="submit" class="ark-button ark-button--block" data-success-label="{{ s.success_label }}"{% unless variant.available %} disabled{% endunless %}>
+              <button type="submit" class="ark-button ark-button--accent ark-button--block" data-success-label="{{ s.success_label }}"{% unless variant.available %} disabled{% endunless %}>
                 <span class="ark-icon" aria-hidden="true">shopping_bag</span>
                 <span data-ark-button-label>{% if variant.available %}{{ s.card_cta }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
               </button>
               <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
             {%- endform -%}
           {%- else -%}
-            <button type="button" class="ark-button ark-button--block" data-ark-demo-add data-success-label="{{ s.success_label }}">
+            <button type="button" class="ark-button ark-button--accent ark-button--block" data-ark-demo-add data-success-label="{{ s.success_label }}">
               <span class="ark-icon" aria-hidden="true">shopping_bag</span>
               <span data-ark-button-label>{{ s.card_cta }}</span>
             </button>

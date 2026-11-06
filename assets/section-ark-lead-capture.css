@@ -22,7 +22,7 @@
     width: 24rem;
     height: 24rem;
     border-radius: 50%;
-    background: rgb(158 67 0 / 0.14);
+    background: rgb(217 107 39 / 0.16);
     filter: blur(48px);
     pointer-events: none;
   }
@@ -52,10 +52,11 @@
   align-items: center;
   gap: 0.375rem;
   width: fit-content;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--ark-radius-full);
-  background: rgb(255 255 255 / 0.1);
+  padding: 0.3125rem 0.75rem;
+  border-radius: var(--ark-radius-sm);
+  background: rgb(255 255 255 / 0.12);
   color: var(--ark-white);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   --ark-icon-size: 1rem;
@@ -73,16 +74,17 @@
   max-width: 36rem;
   font-size: var(--ark-text-body-lg);
   line-height: 1.58;
-  color: var(--ark-on-primary-container);
+  color: var(--ark-primary-100);
 }
 
 .ark-lead__checks {
   display: flex;
   flex-wrap: wrap;
   gap: var(--ark-space-sm) var(--ark-space-md);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
-  color: var(--ark-on-primary-container);
+  color: var(--ark-primary-100);
 }
 
 .ark-lead__card {
@@ -91,7 +93,7 @@
   gap: var(--ark-space-sm);
   padding: var(--ark-space-lg);
   border-radius: var(--ark-radius-xl);
-  background: var(--ark-white);
+  background: var(--ark-surface);
   color: var(--ark-on-surface);
   box-shadow: var(--ark-shadow-lg);
 }
@@ -108,6 +110,8 @@
   padding-top: var(--ark-space-sm);
 
   & .ark-button {
-    margin-top: var(--ark-space-sm);
+    margin-top: var(--ark-space-xs);
+    --ark-button-bg: var(--ark-terracotta);
+    --ark-button-bg-hover: var(--ark-terracotta-hover);
   }
 }

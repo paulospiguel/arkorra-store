@@ -30,11 +30,14 @@
 .ark-hero__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--ark-space-xs);
+  align-items: center;
+  gap: var(--ark-space-sm);
 }
 
-.ark-hero__badge-icon {
-  color: var(--ark-sage);
+.ark-hero__label-badge {
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--ark-text-label-sm);
 }
 
 .ark-hero__copy {
@@ -65,19 +68,23 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: var(--ark-space-md);
+  padding: 0.875rem;
+  border: 1px solid rgb(196 199 196 / 0.45);
   border-radius: var(--ark-radius-lg);
   background: var(--ark-surface-low);
 }
 
-.ark-hero__bullet-icon {
-  --ark-icon-size: 1.625rem;
-  color: var(--ark-sage);
+.ark-hero__bullet-square {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  --ark-icon-size: 1.375rem;
 }
 
 .ark-hero__bullet-text {
   display: flex;
   flex-direction: column;
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   line-height: 1.4;
   color: var(--ark-slate);
@@ -98,7 +105,7 @@
 }
 
 .ark-hero__download-icon {
-  color: var(--ark-secondary);
+  color: var(--ark-terracotta);
 }
 
 .ark-hero__proof {
@@ -129,22 +136,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
   border: 2px solid var(--ark-surface);
   background: var(--ark-pine-deep);
   color: var(--ark-white);
+  font-family: var(--ark-font-label);
   font-size: 0.6875rem;
   font-weight: 700;
 }
 
 .ark-hero__avatar--2 {
-  background: var(--ark-secondary);
+  background: var(--ark-terracotta);
 }
 
 .ark-hero__avatar--3 {
-  background: var(--ark-sage);
+  background: var(--ark-tertiary);
 }
 
 .ark-hero__avatar--4 {
@@ -157,8 +165,9 @@
   flex-direction: column;
   gap: var(--ark-space-md);
   padding: var(--ark-space-lg);
+  border: 1px solid rgb(196 199 196 / 0.5);
   border-radius: var(--ark-radius-xl);
-  background: var(--ark-white);
+  background: var(--ark-surface-low);
   box-shadow: var(--ark-shadow-xl);
 }
 
@@ -174,12 +183,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   color: var(--ark-slate);
   --ark-icon-size: 1.125rem;
 
   & .ark-icon {
-    color: var(--ark-amber);
+    color: var(--ark-terracotta);
   }
 
   & strong {
@@ -191,10 +201,10 @@
 .ark-hero-card__media {
   position: relative;
   display: block;
-  height: 18rem;
+  height: 17rem;
   overflow: hidden;
   border-radius: var(--ark-radius-lg);
-  background: var(--ark-sand);
+  background: var(--ark-surface-container);
 }
 
 .ark .ark-hero-card__img {
@@ -211,10 +221,11 @@
   align-items: center;
   gap: var(--ark-space-sm);
   padding: 0.375rem 0.75rem;
-  border-radius: var(--ark-radius-md);
-  background: rgb(30 58 52 / 0.9);
+  border-radius: var(--ark-radius-sm);
+  background: rgb(30 58 52 / 0.92);
   backdrop-filter: blur(12px);
   color: var(--ark-white);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
   --ark-icon-size: 1.125rem;
@@ -248,17 +259,48 @@
   color: var(--ark-slate);
 }
 
+/* Progress meters (Stitch 3-bar card) */
+.ark-hero-card__meters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--ark-radius-lg);
+  background: var(--ark-surface);
+  border: 1px solid rgb(196 199 196 / 0.4);
+}
+
+.ark-hero-card__meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ark-hero-card__meter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--ark-font-label);
+  font-size: 0.75rem;
+  color: var(--ark-slate);
+
+  & strong {
+    font-weight: 700;
+    color: var(--ark-pine-deep);
+  }
+}
+
 .ark-hero-card__specs {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--ark-space-sm);
+  gap: var(--ark-space-xs);
 }
 
 .ark-hero-card__buy {
   display: flex;
   flex-direction: column;
   gap: var(--ark-space-sm);
-  padding-top: var(--ark-space-sm);
+  padding-top: var(--ark-space-xs);
 }
 
 .ark-hero-card__form {
@@ -272,9 +314,10 @@
   align-items: center;
   justify-content: center;
   gap: var(--ark-space-sm);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
-  color: var(--ark-sage);
+  color: var(--ark-tertiary);
   --ark-icon-size: 1rem;
 }

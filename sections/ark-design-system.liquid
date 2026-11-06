@@ -1,0 +1,241 @@
+{{ 'section-ark-design-system.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+
+<section class="ark ark-ds" id="ark-design-system-{{ section.id }}">
+  <div class="ark-page-width">
+    {%- if s.show_header -%}
+      <div class="ark-ds__head">
+        <div>
+          {%- if s.eyebrow != blank -%}
+            <span class="ark-eyebrow">{{ s.eyebrow }}</span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <h2 class="ark-heading-md">{{ s.heading }}</h2>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="ark-ds__board">
+      <div class="ark-ds__col">
+        <div class="ark-ds-swatch ark-ds-swatch--primary">
+          <div class="ark-ds-swatch__top">
+            <span>{{ s.primary_label }}</span>
+            <span class="ark-ds-swatch__hex">{{ s.primary_hex }}</span>
+          </div>
+          <div class="ark-ds-swatch__ramp" aria-hidden="true">
+            <span style="background:#000000"></span>
+            <span style="background:#051a14"></span>
+            <span style="background:#0e2f29"></span>
+            <span style="background:#1e3a34"></span>
+            <span style="background:#334f49"></span>
+            <span style="background:#49655e"></span>
+            <span style="background:#617c75"></span>
+            <span style="background:#7a948d"></span>
+            <span style="background:#95aea7"></span>
+            <span style="background:#b1c8c2"></span>
+            <span style="background:#cee2dd"></span>
+            <span style="background:#ffffff"></span>
+          </div>
+        </div>
+
+        <div class="ark-ds-swatch ark-ds-swatch--secondary">
+          <div class="ark-ds-swatch__top">
+            <span>{{ s.secondary_label }}</span>
+            <span class="ark-ds-swatch__hex">{{ s.secondary_hex }}</span>
+          </div>
+          <div class="ark-ds-swatch__ramp" aria-hidden="true">
+            <span style="background:#000000"></span>
+            <span style="background:#2e1100"></span>
+            <span style="background:#522100"></span>
+            <span style="background:#783200"></span>
+            <span style="background:#9e4300"></span>
+            <span style="background:#c4560e"></span>
+            <span style="background:#d96b27"></span>
+            <span style="background:#e8874a"></span>
+            <span style="background:#f4a472"></span>
+            <span style="background:#fcc19c"></span>
+            <span style="background:#ffdcc7"></span>
+            <span style="background:#ffffff"></span>
+          </div>
+        </div>
+
+        <div class="ark-ds-swatch ark-ds-swatch--tertiary">
+          <div class="ark-ds-swatch__top">
+            <span>{{ s.tertiary_label }}</span>
+            <span class="ark-ds-swatch__hex">{{ s.tertiary_hex }}</span>
+          </div>
+          <div class="ark-ds-swatch__ramp" aria-hidden="true">
+            <span style="background:#000000"></span>
+            <span style="background:#002114"></span>
+            <span style="background:#003824"></span>
+            <span style="background:#065238"></span>
+            <span style="background:#1b6a4b"></span>
+            <span style="background:#2e7d5b"></span>
+            <span style="background:#479673"></span>
+            <span style="background:#61b08c"></span>
+            <span style="background:#7ccba6"></span>
+            <span style="background:#98e7c1"></span>
+            <span style="background:#b4ffda"></span>
+            <span style="background:#ffffff"></span>
+          </div>
+        </div>
+
+        <div class="ark-ds-swatch ark-ds-swatch--neutral">
+          <div class="ark-ds-swatch__top">
+            <span>{{ s.neutral_label }}</span>
+            <span class="ark-ds-swatch__hex">{{ s.neutral_hex }}</span>
+          </div>
+          <div class="ark-ds-swatch__ramp" aria-hidden="true">
+            <span style="background:#000000"></span>
+            <span style="background:#1a1c1b"></span>
+            <span style="background:#2e312f"></span>
+            <span style="background:#444745"></span>
+            <span style="background:#5c5f5d"></span>
+            <span style="background:#747875"></span>
+            <span style="background:#8e918f"></span>
+            <span style="background:#a9aca9"></span>
+            <span style="background:#c4c7c4"></span>
+            <span style="background:#e0e3e0"></span>
+            <span style="background:#f0eee9"></span>
+            <span style="background:#ffffff"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ark-ds__col">
+        <div class="ark-ds-type">
+          <div class="ark-ds-type__meta">
+            <strong>Headline</strong>
+            <span>Plus Jakarta Sans</span>
+          </div>
+          <span class="ark-ds-type__glyph ark-ds-type__glyph--heading">Aa</span>
+        </div>
+
+        <div class="ark-ds-type">
+          <div class="ark-ds-type__meta">
+            <strong>Body</strong>
+            <span>Inter</span>
+          </div>
+          <span class="ark-ds-type__glyph ark-ds-type__glyph--body">Aa</span>
+        </div>
+
+        <div class="ark-ds-type">
+          <div class="ark-ds-type__meta">
+            <strong>Label</strong>
+            <span>Inter</span>
+          </div>
+          <span class="ark-ds-type__glyph ark-ds-type__glyph--label">Aa</span>
+        </div>
+      </div>
+
+      <div class="ark-ds__col">
+        <div class="ark-ds-card">
+          <div class="ark-ds-buttons">
+            <button type="button" class="ark-button ark-button--primary">{{ s.btn_primary }}</button>
+            <button type="button" class="ark-button ark-button--secondary">{{ s.btn_secondary }}</button>
+            <button type="button" class="ark-button ark-button--inverted">{{ s.btn_inverted }}</button>
+            <button type="button" class="ark-button ark-button--outlined">{{ s.btn_outlined }}</button>
+          </div>
+        </div>
+
+        <div class="ark-ds-card">
+          <div class="ark-progress-stack">
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--primary" style="width: 72%"></div></div>
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--secondary" style="width: 86%"></div></div>
+            <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--tertiary" style="width: 56%"></div></div>
+          </div>
+        </div>
+
+        <div class="ark-ds-split">
+          <div class="ark-ds-card">
+            <button type="button" class="ark-action-square" aria-label="Editar">
+              <span class="ark-icon" aria-hidden="true">edit</span>
+            </button>
+          </div>
+          <div class="ark-ds-card">
+            <button type="button" class="ark-label-btn">
+              <span class="ark-icon" aria-hidden="true">edit</span>
+              <span>{{ s.label_btn_text }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ark-ds__col">
+        <div class="ark-ds-card">
+          <div class="ark-search">
+            <span class="ark-icon ark-search__icon" aria-hidden="true">search</span>
+            <input type="search" class="ark-search__input" placeholder="{{ s.search_placeholder }}" aria-label="{{ s.search_placeholder }}">
+          </div>
+        </div>
+
+        <div class="ark-ds-card">
+          <div class="ark-nav-pill" role="group" aria-label="Navegação rápida">
+            <button type="button" class="ark-nav-pill__item is-active" aria-label="Início">
+              <span class="ark-icon" aria-hidden="true">home</span>
+            </button>
+            <button type="button" class="ark-nav-pill__item" aria-label="Pesquisar">
+              <span class="ark-icon" aria-hidden="true">search</span>
+            </button>
+            <button type="button" class="ark-nav-pill__item" aria-label="Conta">
+              <span class="ark-icon" aria-hidden="true">person</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ark-ds-card">
+          <div class="ark-ds-circles">
+            <button type="button" class="ark-icon-circle ark-icon-circle--primary" aria-label="Ação rápida">
+              <span class="ark-icon" aria-hidden="true">auto_fix_high</span>
+            </button>
+            <button type="button" class="ark-icon-circle ark-icon-circle--secondary" aria-label="Categorias">
+              <span class="ark-icon" aria-hidden="true">category</span>
+            </button>
+            <button type="button" class="ark-icon-circle ark-icon-circle--tertiary" aria-label="Etiquetas">
+              <span class="ark-icon" aria-hidden="true">sell</span>
+            </button>
+            <button type="button" class="ark-icon-circle ark-icon-circle--danger" aria-label="Remover">
+              <span class="ark-icon" aria-hidden="true">delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Design System",
+  "tag": "div",
+  "class": "ark-design-system-section",
+  "settings": [
+    { "type": "checkbox", "id": "show_header", "label": "Mostrar cabeçalho da secção", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Sistema Visual Oficial" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Arkorra Design System & Componentes" },
+    { "type": "header", "content": "Paleta de cores" },
+    { "type": "text", "id": "primary_label", "label": "Nome Primary", "default": "Primary" },
+    { "type": "text", "id": "primary_hex", "label": "Hex Primary", "default": "#1E3A34" },
+    { "type": "text", "id": "secondary_label", "label": "Nome Secondary", "default": "Secondary" },
+    { "type": "text", "id": "secondary_hex", "label": "Hex Secondary", "default": "#D96B27" },
+    { "type": "text", "id": "tertiary_label", "label": "Nome Tertiary", "default": "Tertiary" },
+    { "type": "text", "id": "tertiary_hex", "label": "Hex Tertiary", "default": "#2E7D5B" },
+    { "type": "text", "id": "neutral_label", "label": "Nome Neutral", "default": "Neutral" },
+    { "type": "text", "id": "neutral_hex", "label": "Hex Neutral", "default": "#F7F5F0" },
+    { "type": "header", "content": "Componentes" },
+    { "type": "text", "id": "btn_primary", "label": "Botão Primary", "default": "Primary" },
+    { "type": "text", "id": "btn_secondary", "label": "Botão Secondary", "default": "Secondary" },
+    { "type": "text", "id": "btn_inverted", "label": "Botão Inverted", "default": "Inverted" },
+    { "type": "text", "id": "btn_outlined", "label": "Botão Outlined", "default": "Outlined" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder Search", "default": "Search" },
+    { "type": "text", "id": "label_btn_text", "label": "Texto do botão Label", "default": "Label" }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra - Design System"
+    }
+  ]
+}
+{% endschema %}

@@ -1,19 +1,22 @@
-{%- comment -%}
-  Arkorra product card (component-ark-product-card.css).
+{% doc %}
+Renders an Arkorra product card following the Stitch Design System.
 
-  Accepts:
-  - product: {Object} Shopify product (optional)
-  - lazy: {Boolean} lazy-load image (default true)
-  - success_label / cta_label / options_label: {String} button texts
+@param {product} [product] - Shopify product object
+@param {boolean} [lazy] - Lazy-load image (default: true)
+@param {string} [cta_label] - Add-to-cart button label
+@param {string} [options_label] - Variant options button label
+@param {string} [success_label] - Post-add confirmation label
+@param {string} [title] - Fallback title when product is blank
+@param {string} [meta] - Fallback context line
+@param {string} [excerpt] - Fallback short description
+@param {string} [price_text] - Fallback formatted price
+@param {string} [badge] - Top-left badge text
+@param {string} [corner] - Top-right corner chip text
+@param {string} [image_asset] - Fallback theme asset filename
 
-  Placeholder mode (product blank, used for onboarding/theme editor):
-  - title, excerpt, price_text, image_asset, badge, corner, meta
-
-  Product data conventions (tags):
-  - `badge:<texto>`  → destaque sobre a imagem (ex.: badge:Mais Vendido)
-  - `chip:<texto>`   → etiqueta no canto (ex.: chip:3-4 Pessoas)
-  - metafield custom.subtitle → linha de contexto (fallback: product.type)
-{%- endcomment -%}
+@example
+{% render 'ark-product-card', product: product %}
+{% enddoc %}
 {%- liquid
   assign loading = 'lazy'
   if lazy == false
@@ -63,7 +66,7 @@
         <span class="ark-chip ark-chip--secondary ark-product-card__badge">{{ badge }}</span>
       {%- endif -%}
       {%- if corner != blank -%}
-        <span class="ark-chip ark-chip--glass ark-product-card__corner">{{ corner }}</span>
+        <span class="ark-chip ark-chip--pine ark-product-card__corner">{{ corner }}</span>
       {%- endif -%}
     </a>
     <div class="ark-product-card__info">
@@ -98,19 +101,19 @@
     {%- if product != blank and product.has_only_default_variant and product.available -%}
       {%- form 'product', product, data-ark-add-form: '', class: 'ark-product-card__form' -%}
         <input type="hidden" name="id" value="{{ variant.id }}">
-        <button type="submit" class="ark-button ark-button--sm ark-button--block" data-success-label="{{ success_label }}">
+        <button type="submit" class="ark-button ark-button--primary ark-button--sm ark-button--block" data-success-label="{{ success_label }}">
           <span class="ark-icon" aria-hidden="true">add_shopping_cart</span>
           <span data-ark-button-label>{{ cta_label }}</span>
         </button>
         <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
       {%- endform -%}
     {%- elsif product == blank -%}
-      <button type="button" class="ark-button ark-button--sm ark-button--block" data-ark-demo-add data-success-label="{{ success_label }}">
+      <button type="button" class="ark-button ark-button--primary ark-button--sm ark-button--block" data-ark-demo-add data-success-label="{{ success_label }}">
         <span class="ark-icon" aria-hidden="true">add_shopping_cart</span>
         <span data-ark-button-label>{{ cta_label }}</span>
       </button>
     {%- else -%}
-      <a href="{{ url }}" class="ark-button ark-button--sm ark-button--block">
+      <a href="{{ url }}" class="ark-button ark-button--secondary ark-button--sm ark-button--block">
         <span class="ark-icon" aria-hidden="true">{% if product.available %}add_shopping_cart{% else %}arrow_forward{% endif %}</span>
         <span>{% if product.available %}{{ options_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
       </a>

@@ -4,8 +4,16 @@
   <div class="ark-page-width">
     <ul class="ark-trust-bar__grid">
       {%- for block in section.blocks -%}
+        {%- liquid
+          assign circle_mod = 'primary'
+          if forloop.index == 2
+            assign circle_mod = 'secondary'
+          elsif forloop.index == 3
+            assign circle_mod = 'tertiary'
+          endif
+        -%}
         <li class="ark-trust-bar__item" {{ block.shopify_attributes }}>
-          <span class="ark-trust-bar__icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
+          <span class="ark-icon-circle ark-icon-circle--{{ circle_mod }} ark-trust-bar__icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
           <div class="ark-trust-bar__text">
             <h3 class="ark-trust-bar__title">{{ block.settings.title }}</h3>
             <p>{{ block.settings.text }}</p>

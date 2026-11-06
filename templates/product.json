@@ -338,9 +338,19 @@
         "support_phone_href": "tel:+351210990088",
         "support_cta": "Finalizar Pedido com Envio Hoje"
       }
+    },
+    "related": {
+      "type": "ark-related-products",
+      "settings": {
+        "eyebrow": "Complementos de Contingência",
+        "heading": "Reforce a Autonomia da Sua Habitação",
+        "products_to_show": 4,
+        "cta_label": "Adicionar ao Carrinho"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "related"
   ]
 }

@@ -24,13 +24,13 @@
   <div class="ark-header__main">
     <div class="ark-page-width ark-header__main-inner">
       <details class="ark-header__drawer" data-ark-drawer>
-        <summary class="ark-header__icon-button" aria-label="{{ 'Abrir menu' }}">
+        <summary class="ark-header__icon-button" aria-label="Abrir menu">
           <span class="ark-icon" aria-hidden="true">menu</span>
         </summary>
         <div class="ark-header__drawer-panel">
           <div class="ark-header__drawer-top">
-            <span class="ark-heading-sm">{{ 'Menu' }}</span>
-            <button type="button" class="ark-header__icon-button" data-ark-drawer-close aria-label="{{ 'Fechar menu' }}">
+            <span class="ark-heading-sm">Menu</span>
+            <button type="button" class="ark-header__icon-button" data-ark-drawer-close aria-label="Fechar menu">
               <span class="ark-icon" aria-hidden="true">close</span>
             </button>
           </div>
@@ -51,7 +51,7 @@
                         <span class="ark-icon" aria-hidden="true">expand_more</span>
                       </summary>
                       <ul class="ark-header__drawer-sub">
-                        <li><a href="{{ link.url }}" class="ark-header__drawer-sublink">{{ 'Ver tudo' }}</a></li>
+                        <li><a href="{{ link.url }}" class="ark-header__drawer-sublink">Ver tudo</a></li>
                         {%- for child in link.links -%}
                           <li><a href="{{ child.url }}" class="ark-header__drawer-sublink">{{ child.title }}</a></li>
                         {%- endfor -%}
@@ -97,25 +97,28 @@
 
       <div class="ark-header__actions">
         {%- if section.settings.locale_label != blank -%}
-          <span class="ark-header__action ark-header__action--lg">
+          <span class="ark-label-btn ark-header__locale">
             <span class="ark-icon" aria-hidden="true">language</span>
             <span>{{ section.settings.locale_label }}</span>
           </span>
         {%- endif -%}
-        {%- if section.settings.support_label != blank -%}
-          <a href="{{ section.settings.support_link | default: '/pages/contact' }}" class="ark-header__action ark-header__action--xl">
-            <span class="ark-icon" aria-hidden="true">headset_mic</span>
-            <span>{{ section.settings.support_label }}</span>
+
+        <div class="ark-nav-pill" role="navigation" aria-label="Atalhos rápidos">
+          <a href="{{ routes.root_url }}" class="ark-nav-pill__item{% if template.name == 'index' %} is-active{% endif %}" aria-label="Início" title="Início">
+            <span class="ark-icon" aria-hidden="true">home</span>
           </a>
-        {%- endif -%}
-        <a href="{% if customer %}{{ routes.account_url }}{% elsif shop.customer_accounts_enabled %}{{ routes.account_login_url }}{% else %}/pages/contact{% endif %}" class="ark-header__action">
-          <span class="ark-header__avatar"><span class="ark-icon" aria-hidden="true">person</span></span>
-          <span class="ark-header__action-label">{{ section.settings.account_label }}</span>
-        </a>
-        <a href="{{ routes.cart_url }}" class="ark-header__cart">
+          <a href="{{ routes.search_url }}" class="ark-nav-pill__item{% if template.name == 'search' %} is-active{% endif %}" aria-label="Pesquisar" title="Pesquisar">
+            <span class="ark-icon" aria-hidden="true">search</span>
+          </a>
+          <a href="{% if customer %}{{ routes.account_url }}{% elsif shop.customer_accounts_enabled %}{{ routes.account_login_url }}{% else %}/pages/contact{% endif %}" class="ark-nav-pill__item" aria-label="{{ section.settings.account_label }}" title="{{ section.settings.account_label }}">
+            <span class="ark-icon" aria-hidden="true">person</span>
+          </a>
+        </div>
+
+        <a href="{{ routes.cart_url }}" class="ark-button ark-button--primary ark-header__cart">
           <span class="ark-icon" aria-hidden="true">shopping_bag</span>
           <span class="ark-header__action-label">{{ section.settings.cart_label }}</span>
-          <span class="ark-header__cart-count" data-ark-cart-count aria-label="{{ 'Artigos no carrinho' }}">{{ cart.item_count }}</span>
+          <span class="ark-header__cart-count" data-ark-cart-count aria-label="Artigos no carrinho">{{ cart.item_count }}</span>
         </a>
       </div>
     </div>
@@ -123,7 +126,7 @@
 
   <div class="ark-header__nav">
     <div class="ark-page-width ark-header__nav-inner">
-      <nav aria-label="{{ 'Navegação principal' }}">
+      <nav aria-label="Navegação principal">
         <ul class="ark-header__menu">
           {%- if use_fallback_nav == false and menu.links.size > 0 -%}
             {%- for link in menu.links -%}

@@ -1,7 +1,7 @@
 /* Arkorra — Footer (section-ark-footer.css) */
 
 .ark-footer {
-  background: var(--ark-sand);
+  background: var(--ark-surface-low);
   border-top: 1px solid var(--ark-linen);
   padding: 4rem 0 3rem;
   color: var(--ark-slate);
@@ -60,9 +60,10 @@
   display: flex;
   align-items: center;
   gap: var(--ark-space-xs);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
-  font-weight: 500;
-  color: var(--ark-sage);
+  font-weight: 600;
+  color: var(--ark-tertiary);
   --ark-icon-size: 1.125rem;
 }
 
@@ -95,15 +96,17 @@
 
 .ark-footer__payment {
   padding: 0.375rem 0.75rem;
-  border: 1px solid var(--ark-linen);
+  border: 1px solid var(--ark-outline-variant);
   border-radius: var(--ark-radius-sm);
-  background: var(--ark-white);
+  background: var(--ark-surface);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 700;
   color: var(--ark-charcoal);
 }
 
 .ark .ark-footer__fineprint {
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   margin-top: var(--ark-space-xs);
 }
@@ -115,6 +118,7 @@
   justify-content: space-between;
   gap: var(--ark-space-md);
   padding-top: 2rem;
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   text-align: center;
 

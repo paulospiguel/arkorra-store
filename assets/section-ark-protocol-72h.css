@@ -27,17 +27,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--ark-space-sm);
+  background: var(--ark-surface);
+}
+
+.ark-protocol__phase-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .ark-protocol__step {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: var(--ark-pine-deep);
-  color: var(--ark-white);
   font-family: var(--ark-font-heading);
   font-size: var(--ark-text-headline-sm);
   font-weight: 700;
@@ -54,9 +53,10 @@
   align-items: center;
   gap: var(--ark-space-sm);
   margin-top: auto;
-  padding-top: var(--ark-space-md);
+  padding-top: var(--ark-space-sm);
+  font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ark-pine-deep);
   --ark-icon-size: 1.125rem;
 }
@@ -66,8 +66,9 @@
   flex-direction: column;
   gap: var(--ark-space-lg);
   padding: var(--ark-space-xl);
+  border: 1px solid rgb(196 199 196 / 0.45);
   border-radius: var(--ark-radius-xl);
-  background: var(--ark-white);
+  background: var(--ark-surface);
   box-shadow: var(--ark-shadow-sm);
 }
 
@@ -99,15 +100,10 @@
 }
 
 .ark-protocol__pillar-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: var(--ark-radius-xl);
-  background: var(--ark-sand);
-  color: var(--ark-pine-deep);
-  --ark-icon-size: 1.75rem;
+  border-radius: var(--ark-radius-md);
+  --ark-icon-size: 1.625rem;
 }
 
 .ark-protocol__pillar-name {
@@ -118,6 +114,7 @@
 }
 
 .ark-protocol__pillar-sub {
+  font-family: var(--ark-font-label);
   font-size: 0.8125rem;
   line-height: 1.4;
   color: var(--ark-slate);

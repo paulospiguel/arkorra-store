@@ -1,0 +1,166 @@
+{{ 'component-ark-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-ark-main-collection.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign s = section.settings
+  assign limit = s.products_per_page | default: 8
+  assign heading = collection.title
+  if heading == blank or heading == 'Products' or heading == 'Home page'
+    assign heading = s.heading
+  endif
+  assign description = collection.description
+  if description == blank
+    assign description = s.description
+  endif
+-%}
+
+<section class="ark ark-collection" data-section-id="{{ section.id }}">
+  <div class="ark-page-width">
+    <div class="ark-collection__banner">
+      <div class="ark-collection__intro">
+        {%- if s.eyebrow != blank -%}
+          <span class="ark-eyebrow">{{ s.eyebrow }}</span>
+        {%- endif -%}
+        <h1 class="ark-heading-xl">{{ heading }}</h1>
+        {%- if description != blank -%}
+          <div class="ark-lede">{{ description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="ark-collection__meters" aria-label="Índices de homologação da coleção">
+        <div>
+          <div class="ark-collection__meter-row">
+            <span>Autonomia Energética & Rádio</span>
+            <strong>100% Homologado</strong>
+          </div>
+          <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--primary" style="width: 78%"></div></div>
+        </div>
+        <div>
+          <div class="ark-collection__meter-row">
+            <span>Reserva Térmica & Calórica 72h</span>
+            <strong>Norma EN-72H</strong>
+          </div>
+          <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--secondary" style="width: 88%"></div></div>
+        </div>
+        <div>
+          <div class="ark-collection__meter-row">
+            <span>Purificação Hídrica & Socorros</span>
+            <strong>Lote Ibérico #04</strong>
+          </div>
+          <div class="ark-progress"><div class="ark-progress__bar ark-progress__bar--tertiary" style="width: 64%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ark-collection__toolbar">
+      <div class="ark-collection__filters" role="group" aria-label="Filtros rápidos">
+        <a href="{{ routes.all_products_collection_url }}" class="ark-button ark-button--primary ark-button--sm">{{ s.filter_all }}</a>
+        <a href="{{ routes.all_products_collection_url }}" class="ark-button ark-button--secondary ark-button--sm">{{ s.filter_family }}</a>
+        <a href="{{ routes.all_products_collection_url }}" class="ark-button ark-button--inverted ark-button--sm">{{ s.filter_senior }}</a>
+        <a href="{{ routes.all_products_collection_url }}" class="ark-button ark-button--outlined ark-button--sm">{{ s.filter_vehicle }}</a>
+      </div>
+
+      <div class="ark-collection__tools">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="ark-search ark-collection__search">
+          <span class="ark-icon ark-search__icon" aria-hidden="true">search</span>
+          <input type="search" name="q" class="ark-search__input" placeholder="{{ s.search_placeholder }}" aria-label="{{ s.search_placeholder }}">
+          <input type="hidden" name="options[prefix]" value="last">
+        </form>
+        <span class="ark-label-btn">
+          <span class="ark-icon" aria-hidden="true">edit</span>
+          <span>{{ s.badge_label }}</span>
+        </span>
+      </div>
+    </div>
+
+    {%- if collection != blank and collection.products_count > 0 -%}
+      {%- paginate collection.products by limit -%}
+        <div class="ark-collection__grid">
+          {%- for product in collection.products -%}
+            {% render 'ark-product-card', product: product, cta_label: s.cta_label, options_label: s.options_label, success_label: s.success_label %}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div class="ark-collection__pagination">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <div class="ark-collection__grid">
+        {%- for block in section.blocks -%}
+          <div {{ block.shopify_attributes }}>
+            {%- if block.settings.product != blank -%}
+              {% render 'ark-product-card', product: block.settings.product, cta_label: s.cta_label, options_label: s.options_label, success_label: s.success_label %}
+            {%- else -%}
+              {% render 'ark-product-card',
+                title: block.settings.title,
+                meta: block.settings.meta,
+                excerpt: block.settings.excerpt,
+                price_text: block.settings.price,
+                badge: block.settings.badge,
+                corner: block.settings.corner,
+                image_asset: block.settings.image_asset,
+                cta_label: s.cta_label,
+                success_label: s.success_label
+              %}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Coleção 72h",
+  "tag": "div",
+  "class": "ark-main-collection-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Catálogo Oficial de Contingência" },
+    { "type": "text", "id": "heading", "label": "Título (fallback)", "default": "Todos os Kits de Autonomia 72 Horas" },
+    { "type": "textarea", "id": "description", "label": "Descrição (fallback)", "default": "Equipamento técnico de autossuficiência doméstica homologado para famílias em Portugal e Espanha." },
+    { "type": "range", "id": "products_per_page", "label": "Produtos por página", "min": 4, "max": 16, "step": 4, "default": 8 },
+    { "type": "header", "content": "Barra de filtros & pesquisa" },
+    { "type": "text", "id": "filter_all", "label": "Botão Primary", "default": "Todos os Kits" },
+    { "type": "text", "id": "filter_family", "label": "Botão Secondary", "default": "Família 72h" },
+    { "type": "text", "id": "filter_senior", "label": "Botão Inverted", "default": "Linha Sénior" },
+    { "type": "text", "id": "filter_vehicle", "label": "Botão Outlined", "default": "Veículos & Rádio" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar no catálogo..." },
+    { "type": "text", "id": "badge_label", "label": "Etiqueta lateral", "default": "Lote #04" },
+    { "type": "header", "content": "Cartões de produto" },
+    { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Adicionar ao Carrinho" },
+    { "type": "text", "id": "options_label", "label": "Texto para variantes", "default": "Ver Opções" },
+    { "type": "text", "id": "success_label", "label": "Texto após adicionar", "default": "Adicionado!" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Produto / Cartão",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produto (opcional)" },
+        { "type": "text", "id": "image_asset", "label": "Asset de imagem", "default": "ark-placeholder-familia.jpg" },
+        { "type": "text", "id": "badge", "label": "Selo esquerdo", "default": "Mais Vendido" },
+        { "type": "text", "id": "corner", "label": "Selo direito", "default": "3-4 Pessoas" },
+        { "type": "text", "id": "meta", "label": "Contexto", "default": "Residência Principal • 72h" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Kit Família 72 Horas Pro" },
+        { "type": "textarea", "id": "excerpt", "label": "Resumo", "default": "Comunicação contínua sem energia, filtragem hídrica avançada e suprimentos alimentares desidratados." },
+        { "type": "text", "id": "price", "label": "Preço", "default": "189,00 €" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra - Coleção 72h",
+      "blocks": [
+        { "type": "card", "settings": { "image_asset": "ark-placeholder-familia.jpg", "badge": "Mais Vendido", "corner": "3-4 Pessoas", "meta": "Residência Principal • 72h", "title": "Kit Família 72 Horas Pro", "excerpt": "Comunicação contínua sem energia, filtragem hídrica avançada e suprimentos alimentares desidratados.", "price": "189,00 €" } },
+        { "type": "card", "settings": { "image_asset": "ark-placeholder-senior.jpg", "badge": "Linha Sénior", "corner": "2 Pessoas", "meta": "Acessibilidade Máxima", "title": "Kit Sénior & Cuidado Fácil", "excerpt": "Botões grandes, luz difusa de segurança automática e compartimento isotérmico para medicação essencial.", "price": "129,00 €" } },
+        { "type": "card", "settings": { "image_asset": "ark-placeholder-veiculo.jpg", "badge": "Estrada & Viagem", "corner": "Mobilidade", "meta": "Veículo & Evacuação", "title": "Kit Veículo & Deslocação", "excerpt": "Ideal para isolamento em estradas e intempéries na serra. Mala compacta anti-choque para porta-bagagens.", "price": "89,00 €" } },
+        { "type": "card", "settings": { "image_asset": "ark-placeholder-radio.jpg", "badge": "Essencial Apagão", "corner": "AM/FM/SW", "meta": "Energia Autónoma", "title": "Rádio Dínamo Solar SOS", "excerpt": "Receptor de boletins oficiais de proteção civil e powerbank integrado para carregamento de telemóveis.", "price": "39,90 €" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

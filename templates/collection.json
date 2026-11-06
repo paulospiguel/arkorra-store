@@ -1,1 +1,113 @@
-{"sections":{"main":{"type":"collection-template","settings":{"category":"category","show_more":5,"products_per_page":12,"sort_enable":true,"loadmore":true,"type_loadmore":"btn","cb":true,"show_tags":true,"show_desc":true,"bg_b":"#f2f2f2","show_recently":true}},"166020887020e948ae":{"type":"nov-policy","blocks":{"166020887041ee3f6a-0":{"type":"item_policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-8.png","title_policy":"FREE US DELIVERY","desc_policy":"Free shipping on all order above $200","mw":500,"tl":"Learn More","link":"#","class":"mb-sm-30"}},"166020887041ee3f6a-1":{"type":"item_policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-14.png","title_policy":"PREMIUM QUALITY","desc_policy":"Printed to the best standards available","mw":500,"tl":"Learn More","link":"#","class":"mb-sm-30"}},"166020887041ee3f6a-2":{"type":"item_policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-15.png","title_policy":"SECURE PAYMENT","desc_policy":"Return it within 30 days for an exchange.","mw":500,"tl":"Learn More","link":"#","class":""}}},"block_order":["166020887041ee3f6a-0","166020887041ee3f6a-1","166020887041ee3f6a-2"],"settings":{"heading":"","heading_c":"#222222","subheading":"","subheading_c":"#666666","title_alignment":"text-left","style":"style2","width_icon":41,"height_icon":34,"bg_i":true,"bg_i_w":85,"bg_icon":"#e9ebeb","text_fz":13,"text_color":"#222222","desc_fz":13,"desc_color":"#666666","bg_item":false,"bg_itemcolor":"","bd_radius":0,"show_border_item":false,"c_border":"","width_xl":"col-xl-4","width_lg":"col-lg-4","width_md":"col-md-4","width_sm":"col-sm-12","width_xs":"col-12","spacing":30,"animate":true,"container":"container","background_color":"","bg_opacity":100,"class":"","distance_top":60,"distance_bottom":30}},"1660210192fc453daa":{"type":"nov-line","settings":{"height":1,"color":"#dcdcdc","style":"solid","opacity":100,"animate":false,"container":"container-full","class":"","distance_top":30,"distance_bottom":30}},"recent-products":{"type":"nov-recently-viewed","settings":{"heading":"<p>RECENTLY VIEWED PRODUCTS<\/p>","heading_c":"#222222","subheading":"","subheading_c":"#666666","title_alignment":"text-center","grid_number_xxl":5,"grid_number":3,"grid_number_lg":3,"grid_number_md":3,"grid_number_sm":2,"grid_number_xs":2,"limit":13,"show_nav":false,"animate":true,"container":"container","background_color":"","class":"","distance_top":30,"distance_bottom":0}}},"order":["main","166020887020e948ae","1660210192fc453daa","recent-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "ark-main-collection",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-familia.jpg",
+            "badge": "Mais Vendido",
+            "corner": "3-4 Pessoas",
+            "meta": "Residência Principal • 72h",
+            "title": "Kit Família 72 Horas Pro",
+            "excerpt": "Comunicação contínua sem energia, filtragem hídrica avançada e suprimentos alimentares desidratados.",
+            "price": "189,00 €"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-senior.jpg",
+            "badge": "Linha Sénior",
+            "corner": "2 Pessoas",
+            "meta": "Acessibilidade Máxima",
+            "title": "Kit Sénior & Cuidado Fácil",
+            "excerpt": "Botões grandes, luz difusa de segurança automática e compartimento isotérmico para medicação essencial.",
+            "price": "129,00 €"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-veiculo.jpg",
+            "badge": "Estrada & Viagem",
+            "corner": "Mobilidade",
+            "meta": "Veículo & Evacuação",
+            "title": "Kit Veículo & Deslocação",
+            "excerpt": "Ideal para isolamento em estradas e intempéries na serra. Mala compacta anti-choque para porta-bagagens.",
+            "price": "89,00 €"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-radio.jpg",
+            "badge": "Essencial Apagão",
+            "corner": "AM/FM/SW",
+            "meta": "Energia Autónoma",
+            "title": "Rádio Dínamo Solar SOS",
+            "excerpt": "Receptor de boletins oficiais de proteção civil e powerbank integrado para carregamento de telemóveis.",
+            "price": "39,90 €"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4"],
+      "settings": {
+        "eyebrow": "Catálogo Oficial de Contingência",
+        "heading": "Todos os Kits de Autonomia 72 Horas",
+        "description": "Equipamento técnico de autossuficiência doméstica homologado para famílias em Portugal e Espanha.",
+        "products_per_page": 8,
+        "filter_all": "Todos os Kits",
+        "filter_family": "Família 72h",
+        "filter_senior": "Linha Sénior",
+        "filter_vehicle": "Veículos & Rádio",
+        "search_placeholder": "Procurar no catálogo...",
+        "badge_label": "Lote #04",
+        "cta_label": "Adicionar ao Carrinho",
+        "options_label": "Ver Opções",
+        "success_label": "Adicionado!"
+      }
+    },
+    "trust_bar": {
+      "type": "ark-trust-bar",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "warehouse",
+            "title": "Armazém Ibérico",
+            "text": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções."
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "task_alt",
+            "title": "Pronto a Usar",
+            "text": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente."
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "import_contacts",
+            "title": "Guia Físico PT / ES",
+            "text": "Manual plastificado com diagramas claros para idosos e crianças sem jargão técnico."
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield_lock",
+            "title": "Pagamento Seguro",
+            "text": "Liquidação instantânea via MB WAY, Multibanco, Bizum, Visa e Mastercard."
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"],
+      "settings": {}
+    }
+  },
+  "order": ["main", "trust_bar"]
+}
