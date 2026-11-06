@@ -1,0 +1,48 @@
+{{ 'section-ark-trust-bar.css' | asset_url | stylesheet_tag }}
+
+<section class="ark ark-trust-bar">
+  <div class="ark-page-width">
+    <ul class="ark-trust-bar__grid">
+      {%- for block in section.blocks -%}
+        <li class="ark-trust-bar__item" {{ block.shopify_attributes }}>
+          <span class="ark-trust-bar__icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
+          <div class="ark-trust-bar__text">
+            <h3 class="ark-trust-bar__title">{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra — Barra de confiança",
+  "tag": "div",
+  "class": "ark-trust-bar-section",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Garantia",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "warehouse", "info": "Ver lista em snippets/ark-head.liquid." },
+        { "type": "text", "id": "title", "label": "Título", "default": "Armazém Ibérico" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra — Barra de confiança",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "warehouse", "title": "Armazém Ibérico", "text": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções." } },
+        { "type": "item", "settings": { "icon": "task_alt", "title": "Pronto a Usar", "text": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente." } },
+        { "type": "item", "settings": { "icon": "import_contacts", "title": "Guia Físico PT / ES", "text": "Manual plastificado com diagramas claros para idosos e crianças sem jargão técnico." } },
+        { "type": "item", "settings": { "icon": "shield_lock", "title": "Pagamento Seguro", "text": "Liquidação instantânea via MB WAY, Multibanco, Bizum, Visa e Mastercard." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

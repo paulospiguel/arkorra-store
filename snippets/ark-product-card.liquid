@@ -1,0 +1,114 @@
+{%- comment -%}
+  Arkorra product card (component-ark-product-card.css).
+
+  Accepts:
+  - product: {Object} Shopify product (optional)
+  - lazy: {Boolean} lazy-load image (default true)
+  - success_label / cta_label / options_label: {String} button texts
+
+  Placeholder mode (product blank, used for onboarding/theme editor):
+  - title, excerpt, price_text, image_asset, badge, corner, meta
+
+  Product data conventions (tags):
+  - `badge:<texto>`  → destaque sobre a imagem (ex.: badge:Mais Vendido)
+  - `chip:<texto>`   → etiqueta no canto (ex.: chip:3-4 Pessoas)
+  - metafield custom.subtitle → linha de contexto (fallback: product.type)
+{%- endcomment -%}
+{%- liquid
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+  assign cta_label = cta_label | default: 'Adicionar ao Carrinho'
+  assign options_label = options_label | default: 'Ver Opções'
+  assign success_label = success_label | default: 'Adicionado!'
+
+  if product != blank
+    assign title = product.title
+    assign url = product.url
+    assign variant = product.selected_or_first_available_variant
+    assign meta = product.metafields.custom.subtitle.value | default: product.type
+    assign excerpt = product.description | strip_html | truncatewords: 22
+    assign badge = blank
+    assign corner = blank
+    for tag in product.tags
+      assign tag_lower = tag | downcase
+      if badge == blank and tag_lower contains 'badge:'
+        assign badge = tag | split: ':' | last | strip
+      endif
+      if corner == blank and tag_lower contains 'chip:'
+        assign corner = tag | split: ':' | last | strip
+      endif
+    endfor
+    if badge == blank and variant.compare_at_price > variant.price
+      assign saving = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price
+      assign badge = '-' | append: saving | append: '%'
+    endif
+  else
+    assign url = '#'
+  endif
+-%}
+
+<article class="ark-product-card">
+  <div class="ark-product-card__body">
+    <a href="{{ url }}" class="ark-product-card__media" tabindex="-1" aria-hidden="true">
+      {%- if product.featured_media != blank -%}
+        {{ product.featured_media | image_url: width: 720 | image_tag: loading: loading, sizes: '(min-width: 1024px) 300px, (min-width: 768px) 45vw, 100vw', widths: '360, 540, 720', class: 'ark-product-card__img', alt: product.featured_media.alt | default: title }}
+      {%- elsif image_asset != blank -%}
+        <img src="{{ image_asset | asset_url }}" alt="{{ title | escape }}" class="ark-product-card__img" width="512" height="279" loading="{{ loading }}">
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'ark-product-card__img ark-product-card__img--placeholder' }}
+      {%- endif -%}
+      {%- if badge != blank -%}
+        <span class="ark-chip ark-chip--secondary ark-product-card__badge">{{ badge }}</span>
+      {%- endif -%}
+      {%- if corner != blank -%}
+        <span class="ark-chip ark-chip--glass ark-product-card__corner">{{ corner }}</span>
+      {%- endif -%}
+    </a>
+    <div class="ark-product-card__info">
+      {%- if meta != blank -%}
+        <span class="ark-product-card__meta">{{ meta }}</span>
+      {%- endif -%}
+      <h3 class="ark-heading-sm ark-product-card__title"><a href="{{ url }}">{{ title }}</a></h3>
+      {%- if excerpt != blank -%}
+        <p class="ark-product-card__excerpt">{{ excerpt }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="ark-product-card__footer">
+    <div class="ark-product-card__price-row">
+      {%- if product != blank -%}
+        <span class="ark-price">
+          {%- if product.price_varies -%}<small class="ark-product-card__from">{{ 'products.product.from_text_html' | t: price: '' | strip_html | default: 'Desde' }}</small> {% endif -%}
+          {{ variant.price | money }}
+        </span>
+        {%- if product.available -%}
+          <span class="ark-stock"><span class="ark-icon" aria-hidden="true">check_circle</span> Em Stock</span>
+        {%- else -%}
+          <span class="ark-stock ark-stock--out"><span class="ark-icon" aria-hidden="true">remove</span> Esgotado</span>
+        {%- endif -%}
+      {%- else -%}
+        <span class="ark-price">{{ price_text }}</span>
+        <span class="ark-stock"><span class="ark-icon" aria-hidden="true">check_circle</span> Em Stock</span>
+      {%- endif -%}
+    </div>
+
+    {%- if product != blank and product.has_only_default_variant and product.available -%}
+      {%- form 'product', product, data-ark-add-form: '', class: 'ark-product-card__form' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <button type="submit" class="ark-button ark-button--sm ark-button--block" data-success-label="{{ success_label }}">
+          <span class="ark-icon" aria-hidden="true">add_shopping_cart</span>
+          <span data-ark-button-label>{{ cta_label }}</span>
+        </button>
+        <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
+      {%- endform -%}
+    {%- else -%}
+      <a href="{{ url }}" class="ark-button ark-button--sm ark-button--block">
+        <span class="ark-icon" aria-hidden="true">{% if product == blank or product.available %}add_shopping_cart{% else %}arrow_forward{% endif %}</span>
+        <span>{% if product == blank %}{{ cta_label }}{% elsif product.available %}{{ options_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+      </a>
+    {%- endif -%}
+  </div>
+</article>

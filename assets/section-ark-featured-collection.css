@@ -1,0 +1,40 @@
+/* Arkorra — Featured collection (section-ark-featured-collection.css) */
+
+.ark-catalog {
+  background: var(--ark-surface);
+}
+
+.ark-catalog__filter-label {
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-slate);
+}
+
+.ark .ark-catalog__filter-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--ark-radius-full);
+  background: var(--ark-pine-deep);
+  color: var(--ark-white);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 600;
+}
+
+.ark-catalog__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-lg);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  & > div {
+    display: contents;
+  }
+}

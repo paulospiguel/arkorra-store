@@ -1,0 +1,126 @@
+/* Arkorra — Footer (section-ark-footer.css) */
+
+.ark-footer {
+  background: var(--ark-sand);
+  border-top: 1px solid var(--ark-linen);
+  padding: 4rem 0 3rem;
+  color: var(--ark-slate);
+}
+
+.ark-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-xl);
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--ark-linen);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ark-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+
+  & .ark-rte {
+    line-height: 1.65;
+  }
+}
+
+.ark-footer__logo {
+  display: inline-flex;
+  margin-bottom: var(--ark-space-sm);
+}
+
+.ark .ark-footer__logo-img {
+  width: 7rem;
+  height: 3.5rem;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.ark .ark-footer__badge,
+.ark .ark-footer__note {
+  display: flex;
+  align-items: center;
+  gap: var(--ark-space-xs);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-sage);
+  --ark-icon-size: 1.125rem;
+}
+
+.ark .ark-footer__note {
+  color: var(--ark-pine-deep);
+  margin-top: var(--ark-space-xs);
+}
+
+.ark .ark-footer__text {
+  font-size: var(--ark-text-body-sm);
+}
+
+.ark-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xs);
+  font-size: var(--ark-text-body-sm);
+
+  & a:hover {
+    color: var(--ark-pine-deep);
+  }
+}
+
+.ark-footer__payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ark-space-xs);
+  margin-top: var(--ark-space-xs);
+}
+
+.ark-footer__payment {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--ark-linen);
+  border-radius: var(--ark-radius-sm);
+  background: var(--ark-white);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 700;
+  color: var(--ark-charcoal);
+}
+
+.ark .ark-footer__fineprint {
+  font-size: var(--ark-text-label-sm);
+  margin-top: var(--ark-space-xs);
+}
+
+.ark-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ark-space-md);
+  padding-top: 2rem;
+  font-size: var(--ark-text-label-sm);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+.ark-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ark-space-md) var(--ark-space-lg);
+
+  & a:hover {
+    color: var(--ark-pine-deep);
+  }
+}

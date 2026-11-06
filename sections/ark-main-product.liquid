@@ -1,0 +1,843 @@
+{{ 'section-ark-main-product.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign s = section.settings
+  assign variant = product.selected_or_first_available_variant
+  assign featured_media = variant.featured_media | default: product.featured_media
+
+  assign thumbs = section.blocks | where: 'type', 'thumb'
+  assign bundles = section.blocks | where: 'type', 'bundle'
+  assign features = section.blocks | where: 'type', 'feature'
+  assign modules = section.blocks | where: 'type', 'module'
+  assign phases = section.blocks | where: 'type', 'phase'
+  assign trusts = section.blocks | where: 'type', 'trust'
+  assign reviews = section.blocks | where: 'type', 'review'
+  assign faqs = section.blocks | where: 'type', 'faq'
+
+  assign base_price = variant.price | default: 18900
+  assign base_compare = variant.compare_at_price
+  if base_compare == blank or base_compare <= base_price
+    assign base_compare = s.compare_fallback_cents | times: 100
+  endif
+  assign saving_pct = 0
+  if base_compare > base_price
+    assign saving_pct = base_compare | minus: base_price | times: 100 | divided_by: base_compare
+  endif
+-%}
+
+<div class="ark ark-pdp" data-ark-pdp="{{ section.id }}" data-base-price="{{ base_price }}" data-base-compare="{{ base_compare }}">
+  <!-- 1. Operational Context Notice Bar -->
+  {%- if s.show_notice_bar -%}
+    <section class="ark-pdp-notice">
+      <div class="ark-page-width ark-pdp-notice__inner">
+        <div class="ark-pdp-notice__left">
+          <span class="ark-pdp-notice__ping" aria-hidden="true"></span>
+          <strong class="ark-pdp-notice__label">{{ s.notice_label }}</strong>
+          <span>{{ s.notice_text }}</span>
+        </div>
+        <div class="ark-pdp-notice__right">
+          {%- if s.notice_shipping != blank -%}
+            <span class="ark-pdp-notice__ship">
+              <span class="ark-icon" aria-hidden="true">local_shipping</span>
+              {{ s.notice_shipping }}
+            </span>
+          {%- endif -%}
+          {%- if s.notice_cutoff != blank -%}
+            <span class="ark-pdp-notice__cutoff">{{ s.notice_cutoff }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 2. Breadcrumb Navigation -->
+  <nav aria-label="Breadcrumb" class="ark-pdp-crumbs">
+    <div class="ark-page-width ark-pdp-crumbs__inner">
+      <a href="{{ routes.root_url }}" class="ark-pdp-crumbs__link">
+        <span class="ark-icon" aria-hidden="true">home</span>
+        <span>{{ s.crumb_home }}</span>
+      </a>
+      <span class="ark-pdp-crumbs__sep" aria-hidden="true">/</span>
+      {%- if collection -%}
+        <a href="{{ collection.url }}" class="ark-pdp-crumbs__link">{{ collection.title }}</a>
+      {%- elsif product.collections.first -%}
+        <a href="{{ product.collections.first.url }}" class="ark-pdp-crumbs__link">{{ product.collections.first.title }}</a>
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}" class="ark-pdp-crumbs__link">{{ s.crumb_cat_1 }}</a>
+      {%- endif -%}
+      {%- if s.crumb_cat_2 != blank -%}
+        <span class="ark-pdp-crumbs__sep" aria-hidden="true">/</span>
+        <a href="{{ routes.all_products_collection_url }}" class="ark-pdp-crumbs__link">{{ s.crumb_cat_2 }}</a>
+      {%- endif -%}
+      <span class="ark-pdp-crumbs__sep" aria-hidden="true">/</span>
+      <span class="ark-pdp-crumbs__current" aria-current="page">{{ product.title | default: s.fallback_title }}</span>
+    </div>
+  </nav>
+
+  <!-- 3. Hero / PDP Showcase (Two Columns) -->
+  <section class="ark-pdp-hero">
+    <div class="ark-page-width ark-pdp-hero__grid">
+      <!-- LEFT COLUMN: Tactical Visual Module & Gallery (7 cols) -->
+      <div class="ark-pdp-gallery">
+        <div class="ark-pdp-gallery__stage">
+          {%- if featured_media != blank -%}
+            {{ featured_media | image_url: width: 1400 | image_tag:
+              id: 'ArkPdpStageImg',
+              class: 'ark-pdp-gallery__stage-img',
+              loading: 'eager',
+              fetchpriority: 'high',
+              sizes: '(min-width: 1024px) 680px, 100vw',
+              widths: '540, 820, 1100, 1400',
+              alt: featured_media.alt | default: product.title
+            }}
+          {%- else -%}
+            <img id="ArkPdpStageImg" src="{{ 'ark-pdp-main.jpg' | asset_url }}" alt="{{ product.title | default: s.fallback_title | escape }}" class="ark-pdp-gallery__stage-img" width="512" height="279" loading="eager" fetchpriority="high">
+          {%- endif -%}
+
+          <div class="ark-pdp-gallery__pills-top">
+            {%- if s.stage_pill_1 != blank -%}
+              <span class="ark-pdp-gallery__pill ark-pdp-gallery__pill--dark">
+                <span class="ark-icon" aria-hidden="true">verified_user</span>
+                {{ s.stage_pill_1 }}
+              </span>
+            {%- endif -%}
+            {%- if s.stage_pill_2 != blank -%}
+              <span class="ark-pdp-gallery__pill ark-pdp-gallery__pill--light">
+                <span class="ark-icon" aria-hidden="true">check_circle</span>
+                {{ s.stage_pill_2 }}
+              </span>
+            {%- endif -%}
+          </div>
+
+          {%- if s.stage_zoom_label != blank -%}
+            <div class="ark-pdp-gallery__zoom">
+              <span class="ark-icon" aria-hidden="true">zoom_in</span>
+              <span>{{ s.stage_zoom_label }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Interactive Thumbnails -->
+        <div class="ark-pdp-gallery__thumbs" role="list">
+          {%- if product.media.size > 1 -%}
+            {%- for media in product.media limit: 8 -%}
+              {%- assign thumb_block = thumbs[forloop.index0] -%}
+              {%- assign caption = media.alt | default: thumb_block.settings.label | default: product.title -%}
+              <button
+                type="button"
+                class="ark-pdp-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-ark-thumb
+                data-media-id="{{ media.id }}"
+                data-src="{{ media | image_url: width: 1400 }}"
+                data-srcset="{{ media | image_url: width: 540 }} 540w, {{ media | image_url: width: 820 }} 820w, {{ media | image_url: width: 1100 }} 1100w, {{ media | image_url: width: 1400 }} 1400w"
+                data-alt="{{ caption | escape }}"
+              >
+                <span class="ark-pdp-gallery__thumb-frame">
+                  {{ media.preview_image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160, 320', alt: caption }}
+                </span>
+                <span class="ark-pdp-gallery__thumb-label">{{ thumb_block.settings.label | default: caption }}</span>
+              </button>
+            {%- endfor -%}
+          {%- elsif thumbs.size > 0 -%}
+            {%- for block in thumbs -%}
+              {%- liquid
+                if block.settings.image != blank
+                  assign t_src = block.settings.image | image_url: width: 1200
+                else
+                  assign t_src = block.settings.asset | asset_url
+                endif
+              -%}
+              <button
+                type="button"
+                class="ark-pdp-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-ark-thumb
+                data-src="{{ t_src }}"
+                data-alt="{{ block.settings.label | escape }}"
+                {{ block.shopify_attributes }}
+              >
+                <span class="ark-pdp-gallery__thumb-frame">
+                  <img src="{{ t_src }}" alt="{{ block.settings.label | escape }}" width="256" height="256" loading="lazy">
+                </span>
+                <span class="ark-pdp-gallery__thumb-label">{{ block.settings.label }}</span>
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        <!-- Technical Assurance Strip Under Media -->
+        {%- if s.warranty_title != blank -%}
+          <div class="ark-pdp-gallery__assurance">
+            <div class="ark-pdp-gallery__assurance-left">
+              <span class="ark-icon ark-pdp-gallery__assurance-icon" aria-hidden="true">shield</span>
+              <div>
+                <p class="ark-pdp-gallery__assurance-title">{{ s.warranty_title }}</p>
+                <p class="ark-pdp-gallery__assurance-sub">{{ s.warranty_text }}</p>
+              </div>
+            </div>
+            <div class="ark-pdp-gallery__assurance-seal">
+              <img src="{{ 'logo-2.png' | asset_img_url: '160x' }}" alt="Certificação Oficial {{ shop.name | escape }}" width="80" height="60" loading="lazy">
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- RIGHT COLUMN: Conversion Engine & Buy Box (5 cols) -->
+      <div class="ark-pdp-buy">
+        {%- if s.urgency_ticker != blank -%}
+          <div class="ark-pdp-buy__urgency">
+            <span class="ark-icon" aria-hidden="true">emergency_home</span>
+            <span>{{ s.urgency_ticker }}</span>
+          </div>
+        {%- endif -%}
+
+        <h1 class="ark-pdp-buy__title">{{ product.title | default: s.fallback_title }}</h1>
+
+        {%- if s.subtitle != blank -%}
+          <p class="ark-pdp-buy__subtitle">{{ s.subtitle }}</p>
+        {%- elsif product.description != blank -%}
+          <p class="ark-pdp-buy__subtitle">{{ product.description | strip_html | truncatewords: 26 }}</p>
+        {%- endif -%}
+
+        <!-- Social Proof Bar -->
+        <div class="ark-pdp-buy__proof">
+          <div class="ark-pdp-buy__stars">
+            <span class="ark-icon ark-icon--filled" aria-hidden="true">star</span>
+            <span class="ark-icon ark-icon--filled" aria-hidden="true">star</span>
+            <span class="ark-icon ark-icon--filled" aria-hidden="true">star</span>
+            <span class="ark-icon ark-icon--filled" aria-hidden="true">star</span>
+            <span class="ark-icon ark-icon--filled" aria-hidden="true">star_half</span>
+            <strong>{{ s.rating_score }}</strong>
+          </div>
+          <span class="ark-pdp-buy__review-count">• {{ s.rating_count_text }}</span>
+          {%- if s.homologation_badge != blank -%}
+            <span class="ark-pdp-buy__homologated">
+              <span class="ark-icon" aria-hidden="true">verified</span>
+              {{ s.homologation_badge }}
+            </span>
+          {%- endif -%}
+        </div>
+
+        <!-- Price Panel -->
+        <div class="ark-pdp-buy__price-panel">
+          <div class="ark-pdp-buy__price-row">
+            <span class="ark-pdp-buy__price" data-ark-price>{{ base_price | money }}</span>
+            <span class="ark-pdp-buy__old-price" data-ark-compare{% unless base_compare > base_price %} hidden{% endunless %}>
+              {{ base_compare | money }}
+            </span>
+            <span class="ark-pdp-buy__saving" data-ark-saving data-saving-suffix="{{ s.saving_suffix }}"{% unless saving_pct > 0 %} hidden{% endunless %}>
+              -{{ saving_pct }}% {{ s.saving_suffix }}
+            </span>
+          </div>
+          {%- if s.shipping_headline != blank -%}
+            <div class="ark-pdp-buy__ship-free">
+              <span class="ark-icon" aria-hidden="true">local_shipping</span>
+              <span>{{ s.shipping_headline }}</span>
+            </div>
+          {%- endif -%}
+          {%- if s.tax_note != blank -%}
+            <p class="ark-pdp-buy__tax-note">{{ s.tax_note }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- assign product_form_id = 'ArkProductForm-' | append: section.id -%}
+        {%- form 'product', product, id: product_form_id, data-ark-add-form: '', class: 'ark-pdp-buy__form' -%}
+          <input type="hidden" name="id" value="{{ variant.id }}" data-ark-variant-id>
+          <input type="hidden" name="properties[Configuração]" value="{{ bundles.first.settings.title | default: variant.title }}" data-ark-bundle-prop>
+
+          <!-- Bundles / Tactical Configuration Selector -->
+          <div class="ark-pdp-bundles">
+            <span class="ark-pdp-bundles__heading">{{ s.bundles_heading }}</span>
+
+            {%- if product.variants.size > 1 -%}
+              {%- for v in product.variants -%}
+                {%- assign b_block = bundles[forloop.index0] -%}
+                {%- assign v_compare = v.compare_at_price -%}
+                {%- if v_compare == blank or v_compare <= v.price -%}
+                  {%- assign v_compare = v.price | times: 125 | divided_by: 100 -%}
+                {%- endif -%}
+                {%- assign delta = v.price | minus: product.variants.first.price -%}
+                <label class="ark-pdp-bundle{% if v.id == variant.id %} is-selected{% endif %}" data-ark-bundle-card>
+                  <span class="ark-pdp-bundle__left">
+                    <input
+                      type="radio"
+                      name="ark_bundle_{{ section.id }}"
+                      class="ark-pdp-bundle__radio"
+                      value="{{ v.id }}"
+                      data-ark-bundle
+                      data-variant-id="{{ v.id }}"
+                      data-price="{{ v.price }}"
+                      data-compare="{{ v_compare }}"
+                      data-title="{{ v.title | escape }}"
+                      {% if v.id == variant.id %}checked{% endif %}
+                    >
+                    <span>
+                      <strong class="ark-pdp-bundle__title">{{ b_block.settings.title | default: v.title }}</strong>
+                      {%- if b_block.settings.subtitle != blank -%}
+                        <span class="ark-pdp-bundle__sub">{{ b_block.settings.subtitle }}</span>
+                      {%- endif -%}
+                    </span>
+                  </span>
+                  <span class="ark-pdp-bundle__price">
+                    {%- if forloop.first or delta <= 0 -%}
+                      {{ v.price | money }}
+                    {%- else -%}
+                      +{{ delta | money }}
+                    {%- endif -%}
+                  </span>
+                </label>
+              {%- endfor -%}
+            {%- elsif bundles.size > 0 -%}
+              {%- for block in bundles -%}
+                {%- assign b_price = block.settings.price_eur | times: 100 -%}
+                {%- assign b_compare = block.settings.compare_eur | times: 100 -%}
+                <label class="ark-pdp-bundle{% if forloop.first %} is-selected{% endif %}" data-ark-bundle-card {{ block.shopify_attributes }}>
+                  <span class="ark-pdp-bundle__left">
+                    <input
+                      type="radio"
+                      name="ark_bundle_{{ section.id }}"
+                      class="ark-pdp-bundle__radio"
+                      value="{{ block.settings.title | escape }}"
+                      data-ark-bundle
+                      data-price="{{ b_price }}"
+                      data-compare="{{ b_compare }}"
+                      data-title="{{ block.settings.title | escape }}"
+                      {% if forloop.first %}checked{% endif %}
+                    >
+                    <span>
+                      <strong class="ark-pdp-bundle__title">{{ block.settings.title }}</strong>
+                      <span class="ark-pdp-bundle__sub">{{ block.settings.subtitle }}</span>
+                    </span>
+                  </span>
+                  <span class="ark-pdp-bundle__price">{{ block.settings.price_badge }}</span>
+                </label>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+
+          <!-- Quantity & Big Primary CTA -->
+          <div class="ark-pdp-buy__cta-row">
+            <div class="ark-pdp-qty" data-ark-qty>
+              <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="-1" aria-label="Diminuir quantidade">−</button>
+              <span class="ark-pdp-qty__val" data-ark-qty-display>1</span>
+              <input type="hidden" name="quantity" value="1" data-ark-qty-input>
+              <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="1" aria-label="Aumentar quantidade">+</button>
+            </div>
+
+            <button
+              type="submit"
+              name="add"
+              class="ark-pdp-buy__submit"
+              data-ark-submit
+              data-cta-prefix="{{ s.cta_prefix }}"
+              data-success-label="{{ s.success_label }}"
+              {% unless variant.available %}disabled{% endunless %}
+            >
+              <span class="ark-icon" aria-hidden="true">bolt</span>
+              <span data-ark-button-label>{{ s.cta_prefix }} ({{ base_price | money }})</span>
+            </button>
+          </div>
+
+          <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
+        {%- endform -%}
+
+        <!-- Express 1-Click Payments Shortcut -->
+        {%- assign methods = s.payment_methods | split: ',' -%}
+        {%- if methods.size > 0 -%}
+          <div class="ark-pdp-buy__express">
+            <div class="ark-pdp-buy__express-label">
+              <span class="ark-icon" aria-hidden="true">flash_on</span>
+              <span>{{ s.payment_label }}</span>
+            </div>
+            <ul class="ark-pdp-buy__express-list">
+              {%- for m in methods -%}
+                <li class="ark-pdp-buy__express-chip">{{ m | strip }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <!-- Trust Features Grid (2x2) -->
+        {%- if features.size > 0 -%}
+          <ul class="ark-pdp-buy__features">
+            {%- for block in features -%}
+              <li class="ark-pdp-buy__feature" {{ block.shopify_attributes }}>
+                <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Sticky Tactical Conversion Strip -->
+  <aside class="ark-pdp-sticky" aria-label="Resumo de compra rápida">
+    <div class="ark-page-width ark-pdp-sticky__inner">
+      <div class="ark-pdp-sticky__product">
+        <div class="ark-pdp-sticky__thumb">
+          {%- if featured_media != blank -%}
+            {{ featured_media | image_url: width: 120 | image_tag: loading: 'lazy', width: 48, height: 48, alt: product.title }}
+          {%- else -%}
+            <img src="{{ 'ark-pdp-sticky.jpg' | asset_url }}" alt="{{ product.title | default: s.fallback_title | escape }}" width="48" height="48" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div>
+          <p class="ark-pdp-sticky__title">{{ product.title | default: s.sticky_title }}</p>
+          <p class="ark-pdp-sticky__stock">
+            <span class="ark-pdp-sticky__dot" aria-hidden="true"></span>
+            {{ s.sticky_stock }}
+          </p>
+        </div>
+      </div>
+
+      <div class="ark-pdp-sticky__actions">
+        <div class="ark-pdp-sticky__price-wrap">
+          <span class="ark-pdp-sticky__price" data-ark-sticky-price>{{ base_price | money }}</span>
+          <span class="ark-pdp-sticky__ship">{{ s.sticky_shipping }}</span>
+        </div>
+        <button type="button" class="ark-button ark-pdp-sticky__btn" data-ark-sticky-trigger>
+          <span class="ark-icon" aria-hidden="true">shopping_bag</span>
+          <span>{{ s.sticky_cta }}</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 5. Context Alert & Contingency Banner -->
+  {%- if s.context_heading != blank -%}
+    <section class="ark-pdp-context">
+      <div class="ark-page-width">
+        <div class="ark-pdp-context__card">
+          <div class="ark-pdp-context__main">
+            <div class="ark-pdp-context__icon">
+              <span class="ark-icon" aria-hidden="true">notification_important</span>
+            </div>
+            <div>
+              <h2 class="ark-pdp-context__title">{{ s.context_heading }}</h2>
+              <p class="ark-pdp-context__text">{{ s.context_text }}</p>
+            </div>
+          </div>
+          {%- if s.tracking_title != blank -%}
+            <div class="ark-pdp-context__tracking">
+              <span class="ark-icon" aria-hidden="true">sync_saved_locally</span>
+              <div>
+                <strong>{{ s.tracking_title }}</strong>
+                <span>{{ s.tracking_subtitle }}</span>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 6. Complete Tactical Breakdown Section (6 Modules Bento Grid) -->
+  {%- if modules.size > 0 -%}
+    <section class="ark-pdp-inventory" id="inventario">
+      <div class="ark-page-width">
+        <div class="ark-pdp-inventory__head">
+          <div>
+            {%- if s.inventory_pill != blank -%}
+              <div class="ark-pdp-inventory__pill">
+                <span class="ark-icon" aria-hidden="true">inventory_2</span>
+                <span>{{ s.inventory_pill }}</span>
+              </div>
+            {%- endif -%}
+            <h2 class="ark-pdp-section-title">{{ s.inventory_heading }}</h2>
+            {%- if s.inventory_text != blank -%}
+              <p class="ark-pdp-section-sub">{{ s.inventory_text }}</p>
+            {%- endif -%}
+          </div>
+          {%- if s.inventory_count_badge != blank -%}
+            <div class="ark-pdp-inventory__badge">
+              <span class="ark-icon" aria-hidden="true">verified</span>
+              <span>{{ s.inventory_count_badge }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="ark-pdp-inventory__grid">
+          {%- for block in modules -%}
+            <article class="ark-pdp-module" {{ block.shopify_attributes }}>
+              <div>
+                <div class="ark-pdp-module__icon ark-pdp-module__icon--{{ block.settings.tone }}">
+                  <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                </div>
+                <div class="ark-pdp-module__meta">
+                  <span class="ark-pdp-module__code">{{ block.settings.code }}</span>
+                  {%- if block.settings.badge != blank -%}
+                    <span class="ark-pdp-module__tag">{{ block.settings.badge }}</span>
+                  {%- endif -%}
+                </div>
+                <h3 class="ark-pdp-module__title">{{ block.settings.title }}</h3>
+                <p class="ark-pdp-module__desc">{{ block.settings.text }}</p>
+              </div>
+              <ul class="ark-pdp-module__checks">
+                {%- if block.settings.check_1 != blank -%}
+                  <li><span class="ark-icon" aria-hidden="true">check</span><span>{{ block.settings.check_1 }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.check_2 != blank -%}
+                  <li><span class="ark-icon" aria-hidden="true">check</span><span>{{ block.settings.check_2 }}</span></li>
+                {%- endif -%}
+              </ul>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 7. Real Crisis Scenario Timeline: 0h to 72h -->
+  {%- if phases.size > 0 -%}
+    <section class="ark-pdp-timeline">
+      <div class="ark-page-width">
+        <div class="ark-pdp-timeline__head">
+          {%- if s.timeline_pill != blank -%}
+            <span class="ark-pdp-timeline__pill">
+              <span class="ark-icon" aria-hidden="true">schedule</span>
+              {{ s.timeline_pill }}
+            </span>
+          {%- endif -%}
+          <h2 class="ark-pdp-section-title">{{ s.timeline_heading }}</h2>
+          {%- if s.timeline_text != blank -%}
+            <p class="ark-pdp-section-sub">{{ s.timeline_text }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="ark-pdp-timeline__grid">
+          {%- for block in phases -%}
+            <article class="ark-pdp-phase ark-pdp-phase--{{ block.settings.tone }}" {{ block.shopify_attributes }}>
+              <div>
+                <div class="ark-pdp-phase__top">
+                  <span class="ark-pdp-phase__badge">{{ block.settings.badge }}</span>
+                  <span class="ark-icon ark-pdp-phase__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                </div>
+                <h3 class="ark-pdp-phase__title">{{ block.settings.title }}</h3>
+                <p class="ark-pdp-phase__desc">{{ block.settings.text }}</p>
+                <div class="ark-pdp-phase__action">
+                  <strong>{{ block.settings.action_label }}</strong>
+                  <span>{{ block.settings.action_text }}</span>
+                </div>
+              </div>
+              <div class="ark-pdp-phase__foot">
+                <span class="ark-icon" aria-hidden="true">check_circle</span>
+                <span>{{ block.settings.outcome }}</span>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 8. Iberian Trust Strip -->
+  {%- if trusts.size > 0 -%}
+    <section class="ark-pdp-trust-strip">
+      <div class="ark-page-width ark-pdp-trust-strip__grid">
+        {%- for block in trusts -%}
+          <div class="ark-pdp-trust-strip__item" {{ block.shopify_attributes }}>
+            <div class="ark-pdp-trust-strip__icon">
+              <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            </div>
+            <div>
+              <h4>{{ block.settings.title }}</h4>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 9. Verified Customer Reviews (PT / ES) -->
+  {%- if reviews.size > 0 -%}
+    <section class="ark-pdp-reviews">
+      <div class="ark-page-width">
+        <div class="ark-pdp-reviews__head">
+          <div>
+            <span class="ark-pdp-reviews__eyebrow">
+              <span class="ark-icon" aria-hidden="true">verified</span>
+              {{ s.reviews_eyebrow }}
+            </span>
+            <h2 class="ark-pdp-section-title">{{ s.reviews_heading }}</h2>
+          </div>
+          <div class="ark-pdp-reviews__summary">
+            <span class="ark-pdp-reviews__score">{{ s.reviews_score }}</span>
+            <div>
+              <div class="ark-pdp-reviews__stars" aria-hidden="true">
+                <span class="ark-icon ark-icon--filled">star</span>
+                <span class="ark-icon ark-icon--filled">star</span>
+                <span class="ark-icon ark-icon--filled">star</span>
+                <span class="ark-icon ark-icon--filled">star</span>
+                <span class="ark-icon ark-icon--filled">star</span>
+              </div>
+              <span class="ark-pdp-reviews__total">{{ s.reviews_total }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ark-pdp-reviews__grid">
+          {%- for block in reviews -%}
+            <article class="ark-pdp-review" {{ block.shopify_attributes }}>
+              <div>
+                <div class="ark-pdp-review__top">
+                  <div class="ark-pdp-reviews__stars" aria-label="5 de 5 estrelas">
+                    <span class="ark-icon ark-icon--filled">star</span>
+                    <span class="ark-icon ark-icon--filled">star</span>
+                    <span class="ark-icon ark-icon--filled">star</span>
+                    <span class="ark-icon ark-icon--filled">star</span>
+                    <span class="ark-icon ark-icon--filled">star</span>
+                  </div>
+                  <span class="ark-pdp-review__date">{{ block.settings.date }}</span>
+                </div>
+                <h3 class="ark-pdp-review__title">“{{ block.settings.title }}”</h3>
+                <p class="ark-pdp-review__body">“{{ block.settings.quote }}”</p>
+              </div>
+              <footer class="ark-pdp-review__foot">
+                <div>
+                  <strong>{{ block.settings.author }}</strong>
+                  <span>{{ block.settings.meta }}</span>
+                </div>
+                <span class="ark-icon ark-pdp-review__check" aria-hidden="true">check_circle</span>
+              </footer>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 10. Detailed Tactical FAQ Accordions -->
+  {%- if faqs.size > 0 -%}
+    <section class="ark-pdp-faq">
+      <div class="ark-pdp-faq__container">
+        <div class="ark-pdp-faq__head">
+          <span class="ark-pdp-faq__eyebrow">{{ s.faq_eyebrow }}</span>
+          <h2 class="ark-pdp-section-title">{{ s.faq_heading }}</h2>
+        </div>
+        <div class="ark-pdp-faq__list">
+          {%- for block in faqs -%}
+            <details class="ark-pdp-faq__item"{% if block.settings.open %} open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="ark-pdp-faq__question">
+                <span>{{ block.settings.question }}</span>
+                <span class="ark-icon" aria-hidden="true">expand_more</span>
+              </summary>
+              <div class="ark-pdp-faq__answer">
+                {{ block.settings.answer }}
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- 11. Final Reassurance / Guarantee Bar -->
+  {%- if s.support_heading != blank -%}
+    <section class="ark-pdp-support">
+      <div class="ark-pdp-support__inner">
+        <div class="ark-pdp-support__icon">
+          <span class="ark-icon" aria-hidden="true">support_agent</span>
+        </div>
+        <h2 class="ark-pdp-support__title">{{ s.support_heading }}</h2>
+        <p class="ark-pdp-support__text">{{ s.support_text }}</p>
+        <div class="ark-pdp-support__actions">
+          {%- if s.support_phone_label != blank -%}
+            <a href="{{ s.support_phone_href }}" class="ark-pdp-support__phone">
+              <span class="ark-icon" aria-hidden="true">phone</span>
+              <span>{{ s.support_phone_label }}</span>
+            </a>
+          {%- endif -%}
+          {%- if s.support_cta != blank -%}
+            <button type="button" class="ark-pdp-support__cta" data-ark-sticky-trigger>
+              <span class="ark-icon" aria-hidden="true">shopping_bag</span>
+              <span>{{ s.support_cta }}</span>
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+<script src="{{ 'ark-product.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Arkorra — Página Produto",
+  "tag": "div",
+  "class": "ark-main-product-section",
+  "settings": [
+    { "type": "header", "content": "1. Barra de aviso operacional" },
+    { "type": "checkbox", "id": "show_notice_bar", "label": "Mostrar barra operacional", "default": true },
+    { "type": "text", "id": "notice_label", "label": "Etiqueta", "default": "ALERTA OPERACIONAL IBÉRICO:" },
+    { "type": "text", "id": "notice_text", "label": "Texto", "default": "Risco meteorológico & testes de rede na Península. Restam 3 unidades no Lote #04." },
+    { "type": "text", "id": "notice_shipping", "label": "Envio", "default": "Despacho Blindado 24h (PT/ES)" },
+    { "type": "text", "id": "notice_cutoff", "label": "Hora de corte", "default": "CORTE: 17:00H" },
+    { "type": "header", "content": "2. Breadcrumb & Galeria" },
+    { "type": "text", "id": "crumb_home", "label": "Início", "default": "Início" },
+    { "type": "text", "id": "crumb_cat_1", "label": "Categoria 1", "default": "Todos os Kits 72h" },
+    { "type": "text", "id": "crumb_cat_2", "label": "Categoria 2", "default": "Autonomia Familiar" },
+    { "type": "text", "id": "stage_pill_1", "label": "Selo 1 na imagem", "default": "Lote Homologado PT/ES #04" },
+    { "type": "text", "id": "stage_pill_2", "label": "Selo 2 na imagem", "default": "Norma UE Autonomia 72h" },
+    { "type": "text", "id": "stage_zoom_label", "label": "Etiqueta de inspeção", "default": "Inspeção Tática 360° Ativa" },
+    { "type": "text", "id": "warranty_title", "label": "Título da garantia sob a foto", "default": "Garantia Operacional 5 Anos" },
+    { "type": "text", "id": "warranty_text", "label": "Texto da garantia sob a foto", "default": "Componentes estéreis e rações com validade assegurada até 2030." },
+    { "type": "header", "content": "3. Buy Box & Preço" },
+    { "type": "text", "id": "urgency_ticker", "label": "Alerta de urgência", "default": "RESTAM APENAS 3 UNIDADES NESTE LOTE IBÉRICO" },
+    { "type": "text", "id": "fallback_title", "label": "Título (fallback)", "default": "Kit Família 72 Horas Pro" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Sistema Integral de Autonomia Doméstica Homologado para 3 a 4 Pessoas. Concebido segundo as diretrizes de contingência da Proteção Civil Europeia." },
+    { "type": "text", "id": "rating_score", "label": "Pontuação", "default": "4.96/5" },
+    { "type": "text", "id": "rating_count_text", "label": "Texto de avaliações", "default": "184 avaliações verificadas (PT/ES)" },
+    { "type": "text", "id": "homologation_badge", "label": "Selo de homologação", "default": "Homologado Proteção Civil" },
+    { "type": "number", "id": "compare_fallback_cents", "label": "Preço anterior fallback (EUR)", "default": 235 },
+    { "type": "text", "id": "saving_suffix", "label": "Sufixo de poupança", "default": "Poupança" },
+    { "type": "text", "id": "shipping_headline", "label": "Linha de portes", "default": "Envio Expresso Blindado Grátis (Portugal e Espanha Continental)" },
+    { "type": "text", "id": "tax_note", "label": "Nota de IVA", "default": "IVA de 23% / 21% já incluído. Fatura eletrónica instantânea com NIF/CIF." },
+    { "type": "text", "id": "bundles_heading", "label": "Título das opções de lote", "default": "Configuração de Lote Tático:" },
+    { "type": "text", "id": "cta_prefix", "label": "Texto do botão principal", "default": "GARANTIR AGORA — ADICIONAR" },
+    { "type": "text", "id": "success_label", "label": "Texto de confirmação", "default": "UNIDADE RESERVADA NO LOTE #04 ✓" },
+    { "type": "text", "id": "payment_label", "label": "Etiqueta checkout expresso", "default": "Checkout Expresso 1-Clique:" },
+    { "type": "text", "id": "payment_methods", "label": "Métodos (separados por vírgula)", "default": "MB WAY, Multibanco, Bizum" },
+    { "type": "header", "content": "4. Barra fixa inferior" },
+    { "type": "text", "id": "sticky_title", "label": "Título na barra fixa", "default": "Kit Família 72 Horas Pro (3-4 Pessoas)" },
+    { "type": "text", "id": "sticky_stock", "label": "Estado de stock", "default": "Em Stock Imediato • Despacho Hoje" },
+    { "type": "text", "id": "sticky_shipping", "label": "Subtexto do preço", "default": "Portes Grátis PT/ES" },
+    { "type": "text", "id": "sticky_cta", "label": "Botão da barra fixa", "default": "Garantir Unidade" },
+    { "type": "header", "content": "5. Banner de contexto ibérico" },
+    { "type": "text", "id": "context_heading", "label": "Título", "default": "Contexto de Contingência Península Ibérica" },
+    { "type": "textarea", "id": "context_text", "label": "Texto", "default": "Devido às recomendações preventivas europeias e alertas climatéricos recentes em Portugal e Espanha, a procura por sistemas de autonomia familiar aumentou significativamente. As encomendas deste lote são atribuídas estritamente por ordem de liquidação confirmada." },
+    { "type": "text", "id": "tracking_title", "label": "Título de rastreio", "default": "Rastreio CTT Expresso / SEUR" },
+    { "type": "text", "id": "tracking_subtitle", "label": "Subtítulo de rastreio", "default": "Notificação SMS e link 24h" },
+    { "type": "header", "content": "6. Inventário (6 módulos)" },
+    { "type": "text", "id": "inventory_pill", "label": "Selo", "default": "INVENTÁRIO COMPLETO" },
+    { "type": "text", "id": "inventory_heading", "label": "Título", "default": "O Que Está Incluído no Kit Pro" },
+    { "type": "textarea", "id": "inventory_text", "label": "Descrição", "default": "6 módulos autónomos selados e etiquetados a laser, desenvolvidos para resposta imediata sem necessidade de ferramentas adicionais." },
+    { "type": "text", "id": "inventory_count_badge", "label": "Etiqueta lateral", "default": "85 Componentes Clínicos e Mecânicos" },
+    { "type": "header", "content": "7. Linha temporal 0h–72h" },
+    { "type": "text", "id": "timeline_pill", "label": "Selo", "default": "PROTOCOLO DE INTERVENÇÃO" },
+    { "type": "text", "id": "timeline_heading", "label": "Título", "default": "Como o Kit Funciona num Cenário Real de Crise" },
+    { "type": "textarea", "id": "timeline_text", "label": "Descrição", "default": "As primeiras 72 horas são o período crítico até à reposição de infraestruturas estatais. O seu agregado familiar mantém-se calmo e autónomo em 3 fases:" },
+    { "type": "header", "content": "9. Avaliações & 10. FAQ" },
+    { "type": "text", "id": "reviews_eyebrow", "label": "Sobretítulo das avaliações", "default": "AVALIAÇÕES VERIFICADAS POR COMPRA" },
+    { "type": "text", "id": "reviews_heading", "label": "Título das avaliações", "default": "O Que Dizem as Famílias Ibéricas" },
+    { "type": "text", "id": "reviews_score", "label": "Nota global", "default": "4.96" },
+    { "type": "text", "id": "reviews_total", "label": "Total de opiniões", "default": "184 opiniões certificadas" },
+    { "type": "text", "id": "faq_eyebrow", "label": "Sobretítulo FAQ", "default": "ESCLARECIMENTOS OPERACIONAIS" },
+    { "type": "text", "id": "faq_heading", "label": "Título FAQ", "default": "Perguntas Frequentes & Detalhes Técnicos" },
+    { "type": "header", "content": "11. Apoio técnico final" },
+    { "type": "text", "id": "support_heading", "label": "Título", "default": "Dúvidas sobre o dimensionamento para a sua família?" },
+    { "type": "textarea", "id": "support_text", "label": "Texto", "default": "A nossa equipa técnica sediada em Lisboa e Madrid está disponível diariamente para apoiar na preparação de planos de contingência domésticos." },
+    { "type": "text", "id": "support_phone_label", "label": "Botão telefone", "default": "Linha Direta: +351 210 990 088" },
+    { "type": "text", "id": "support_phone_href", "label": "Link telefone", "default": "tel:+351210990088" },
+    { "type": "text", "id": "support_cta", "label": "Botão de pedido", "default": "Finalizar Pedido com Envio Hoje" }
+  ],
+  "blocks": [
+    {
+      "type": "thumb",
+      "name": "Miniatura da galeria",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagem (opcional)" },
+        { "type": "text", "id": "asset", "label": "Asset fallback", "default": "ark-pdp-thumb-1.jpg" },
+        { "type": "text", "id": "label", "label": "Legenda", "default": "Visão Geral" }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Opção de configuração",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Kit Essencial 72h Pro (Padrão)" },
+        { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Mochila Tática Modular 45L + 6 Módulos Integrais + Manual Físico" },
+        { "type": "number", "id": "price_eur", "label": "Preço total (EUR)", "default": 189 },
+        { "type": "number", "id": "compare_eur", "label": "Preço anterior (EUR)", "default": 235 },
+        { "type": "text", "id": "price_badge", "label": "Etiqueta de preço à direita", "default": "189,00 €" }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": " Selo rápido (Buy Box)",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone", "default": "verified" },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Diretiva Europeia 72h" }
+      ]
+    },
+    {
+      "type": "module",
+      "name": "Módulo do inventário",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone", "default": "radio" },
+        { "type": "select", "id": "tone", "label": "Cor do ícone", "default": "amber", "options": [
+          { "value": "amber", "label": "Âmbar" },
+          { "value": "teal", "label": "Pinho / Água" },
+          { "value": "red", "label": "Médico / Vermelho" },
+          { "value": "orange", "label": "Térmico / Laranja" },
+          { "value": "slate", "label": "Neutro / Cinza" },
+          { "value": "sand", "label": "Areia" }
+        ] },
+        { "type": "text", "id": "code", "label": "Código", "default": "Módulo 01" },
+        { "type": "text", "id": "badge", "label": "Etiqueta", "default": "Sem Pilhas" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Energia & Comunicação" },
+        { "type": "textarea", "id": "text", "label": "Descrição" },
+        { "type": "text", "id": "check_1", "label": "Ponto 1" },
+        { "type": "text", "id": "check_2", "label": "Ponto 2" }
+      ]
+    },
+    {
+      "type": "phase",
+      "name": "Fase do cenário real",
+      "limit": 3,
+      "settings": [
+        { "type": "select", "id": "tone", "label": "Cor da fase", "default": "orange", "options": [
+          { "value": "orange", "label": "Fase 1 (Laranja)" },
+          { "value": "pine", "label": "Fase 2 (Pinho escuro)" },
+          { "value": "pine-light", "label": "Fase 3 (Pinho claro)" }
+        ] },
+        { "type": "text", "id": "badge", "label": "Etiqueta da fase", "default": "FASE 1: 0H — 1H" },
+        { "type": "text", "id": "icon", "label": "Ícone", "default": "power_off" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Apagão ou Corte Abrupto" },
+        { "type": "textarea", "id": "text", "label": "Situação" },
+        { "type": "text", "id": "action_label", "label": "Título da ação", "default": "Ação Imediata:" },
+        { "type": "textarea", "id": "action_text", "label": "Texto da ação" },
+        { "type": "text", "id": "outcome", "label": "Resultado garantido", "default": "Segurança emocional garantida" }
+      ]
+    },
+    {
+      "type": "trust",
+      "name": "Item barra de confiança",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone", "default": "local_shipping" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Armazém Europeu" },
+        { "type": "text", "id": "text", "label": "Subtítulo", "default": "Sem alfândega nem atrasos" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Avaliação verificada",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "date", "label": "Data", "default": "Há 3 dias" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Comprei para os meus pais no interior do Alentejo" },
+        { "type": "textarea", "id": "quote", "label": "Depoimento" },
+        { "type": "text", "id": "author", "label": "Autor", "default": "Marta Vasconcelos" },
+        { "type": "text", "id": "meta", "label": "Localidade", "default": "Évora, Portugal • Compra Verificada" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Pergunta frequente",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pergunta" },
+        { "type": "textarea", "id": "answer", "label": "Resposta" },
+        { "type": "checkbox", "id": "open", "label": "Aberto por defeito", "default": false }
+      ]
+    }
+  ]
+}
+{% endschema %}

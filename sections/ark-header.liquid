@@ -1,0 +1,193 @@
+{{ 'section-ark-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign logo_alt = section.settings.logo.alt | default: shop.name
+-%}
+
+<header class="ark ark-header" data-section-id="{{ section.id }}">
+  {%- if section.settings.show_announcement and section.settings.announcement != blank -%}
+    <div class="ark-header__announcement">
+      <div class="ark-page-width ark-header__announcement-inner">
+        <span class="ark-chip__dot ark-chip__dot--pulse" aria-hidden="true"></span>
+        {%- if section.settings.announcement_link != blank -%}
+          <a href="{{ section.settings.announcement_link }}" class="ark-header__announcement-text">{{ section.settings.announcement }}</a>
+        {%- else -%}
+          <p class="ark-header__announcement-text">{{ section.settings.announcement }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="ark-header__main">
+    <div class="ark-page-width ark-header__main-inner">
+      <details class="ark-header__drawer" data-ark-drawer>
+        <summary class="ark-header__icon-button" aria-label="{{ 'Abrir menu' }}">
+          <span class="ark-icon" aria-hidden="true">menu</span>
+        </summary>
+        <div class="ark-header__drawer-panel">
+          <div class="ark-header__drawer-top">
+            <span class="ark-heading-sm">{{ 'Menu' }}</span>
+            <button type="button" class="ark-header__icon-button" data-ark-drawer-close aria-label="{{ 'Fechar menu' }}">
+              <span class="ark-icon" aria-hidden="true">close</span>
+            </button>
+          </div>
+          <form action="{{ routes.search_url }}" method="get" role="search" class="ark-header__search ark-header__search--drawer">
+            <span class="ark-icon ark-header__search-icon" aria-hidden="true">search</span>
+            <label class="ark-visually-hidden" for="ArkSearchDrawer-{{ section.id }}">{{ section.settings.search_placeholder }}</label>
+            <input id="ArkSearchDrawer-{{ section.id }}" class="ark-header__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
+            <input type="hidden" name="options[prefix]" value="last">
+          </form>
+          {%- if menu.links.size > 0 -%}
+            <ul class="ark-header__drawer-menu">
+              {%- for link in menu.links -%}
+                <li>
+                  {%- if link.links.size > 0 -%}
+                    <details class="ark-header__drawer-group">
+                      <summary class="ark-header__drawer-link">
+                        {{ link.title }}
+                        <span class="ark-icon" aria-hidden="true">expand_more</span>
+                      </summary>
+                      <ul class="ark-header__drawer-sub">
+                        <li><a href="{{ link.url }}" class="ark-header__drawer-sublink">{{ 'Ver tudo' }}</a></li>
+                        {%- for child in link.links -%}
+                          <li><a href="{{ child.url }}" class="ark-header__drawer-sublink">{{ child.title }}</a></li>
+                        {%- endfor -%}
+                      </ul>
+                    </details>
+                  {%- else -%}
+                    <a href="{{ link.url }}" class="ark-header__drawer-link"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.shipping_note != blank -%}
+            <p class="ark-header__shipping">
+              <span class="ark-icon" aria-hidden="true">schedule_send</span>
+              {{ section.settings.shipping_note }}
+            </p>
+          {%- endif -%}
+        </div>
+      </details>
+
+      <a href="{{ routes.root_url }}" class="ark-header__logo">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 320 | image_tag: alt: logo_alt, class: 'ark-header__logo-img', loading: 'eager', widths: '160, 240, 320' }}
+        {%- else -%}
+          <img src="{{ 'logo-2.png' | asset_img_url: '320x' }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="320" height="240" loading="eager">
+        {%- endif -%}
+        <span class="ark-visually-hidden">{{ shop.name }}</span>
+      </a>
+
+      <form action="{{ routes.search_url }}" method="get" role="search" class="ark-header__search">
+        <span class="ark-icon ark-header__search-icon" aria-hidden="true">search</span>
+        <label class="ark-visually-hidden" for="ArkSearch-{{ section.id }}">{{ section.settings.search_placeholder }}</label>
+        <input id="ArkSearch-{{ section.id }}" class="ark-header__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
+        <input type="hidden" name="options[prefix]" value="last">
+      </form>
+
+      <div class="ark-header__actions">
+        {%- if section.settings.locale_label != blank -%}
+          <span class="ark-header__action ark-header__action--lg">
+            <span class="ark-icon" aria-hidden="true">language</span>
+            <span>{{ section.settings.locale_label }}</span>
+          </span>
+        {%- endif -%}
+        {%- if section.settings.support_label != blank -%}
+          <a href="{{ section.settings.support_link | default: '#' }}" class="ark-header__action ark-header__action--xl">
+            <span class="ark-icon" aria-hidden="true">headset_mic</span>
+            <span>{{ section.settings.support_label }}</span>
+          </a>
+        {%- endif -%}
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="ark-header__action">
+            <span class="ark-header__avatar"><span class="ark-icon" aria-hidden="true">person</span></span>
+            <span class="ark-header__action-label">{{ section.settings.account_label }}</span>
+          </a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="ark-header__cart">
+          <span class="ark-icon" aria-hidden="true">shopping_bag</span>
+          <span class="ark-header__action-label">{{ section.settings.cart_label }}</span>
+          <span class="ark-header__cart-count" data-ark-cart-count aria-label="{{ 'Artigos no carrinho' }}">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {%- if menu.links.size > 0 or section.settings.shipping_note != blank -%}
+    <div class="ark-header__nav">
+      <div class="ark-page-width ark-header__nav-inner">
+        <nav aria-label="{{ 'Navegação principal' }}">
+          <ul class="ark-header__menu">
+            {%- for link in menu.links -%}
+              <li class="ark-header__menu-item{% if link.links.size > 0 %} ark-header__menu-item--has-children{% endif %}">
+                <a href="{{ link.url }}" class="ark-header__menu-link{% if link.active or link.child_active %} is-active{% endif %}"{% if link.links.size > 0 %} aria-haspopup="true"{% endif %}{% if link.active %} aria-current="page"{% endif %}>
+                  <span>{{ link.title }}</span>
+                  {%- if link.links.size > 0 -%}
+                    <span class="ark-icon" aria-hidden="true">expand_more</span>
+                  {%- endif -%}
+                </a>
+                {%- if link.links.size > 0 -%}
+                  <ul class="ark-header__dropdown">
+                    {%- for child in link.links -%}
+                      <li><a href="{{ child.url }}" class="ark-header__dropdown-link{% if child.active %} is-active{% endif %}">{{ child.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        {%- if section.settings.shipping_note != blank -%}
+          <p class="ark-header__shipping">
+            <span class="ark-icon" aria-hidden="true">schedule_send</span>
+            {{ section.settings.shipping_note }}
+          </p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+<script>
+  (() => {
+    const header = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!header) return;
+    const drawer = header.querySelector('[data-ark-drawer]');
+    const close = header.querySelector('[data-ark-drawer-close]');
+    if (!drawer) return;
+    close && close.addEventListener('click', () => drawer.removeAttribute('open'));
+    drawer.addEventListener('toggle', () => {
+      document.documentElement.style.overflow = drawer.open ? 'hidden' : '';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.open) drawer.removeAttribute('open');
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Arkorra — Cabeçalho",
+  "class": "ark-header-section",
+  "settings": [
+    { "type": "header", "content": "Barra de alerta" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Mostrar barra de alerta", "default": true },
+    { "type": "text", "id": "announcement", "label": "Texto", "default": "ALERTA DE PRONTIDÃO CIVIL IBÉRICA • LOTE IBÉRICO #04: RESTAM 9 UNIDADES • ENVIO EXPRESSO BLINDADO 24H (PT/ES)" },
+    { "type": "url", "id": "announcement_link", "label": "Link (opcional)" },
+    { "type": "header", "content": "Marca" },
+    { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo-2.png." },
+    { "type": "header", "content": "Navegação" },
+    { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits 72h, rádios, lanternas, filtros..." },
+    { "type": "text", "id": "shipping_note", "label": "Nota de expedição", "default": "Envio Hoje até às 17h" },
+    { "type": "header", "content": "Ações" },
+    { "type": "text", "id": "locale_label", "label": "Etiqueta de região/moeda", "default": "PT / ES (EUR)" },
+    { "type": "text", "id": "support_label", "label": "Etiqueta de apoio", "default": "Apoio Técnico Online" },
+    { "type": "url", "id": "support_link", "label": "Link de apoio" },
+    { "type": "text", "id": "account_label", "label": "Etiqueta da conta", "default": "Minha Conta" },
+    { "type": "text", "id": "cart_label", "label": "Etiqueta do carrinho", "default": "Carrinho" }
+  ]
+}
+{% endschema %}

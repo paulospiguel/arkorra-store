@@ -1,1 +1,346 @@
-{"sections":{"main":{"type":"nov-product-template","blocks":{"03cca96b-c43d-43d4-8322-c16e4b7e8266":{"type":"block_text","settings":{"custom_title":"Delivery policy","custom_content":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, lectus ac pretium maximus, magna neque fermentum arcu, ut pulvinar arcu erat vel massa. Pellentesque ac arcu blandit, vestibulum tortor eget, dictum magna. Curabitur sit amet metus nulla. Pellentesque et augue et urna volutpat vestibulum vitae eget ligula. Maecenas mi augue, faucibus scelerisque facilisis in, dignissim vitae justo. Sed venenatis lectus et leo malesuada iaculis. Nunc lacinia arcu id elementum rhoncus. Duis tempor, enim vel vulputate interdum, magna sapien lacinia enim, nec lobortis quam enim eu erat. Aenean faucibus ex vitae nibh accumsan ullamcorper. Sed a orci augue. Maecenas porttitor venenatis semper.<\/p>"}},"a3d01db6-4304-4e3d-b6f3-f75fc7a51212":{"type":"block_text","settings":{"custom_title":"Shipping & Return","custom_content":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus libero quis mauris vestibulum dapibus.<\/p><p>Maecenas ullamcorper erat mi, vel consequat enim suscipit at. Pellentesque a elit at elit<\/p>"}},"03b6d121-b452-4ee2-beed-a6128ccc6fd5":{"type":"block_customtab","settings":{"custom_title":"Custom tab","t1":"Lorem ipsum dolor sit amet","c1":"<p>Maecenas ullamcorper erat mi, vel consequat enim suscipit at.<\/p>","t2":"Quisque in felis ut tellus","c2":"<p>Pellentesque a elit at elit auctor tempus sed vitae mi<\/p>","t3":"Morbi blandit auctor","c3":"<p>Vestibulum sollicitudin tortor dui, quis aliquet sapien convallis sed.<\/p>","t4":"Sed sit amet risus quis velit lacinia gravida.","c4":"<p>Aenean interdum elementum arcu. Vivamus purus lorem, semper quis libero et.<\/p>","t5":"Morbi dictum orci neque.","c5":"<p>Curabitur vehicula tellus sit amet neque placerat, vel sagittis.<\/p>","t6":"","c6":"","t7":"","c7":"","t8":"","c8":"","t9":"","c9":"","t10":"","c10":""}},"017de3aa-924c-4bbc-b2b0-94c01780f48d":{"type":"policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-8.png","title_policy":"FREE US DELIVERY","desc_policy":"<p>Free shipping on all order above $200<\/p>","tl":"Learn More","link":"#","class":"mb-sm-30"}},"51918806-a73f-4609-b19a-664f3d28b59c":{"type":"policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-14.png","title_policy":"PREMIUM QUALITY","desc_policy":"<p>Printed to the best standards available<\/p>","tl":"Learn More","link":"#","class":"mb-sm-30"}},"b7cfd8ab-e741-45a8-bd02-9bb90b8bc10b":{"type":"policy","settings":{"policy_icon":"shopify:\/\/shop_images\/p-15.png","title_policy":"SECURE PAYMENT","desc_policy":"<p>Return it within 30 days for an exchange.<\/p>","tl":"Learn More","link":"#","class":""}}},"block_order":["03cca96b-c43d-43d4-8322-c16e4b7e8266","a3d01db6-4304-4e3d-b6f3-f75fc7a51212","03b6d121-b452-4ee2-beed-a6128ccc6fd5","017de3aa-924c-4bbc-b2b0-94c01780f48d","51918806-a73f-4609-b19a-664f3d28b59c","b7cfd8ab-e741-45a8-bd02-9bb90b8bc10b"],"settings":{"aspect":"11","show_border_thumb":true,"c_border":"#ececec","show_stick_product":false,"show_quantity_selector":true,"product_swatch_enable":true,"img_swatch":false,"show_share":true,"show_ask":true,"show_sizeguide":false,"show_faq":true,"faq":"shopify:\/\/pages\/faqs","show_vendor":false,"show_sku":false,"show_categories":false,"show_tags":false,"show_available":false,"show_des":true,"enable_zoom":true,"show_related":true,"related_limit":10,"show_description":true,"show_payments":true,"title_payments":"Guaranteed safe checkout:","payments":"shopify:\/\/shop_images\/payment-icon.png","time":"Orders ship within 5 to 10 business days.","size_time":"12px","color_time":"#232630","truck":"Hoorey ! This item ships free to the US","size_truck":"12px","color_truck":"#232630","background_color":"","show_policy":true,"width_icon":41,"height_icon":34,"bg_i":true,"bg_i_w":85,"bg_icon":"#e9ebeb","text_fz":13,"width_xl":"col-xl-4","width_lg":"col-lg-4","width_md":"col-md-4","width_sm":"col-sm-12","width_xs":"col-12","text_color":"#000000","desc_color":"#505157","show_review":true,"bg_review":"#f1f1f1"}},"166244001551a5ea57":{"type":"nov-line","settings":{"height":1,"color":"#dcdcdc","style":"solid","opacity":100,"animate":true,"container":"container-full","class":"","distance_top":60,"distance_bottom":60}},"166243121355988ca2":{"type":"nov-product-recommendations","settings":{"heading":"<p>YOU MIGHT ALSO LIKE<\/p>","heading_c":"#222222","subheading":"","subheading_c":"#666666","title_alignment":"text-center","grid_number_xxl":4,"grid_number":4,"grid_number_lg":4,"grid_number_md":3,"grid_number_sm":2,"grid_number_xs":2,"limit":8,"viewmore":true,"animate":true,"container":"container","background_color":"","bg_opacity":100,"class":"","distance_top":30,"distance_bottom":30}},"16624401629ea2421a":{"type":"nov-line","settings":{"height":1,"color":"#dcdcdc","style":"solid","opacity":100,"animate":true,"container":"container-full","class":"","distance_top":70,"distance_bottom":60}},"16624339592c4072d4":{"type":"nov-link-list","blocks":{"1662433959182cad36-0":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-7_7679dc04-470e-4428-b66d-560aacdd07b3.jpg","collection":"smartphone"}},"1662433959182cad36-1":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-8_2e0d3382-5872-4010-98a2-f59f288cdf09.jpg","collection":"audio"}},"1662433959182cad36-2":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-9.jpg","collection":"smartwatch"}},"227f5feb-fa54-4943-b22d-a9f24065b576":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-10.jpg","collection":"game-devices"}},"4f21ee62-b3ff-41de-bce4-47dd38b67612":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-11.jpg","collection":"electronics"}},"f32fdf1a-5e7a-48f0-a712-dc955d8b92fd":{"type":"featured_collection","settings":{"image":"shopify:\/\/shop_images\/img-12.jpg","collection":"camera"}}},"block_order":["1662433959182cad36-0","1662433959182cad36-1","1662433959182cad36-2","227f5feb-fa54-4943-b22d-a9f24065b576","4f21ee62-b3ff-41de-bce4-47dd38b67612","f32fdf1a-5e7a-48f0-a712-dc955d8b92fd"],"settings":{"heading":"<p>BROWSE COLLECTIONS FOR MORE INSPRIRATION<\/p>","heading_c":"#222222","subheading":"","subheading_c":"#666666","title_alignment":"text-center","border_radius":13,"color_link":"#222222","color_link_h":"#002d3a","tt":"uppercase","text_c":"#232630","background_i":"#f3f3f3","background_i_h":"#f3f3f3","grid_number":6,"grid_number_lg":5,"grid_number_md":4,"grid_number_sm":3,"grid_number_xs":2,"container":"container","background_color":"#ffffff","class":"","distance_top":30,"distance_bottom":30}},"recent-products":{"type":"nov-recently-viewed","settings":{"heading":"<p>RECENTLY VIEWED PRODUCTS<\/p>","heading_c":"#222222","subheading":"","subheading_c":"#666666","title_alignment":"text-center","grid_number_xxl":5,"grid_number":4,"grid_number_lg":4,"grid_number_md":3,"grid_number_sm":2,"grid_number_xs":2,"limit":10,"show_nav":false,"animate":true,"container":"container","background_color":"","class":"","distance_top":30,"distance_bottom":0}}},"order":["main","166244001551a5ea57","166243121355988ca2","16624401629ea2421a","16624339592c4072d4","recent-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "ark-main-product",
+      "blocks": {
+        "thumb_1": {
+          "type": "thumb",
+          "settings": {
+            "asset": "ark-pdp-thumb-1.jpg",
+            "label": "Visão Geral"
+          }
+        },
+        "thumb_2": {
+          "type": "thumb",
+          "settings": {
+            "asset": "ark-pdp-thumb-2.jpg",
+            "label": "Rádio Dínamo"
+          }
+        },
+        "thumb_3": {
+          "type": "thumb",
+          "settings": {
+            "asset": "ark-pdp-thumb-3.jpg",
+            "label": "Módulo Médico"
+          }
+        },
+        "thumb_4": {
+          "type": "thumb",
+          "settings": {
+            "asset": "ark-pdp-thumb-4.jpg",
+            "label": "Filtro 2000L"
+          }
+        },
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "title": "Kit Essencial 72h Pro (Padrão)",
+            "subtitle": "Mochila Tática Modular 45L + 6 Módulos Integrais + Manual Físico",
+            "price_eur": 189,
+            "compare_eur": 235,
+            "price_badge": "189,00 €"
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "title": "Opção Pro + Rações Calóricas 5 Anos",
+            "subtitle": "Inclui 4x Barras de Nutrição Compactas de Alta Caloria (Valid. 2030)",
+            "price_eur": 223,
+            "compare_eur": 279,
+            "price_badge": "+34,00 €"
+          }
+        },
+        "bundle_3": {
+          "type": "bundle",
+          "settings": {
+            "title": "Opção Pro + Bateria Solar Expandida",
+            "subtitle": "Acrescenta Powerbank Blindado 20.000mAh IP67 com lanterna tripla",
+            "price_eur": 238,
+            "compare_eur": 298,
+            "price_badge": "+49,00 €"
+          }
+        },
+        "feat_1": { "type": "feature", "settings": { "icon": "verified", "text": "Diretiva Europeia 72h" } },
+        "feat_2": { "type": "feature", "settings": { "icon": "warehouse", "text": "Armazém Lisboa / Madrid" } },
+        "feat_3": { "type": "feature", "settings": { "icon": "published_with_changes", "text": "Devolução em 30 Dias" } },
+        "feat_4": { "type": "feature", "settings": { "icon": "menu_book", "text": "Guia Físico PT/ES Incluso" } },
+        "mod_1": {
+          "type": "module",
+          "settings": {
+            "icon": "radio",
+            "tone": "amber",
+            "code": "Módulo 01",
+            "badge": "Sem Pilhas",
+            "title": "Energia & Comunicação",
+            "text": "Rádio Analógico AM/FM/SW com manivela dínamo e painel solar integrado. Lanterna LED 500 lumens focalizada, sirene SOS ultrassónica e powerbank 4000mAh para telemóveis.",
+            "check_1": "Dínamo 1 minuto = 20 min rádio",
+            "check_2": "Saída USB de emergência tipo A/C"
+          }
+        },
+        "mod_2": {
+          "type": "module",
+          "settings": {
+            "icon": "water_drop",
+            "tone": "teal",
+            "code": "Módulo 02",
+            "badge": "2.000 Litros",
+            "title": "Hidratação & Purificação",
+            "text": "Purificador militar por sucção e gravidade com membrana oca de 0.01 mícron (elimina 99.9999% de bactérias e parasitas) + 4 reservatórios desdobráveis de 5L com torneira hermética.",
+            "check_1": "Elimina cólera, salmonela e giárdia",
+            "check_2": "Autonomia total de água para 4 adultos"
+          }
+        },
+        "mod_3": {
+          "type": "module",
+          "settings": {
+            "icon": "medical_services",
+            "tone": "red",
+            "code": "Módulo 03",
+            "badge": "85 Componentes",
+            "title": "Primeiros Socorros & Trauma",
+            "text": "Bolsa estanque de intervenção médica com torniquete de emergência homologado CE, ligaduras compressivas hemostáticas estilo israelita, tesoura de resgate tática e antisséticos estéreis.",
+            "check_1": "Torniquete de molinete para controlo de hemorragias",
+            "check_2": "Bolsa expansível para medicação diária pessoal"
+          }
+        },
+        "mod_4": {
+          "type": "module",
+          "settings": {
+            "icon": "ac_unit",
+            "tone": "orange",
+            "code": "Módulo 04",
+            "badge": "Retenção 90%",
+            "title": "Térmico & Abrigo Familiar",
+            "text": "4 mantas isotérmicas Mylar reforçadas de alta densidade que refletem até 90% do calor corporal, 4 ponchos corta-vento corta-chuva e 1 tenda tubular refletora de emergência com paracord.",
+            "check_1": "Previne hipotermia em paragens de aquecimento",
+            "check_2": "Material corta-vento e 100% impermeável"
+          }
+        },
+        "mod_5": {
+          "type": "module",
+          "settings": {
+            "icon": "handyman",
+            "tone": "slate",
+            "code": "Módulo 05",
+            "badge": "14 Ferramentas",
+            "title": "Ferramentas & Sinalização",
+            "text": "Alicate multifunções de aço inox 420, fita blindada extra-forte (duct tape 10m), fósforos anti-tempestade impermeáveis, apito de socorro marítimo 120dB e 2 barras químicas SnapLight (12h de luz fria).",
+            "check_1": "Luz fria não inflamável segura para fugas de gás",
+            "check_2": "Alicate resistente a impactos e corrosão"
+          }
+        },
+        "mod_6": {
+          "type": "module",
+          "settings": {
+            "icon": "description",
+            "tone": "sand",
+            "code": "Módulo 06",
+            "badge": "Papel Sintético",
+            "title": "Documentação & Gestão",
+            "text": "Manual impresso em material impermeável e inquebrável, com protocolos oficiais passo a passo, frequências de rádio de emergência ibéricas, cartões de contingência e bolsa estanque ignífuga para BI/Cartão Cidadão.",
+            "check_1": "Totalmente legível em português e espanhol",
+            "check_2": "Não rasga nem borra em contacto com água"
+          }
+        },
+        "phase_1": {
+          "type": "phase",
+          "settings": {
+            "tone": "orange",
+            "badge": "FASE 1: 0H — 1H",
+            "icon": "power_off",
+            "title": "Apagão ou Corte Abrupto",
+            "text": "A rede elétrica e as antenas de telemóvel falham. A casa fica sem luz.",
+            "action_label": "Ação Imediata:",
+            "action_text": "Retirar a lanterna LED de 500 lumens e sintonizar o rádio dínamo na frequência de alerta público da Antena 1 / RNE sem depender de tomadas elétricas.",
+            "outcome": "Segurança emocional garantida"
+          }
+        },
+        "phase_2": {
+          "type": "phase",
+          "settings": {
+            "tone": "pine",
+            "badge": "FASE 2: 12H — 24H",
+            "icon": "water_loss",
+            "title": "Paragem de Abastecimento",
+            "text": "A pressão das torneiras cessa. Multibancos e supermercados encerram portas.",
+            "action_label": "Ação Imediata:",
+            "action_text": "Montagem dos reservatórios estanques de 20L e ligação do filtro de 0.01 mícron a qualquer fonte de água pluvial ou residual com consumo 100% esterilizado.",
+            "outcome": "Zero risco biológico ou desidratação"
+          }
+        },
+        "phase_3": {
+          "type": "phase",
+          "settings": {
+            "tone": "pine-light",
+            "badge": "FASE 3: 48H — 72H",
+            "icon": "thermostat",
+            "title": "Isolamento & Queda Térmica",
+            "text": "Sem aquecimento central, a temperatura interior cai abruptamente.",
+            "action_label": "Ação Imediata:",
+            "action_text": "Uso das mantas térmicas Mylar de retenção corporal de 90% e ativação da bolsa de primeiros socorros para apoio contínuo de crianças e idosos da casa.",
+            "outcome": "Autonomia plena até ao resgate civil"
+          }
+        },
+        "trust_1": { "type": "trust", "settings": { "icon": "local_shipping", "title": "Armazém Europeu", "text": "Sem alfândega nem atrasos" } },
+        "trust_2": { "type": "trust", "settings": { "icon": "task_alt", "title": "Pronto a Usar", "text": "Equipamento pré-testado" } },
+        "trust_3": { "type": "trust", "settings": { "icon": "auto_stories", "title": "Guia PT & ES", "text": "Manual físico ilustrado" } },
+        "trust_4": { "type": "trust", "settings": { "icon": "lock", "title": "Pagamento Seguro", "text": "MB WAY, Bizum e Multibanco" } },
+        "rev_1": {
+          "type": "review",
+          "settings": {
+            "date": "Há 3 dias",
+            "title": "Comprei para os meus pais no interior do Alentejo",
+            "quote": "Eles vivem numa aldeia perto de Évora onde os temporais às vezes deitam a luz abaixo durante dois dias. O rádio com manivela dínamo e a lanterna deram-lhes uma calma imediata. O manual em português com letras grandes é fantástico.",
+            "author": "Marta Vasconcelos",
+            "meta": "Évora, Portugal • Compra Verificada"
+          }
+        },
+        "rev_2": {
+          "type": "review",
+          "settings": {
+            "date": "Há 1 semana",
+            "title": "Qualidade militar impecável, material muito robusto",
+            "quote": "Sou bombeiro voluntário e inspecionei o estojo de primeiros socorros e o torniquete. Tudo tem homologação CE autêntica e as costuras da mochila são de cordura de verdade. Excelente relação qualidade/preço.",
+            "author": "Rodrigo Sampaio",
+            "meta": "Braga, Portugal • Compra Verificada"
+          }
+        },
+        "rev_3": {
+          "type": "review",
+          "settings": {
+            "date": "Há 2 semanas",
+            "title": "Vivo en Madrid y la tranquilidad de tenerlo en el armario no tiene precio",
+            "quote": "Desde la nevada Filomena y los cortes de luz aprendí que no se puede improvisar. Llegó en menos de 24 horas por SEUR desde Coslada en caja totalmente neutra. Todo colocado y listo.",
+            "author": "Carlos Menéndez",
+            "meta": "Madrid, España • Compra Verificada"
+          }
+        },
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Qual é o prazo de validade dos componentes do kit?",
+            "answer": "O filtro de água, a mochila, as ferramentas multiusos, o rádio dínamo e as mantas térmicas não têm prazo de validade e duram décadas. Os componentes farmacêuticos estéreis (ligaduras, desinfetantes) e as rações calóricas vêm selados com lote certificado e validade garantida de 5 anos (até 2030).",
+            "open": false
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "O rádio funciona se as redes de telemóvel e a Internet caírem?",
+            "answer": "Sim. O rádio Arkorra capta sinais analógicos terrestres de Amplitude Modulada (AM) e Frequência Modulada (FM), bem como Onda Curta (SW). Estes emissores estatais de segurança civil funcionam de forma independente da fibra ótica e das torres 4G/5G, mesmo em apagões nacionais.",
+            "open": false
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Como são processados os envios para Portugal e Espanha Continental e Ilhas?",
+            "answer": "Todas as encomendas efetuadas até às 17:00h são despachadas no próprio dia a partir dos nossos entrepostos em Lisboa (Carnaxide) ou Madrid (Coslada). O prazo de entrega é de 24 horas para capitais e 24h–48h para todas as outras localidades continentais. Os envios para Açores, Madeira, Baleares e Canárias são entregues por via aérea prioritária em 3 a 5 dias úteis.",
+            "open": false
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "É necessário adicionar medicamentos ou itens pessoais à mochila?",
+            "answer": "Recomendamos vivamente. A mochila inclui um compartimento modular com zíper vermelho expressamente reservado para a medicação diária de continuidade do seu agregado familiar (tensão arterial, insulina, óculos suplementares). O manual físico inclui uma lista de verificação passo a passo para preencher ao receber a encomenda.",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "thumb_1",
+        "thumb_2",
+        "thumb_3",
+        "thumb_4",
+        "bundle_1",
+        "bundle_2",
+        "bundle_3",
+        "feat_1",
+        "feat_2",
+        "feat_3",
+        "feat_4",
+        "mod_1",
+        "mod_2",
+        "mod_3",
+        "mod_4",
+        "mod_5",
+        "mod_6",
+        "phase_1",
+        "phase_2",
+        "phase_3",
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4",
+        "rev_1",
+        "rev_2",
+        "rev_3",
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "show_notice_bar": true,
+        "notice_label": "ALERTA OPERACIONAL IBÉRICO:",
+        "notice_text": "Risco meteorológico & testes de rede na Península. Restam 3 unidades no Lote #04.",
+        "notice_shipping": "Despacho Blindado 24h (PT/ES)",
+        "notice_cutoff": "CORTE: 17:00H",
+        "crumb_home": "Início",
+        "crumb_cat_1": "Todos os Kits 72h",
+        "crumb_cat_2": "Autonomia Familiar",
+        "stage_pill_1": "Lote Homologado PT/ES #04",
+        "stage_pill_2": "Norma UE Autonomia 72h",
+        "stage_zoom_label": "Inspeção Tática 360° Ativa",
+        "warranty_title": "Garantia Operacional 5 Anos",
+        "warranty_text": "Componentes estéreis e rações com validade assegurada até 2030.",
+        "urgency_ticker": "RESTAM APENAS 3 UNIDADES NESTE LOTE IBÉRICO",
+        "fallback_title": "Kit Família 72 Horas Pro",
+        "subtitle": "Sistema Integral de Autonomia Doméstica Homologado para 3 a 4 Pessoas. Concebido segundo as diretrizes de contingência da Proteção Civil Europeia.",
+        "rating_score": "4.96/5",
+        "rating_count_text": "184 avaliações verificadas (PT/ES)",
+        "homologation_badge": "Homologado Proteção Civil",
+        "compare_fallback_cents": 235,
+        "saving_suffix": "Poupança",
+        "shipping_headline": "Envio Expresso Blindado Grátis (Portugal e Espanha Continental)",
+        "tax_note": "IVA de 23% / 21% já incluído. Fatura eletrónica instantânea com NIF/CIF.",
+        "bundles_heading": "Configuração de Lote Tático:",
+        "cta_prefix": "GARANTIR AGORA — ADICIONAR",
+        "success_label": "UNIDADE RESERVADA NO LOTE #04 ✓",
+        "payment_label": "Checkout Expresso 1-Clique:",
+        "payment_methods": "MB WAY, Multibanco, Bizum",
+        "sticky_title": "Kit Família 72 Horas Pro (3-4 Pessoas)",
+        "sticky_stock": "Em Stock Imediato • Despacho Hoje",
+        "sticky_shipping": "Portes Grátis PT/ES",
+        "sticky_cta": "Garantir Unidade",
+        "context_heading": "Contexto de Contingência Península Ibérica",
+        "context_text": "Devido às recomendações preventivas europeias e alertas climatéricos recentes em Portugal e Espanha, a procura por sistemas de autonomia familiar aumentou significativamente. As encomendas deste lote são atribuídas estritamente por ordem de liquidação confirmada.",
+        "tracking_title": "Rastreio CTT Expresso / SEUR",
+        "tracking_subtitle": "Notificação SMS e link 24h",
+        "inventory_pill": "INVENTÁRIO COMPLETO",
+        "inventory_heading": "O Que Está Incluído no Kit Pro",
+        "inventory_text": "6 módulos autónomos selados e etiquetados a laser, desenvolvidos para resposta imediata sem necessidade de ferramentas adicionais.",
+        "inventory_count_badge": "85 Componentes Clínicos e Mecânicos",
+        "timeline_pill": "PROTOCOLO DE INTERVENÇÃO",
+        "timeline_heading": "Como o Kit Funciona num Cenário Real de Crise",
+        "timeline_text": "As primeiras 72 horas são o período crítico até à reposição de infraestruturas estatais. O seu agregado familiar mantém-se calmo e autónomo em 3 fases:",
+        "reviews_eyebrow": "AVALIAÇÕES VERIFICADAS POR COMPRA",
+        "reviews_heading": "O Que Dizem as Famílias Ibéricas",
+        "reviews_score": "4.96",
+        "reviews_total": "184 opiniões certificadas",
+        "faq_eyebrow": "ESCLARECIMENTOS OPERACIONAIS",
+        "faq_heading": "Perguntas Frequentes & Detalhes Técnicos",
+        "support_heading": "Dúvidas sobre o dimensionamento para a sua família?",
+        "support_text": "A nossa equipa técnica sediada em Lisboa e Madrid está disponível diariamente para apoiar na preparação de planos de contingência domésticos.",
+        "support_phone_label": "Linha Direta: +351 210 990 088",
+        "support_phone_href": "tel:+351210990088",
+        "support_cta": "Finalizar Pedido com Envio Hoje"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,106 @@
+{{ 'section-ark-lead-capture.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+
+<section class="ark ark-lead" id="guia">
+  <div class="ark-page-width">
+    <div class="ark-lead__banner">
+      <div class="ark-lead__grid">
+        <div class="ark-lead__copy">
+          {%- if s.badge != blank -%}
+            <span class="ark-lead__badge">
+              <span class="ark-icon" aria-hidden="true">picture_as_pdf</span>
+              {{ s.badge }}
+            </span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <h2 class="ark-heading-xl ark-lead__title">{{ s.heading }}</h2>
+          {%- endif -%}
+          {%- if s.text != blank -%}
+            <p class="ark-lead__text">{{ s.text }}</p>
+          {%- endif -%}
+          {%- assign checks = s.checks | split: ',' -%}
+          {%- if checks.size > 0 -%}
+            <ul class="ark-lead__checks">
+              {%- for item in checks -%}
+                <li>✓ {{ item | strip }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+
+        <div class="ark-lead__card">
+          <h3 class="ark-heading-sm">{{ s.form_heading }}</h3>
+          <p class="ark-lead__card-sub">{{ s.form_text }}</p>
+
+          {%- assign form_id = 'ArkLeadForm-' | append: section.id -%}
+          {%- form 'customer', id: form_id, class: 'ark-lead__form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,guia-72h">
+
+            {%- if form.posted_successfully? -%}
+              <div class="ark-notice" role="status">
+                <span class="ark-icon" aria-hidden="true">mark_email_read</span>
+                <span>{{ s.success_message }}</span>
+              </div>
+              {%- if s.pdf_url != blank -%}
+                <a href="{{ s.pdf_url }}" class="ark-button ark-button--block" download>
+                  <span class="ark-icon" aria-hidden="true">download</span>
+                  <span>{{ s.button_label }}</span>
+                </a>
+              {%- endif -%}
+            {%- else -%}
+              {%- if form.errors -%}
+                <div class="ark-notice ark-notice--error" role="alert">
+                  <span class="ark-icon" aria-hidden="true">error</span>
+                  <span>{{ form.errors | default_errors | strip_html }}</span>
+                </div>
+              {%- endif -%}
+
+              <div class="ark-field">
+                <label class="ark-field__label" for="ArkLeadName-{{ section.id }}">{{ s.name_label }}</label>
+                <input id="ArkLeadName-{{ section.id }}" class="ark-field__input" type="text" name="contact[first_name]" autocomplete="name" placeholder="{{ s.name_placeholder }}" required>
+              </div>
+
+              <div class="ark-field">
+                <label class="ark-field__label" for="ArkLeadEmail-{{ section.id }}">{{ s.email_label }}</label>
+                <input id="ArkLeadEmail-{{ section.id }}" class="ark-field__input" type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" placeholder="{{ s.email_placeholder }}" required>
+              </div>
+
+              <button type="submit" class="ark-button ark-button--block">
+                <span class="ark-icon" aria-hidden="true">download</span>
+                <span>{{ s.button_label }}</span>
+              </button>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra — Guia PDF 72h",
+  "tag": "div",
+  "class": "ark-lead-section",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Selo", "default": "Edição Ibérica Gratuita • Atualização 2025" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Baixe o Guia Oficial & Checklist de Contingência 72 Horas" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Um protocolo ilustrado de 28 páginas com os passos exatos para auditar a sua despensa, calcular a reserva de água por pessoa e manter crianças e seniores protegidos." },
+    { "type": "text", "id": "checks", "label": "Pontos (separados por vírgula)", "default": "Formato PDF A4 Imprimível, Sem spam comercial, Em Português & Espanhol" },
+    { "type": "header", "content": "Formulário" },
+    { "type": "text", "id": "form_heading", "label": "Título do cartão", "default": "Receba no seu e-mail" },
+    { "type": "text", "id": "form_text", "label": "Subtítulo do cartão", "default": "O download do PDF é imediato após a confirmação:" },
+    { "type": "text", "id": "name_label", "label": "Etiqueta do nome", "default": "Nome Completo" },
+    { "type": "text", "id": "name_placeholder", "label": "Placeholder do nome", "default": "Ex.: Maria Santos" },
+    { "type": "text", "id": "email_label", "label": "Etiqueta do e-mail", "default": "E-mail Principal" },
+    { "type": "text", "id": "email_placeholder", "label": "Placeholder do e-mail", "default": "Ex.: maria.santos@email.com" },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Descarregar Guia Gratuito" },
+    { "type": "text", "id": "success_message", "label": "Mensagem de sucesso", "default": "O Guia de Contingência foi enviado com sucesso para a sua caixa de entrada!" },
+    { "type": "url", "id": "pdf_url", "label": "Link direto do PDF (opcional)", "info": "Se preenchido, surge um botão de download direto após submissão." }
+  ],
+  "presets": [
+    { "name": "Arkorra — Guia PDF 72h" }
+  ]
+}
+{% endschema %}

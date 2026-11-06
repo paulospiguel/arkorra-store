@@ -1,0 +1,178 @@
+{{ 'section-ark-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="ark ark-footer">
+  <div class="ark-page-width">
+    {%- if section.blocks.size > 0 -%}
+      <div class="ark-footer__grid">
+        {%- for block in section.blocks -%}
+          <div class="ark-footer__col" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+              {%- when 'brand' -%}
+                <a href="{{ routes.root_url }}" class="ark-footer__logo">
+                  {%- if block.settings.logo != blank -%}
+                    {{ block.settings.logo | image_url: width: 320 | image_tag: alt: shop.name, class: 'ark-footer__logo-img', loading: 'lazy' }}
+                  {%- else -%}
+                    <img src="{{ 'logo-2.png' | asset_img_url: '320x' }}" alt="{{ shop.name | escape }}" class="ark-footer__logo-img" width="320" height="240" loading="lazy">
+                  {%- endif -%}
+                </a>
+                {%- if block.settings.text != blank -%}
+                  <div class="ark-rte">{{ block.settings.text }}</div>
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <p class="ark-footer__badge">
+                    <span class="ark-icon" aria-hidden="true">verified</span>
+                    {{ block.settings.badge }}
+                  </p>
+                {%- endif -%}
+
+              {%- when 'text' -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="ark-heading-sm">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                <div class="ark-rte">{{ block.settings.text }}</div>
+                {%- if block.settings.note != blank -%}
+                  <p class="ark-footer__note">{{ block.settings.note }}</p>
+                {%- endif -%}
+
+              {%- when 'menu' -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="ark-heading-sm">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                <ul class="ark-footer__links">
+                  {%- for link in linklists[block.settings.menu].links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+
+              {%- when 'payments' -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="ark-heading-sm">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="ark-footer__text">{{ block.settings.text }}</p>
+                {%- endif -%}
+                {%- assign methods = block.settings.methods | split: ',' -%}
+                <ul class="ark-footer__payments">
+                  {%- for method in methods -%}
+                    {%- assign m = method | strip -%}
+                    {%- if m != blank -%}
+                      <li class="ark-footer__payment">{{ m }}</li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+                {%- if block.settings.note != blank -%}
+                  <p class="ark-footer__fineprint">{{ block.settings.note }}</p>
+                {%- endif -%}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="ark-footer__bottom">
+      {%- assign current_year = 'now' | date: '%Y' -%}
+      <p>
+        {%- if section.settings.copyright != blank -%}
+          {{ section.settings.copyright | replace: '[year]', current_year }}
+        {%- else -%}
+          &copy; {{ current_year }} {{ shop.name }}
+        {%- endif -%}
+      </p>
+      {%- assign legal = linklists[section.settings.legal_menu] -%}
+      {%- if legal.links.size > 0 -%}
+        <ul class="ark-footer__legal">
+          {%- for link in legal.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Arkorra — Rodapé",
+  "class": "ark-footer-section",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] ARKORRA Contingência Ibérica S.A. Todos os direitos reservados." },
+    { "type": "link_list", "id": "legal_menu", "label": "Menu legal", "default": "footer" }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Logótipo" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>" },
+        { "type": "text", "id": "badge", "label": "Selo", "default": "Homologação e Diretrizes de Proteção Civil UE" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Texto",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Centros Operacionais" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p><strong>Pólo Logístico Lisboa:</strong><br/>Av. do Forte, Carnaxide, Portugal</p>" },
+        { "type": "text", "id": "note", "label": "Nota destacada" }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Links" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "payments",
+      "name": "Pagamentos",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Métodos de Pagamento Seguros" },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Transações cifradas e liquidação imediata ibérica:" },
+        { "type": "text", "id": "methods", "label": "Métodos (separados por vírgula)", "default": "MB WAY, Multibanco, Bizum, Visa / MC" },
+        { "type": "text", "id": "note", "label": "Nota", "default": "SSL 256-bit • Protocolo 3D Secure 2.0" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "brand",
+        "settings": {
+          "text": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>",
+          "badge": "Homologação e Diretrizes de Proteção Civil UE"
+        }
+      },
+      {
+        "type": "text",
+        "settings": {
+          "heading": "Centros Operacionais",
+          "text": "<p><strong>Pólo Logístico Lisboa:</strong><br/>Av. do Forte, Parque Empresarial do Tejo, Carnaxide, Portugal</p><p><strong>Pólo Madrid (Ibéria Central):</strong><br/>Polígono Industrial Coslada, Madrid, Espanha</p>",
+          "note": "Linha de Emergência & Despacho: +351 210 990 088"
+        }
+      },
+      {
+        "type": "text",
+        "settings": {
+          "heading": "Garantias de Aquisição",
+          "text": "<ul><li>Despacho Expresso em caixa neutra blindada</li><li>Manuais físicos em Português e Espanhol</li><li>Validade de 5 a 25 anos em rações e filtros</li><li>Devolução sem questões em 30 dias</li></ul>"
+        }
+      },
+      {
+        "type": "payments",
+        "settings": {
+          "heading": "Métodos de Pagamento Seguros",
+          "text": "Transações cifradas e liquidação imediata ibérica:",
+          "methods": "MB WAY, Multibanco, Bizum, Visa / MC",
+          "note": "SSL 256-bit • Protocolo 3D Secure 2.0"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+/* Arkorra — Trust bar (section-ark-trust-bar.css) */
+
+.ark-trust-bar {
+  background: var(--ark-white);
+  box-shadow: var(--ark-shadow-sm);
+  padding-block: 2.5rem;
+}
+
+.ark-trust-bar__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ark-trust-bar__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ark-space-sm);
+  padding: var(--ark-space-sm);
+}
+
+.ark-trust-bar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: var(--ark-radius-lg);
+  background: var(--ark-sand);
+  color: var(--ark-pine-deep);
+  --ark-icon-size: 1.625rem;
+}
+
+.ark-trust-bar__text {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--ark-text-body-sm);
+  line-height: 1.6;
+  color: var(--ark-slate);
+}
+
+.ark .ark-trust-bar__title {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}

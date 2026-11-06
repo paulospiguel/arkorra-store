@@ -1,0 +1,117 @@
+/* Arkorra — Product card (component-ark-product-card.css) */
+
+.ark-product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--ark-space-md);
+  padding: var(--ark-space-md);
+  border-radius: var(--ark-radius-xl);
+  background: var(--ark-white);
+  box-shadow: var(--ark-shadow-sm);
+  transition: box-shadow 0.25s var(--ark-ease), transform 0.25s var(--ark-ease);
+
+  &:hover {
+    box-shadow: var(--ark-shadow-xl);
+  }
+}
+
+.ark-product-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+}
+
+.ark-product-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--ark-radius-lg);
+  background: var(--ark-sand);
+}
+
+.ark .ark-product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s var(--ark-ease);
+}
+
+.ark-product-card:hover .ark-product-card__img {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark-product-card:hover .ark-product-card__img {
+    transform: none;
+  }
+}
+
+.ark-product-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.625rem;
+}
+
+.ark-product-card__corner {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.625rem;
+}
+
+.ark-product-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ark-product-card__meta {
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-slate);
+}
+
+.ark .ark-product-card__title {
+  font-size: var(--ark-text-headline-sm);
+  line-height: 1.4;
+}
+
+.ark .ark-product-card__excerpt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: var(--ark-text-body-sm);
+  line-height: 1.6;
+  color: var(--ark-slate);
+}
+
+.ark-product-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+  padding-top: var(--ark-space-sm);
+}
+
+.ark-product-card__price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ark-space-sm);
+}
+
+.ark-product-card__from {
+  font-family: var(--ark-font-body);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-slate);
+}
+
+.ark-product-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xs);
+}

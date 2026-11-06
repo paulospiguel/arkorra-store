@@ -1,0 +1,113 @@
+/* Arkorra — Lead capture banner (section-ark-lead-capture.css) */
+
+.ark-lead {
+  background: var(--ark-surface);
+  padding-bottom: var(--ark-section-pad);
+}
+
+.ark-lead__banner {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  border-radius: var(--ark-radius-2xl);
+  background: var(--ark-pine-deep);
+  color: var(--ark-white);
+  box-shadow: var(--ark-shadow-xl);
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -5rem;
+    bottom: -5rem;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 50%;
+    background: rgb(158 67 0 / 0.14);
+    filter: blur(48px);
+    pointer-events: none;
+  }
+}
+
+.ark-lead__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-xl);
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+}
+
+.ark-lead__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-md);
+}
+
+.ark-lead__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  width: fit-content;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--ark-radius-full);
+  background: rgb(255 255 255 / 0.1);
+  color: var(--ark-white);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  --ark-icon-size: 1rem;
+
+  & .ark-icon {
+    color: var(--ark-terracotta);
+  }
+}
+
+.ark .ark-lead__title {
+  color: var(--ark-white);
+}
+
+.ark .ark-lead__text {
+  max-width: 36rem;
+  font-size: var(--ark-text-body-lg);
+  line-height: 1.58;
+  color: var(--ark-on-primary-container);
+}
+
+.ark-lead__checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ark-space-sm) var(--ark-space-md);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-on-primary-container);
+}
+
+.ark-lead__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+  padding: var(--ark-space-lg);
+  border-radius: var(--ark-radius-xl);
+  background: var(--ark-white);
+  color: var(--ark-on-surface);
+  box-shadow: var(--ark-shadow-lg);
+}
+
+.ark .ark-lead__card-sub {
+  font-size: var(--ark-text-body-sm);
+  color: var(--ark-slate);
+}
+
+.ark-lead__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: var(--ark-space-sm);
+
+  & .ark-button {
+    margin-top: var(--ark-space-sm);
+  }
+}

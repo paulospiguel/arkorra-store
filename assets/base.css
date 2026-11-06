@@ -1,0 +1,589 @@
+/*
+  Arkorra Design System — base layer (ADR-0001: native modular CSS, BEM).
+
+  - Tokens live on :root with the --ark- prefix.
+  - Primitives are scoped under `.ark` so they win over the legacy
+    Bootstrap bundle (novstyle.css) without leaking into legacy pages.
+  - Section/component styles live in assets/section-ark-*.css and
+    assets/component-ark-*.css and are loaded per section.
+*/
+
+:root {
+  /* Colour — brand */
+  --ark-primary: #06241f;
+  --ark-pine-deep: #1e3a34;
+  --ark-pine-light: #2c524a;
+  --ark-terracotta: #d96b27;
+  --ark-terracotta-hover: #b8561a;
+  --ark-secondary: #9e4300;
+  --ark-secondary-container: #ff8843;
+  --ark-sage: #2e7d5b;
+  --ark-amber: #c88a1e;
+  --ark-on-primary-container: #86a49c;
+  --ark-primary-fixed-dim: #aecdc4;
+  --ark-secondary-fixed: #ffdbcb;
+  --ark-error: #ba1a1a;
+  --ark-error-container: #ffdad6;
+  --ark-on-error-container: #93000a;
+
+  /* Colour — neutrals */
+  --ark-white: #ffffff;
+  --ark-surface: #fbf9f4;
+  --ark-surface-low: #f5f3ee;
+  --ark-surface-container: #f0eee9;
+  --ark-surface-high: #eae8e3;
+  --ark-surface-highest: #e4e2dd;
+  --ark-sand: #f7f5f0;
+  --ark-linen: #e2ddd5;
+  --ark-outline: #727976;
+  --ark-outline-variant: #c1c8c5;
+  --ark-slate: #525b58;
+  --ark-charcoal: #1a1d1c;
+  --ark-on-surface: #1b1c19;
+
+  /* Typography */
+  --ark-font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ark-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ark-text-headline-xl: clamp(2rem, 1.35rem + 2vw, 2.75rem);
+  --ark-text-headline-lg: clamp(1.625rem, 1.4rem + 0.8vw, 2rem);
+  --ark-text-headline-md: 1.5rem;
+  --ark-text-headline-sm: 1.25rem;
+  --ark-text-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --ark-text-body-md: 1.0625rem;
+  --ark-text-body-sm: 0.9375rem;
+  --ark-text-label-lg: 1rem;
+  --ark-text-label-md: 0.875rem;
+  --ark-text-label-sm: 0.8125rem;
+
+  /* Spacing */
+  --ark-space-xs: 0.25rem;
+  --ark-space-sm: 0.5rem;
+  --ark-space-md: 1rem;
+  --ark-space-lg: 1.5rem;
+  --ark-space-xl: 2.5rem;
+  --ark-gutter: 1.5rem;
+  --ark-margin: clamp(1.25rem, 0.8rem + 1.6vw, 2rem);
+  --ark-section-pad: clamp(4rem, 2.5rem + 4vw, 6rem);
+  --ark-page-width: 80rem;
+
+  /* Shape & depth */
+  --ark-radius-sm: 0.25rem;
+  --ark-radius-md: 0.5rem;
+  --ark-radius-lg: 0.75rem;
+  --ark-radius-xl: 1rem;
+  --ark-radius-2xl: 1.5rem;
+  --ark-radius-full: 9999px;
+  --ark-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --ark-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --ark-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.06);
+  --ark-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.06);
+
+  --ark-ease: cubic-bezier(0.2, 0, 0, 1);
+  --ark-focus-ring: 0 0 0 3px rgb(30 58 52 / 0.35);
+}
+
+/* ---------- Shell body (overrides legacy .template-index background) ---------- */
+
+body.ark-shell {
+  background-color: var(--ark-surface) !important;
+  background-image: none !important;
+  color: var(--ark-on-surface);
+  font-family: var(--ark-font-body);
+
+  & .main-content {
+    background: var(--ark-surface);
+  }
+}
+
+/* ---------- Scoped reset (beats legacy element selectors) ---------- */
+
+.ark {
+  font-family: var(--ark-font-body);
+  font-size: var(--ark-text-body-md);
+  line-height: 1.6;
+  color: var(--ark-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    font-family: var(--ark-font-heading);
+    color: var(--ark-pine-deep);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  & :is(p, ul, ol, figure, blockquote) {
+    margin: 0;
+  }
+
+  & :is(ul, ol) {
+    padding: 0;
+    list-style: none;
+  }
+
+  & a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s var(--ark-ease), background-color 0.2s var(--ark-ease);
+  }
+
+  & a:hover {
+    color: inherit;
+  }
+
+  & img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  & :is(button, input, select, textarea) {
+    font: inherit;
+    color: inherit;
+  }
+
+  & button {
+    cursor: pointer;
+  }
+
+  & :focus-visible {
+    outline: 2px solid var(--ark-pine-deep);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------- Layout primitives ---------- */
+
+.ark-page-width {
+  width: 100%;
+  max-width: var(--ark-page-width);
+  margin-inline: auto;
+  padding-inline: var(--ark-margin);
+}
+
+.ark-section {
+  padding-block: var(--ark-section-pad);
+}
+
+.ark-section--tint {
+  background: var(--ark-surface-low);
+}
+
+.ark-section--white {
+  background: var(--ark-white);
+}
+
+.ark-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Icons (Material Symbols, subset loaded in ark-head) ---------- */
+
+.ark-icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--ark-icon-size, 1.25rem);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  flex-shrink: 0;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+}
+
+.ark-icon--filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.ark-eyebrow {
+  font-size: var(--ark-text-label-sm);
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ark-secondary);
+}
+
+.ark-heading-xl {
+  font-size: var(--ark-text-headline-xl);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.ark-heading-md {
+  font-size: var(--ark-text-headline-md);
+  line-height: 1.33;
+}
+
+.ark-heading-sm {
+  font-size: var(--ark-text-headline-sm);
+  line-height: 1.4;
+}
+
+.ark-lede {
+  font-size: var(--ark-text-body-md);
+  line-height: 1.6;
+  color: var(--ark-slate);
+}
+
+.ark-rte {
+  color: var(--ark-slate);
+  font-size: var(--ark-text-body-sm);
+  line-height: 1.6;
+
+  & > * + * {
+    margin-top: 0.75em;
+  }
+
+  & a {
+    color: var(--ark-pine-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  & ul {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
+
+  & ol {
+    list-style: decimal;
+    padding-left: 1.25em;
+  }
+
+  & strong {
+    color: var(--ark-charcoal);
+  }
+}
+
+/* ---------- Section heading block ---------- */
+
+.ark-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-md);
+  margin-bottom: var(--ark-space-xl);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.ark-section-head__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xs);
+  max-width: 42rem;
+}
+
+.ark-section-head__aside {
+  display: flex;
+  align-items: center;
+  gap: var(--ark-space-sm);
+  flex-shrink: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.ark-button {
+  --ark-button-bg: var(--ark-terracotta);
+  --ark-button-bg-hover: var(--ark-terracotta-hover);
+  --ark-button-fg: var(--ark-white);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ark-space-sm);
+  min-height: 3rem;
+  padding: 0.75rem 1.75rem;
+  border: 0;
+  border-radius: var(--ark-radius-full);
+  background: var(--ark-button-bg);
+  color: var(--ark-button-fg);
+  font-family: var(--ark-font-body);
+  font-size: var(--ark-text-label-lg);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  text-align: center;
+  box-shadow: var(--ark-shadow-md);
+  transition: background-color 0.2s var(--ark-ease), transform 0.2s var(--ark-ease), box-shadow 0.2s var(--ark-ease);
+
+  &:hover {
+    background: var(--ark-button-bg-hover);
+    color: var(--ark-button-fg);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.ark-button--lg {
+  min-height: 3.5rem;
+  padding-inline: 2rem;
+  box-shadow: var(--ark-shadow-lg);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.ark-button--sm {
+  min-height: 3rem;
+  padding-inline: 1rem;
+  font-size: var(--ark-text-label-md);
+  box-shadow: var(--ark-shadow-sm);
+}
+
+.ark-button--block {
+  width: 100%;
+}
+
+.ark-button--ghost {
+  --ark-button-bg: var(--ark-white);
+  --ark-button-bg-hover: var(--ark-surface-container);
+  --ark-button-fg: var(--ark-pine-deep);
+
+  box-shadow: var(--ark-shadow-sm);
+}
+
+.ark-button--pine {
+  --ark-button-bg: var(--ark-pine-deep);
+  --ark-button-bg-hover: var(--ark-pine-light);
+}
+
+.ark-button.is-success {
+  --ark-button-bg: var(--ark-sage);
+  --ark-button-bg-hover: var(--ark-sage);
+}
+
+.ark-button.is-loading {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark-button--lg:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Chips / pills ---------- */
+
+.ark-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--ark-radius-full);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  background: var(--ark-surface-container);
+  color: var(--ark-pine-deep);
+  --ark-icon-size: 1rem;
+}
+
+.ark-chip--accent {
+  background: rgb(158 67 0 / 0.1);
+  color: var(--ark-secondary);
+}
+
+.ark-chip--strong {
+  font-weight: 700;
+}
+
+.ark-chip--secondary {
+  background: var(--ark-secondary);
+  color: var(--ark-white);
+  font-weight: 700;
+  box-shadow: var(--ark-shadow-sm);
+}
+
+.ark-chip--pine {
+  background: var(--ark-pine-deep);
+  color: var(--ark-white);
+  font-weight: 700;
+}
+
+.ark-chip--glass {
+  background: rgb(255 255 255 / 0.9);
+  backdrop-filter: blur(12px);
+  font-weight: 700;
+}
+
+.ark-chip--square {
+  border-radius: var(--ark-radius-sm);
+  padding: 0.25rem 0.625rem;
+  background: var(--ark-sand);
+}
+
+.ark-chip__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ark-terracotta);
+  flex-shrink: 0;
+}
+
+.ark-chip__dot--ping {
+  animation: ark-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ark-chip__dot--pulse {
+  background: var(--ark-secondary-container);
+  animation: ark-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ark-ping {
+  75%,
+  100% {
+    transform: scale(1.8);
+    opacity: 0.35;
+  }
+}
+
+@keyframes ark-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark-chip__dot--ping,
+  .ark-chip__dot--pulse {
+    animation: none;
+  }
+}
+
+/* ---------- Cards ---------- */
+
+.ark-card {
+  background: var(--ark-white);
+  border-radius: var(--ark-radius-xl);
+  box-shadow: var(--ark-shadow-sm);
+  padding: var(--ark-space-lg);
+}
+
+/* ---------- Stars & stock ---------- */
+
+.ark-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  color: var(--ark-amber);
+  --ark-icon-size: 1.125rem;
+}
+
+.ark-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ark-space-xs);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 600;
+  color: var(--ark-sage);
+  --ark-icon-size: 0.875rem;
+}
+
+.ark-stock--out {
+  color: var(--ark-slate);
+}
+
+/* ---------- Price ---------- */
+
+.ark-price {
+  font-family: var(--ark-font-heading);
+  font-size: var(--ark-text-headline-md);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ark-pine-deep);
+}
+
+.ark-price__compare {
+  display: block;
+  font-family: var(--ark-font-body);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-slate);
+  text-decoration: line-through;
+}
+
+/* ---------- Form fields ---------- */
+
+.ark-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xs);
+}
+
+.ark-field__label {
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-charcoal);
+}
+
+.ark .ark-field__input {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-surface-low);
+  color: var(--ark-on-surface);
+  font-size: var(--ark-text-body-sm);
+  line-height: 1.5;
+  box-shadow: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: var(--ark-focus-ring);
+    border-color: var(--ark-pine-deep);
+  }
+}
+
+.ark-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--ark-space-sm);
+  padding: 0.75rem;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-surface-container);
+  color: var(--ark-sage);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  --ark-icon-size: 1.125rem;
+}
+
+.ark-notice--error {
+  color: var(--ark-error);
+}

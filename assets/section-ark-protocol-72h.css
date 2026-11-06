@@ -1,0 +1,124 @@
+/* Arkorra — 72h protocol (section-ark-protocol-72h.css) */
+
+.ark-protocol__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xl);
+}
+
+.ark-protocol__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-xs);
+  max-width: 48rem;
+}
+
+.ark-protocol__phases {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ark-protocol__phase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+}
+
+.ark-protocol__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--ark-pine-deep);
+  color: var(--ark-white);
+  font-family: var(--ark-font-heading);
+  font-size: var(--ark-text-headline-sm);
+  font-weight: 700;
+}
+
+.ark .ark-protocol__phase-text {
+  font-size: var(--ark-text-body-sm);
+  line-height: 1.6;
+  color: var(--ark-slate);
+}
+
+.ark .ark-protocol__solution {
+  display: flex;
+  align-items: center;
+  gap: var(--ark-space-sm);
+  margin-top: auto;
+  padding-top: var(--ark-space-md);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  color: var(--ark-pine-deep);
+  --ark-icon-size: 1.125rem;
+}
+
+.ark-protocol__pillars-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-lg);
+  padding: var(--ark-space-xl);
+  border-radius: var(--ark-radius-xl);
+  background: var(--ark-white);
+  box-shadow: var(--ark-shadow-sm);
+}
+
+.ark-protocol__pillars-title {
+  text-align: center;
+}
+
+.ark-protocol__pillars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ark-space-md);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.ark-protocol__pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ark-space-sm);
+  padding: var(--ark-space-sm);
+}
+
+.ark-protocol__pillar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--ark-radius-xl);
+  background: var(--ark-sand);
+  color: var(--ark-pine-deep);
+  --ark-icon-size: 1.75rem;
+}
+
+.ark-protocol__pillar-name {
+  font-family: var(--ark-font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ark-pine-deep);
+}
+
+.ark-protocol__pillar-sub {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--ark-slate);
+}

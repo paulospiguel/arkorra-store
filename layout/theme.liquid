@@ -45,19 +45,33 @@
     {% render 'judgeme_core' %}
     {% include 'css-variables' %}
     {% include 'nov-head-css' %}
+    {% render 'ark-head' %}
     {% include 'nov-head-js' %}
     {% render 'variant-options' %}
     <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="template-{{ template | split: '.' | first }}">
+  {%- assign is_arkorra_shell = false -%}
+  {%- if template.name == 'index' or template.name == 'product' -%}
+    {%- assign is_arkorra_shell = true -%}
+  {%- endif -%}
+
+  <body class="template-{{ template | split: '.' | first }}{% if is_arkorra_shell %} ark-shell{% endif %}">
     <a class="in-page-link hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
-    {% section 'nov-promotion-bar' %}
-    {% section 'nov-header' %}
+    {%- if is_arkorra_shell -%}
+      {% section 'ark-header' %}
+    {%- else -%}
+      {% section 'nov-promotion-bar' %}
+      {% section 'nov-header' %}
+    {%- endif -%}
     <main class="main-content" id="MainContent">
       {{ content_for_layout }}
     </main>
-    {% section 'nov-footer' %}
+    {%- if is_arkorra_shell -%}
+      {% section 'ark-footer' %}
+    {%- else -%}
+      {% section 'nov-footer' %}
+    {%- endif -%}
     <div class="sidebar-overlay"></div>
     {% include 'nov-cart-canvas' %}
     {% include 'nov-popup-newsletter' %}

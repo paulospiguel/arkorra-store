@@ -1,0 +1,256 @@
+{{ 'section-ark-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign s = section.settings
+  assign product = s.product
+  assign variant = product.selected_or_first_available_variant
+
+  if product != blank
+    assign card_title = product.title
+    assign card_url = product.url
+  else
+    assign card_title = s.card_title
+    assign card_url = s.cta_link
+  endif
+
+  if s.card_text != blank
+    assign card_text = s.card_text
+  elsif product != blank
+    assign card_text = product.description | strip_html | truncatewords: 30
+  endif
+
+  assign rating_value = s.rating_value
+  assign rating_count = s.rating_count
+  if product.metafields.reviews.rating.value != blank
+    assign rating_value = product.metafields.reviews.rating.value.rating | round: 2
+    assign rating_count = product.metafields.reviews.rating_count.value
+  endif
+-%}
+
+<section class="ark ark-hero" id="ark-hero-{{ section.id }}">
+  <div class="ark-page-width ark-hero__grid">
+    <div class="ark-hero__content">
+      {%- if s.badge_primary != blank or s.badge_secondary != blank -%}
+        <div class="ark-hero__badges">
+          {%- if s.badge_primary != blank -%}
+            <span class="ark-chip ark-chip--accent">
+              <span class="ark-chip__dot ark-chip__dot--ping" aria-hidden="true"></span>
+              {{ s.badge_primary }}
+            </span>
+          {%- endif -%}
+          {%- if s.badge_secondary != blank -%}
+            <span class="ark-chip">
+              <span class="ark-icon ark-hero__badge-icon" aria-hidden="true">verified</span>
+              {{ s.badge_secondary }}
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="ark-hero__copy">
+        {%- if s.heading != blank -%}
+          <h1 class="ark-heading-xl ark-hero__title">{{ s.heading }}</h1>
+        {%- endif -%}
+        {%- if s.text != blank -%}
+          <p class="ark-hero__lede">{{ s.text }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="ark-hero__bullets">
+          {%- for block in section.blocks -%}
+            <li class="ark-hero__bullet" {{ block.shopify_attributes }}>
+              <span class="ark-icon ark-hero__bullet-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span class="ark-hero__bullet-text">
+                <strong>{{ block.settings.title }}</strong>
+                <span>{{ block.settings.subtitle }}</span>
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="ark-hero__actions">
+        {%- if s.cta_label != blank -%}
+          <a href="{{ s.cta_link | default: '#catalogo' }}" class="ark-button ark-button--lg">
+            <span>{{ s.cta_label }}</span>
+            <span class="ark-icon" aria-hidden="true">arrow_forward</span>
+          </a>
+        {%- endif -%}
+        {%- if s.cta2_label != blank -%}
+          <a href="{{ s.cta2_link | default: '#guia' }}" class="ark-button ark-button--lg ark-button--ghost">
+            <span class="ark-icon ark-hero__download-icon" aria-hidden="true">download</span>
+            <span>{{ s.cta2_label }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if s.proof_text != blank -%}
+        <div class="ark-hero__proof">
+          {%- assign avatars = s.proof_avatars | split: ',' -%}
+          {%- if avatars.size > 0 -%}
+            <div class="ark-hero__avatars" aria-hidden="true">
+              {%- for a in avatars limit: 4 -%}
+                <span class="ark-hero__avatar ark-hero__avatar--{{ forloop.index }}">{{ a | strip }}</span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          <div class="ark-hero__proof-text">{{ s.proof_text }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="ark-hero__aside">
+      <article class="ark-hero-card">
+        <div class="ark-hero-card__top">
+          {%- if s.card_badge != blank -%}
+            <span class="ark-chip ark-chip--accent ark-chip--strong">
+              <span class="ark-icon" aria-hidden="true">inventory_2</span>
+              {{ s.card_badge }}
+            </span>
+          {%- endif -%}
+          {%- if rating_value != blank -%}
+            <span class="ark-hero-card__rating">
+              <span class="ark-icon ark-icon--filled" aria-hidden="true">star</span>
+              <strong>{{ rating_value }}</strong>
+              {%- if rating_count != blank -%}
+                <span>({{ rating_count }} {{ s.rating_suffix }})</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </div>
+
+        <a href="{{ card_url | default: '#' }}" class="ark-hero-card__media">
+          {%- if s.card_image != blank -%}
+            {{ s.card_image | image_url: width: 1000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 1024px) 480px, 100vw', widths: '480, 720, 1000', class: 'ark-hero-card__img' }}
+          {%- elsif product.featured_media != blank -%}
+            {{ product.featured_media | image_url: width: 1000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 1024px) 480px, 100vw', widths: '480, 720, 1000', class: 'ark-hero-card__img' }}
+          {%- else -%}
+            <img src="{{ 'ark-placeholder-hero.jpg' | asset_url }}" alt="{{ card_title | escape }}" class="ark-hero-card__img" width="512" height="279" loading="eager" fetchpriority="high">
+          {%- endif -%}
+          {%- if s.card_overlay != blank -%}
+            <span class="ark-hero-card__overlay">
+              <span class="ark-icon" aria-hidden="true">bolt</span>
+              {{ s.card_overlay }}
+            </span>
+          {%- endif -%}
+        </a>
+
+        <div class="ark-hero-card__info">
+          <div class="ark-hero-card__heading">
+            <h2 class="ark-heading-sm"><a href="{{ card_url | default: '#' }}">{{ card_title }}</a></h2>
+            <div class="ark-hero-card__price">
+              {%- if product != blank -%}
+                <span class="ark-price">{{ variant.price | money }}</span>
+                {%- if variant.compare_at_price > variant.price -%}
+                  <span class="ark-price__compare">{{ variant.compare_at_price | money }}</span>
+                {%- endif -%}
+              {%- else -%}
+                <span class="ark-price">{{ s.card_price }}</span>
+                {%- if s.card_compare != blank -%}
+                  <span class="ark-price__compare">{{ s.card_compare }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if card_text != blank -%}
+            <p class="ark-hero-card__text">{{ card_text }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- assign specs = s.card_specs | split: ',' -%}
+        {%- if specs.size > 0 -%}
+          <ul class="ark-hero-card__specs">
+            {%- for spec in specs -%}
+              <li class="ark-chip ark-chip--square">{{ spec | strip }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="ark-hero-card__buy">
+          {%- if product != blank -%}
+            {%- form 'product', product, data-ark-add-form: '', class: 'ark-hero-card__form' -%}
+              <input type="hidden" name="id" value="{{ variant.id }}">
+              <button type="submit" class="ark-button ark-button--block" data-success-label="{{ s.success_label }}"{% unless variant.available %} disabled{% endunless %}>
+                <span class="ark-icon" aria-hidden="true">shopping_bag</span>
+                <span data-ark-button-label>{% if variant.available %}{{ s.card_cta }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+              </button>
+              <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
+            {%- endform -%}
+          {%- else -%}
+            <a href="{{ card_url | default: '#' }}" class="ark-button ark-button--block">
+              <span class="ark-icon" aria-hidden="true">shopping_bag</span>
+              <span>{{ s.card_cta }}</span>
+            </a>
+          {%- endif -%}
+          {%- if s.card_shipping != blank -%}
+            <p class="ark-hero-card__shipping">
+              <span class="ark-icon" aria-hidden="true">local_shipping</span>
+              {{ s.card_shipping }}
+            </p>
+          {%- endif -%}
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra — Hero prontidão",
+  "tag": "div",
+  "class": "ark-hero-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "header", "content": "Mensagem" },
+    { "type": "text", "id": "badge_primary", "label": "Selo principal", "default": "Diretriz Civil Europeia EN-72H" },
+    { "type": "text", "id": "badge_secondary", "label": "Selo secundário", "default": "Sistemas Pré-Testados Sem Montagem" },
+    { "type": "textarea", "id": "heading", "label": "Título", "default": "Apagões, intempéries ou falhas de rede: a sua família tem autonomia para as primeiras 72 horas?" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Sistemas domésticos de autossuficiência e socorro imediato concebidos para lares ibéricos. Equipamento técnico sem estética militarista, pronto a utilizar por qualquer geração da família." },
+    { "type": "text", "id": "cta_label", "label": "Botão principal", "default": "Explorar Kits Homologados" },
+    { "type": "url", "id": "cta_link", "label": "Link do botão principal", "info": "Vazio = salta para o catálogo (#catalogo)." },
+    { "type": "text", "id": "cta2_label", "label": "Botão secundário", "default": "Guia de Sobrevivência 72h Grátis" },
+    { "type": "url", "id": "cta2_link", "label": "Link do botão secundário", "info": "Vazio = salta para o formulário do guia (#guia)." },
+    { "type": "text", "id": "proof_avatars", "label": "Avatares (separados por vírgula)", "default": "PT, ES, UE" },
+    { "type": "richtext", "id": "proof_text", "label": "Prova social", "default": "<p>Mais de <strong>3.400 residências</strong> protegidas em Portugal e Espanha Continental.</p>" },
+    { "type": "header", "content": "Cartão de destaque" },
+    { "type": "product", "id": "product", "label": "Produto em destaque" },
+    { "type": "image_picker", "id": "card_image", "label": "Imagem (substitui a do produto)" },
+    { "type": "text", "id": "card_badge", "label": "Selo de escassez", "default": "Lote Ibérico #04 • Apenas 3 unidades" },
+    { "type": "text", "id": "rating_value", "label": "Classificação (fallback)", "default": "4.96", "info": "Usa automaticamente as avaliações do produto quando disponíveis." },
+    { "type": "text", "id": "rating_count", "label": "Nº de avaliações (fallback)", "default": "184" },
+    { "type": "text", "id": "rating_suffix", "label": "Sufixo das avaliações", "default": "avaliações" },
+    { "type": "text", "id": "card_overlay", "label": "Etiqueta sobre a imagem", "default": "Autonomia Energética & Hídrica" },
+    { "type": "textarea", "id": "card_text", "label": "Descrição (substitui a do produto)", "default": "Desenvolvido para 3 a 4 pessoas. Inclui rádio dínamo com alertas de proteção civil, purificação de 100L de água, kit trauma e manta térmica dupla." },
+    { "type": "text", "id": "card_specs", "label": "Especificações (separadas por vírgula)", "default": "3-4 Pessoas, Validade Rações: 2045, À Prova de Água IP67" },
+    { "type": "text", "id": "card_cta", "label": "Botão de compra", "default": "Garantir Unidade do Lote 04" },
+    { "type": "text", "id": "success_label", "label": "Texto após adicionar", "default": "Adicionado!" },
+    { "type": "text", "id": "card_shipping", "label": "Nota de expedição", "default": "Expedição hoje garantida para pedidos até às 17h00" },
+    { "type": "header", "content": "Sem produto selecionado" },
+    { "type": "text", "id": "card_title", "label": "Título", "default": "Kit Família 72 Horas Pro" },
+    { "type": "text", "id": "card_price", "label": "Preço", "default": "189,00 €" },
+    { "type": "text", "id": "card_compare", "label": "Preço anterior", "default": "229,00 €" }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Garantia",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "timer", "info": "Nome do ícone, ex.: timer, menu_book, local_shipping. Ver snippets/ark-head.liquid." },
+        { "type": "text", "id": "title", "label": "Título", "default": "Zero Configuração" },
+        { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Ativação em < 90 seg" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra — Hero prontidão",
+      "blocks": [
+        { "type": "bullet", "settings": { "icon": "timer", "title": "Zero Configuração", "subtitle": "Ativação em < 90 seg" } },
+        { "type": "bullet", "settings": { "icon": "menu_book", "title": "Manual Físico", "subtitle": "Em Português & Espanhol" } },
+        { "type": "bullet", "settings": { "icon": "local_shipping", "title": "Entrega 24 Horas", "subtitle": "Envio seguro sem alfândega" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

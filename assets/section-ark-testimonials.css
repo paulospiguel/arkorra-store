@@ -1,0 +1,76 @@
+/* Arkorra — Testimonials (section-ark-testimonials.css) */
+
+.ark-testimonials {
+  background: var(--ark-surface);
+}
+
+.ark .ark-testimonials__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ark-space-sm);
+  font-size: var(--ark-text-label-md);
+  font-weight: 600;
+  color: var(--ark-sage);
+  --ark-icon-size: 1.25rem;
+}
+
+.ark-testimonials__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ark-space-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ark-testimonial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--ark-space-md);
+}
+
+.ark-testimonial__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ark-space-sm);
+}
+
+.ark .ark-testimonial__quote {
+  font-size: var(--ark-text-body-md);
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--ark-charcoal);
+}
+
+.ark-testimonial__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ark-space-sm);
+  padding-top: var(--ark-space-sm);
+}
+
+.ark-testimonial__author {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--ark-text-label-sm);
+  color: var(--ark-slate);
+
+  & strong {
+    font-size: var(--ark-text-label-md);
+    font-weight: 700;
+    color: var(--ark-pine-deep);
+  }
+}
+
+.ark-testimonial__tag {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--ark-radius-sm);
+  background: var(--ark-surface-container);
+  color: var(--ark-sage);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 500;
+  flex-shrink: 0;
+}
