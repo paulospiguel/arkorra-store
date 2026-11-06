@@ -10,7 +10,7 @@
     assign card_url = product.url
   else
     assign card_title = s.card_title
-    assign card_url = s.cta_link
+    assign card_url = s.cta_link | default: '/collections/frontpage'
   endif
 
   if s.card_text != blank
@@ -178,10 +178,10 @@
               <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
             {%- endform -%}
           {%- else -%}
-            <a href="{{ card_url | default: '#' }}" class="ark-button ark-button--block">
+            <button type="button" class="ark-button ark-button--block" data-ark-demo-add data-success-label="{{ s.success_label }}">
               <span class="ark-icon" aria-hidden="true">shopping_bag</span>
-              <span>{{ s.card_cta }}</span>
-            </a>
+              <span data-ark-button-label>{{ s.card_cta }}</span>
+            </button>
           {%- endif -%}
           {%- if s.card_shipping != blank -%}
             <p class="ark-hero-card__shipping">
@@ -197,7 +197,7 @@
 
 {% schema %}
 {
-  "name": "Arkorra — Hero prontidão",
+  "name": "Arkorra - Hero 72h",
   "tag": "div",
   "class": "ark-hero-section",
   "max_blocks": 3,
@@ -244,7 +244,7 @@
   ],
   "presets": [
     {
-      "name": "Arkorra — Hero prontidão",
+      "name": "Arkorra - Hero 72h",
       "blocks": [
         { "type": "bullet", "settings": { "icon": "timer", "title": "Zero Configuração", "subtitle": "Ativação em < 90 seg" } },
         { "type": "bullet", "settings": { "icon": "menu_book", "title": "Manual Físico", "subtitle": "Em Português & Espanhol" } },

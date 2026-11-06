@@ -85,15 +85,29 @@
 
 /* ---------- Shell body (overrides legacy .template-index background) ---------- */
 
+html:has(body.ark-shell) {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
 body.ark-shell {
+  margin: 0;
+  padding: 0;
   background-color: var(--ark-surface) !important;
   background-image: none !important;
   color: var(--ark-on-surface);
   font-family: var(--ark-font-body);
+  overflow-x: hidden;
 
   & .main-content {
     background: var(--ark-surface);
   }
+}
+
+.hidden,
+[hidden] {
+  display: none !important;
 }
 
 /* ---------- Scoped reset (beats legacy element selectors) ---------- */
@@ -183,7 +197,8 @@ body.ark-shell {
   background: var(--ark-white);
 }
 
-.ark-visually-hidden {
+.ark-visually-hidden,
+.skip-link.hidden {
   position: absolute !important;
   width: 1px;
   height: 1px;

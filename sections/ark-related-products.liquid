@@ -8,7 +8,7 @@
 
 <section
   class="ark ark-section ark-catalog ark-related"
-  data-ark-recommendations="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ limit }}"
+  {% if product != blank %}data-ark-recommendations="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ limit }}"{% endif %}
 >
   <div class="ark-page-width">
     <div class="ark-section-head">
@@ -48,6 +48,49 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+    {%- else -%}
+      <div class="ark-catalog__grid" data-ark-recommendations-fallback>
+        {% render 'ark-product-card',
+          title: 'Kit Sénior & Cuidado Fácil',
+          meta: 'Acessibilidade Máxima',
+          excerpt: 'Botões grandes, luz difusa de segurança automática e compartimento isotérmico para medicação essencial.',
+          price_text: '129,00 €',
+          badge: 'Linha Sénior',
+          corner: '2 Pessoas',
+          image_asset: 'ark-placeholder-senior.jpg',
+          cta_label: s.cta_label
+        %}
+        {% render 'ark-product-card',
+          title: 'Kit Veículo & Deslocação',
+          meta: 'Veículo & Evacuação',
+          excerpt: 'Ideal para isolamento em estradas e intempéries na serra. Mala compacta anti-choque para porta-bagagens.',
+          price_text: '89,00 €',
+          badge: 'Estrada & Viagem',
+          corner: 'Mobilidade',
+          image_asset: 'ark-placeholder-veiculo.jpg',
+          cta_label: s.cta_label
+        %}
+        {% render 'ark-product-card',
+          title: 'Rádio Dínamo Solar SOS',
+          meta: 'Energia Autónoma',
+          excerpt: 'Receptor de boletins oficiais de proteção civil e powerbank integrado para carregamento de telemóveis.',
+          price_text: '39,90 €',
+          badge: 'Essencial Apagão',
+          corner: 'AM/FM/SW',
+          image_asset: 'ark-placeholder-radio.jpg',
+          cta_label: s.cta_label
+        %}
+        {% render 'ark-product-card',
+          title: 'Kit Família 72 Horas Pro',
+          meta: 'Residência Principal • 72h',
+          excerpt: 'Comunicação contínua sem energia, filtragem hídrica avançada e suprimentos alimentares desidratados.',
+          price_text: '189,00 €',
+          badge: 'Mais Vendido',
+          corner: '3-4 Pessoas',
+          image_asset: 'ark-placeholder-familia.jpg',
+          cta_label: s.cta_label
+        %}
+      </div>
     {%- endif -%}
   </div>
 </section>
@@ -55,7 +98,7 @@
 <script>
   (() => {
     const el = document.querySelector('[data-ark-recommendations*="{{ section.id }}"]');
-    if (!el) return;
+    if (!el || !el.dataset.arkRecommendations) return;
     fetch(el.dataset.arkRecommendations)
       .then((r) => r.text())
       .then((html) => {
@@ -71,7 +114,7 @@
 
 {% schema %}
 {
-  "name": "Arkorra — Relacionados",
+  "name": "Arkorra - Relacionados",
   "tag": "div",
   "class": "ark-related-products-section",
   "settings": [
@@ -82,7 +125,7 @@
     { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Adicionar ao Carrinho" }
   ],
   "presets": [
-    { "name": "Arkorra — Relacionados" }
+    { "name": "Arkorra - Relacionados" }
   ]
 }
 {% endschema %}

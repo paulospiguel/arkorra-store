@@ -45,7 +45,7 @@
       assign badge = '-' | append: saving | append: '%'
     endif
   else
-    assign url = '#'
+    assign url = '/collections/frontpage'
   endif
 -%}
 
@@ -104,10 +104,15 @@
         </button>
         <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
       {%- endform -%}
+    {%- elsif product == blank -%}
+      <button type="button" class="ark-button ark-button--sm ark-button--block" data-ark-demo-add data-success-label="{{ success_label }}">
+        <span class="ark-icon" aria-hidden="true">add_shopping_cart</span>
+        <span data-ark-button-label>{{ cta_label }}</span>
+      </button>
     {%- else -%}
       <a href="{{ url }}" class="ark-button ark-button--sm ark-button--block">
-        <span class="ark-icon" aria-hidden="true">{% if product == blank or product.available %}add_shopping_cart{% else %}arrow_forward{% endif %}</span>
-        <span>{% if product == blank %}{{ cta_label }}{% elsif product.available %}{{ options_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+        <span class="ark-icon" aria-hidden="true">{% if product.available %}add_shopping_cart{% else %}arrow_forward{% endif %}</span>
+        <span>{% if product.available %}{{ options_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
       </a>
     {%- endif -%}
   </div>

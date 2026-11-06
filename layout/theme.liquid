@@ -44,17 +44,20 @@
     {{ content_for_header }}
     {% render 'judgeme_core' %}
     {% include 'css-variables' %}
-    {% include 'nov-head-css' %}
+    {%- assign is_arkorra_shell = false -%}
+    {%- if template.name == 'index' or template.name == 'product' or template.name == 'collection' or template.name == 'list-collections' -%}
+      {%- assign is_arkorra_shell = true -%}
+    {%- endif -%}
+    {%- unless is_arkorra_shell -%}
+      {% include 'nov-head-css' %}
+    {%- endunless -%}
     {% render 'ark-head' %}
-    {% include 'nov-head-js' %}
-    {% render 'variant-options' %}
-    <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
+    {%- unless is_arkorra_shell -%}
+      {% include 'nov-head-js' %}
+      {% render 'variant-options' %}
+      <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
+    {%- endunless -%}
   </head>
-
-  {%- assign is_arkorra_shell = false -%}
-  {%- if template.name == 'index' or template.name == 'product' -%}
-    {%- assign is_arkorra_shell = true -%}
-  {%- endif -%}
 
   <body class="template-{{ template | split: '.' | first }}{% if is_arkorra_shell %} ark-shell{% endif %}">
     <a class="in-page-link hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
@@ -71,46 +74,45 @@
       {% section 'ark-footer' %}
     {%- else -%}
       {% section 'nov-footer' %}
-    {%- endif -%}
-    <div class="sidebar-overlay"></div>
-    {% include 'nov-cart-canvas' %}
-    {% include 'nov-popup-newsletter' %}
-    {% include 'nov-popup-faqs' %}
-    {% include 'nov-popup-video' %}
-    {% include 'nov-product-newsletter' %}
-    {% include 'icon-font' %}
-    {% include 'nov-cart-empty' %}
-    {% include 'nov-mobile-canvas' %}
-    {% if settings.enable_stickymenu_mobile %}
-      {% include 'nov-stickymenu-mobile' %}
-    {% endif %}
-    {% if settings.show_fake_order_inner_page %}
-      {% include 'nov-popup-fake-order' %}
-    {% else %}
-      {% if template.name == 'index' %}
-        {% include 'nov-popup-fake-order' %}
+      <div class="sidebar-overlay"></div>
+      {% include 'nov-cart-canvas' %}
+      {% include 'nov-popup-newsletter' %}
+      {% include 'nov-popup-faqs' %}
+      {% include 'nov-popup-video' %}
+      {% include 'nov-product-newsletter' %}
+      {% include 'icon-font' %}
+      {% include 'nov-cart-empty' %}
+      {% include 'nov-mobile-canvas' %}
+      {% if settings.enable_stickymenu_mobile %}
+        {% include 'nov-stickymenu-mobile' %}
       {% endif %}
-    {% endif %}
-    {% include 'nov-popup-GDPR' %}
-    {% if template.name == 'product' %}
-      <div id="nov-sizeguide-product" nov-item-act data-act="CanvasSizeGuide">
-        <div class="pointer mb-40" nov-btn-close data-close="CanvasSizeGuide"><svg aria-hidden="true" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></div>
-        {% section 'nov-page-sizeguide' %}
+      {% if settings.show_fake_order_inner_page %}
+        {% include 'nov-popup-fake-order' %}
+      {% else %}
+        {% if template.name == 'index' %}
+          {% include 'nov-popup-fake-order' %}
+        {% endif %}
+      {% endif %}
+      {% include 'nov-popup-GDPR' %}
+      {% if template.name == 'product' %}
+        <div id="nov-sizeguide-product" nov-item-act data-act="CanvasSizeGuide">
+          <div class="pointer mb-40" nov-btn-close data-close="CanvasSizeGuide"><svg aria-hidden="true" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></div>
+          {% section 'nov-page-sizeguide' %}
+        </div>
+      {% endif %}
+      {% if settings.wishlist_enable and settings.show_popup_wishlist %}
+        {% include 'nov-popup-wishlist' %}
+      {% endif %}
+      <div id="_desktop_back_top">
+        <div id="back-top">
+          <span>
+            <i class="zmdi zmdi-chevron-up"></i>
+          </span>
+        </div>
       </div>
-    {% endif %}
-    {% if settings.wishlist_enable and settings.show_popup_wishlist %}
-      {% include 'nov-popup-wishlist' %}
-    {% endif %}
-    <div id="_desktop_back_top">
-      <div id="back-top">
-        <span>
-          <i class="zmdi zmdi-chevron-up"></i>
-        </span>
-      </div>
-    </div>
-    {% include 'nov-currency' %}
-    <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
-    {{ 'nuranium.js' | asset_url | script_tag }}
-    
+      {% include 'nov-currency' %}
+      <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
+      {{ 'nuranium.js' | asset_url | script_tag }}
+    {%- endif -%}
   </body>
 </html>

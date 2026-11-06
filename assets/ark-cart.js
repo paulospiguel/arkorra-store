@@ -86,5 +86,14 @@
   };
 
   document.addEventListener('submit', onSubmit);
-  window.ArkCart = { refresh, updateCount };
+  document.addEventListener('click', (event) => {
+    const demoBtn = event.target.closest('[data-ark-demo-add]');
+    if (!demoBtn) return;
+    event.preventDefault();
+    flashButton(demoBtn);
+    const badge = document.querySelector('[data-ark-cart-count]');
+    const current = parseInt((badge && badge.textContent) || '0', 10) || 0;
+    updateCount(current + 1);
+  });
+  window.ArkCart = { refresh, updateCount, flashButton };
 })();

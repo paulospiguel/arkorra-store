@@ -57,6 +57,7 @@
 .ark-header__logo {
   display: inline-flex;
   align-items: center;
+  gap: 0.625rem;
   flex-shrink: 0;
   margin-right: auto;
 
@@ -66,10 +67,19 @@
 }
 
 .ark .ark-header__logo-img {
-  width: 6.5rem;
-  height: 3.25rem;
+  width: 2.75rem;
+  height: 2.125rem;
   object-fit: cover;
-  object-position: center;
+  object-position: center 22%;
+  mix-blend-mode: multiply;
+}
+
+.ark-header__logo-wordmark {
+  font-family: var(--ark-font-heading);
+  font-size: var(--ark-text-headline-sm);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ark-pine-deep);
 }
 
 /* Search */

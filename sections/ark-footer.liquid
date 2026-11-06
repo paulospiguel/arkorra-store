@@ -12,8 +12,9 @@
                   {%- if block.settings.logo != blank -%}
                     {{ block.settings.logo | image_url: width: 320 | image_tag: alt: shop.name, class: 'ark-footer__logo-img', loading: 'lazy' }}
                   {%- else -%}
-                    <img src="{{ 'logo-2.png' | asset_img_url: '320x' }}" alt="{{ shop.name | escape }}" class="ark-footer__logo-img" width="320" height="240" loading="lazy">
+                    <img src="{{ 'logo-2.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-footer__logo-img" width="160" height="120" loading="lazy">
                   {%- endif -%}
+                  <span class="ark-footer__logo-wordmark">ARKORRA</span>
                 </a>
                 {%- if block.settings.text != blank -%}
                   <div class="ark-rte">{{ block.settings.text }}</div>
@@ -79,10 +80,17 @@
         {%- endif -%}
       </p>
       {%- assign legal = linklists[section.settings.legal_menu] -%}
-      {%- if legal.links.size > 0 -%}
+      {%- assign legal_fallback = section.settings.legal_fallback | split: ',' -%}
+      {%- if section.settings.use_legal_fallback == false and legal.links.size > 0 -%}
         <ul class="ark-footer__legal">
           {%- for link in legal.links -%}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif legal_fallback.size > 0 -%}
+        <ul class="ark-footer__legal">
+          {%- for item in legal_fallback -%}
+            <li><a href="/pages/contact">{{ item | strip }}</a></li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
@@ -92,11 +100,13 @@
 
 {% schema %}
 {
-  "name": "Arkorra — Rodapé",
+  "name": "Arkorra - Rodapé",
   "class": "ark-footer-section",
   "max_blocks": 5,
   "settings": [
     { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] ARKORRA Contingência Ibérica S.A. Todos os direitos reservados." },
+    { "type": "checkbox", "id": "use_legal_fallback", "label": "Usar links legais Arkorra (Stitch)", "default": true },
+    { "type": "text", "id": "legal_fallback", "label": "Links legais (separados por vírgula)", "default": "Termos & Condições, Política de Privacidade, Diretivas Oficiais" },
     { "type": "link_list", "id": "legal_menu", "label": "Menu legal", "default": "footer" }
   ],
   "blocks": [

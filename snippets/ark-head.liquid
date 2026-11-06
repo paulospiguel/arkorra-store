@@ -14,4 +14,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names={{ ark_icon_names }}&display=block">
 {{ 'base.css' | asset_url | stylesheet_tag }}
+<script>
+  window.Shopify = window.Shopify || {};
+  window.Shopify.money_format = {{ shop.money_format | json }};
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+</script>
 <script src="{{ 'ark-cart.js' | asset_url }}" defer="defer"></script>

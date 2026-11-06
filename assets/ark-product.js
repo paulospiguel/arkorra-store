@@ -122,11 +122,34 @@
       });
     });
 
-    // 5. Sticky bar & bottom CTA triggers submit the main product form
+    // 5. Sticky bar & bottom CTA triggers submit the main product form (or demo flash)
+    const demoSubmit = root.querySelector('[data-ark-demo-submit]');
+    const runDemoFlash = () => {
+      if (!submitBtn || !submitLabel) return;
+      const original = submitLabel.textContent;
+      submitBtn.classList.add('is-success');
+      submitLabel.textContent = submitBtn.dataset.successLabel || 'UNIDADE RESERVADA NO LOTE #04 ✓';
+      if (window.ArkCart) {
+        const badge = document.querySelector('[data-ark-cart-count]');
+        const current = parseInt((badge && badge.textContent) || '0', 10) || 0;
+        window.ArkCart.updateCount(current + qty);
+      }
+      window.setTimeout(() => {
+        submitBtn.classList.remove('is-success');
+        submitLabel.textContent = original;
+      }, 2200);
+    };
+
+    if (demoSubmit) {
+      demoSubmit.addEventListener('click', runDemoFlash);
+    }
+
     root.querySelectorAll('[data-ark-sticky-trigger]').forEach((btn) => {
       btn.addEventListener('click', () => {
         if (form && typeof form.requestSubmit === 'function') {
           form.requestSubmit(submitBtn || undefined);
+        } else if (demoSubmit) {
+          runDemoFlash();
         } else if (submitBtn) {
           submitBtn.click();
         }

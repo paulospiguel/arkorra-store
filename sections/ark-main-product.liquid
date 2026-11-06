@@ -175,7 +175,7 @@
               </div>
             </div>
             <div class="ark-pdp-gallery__assurance-seal">
-              <img src="{{ 'logo-2.png' | asset_img_url: '160x' }}" alt="Certificação Oficial {{ shop.name | escape }}" width="80" height="60" loading="lazy">
+              <img src="{{ 'logo-2.png' | asset_url }}" alt="Certificação Oficial {{ shop.name | escape }}" width="80" height="60" loading="lazy">
             </div>
           </div>
         {%- endif -%}
@@ -239,106 +239,159 @@
           {%- endif -%}
         </div>
 
-        {%- assign product_form_id = 'ArkProductForm-' | append: section.id -%}
-        {%- form 'product', product, id: product_form_id, data-ark-add-form: '', class: 'ark-pdp-buy__form' -%}
-          <input type="hidden" name="id" value="{{ variant.id }}" data-ark-variant-id>
-          <input type="hidden" name="properties[Configuração]" value="{{ bundles.first.settings.title | default: variant.title }}" data-ark-bundle-prop>
+          {%- if product != blank -%}
+            {%- assign product_form_id = 'ArkProductForm-' | append: section.id -%}
+            {%- form 'product', product, id: product_form_id, data-ark-add-form: '', class: 'ark-pdp-buy__form' -%}
+              <input type="hidden" name="id" value="{{ variant.id }}" data-ark-variant-id>
+              <input type="hidden" name="properties[Configuração]" value="{{ bundles.first.settings.title | default: variant.title }}" data-ark-bundle-prop>
 
-          <!-- Bundles / Tactical Configuration Selector -->
-          <div class="ark-pdp-bundles">
-            <span class="ark-pdp-bundles__heading">{{ s.bundles_heading }}</span>
+              <!-- Bundles / Tactical Configuration Selector -->
+              <div class="ark-pdp-bundles">
+                <span class="ark-pdp-bundles__heading">{{ s.bundles_heading }}</span>
 
-            {%- if product.variants.size > 1 -%}
-              {%- for v in product.variants -%}
-                {%- assign b_block = bundles[forloop.index0] -%}
-                {%- assign v_compare = v.compare_at_price -%}
-                {%- if v_compare == blank or v_compare <= v.price -%}
-                  {%- assign v_compare = v.price | times: 125 | divided_by: 100 -%}
-                {%- endif -%}
-                {%- assign delta = v.price | minus: product.variants.first.price -%}
-                <label class="ark-pdp-bundle{% if v.id == variant.id %} is-selected{% endif %}" data-ark-bundle-card>
-                  <span class="ark-pdp-bundle__left">
-                    <input
-                      type="radio"
-                      name="ark_bundle_{{ section.id }}"
-                      class="ark-pdp-bundle__radio"
-                      value="{{ v.id }}"
-                      data-ark-bundle
-                      data-variant-id="{{ v.id }}"
-                      data-price="{{ v.price }}"
-                      data-compare="{{ v_compare }}"
-                      data-title="{{ v.title | escape }}"
-                      {% if v.id == variant.id %}checked{% endif %}
-                    >
-                    <span>
-                      <strong class="ark-pdp-bundle__title">{{ b_block.settings.title | default: v.title }}</strong>
-                      {%- if b_block.settings.subtitle != blank -%}
-                        <span class="ark-pdp-bundle__sub">{{ b_block.settings.subtitle }}</span>
-                      {%- endif -%}
-                    </span>
-                  </span>
-                  <span class="ark-pdp-bundle__price">
-                    {%- if forloop.first or delta <= 0 -%}
-                      {{ v.price | money }}
-                    {%- else -%}
-                      +{{ delta | money }}
+                {%- if product.variants.size > 1 -%}
+                  {%- for v in product.variants -%}
+                    {%- assign b_block = bundles[forloop.index0] -%}
+                    {%- assign v_compare = v.compare_at_price -%}
+                    {%- if v_compare == blank or v_compare <= v.price -%}
+                      {%- assign v_compare = v.price | times: 125 | divided_by: 100 -%}
                     {%- endif -%}
-                  </span>
-                </label>
-              {%- endfor -%}
-            {%- elsif bundles.size > 0 -%}
-              {%- for block in bundles -%}
-                {%- assign b_price = block.settings.price_eur | times: 100 -%}
-                {%- assign b_compare = block.settings.compare_eur | times: 100 -%}
-                <label class="ark-pdp-bundle{% if forloop.first %} is-selected{% endif %}" data-ark-bundle-card {{ block.shopify_attributes }}>
-                  <span class="ark-pdp-bundle__left">
-                    <input
-                      type="radio"
-                      name="ark_bundle_{{ section.id }}"
-                      class="ark-pdp-bundle__radio"
-                      value="{{ block.settings.title | escape }}"
-                      data-ark-bundle
-                      data-price="{{ b_price }}"
-                      data-compare="{{ b_compare }}"
-                      data-title="{{ block.settings.title | escape }}"
-                      {% if forloop.first %}checked{% endif %}
-                    >
-                    <span>
-                      <strong class="ark-pdp-bundle__title">{{ block.settings.title }}</strong>
-                      <span class="ark-pdp-bundle__sub">{{ block.settings.subtitle }}</span>
+                    {%- assign delta = v.price | minus: product.variants.first.price -%}
+                    <label class="ark-pdp-bundle{% if v.id == variant.id %} is-selected{% endif %}" data-ark-bundle-card>
+                      <span class="ark-pdp-bundle__left">
+                        <input
+                          type="radio"
+                          name="ark_bundle_{{ section.id }}"
+                          class="ark-pdp-bundle__radio"
+                          value="{{ v.id }}"
+                          data-ark-bundle
+                          data-variant-id="{{ v.id }}"
+                          data-price="{{ v.price }}"
+                          data-compare="{{ v_compare }}"
+                          data-title="{{ v.title | escape }}"
+                          {% if v.id == variant.id %}checked{% endif %}
+                        >
+                        <span>
+                          <strong class="ark-pdp-bundle__title">{{ b_block.settings.title | default: v.title }}</strong>
+                          {%- if b_block.settings.subtitle != blank -%}
+                            <span class="ark-pdp-bundle__sub">{{ b_block.settings.subtitle }}</span>
+                          {%- endif -%}
+                        </span>
+                      </span>
+                      <span class="ark-pdp-bundle__price">
+                        {%- if forloop.first or delta <= 0 -%}
+                          {{ v.price | money }}
+                        {%- else -%}
+                          +{{ delta | money }}
+                        {%- endif -%}
+                      </span>
+                    </label>
+                  {%- endfor -%}
+                {%- elsif bundles.size > 0 -%}
+                  {%- for block in bundles -%}
+                    {%- assign b_price = block.settings.price_eur | times: 100 -%}
+                    {%- assign b_compare = block.settings.compare_eur | times: 100 -%}
+                    <label class="ark-pdp-bundle{% if forloop.first %} is-selected{% endif %}" data-ark-bundle-card {{ block.shopify_attributes }}>
+                      <span class="ark-pdp-bundle__left">
+                        <input
+                          type="radio"
+                          name="ark_bundle_{{ section.id }}"
+                          class="ark-pdp-bundle__radio"
+                          value="{{ block.settings.title | escape }}"
+                          data-ark-bundle
+                          data-price="{{ b_price }}"
+                          data-compare="{{ b_compare }}"
+                          data-title="{{ block.settings.title | escape }}"
+                          {% if forloop.first %}checked{% endif %}
+                        >
+                        <span>
+                          <strong class="ark-pdp-bundle__title">{{ block.settings.title }}</strong>
+                          <span class="ark-pdp-bundle__sub">{{ block.settings.subtitle }}</span>
+                        </span>
+                      </span>
+                      <span class="ark-pdp-bundle__price">{{ block.settings.price_badge }}</span>
+                    </label>
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+
+              <!-- Quantity & Big Primary CTA -->
+              <div class="ark-pdp-buy__cta-row">
+                <div class="ark-pdp-qty" data-ark-qty>
+                  <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="-1" aria-label="Diminuir quantidade">−</button>
+                  <span class="ark-pdp-qty__val" data-ark-qty-display>1</span>
+                  <input type="hidden" name="quantity" value="1" data-ark-qty-input>
+                  <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="1" aria-label="Aumentar quantidade">+</button>
+                </div>
+
+                <button
+                  type="submit"
+                  name="add"
+                  class="ark-pdp-buy__submit"
+                  data-ark-submit
+                  data-cta-prefix="{{ s.cta_prefix }}"
+                  data-success-label="{{ s.success_label }}"
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  <span class="ark-icon" aria-hidden="true">bolt</span>
+                  <span data-ark-button-label>{{ s.cta_prefix }} ({{ base_price | money }})</span>
+                </button>
+              </div>
+
+              <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
+            {%- endform -%}
+          {%- else -%}
+            <div class="ark-pdp-buy__form" data-ark-demo-form>
+              <div class="ark-pdp-bundles">
+                <span class="ark-pdp-bundles__heading">{{ s.bundles_heading }}</span>
+                {%- for block in bundles -%}
+                  {%- assign b_price = block.settings.price_eur | times: 100 -%}
+                  {%- assign b_compare = block.settings.compare_eur | times: 100 -%}
+                  <label class="ark-pdp-bundle{% if forloop.first %} is-selected{% endif %}" data-ark-bundle-card {{ block.shopify_attributes }}>
+                    <span class="ark-pdp-bundle__left">
+                      <input
+                        type="radio"
+                        name="ark_bundle_{{ section.id }}"
+                        class="ark-pdp-bundle__radio"
+                        value="{{ block.settings.title | escape }}"
+                        data-ark-bundle
+                        data-price="{{ b_price }}"
+                        data-compare="{{ b_compare }}"
+                        data-title="{{ block.settings.title | escape }}"
+                        {% if forloop.first %}checked{% endif %}
+                      >
+                      <span>
+                        <strong class="ark-pdp-bundle__title">{{ block.settings.title }}</strong>
+                        <span class="ark-pdp-bundle__sub">{{ block.settings.subtitle }}</span>
+                      </span>
                     </span>
-                  </span>
-                  <span class="ark-pdp-bundle__price">{{ block.settings.price_badge }}</span>
-                </label>
-              {%- endfor -%}
-            {%- endif -%}
-          </div>
+                    <span class="ark-pdp-bundle__price">{{ block.settings.price_badge }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
 
-          <!-- Quantity & Big Primary CTA -->
-          <div class="ark-pdp-buy__cta-row">
-            <div class="ark-pdp-qty" data-ark-qty>
-              <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="-1" aria-label="Diminuir quantidade">−</button>
-              <span class="ark-pdp-qty__val" data-ark-qty-display>1</span>
-              <input type="hidden" name="quantity" value="1" data-ark-qty-input>
-              <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="1" aria-label="Aumentar quantidade">+</button>
+              <div class="ark-pdp-buy__cta-row">
+                <div class="ark-pdp-qty" data-ark-qty>
+                  <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="-1" aria-label="Diminuir quantidade">−</button>
+                  <span class="ark-pdp-qty__val" data-ark-qty-display>1</span>
+                  <input type="hidden" name="quantity" value="1" data-ark-qty-input>
+                  <button type="button" class="ark-pdp-qty__btn" data-ark-qty-step="1" aria-label="Aumentar quantidade">+</button>
+                </div>
+
+                <button
+                  type="button"
+                  class="ark-pdp-buy__submit"
+                  data-ark-submit
+                  data-ark-demo-submit
+                  data-cta-prefix="{{ s.cta_prefix }}"
+                  data-success-label="{{ s.success_label }}"
+                >
+                  <span class="ark-icon" aria-hidden="true">bolt</span>
+                  <span data-ark-button-label>{{ s.cta_prefix }} ({{ base_price | money }})</span>
+                </button>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              name="add"
-              class="ark-pdp-buy__submit"
-              data-ark-submit
-              data-cta-prefix="{{ s.cta_prefix }}"
-              data-success-label="{{ s.success_label }}"
-              {% unless variant.available %}disabled{% endunless %}
-            >
-              <span class="ark-icon" aria-hidden="true">bolt</span>
-              <span data-ark-button-label>{{ s.cta_prefix }} ({{ base_price | money }})</span>
-            </button>
-          </div>
-
-          <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
-        {%- endform -%}
+          {%- endif -%}
 
         <!-- Express 1-Click Payments Shortcut -->
         {%- assign methods = s.payment_methods | split: ',' -%}
@@ -665,7 +718,7 @@
 
 {% schema %}
 {
-  "name": "Arkorra — Página Produto",
+  "name": "Arkorra - Produto 72h",
   "tag": "div",
   "class": "ark-main-product-section",
   "settings": [
@@ -746,7 +799,7 @@
     },
     {
       "type": "bundle",
-      "name": "Opção de configuração",
+      "name": "Opção de lote",
       "limit": 4,
       "settings": [
         { "type": "text", "id": "title", "label": "Título", "default": "Kit Essencial 72h Pro (Padrão)" },
@@ -758,7 +811,7 @@
     },
     {
       "type": "feature",
-      "name": " Selo rápido (Buy Box)",
+      "name": "Selo rápido (Buy Box)",
       "limit": 4,
       "settings": [
         { "type": "text", "id": "icon", "label": "Ícone", "default": "verified" },
@@ -808,7 +861,7 @@
     },
     {
       "type": "trust",
-      "name": "Item barra de confiança",
+      "name": "Item de confiança",
       "limit": 4,
       "settings": [
         { "type": "text", "id": "icon", "label": "Ícone", "default": "local_shipping" },
@@ -837,6 +890,11 @@
         { "type": "textarea", "id": "answer", "label": "Resposta" },
         { "type": "checkbox", "id": "open", "label": "Aberto por defeito", "default": false }
       ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra - Produto 72h"
     }
   ]
 }

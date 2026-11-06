@@ -3,6 +3,8 @@
 {%- liquid
   assign menu = linklists[section.settings.menu]
   assign logo_alt = section.settings.logo.alt | default: shop.name
+  assign fallback_nav = section.settings.fallback_nav | split: ','
+  assign use_fallback_nav = section.settings.use_fallback_nav
 -%}
 
 <header class="ark ark-header" data-section-id="{{ section.id }}">
@@ -38,7 +40,7 @@
             <input id="ArkSearchDrawer-{{ section.id }}" class="ark-header__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
             <input type="hidden" name="options[prefix]" value="last">
           </form>
-          {%- if menu.links.size > 0 -%}
+          {%- if use_fallback_nav == false and menu.links.size > 0 -%}
             <ul class="ark-header__drawer-menu">
               {%- for link in menu.links -%}
                 <li>
@@ -61,6 +63,12 @@
                 </li>
               {%- endfor -%}
             </ul>
+          {%- elsif fallback_nav.size > 0 -%}
+            <ul class="ark-header__drawer-menu">
+              {%- for item in fallback_nav -%}
+                <li><a href="{% if forloop.first %}/collections/frontpage{% elsif forloop.last %}{{ routes.root_url }}#guia{% else %}{{ routes.root_url }}#catalogo{% endif %}" class="ark-header__drawer-link">{{ item | strip }}</a></li>
+              {%- endfor -%}
+            </ul>
           {%- endif -%}
           {%- if section.settings.shipping_note != blank -%}
             <p class="ark-header__shipping">
@@ -75,9 +83,9 @@
         {%- if section.settings.logo != blank -%}
           {{ section.settings.logo | image_url: width: 320 | image_tag: alt: logo_alt, class: 'ark-header__logo-img', loading: 'eager', widths: '160, 240, 320' }}
         {%- else -%}
-          <img src="{{ 'logo-2.png' | asset_img_url: '320x' }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="320" height="240" loading="eager">
+          <img src="{{ 'logo-2.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="160" height="120" loading="eager">
         {%- endif -%}
-        <span class="ark-visually-hidden">{{ shop.name }}</span>
+        <span class="ark-header__logo-wordmark">ARKORRA</span>
       </a>
 
       <form action="{{ routes.search_url }}" method="get" role="search" class="ark-header__search">
@@ -95,17 +103,15 @@
           </span>
         {%- endif -%}
         {%- if section.settings.support_label != blank -%}
-          <a href="{{ section.settings.support_link | default: '#' }}" class="ark-header__action ark-header__action--xl">
+          <a href="{{ section.settings.support_link | default: '/pages/contact' }}" class="ark-header__action ark-header__action--xl">
             <span class="ark-icon" aria-hidden="true">headset_mic</span>
             <span>{{ section.settings.support_label }}</span>
           </a>
         {%- endif -%}
-        {%- if shop.customer_accounts_enabled -%}
-          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="ark-header__action">
-            <span class="ark-header__avatar"><span class="ark-icon" aria-hidden="true">person</span></span>
-            <span class="ark-header__action-label">{{ section.settings.account_label }}</span>
-          </a>
-        {%- endif -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% elsif shop.customer_accounts_enabled %}{{ routes.account_login_url }}{% else %}/pages/contact{% endif %}" class="ark-header__action">
+          <span class="ark-header__avatar"><span class="ark-icon" aria-hidden="true">person</span></span>
+          <span class="ark-header__action-label">{{ section.settings.account_label }}</span>
+        </a>
         <a href="{{ routes.cart_url }}" class="ark-header__cart">
           <span class="ark-icon" aria-hidden="true">shopping_bag</span>
           <span class="ark-header__action-label">{{ section.settings.cart_label }}</span>
@@ -115,11 +121,11 @@
     </div>
   </div>
 
-  {%- if menu.links.size > 0 or section.settings.shipping_note != blank -%}
-    <div class="ark-header__nav">
-      <div class="ark-page-width ark-header__nav-inner">
-        <nav aria-label="{{ 'Navegação principal' }}">
-          <ul class="ark-header__menu">
+  <div class="ark-header__nav">
+    <div class="ark-page-width ark-header__nav-inner">
+      <nav aria-label="{{ 'Navegação principal' }}">
+        <ul class="ark-header__menu">
+          {%- if use_fallback_nav == false and menu.links.size > 0 -%}
             {%- for link in menu.links -%}
               <li class="ark-header__menu-item{% if link.links.size > 0 %} ark-header__menu-item--has-children{% endif %}">
                 <a href="{{ link.url }}" class="ark-header__menu-link{% if link.active or link.child_active %} is-active{% endif %}"{% if link.links.size > 0 %} aria-haspopup="true"{% endif %}{% if link.active %} aria-current="page"{% endif %}>
@@ -137,17 +143,28 @@
                 {%- endif -%}
               </li>
             {%- endfor -%}
-          </ul>
-        </nav>
-        {%- if section.settings.shipping_note != blank -%}
-          <p class="ark-header__shipping">
-            <span class="ark-icon" aria-hidden="true">schedule_send</span>
-            {{ section.settings.shipping_note }}
-          </p>
-        {%- endif -%}
-      </div>
+          {%- else -%}
+            {%- for item in fallback_nav -%}
+              <li class="ark-header__menu-item">
+                <a href="{% if forloop.first %}/collections/frontpage{% elsif forloop.last %}{{ routes.root_url }}#guia{% else %}{{ routes.root_url }}#catalogo{% endif %}" class="ark-header__menu-link{% if forloop.first and template.name == 'product' or forloop.first and template.name == 'collection' %} is-active{% endif %}">
+                  <span>{{ item | strip }}</span>
+                  {%- unless forloop.last -%}
+                    <span class="ark-icon" aria-hidden="true">expand_more</span>
+                  {%- endunless -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+      </nav>
+      {%- if section.settings.shipping_note != blank -%}
+        <p class="ark-header__shipping">
+          <span class="ark-icon" aria-hidden="true">schedule_send</span>
+          {{ section.settings.shipping_note }}
+        </p>
+      {%- endif -%}
     </div>
-  {%- endif -%}
+  </div>
 </header>
 
 <script>
@@ -169,7 +186,7 @@
 
 {% schema %}
 {
-  "name": "Arkorra — Cabeçalho",
+  "name": "Arkorra - Cabeçalho",
   "class": "ark-header-section",
   "settings": [
     { "type": "header", "content": "Barra de alerta" },
@@ -179,6 +196,8 @@
     { "type": "header", "content": "Marca" },
     { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo-2.png." },
     { "type": "header", "content": "Navegação" },
+    { "type": "checkbox", "id": "use_fallback_nav", "label": "Usar categorias Arkorra (Stitch)", "default": true, "info": "Desative para usar o menu configurado em Navegação da Shopify." },
+    { "type": "text", "id": "fallback_nav", "label": "Categorias (separadas por vírgula)", "default": "Todos os Kits 72h, Apagão & Energia, Água & Sobrevivência, Linha Sénior, Veículos & Estrada, Protocolos & Guias" },
     { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" },
     { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits 72h, rádios, lanternas, filtros..." },
     { "type": "text", "id": "shipping_note", "label": "Nota de expedição", "default": "Envio Hoje até às 17h" },
