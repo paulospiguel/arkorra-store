@@ -673,6 +673,15 @@ html {
   white-space: nowrap;
 }
 
+/* One language only: a plain flag, not a button. */
+.ark .ark-lang__static {
+  cursor: default;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
 .ark-lang__check {
   color: var(--ark-terracotta);
 }

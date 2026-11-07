@@ -7,6 +7,7 @@
   assign use_fallback_nav = section.settings.use_fallback_nav
   assign lang_uid = 'ArkLang-' | append: section.id
   assign lang_uid_drawer = 'ArkLangDrawer-' | append: section.id
+  assign lang_allowed = section.settings.languages | default: 'pt-PT, en'
 -%}
 
 <header class="ark ark-header" data-section-id="{{ section.id }}">
@@ -42,7 +43,7 @@
             <input id="ArkSearchDrawer-{{ section.id }}" class="ark-header__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
             <input type="hidden" name="options[prefix]" value="last">
           </form>
-          {% render 'ark-language-selector', uid: lang_uid_drawer, variant: 'list' %}
+          {% render 'ark-language-selector', uid: lang_uid_drawer, allowed: lang_allowed, variant: 'list' %}
           {%- if use_fallback_nav == false and menu.links.size > 0 -%}
             <ul class="ark-header__drawer-menu">
               {%- for link in menu.links -%}
@@ -102,7 +103,7 @@
           <a href="{{ routes.root_url }}" class="ark-nav-pill__item{% if template.name == 'index' %} is-active{% endif %}" aria-label="Início" title="Início">
             <span class="ark-icon" aria-hidden="true">home</span>
           </a>
-          {% render 'ark-language-selector', uid: lang_uid %}
+          {% render 'ark-language-selector', uid: lang_uid, allowed: lang_allowed %}
           <a href="{% if customer %}{{ routes.account_url }}{% elsif shop.customer_accounts_enabled %}{{ routes.account_login_url }}{% else %}/pages/contact{% endif %}" class="ark-nav-pill__item" aria-label="{{ section.settings.account_label }}" title="{{ section.settings.account_label }}">
             <span class="ark-icon" aria-hidden="true">person</span>
           </a>
@@ -250,6 +251,7 @@
     { "type": "header", "content": "Ações" },
     { "type": "text", "id": "support_label", "label": "Etiqueta de apoio", "default": "Apoio Técnico Online" },
     { "type": "url", "id": "support_link", "label": "Link de apoio" },
+    { "type": "text", "id": "languages", "label": "Idiomas permitidos (códigos separados por vírgula)", "info": "Só aparecem os que também estiverem ativos em Configurações > Idiomas do Shopify. Português é sempre o de Portugal (pt-PT). Ex.: pt-PT, en, es, fr", "default": "pt-PT, en" },
     { "type": "text", "id": "account_label", "label": "Etiqueta da conta", "default": "Minha Conta" },
     { "type": "text", "id": "cart_label", "label": "Etiqueta do carrinho", "default": "Carrinho" }
   ]
