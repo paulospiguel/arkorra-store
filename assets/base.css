@@ -9,94 +9,94 @@
 */
 
 :root {
-  /* Primary scale (#1E3A34) */
-  --ark-primary-950: #051a14;
-  --ark-primary-900: #06241f;
-  --ark-primary-800: #0e2f29;
-  --ark-primary-700: #1e3a34;
-  --ark-primary-600: #334f49;
-  --ark-primary-500: #49655e;
-  --ark-primary-400: #617c75;
-  --ark-primary-300: #7a948d;
-  --ark-primary-200: #95aea7;
-  --ark-primary-100: #b1c8c2;
-  --ark-primary-50: #cee2dd;
+  /* Primary scale (#0b1e2d) */
+  --ark-primary-950: #040d14;
+  --ark-primary-900: #07141f;
+  --ark-primary-800: #091826;
+  --ark-primary-700: #0b1e2d;
+  --ark-primary-600: #11293d;
+  --ark-primary-500: #1e3a52;
+  --ark-primary-400: #4a6682;
+  --ark-primary-300: #7b92a8;
+  --ark-primary-200: #a3b4c4;
+  --ark-primary-100: #c8d3dd;
+  --ark-primary-50: #e3e9ee;
 
-  /* Secondary scale (#D96B27) */
-  --ark-secondary-950: #2e1100;
-  --ark-secondary-900: #522100;
-  --ark-secondary-800: #783200;
-  --ark-secondary-700: #9e4300;
-  --ark-secondary-600: #c4560e;
-  --ark-secondary-500: #d96b27;
-  --ark-secondary-400: #e8874a;
-  --ark-secondary-300: #f4a472;
-  --ark-secondary-200: #fcc19c;
-  --ark-secondary-100: #ffdcc7;
+  /* Secondary scale (#ff7a00) */
+  --ark-secondary-950: #2e1500;
+  --ark-secondary-900: #5c2a00;
+  --ark-secondary-800: #8a3f00;
+  --ark-secondary-700: #b34e00;
+  --ark-secondary-600: #e06a00;
+  --ark-secondary-500: #ff7a00;
+  --ark-secondary-400: #ff9533;
+  --ark-secondary-300: #ffb066;
+  --ark-secondary-200: #ffcc99;
+  --ark-secondary-100: #ffe2c7;
   --ark-secondary-50: #fff0e6;
 
-  /* Tertiary scale (#2E7D5B) */
-  --ark-tertiary-950: #002114;
-  --ark-tertiary-900: #0b3b2d;
-  --ark-tertiary-800: #065238;
-  --ark-tertiary-700: #1b6a4b;
-  --ark-tertiary-600: #2e7d5b;
-  --ark-tertiary-500: #479673;
-  --ark-tertiary-400: #61b08c;
-  --ark-tertiary-300: #7ccba6;
-  --ark-tertiary-200: #98e7c1;
-  --ark-tertiary-100: #b4ffda;
-  --ark-tertiary-50: #d9ffeb;
+  /* Tertiary scale (#475569) */
+  --ark-tertiary-950: #0f172a;
+  --ark-tertiary-900: #1e293b;
+  --ark-tertiary-800: #334155;
+  --ark-tertiary-700: #3d4a5f;
+  --ark-tertiary-600: #475569;
+  --ark-tertiary-500: #64748b;
+  --ark-tertiary-400: #94a3b8;
+  --ark-tertiary-300: #a9b6c7;
+  --ark-tertiary-200: #cbd5e1;
+  --ark-tertiary-100: #e2e8f0;
+  --ark-tertiary-50: #f1f5f9;
 
-  /* Neutral scale (#F7F5F0) */
-  --ark-neutral-950: #1a1c1b;
-  --ark-neutral-900: #2e312f;
-  --ark-neutral-800: #333534;
-  --ark-neutral-700: #444745;
-  --ark-neutral-600: #5c5f5d;
-  --ark-neutral-500: #747875;
-  --ark-neutral-400: #8e918f;
-  --ark-neutral-300: #a9aca9;
-  --ark-neutral-200: #c4c7c4;
-  --ark-neutral-100: #e6e4df;
-  --ark-neutral-50: #f7f5f0;
+  /* Neutral scale (#f4f6f8) */
+  --ark-neutral-950: #0b1e2d;
+  --ark-neutral-900: #1e293b;
+  --ark-neutral-800: #11293d;
+  --ark-neutral-700: #334155;
+  --ark-neutral-600: #475569;
+  --ark-neutral-500: #64748b;
+  --ark-neutral-400: #94a3b8;
+  --ark-neutral-300: #a9b6c7;
+  --ark-neutral-200: #cbd5e1;
+  --ark-neutral-100: #e2e8f0;
+  --ark-neutral-50: #f4f6f8;
 
   /* Semantic aliases — Stitch Design System */
-  --ark-primary: #06241f;
-  --ark-pine-deep: #1e3a34;
-  --ark-pine-light: #334f49;
-  --ark-terracotta: #d96b27;
-  --ark-terracotta-hover: #c4560e;
-  --ark-secondary: #9e4300;
-  --ark-secondary-container: #d96b27;
-  --ark-tertiary: #2e7d5b;
-  --ark-sage: #2e7d5b;
+  --ark-primary: #07141f;
+  --ark-pine-deep: #0b1e2d;
+  --ark-pine-light: #11293d;
+  --ark-terracotta: #ff7a00;
+  --ark-terracotta-hover: #e06a00;
+  --ark-secondary: #b34e00;
+  --ark-secondary-container: #ff7a00;
+  --ark-tertiary: #475569;
+  --ark-sage: #475569;
   --ark-amber: #c88a1e;
-  --ark-on-primary-container: #95aea7;
-  --ark-primary-fixed-dim: #b1c8c2;
-  --ark-secondary-fixed: #ffdcc7;
+  --ark-on-primary-container: #a3b4c4;
+  --ark-primary-fixed-dim: #c8d3dd;
+  --ark-secondary-fixed: #ffe2c7;
   --ark-error: #ba1a1a;
   --ark-error-container: #ffdad6;
   --ark-on-error-container: #93000a;
 
   /* Surfaces & neutrals */
   --ark-white: #ffffff;
-  --ark-surface: #f7f5f0;
-  --ark-surface-low: #f0eee9;
-  --ark-surface-container: #eae8e3;
-  --ark-surface-high: #e4e2dd;
-  --ark-surface-highest: #dcdad4;
-  --ark-sand: #f7f5f0;
-  --ark-linen: #dcd9d0;
-  --ark-outline: #747875;
-  --ark-outline-variant: #c4c7c4;
-  --ark-slate: #525b58;
-  --ark-charcoal: #1a1c1b;
-  --ark-inverted: #333534;
-  --ark-on-surface: #1a1c1b;
+  --ark-surface: #f4f6f8;
+  --ark-surface-low: #eaeff3;
+  --ark-surface-container: #e2e8f0;
+  --ark-surface-high: #dde4eb;
+  --ark-surface-highest: #cbd5e1;
+  --ark-sand: #f4f6f8;
+  --ark-linen: #cbd5e1;
+  --ark-outline: #64748b;
+  --ark-outline-variant: #cbd5e1;
+  --ark-slate: #475569;
+  --ark-charcoal: #0b1e2d;
+  --ark-inverted: #11293d;
+  --ark-on-surface: #0b1e2d;
 
   /* Typography */
-  --ark-font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ark-font-heading: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ark-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ark-font-label: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
@@ -129,13 +129,13 @@
   --ark-radius-xl: 1rem;
   --ark-radius-2xl: 1.5rem;
   --ark-radius-full: 9999px;
-  --ark-shadow-sm: 0 1px 2px rgb(30 58 52 / 0.05);
-  --ark-shadow-md: 0 4px 8px -2px rgb(30 58 52 / 0.08), 0 2px 4px -2px rgb(30 58 52 / 0.05);
-  --ark-shadow-lg: 0 12px 20px -4px rgb(30 58 52 / 0.1), 0 4px 6px -4px rgb(30 58 52 / 0.06);
-  --ark-shadow-xl: 0 20px 28px -6px rgb(30 58 52 / 0.12), 0 8px 10px -6px rgb(30 58 52 / 0.06);
+  --ark-shadow-sm: 0 1px 2px rgb(11 30 45 / 0.05);
+  --ark-shadow-md: 0 4px 8px -2px rgb(11 30 45 / 0.08), 0 2px 4px -2px rgb(11 30 45 / 0.05);
+  --ark-shadow-lg: 0 12px 20px -4px rgb(11 30 45 / 0.1), 0 4px 6px -4px rgb(11 30 45 / 0.06);
+  --ark-shadow-xl: 0 20px 28px -6px rgb(11 30 45 / 0.12), 0 8px 10px -6px rgb(11 30 45 / 0.06);
 
   --ark-ease: cubic-bezier(0.2, 0, 0, 1);
-  --ark-focus-ring: 0 0 0 3px rgb(30 58 52 / 0.28);
+  --ark-focus-ring: 0 0 0 3px rgb(11 30 45 / 0.28);
 }
 
 /* ---------- Shell body (overrides legacy .template-index background) ---------- */
@@ -418,7 +418,7 @@ body.ark-shell {
   }
 }
 
-/* Primary: #1E3A34 / #06241F */
+/* Primary: #0b1e2d / #07141f */
 .ark-button--primary,
 .ark-button--pine {
   --ark-button-bg: var(--ark-pine-deep);
@@ -426,7 +426,7 @@ body.ark-shell {
   --ark-button-fg: var(--ark-white);
 }
 
-/* Secondary: soft neutral surface (#E4E2DD / #EAE8E3) */
+/* Secondary: soft neutral surface (#dde4eb / #e2e8f0) */
 .ark-button--secondary {
   --ark-button-bg: var(--ark-surface-high);
   --ark-button-bg-hover: var(--ark-surface-highest);
@@ -434,7 +434,7 @@ body.ark-shell {
   box-shadow: none;
 }
 
-/* Inverted: dark charcoal (#333534) */
+/* Inverted: dark charcoal (#11293d) */
 .ark-button--inverted {
   --ark-button-bg: var(--ark-inverted);
   --ark-button-bg-hover: var(--ark-charcoal);
@@ -451,16 +451,16 @@ body.ark-shell {
   box-shadow: none;
 }
 
-/* Accent / Secondary brand color (#D96B27) */
+/* Accent / Secondary brand color (#ff7a00) */
 .ark-button--accent,
 .ark-button--terracotta {
   --ark-button-bg: var(--ark-terracotta);
   --ark-button-bg-hover: var(--ark-terracotta-hover);
-  --ark-button-fg: var(--ark-white);
+  --ark-button-fg: var(--ark-charcoal);
   font-weight: 600;
 }
 
-/* Tertiary brand color (#2E7D5B) */
+/* Tertiary brand color (#475569) */
 .ark-button--tertiary {
   --ark-button-bg: var(--ark-tertiary);
   --ark-button-bg-hover: var(--ark-tertiary-700);
@@ -675,7 +675,7 @@ body.ark-shell {
 }
 
 .ark-chip--accent {
-  background: rgb(217 107 39 / 0.14);
+  background: rgb(255 122 0 / 0.14);
   color: var(--ark-secondary);
 }
 
@@ -685,7 +685,7 @@ body.ark-shell {
 
 .ark-chip--secondary {
   background: var(--ark-terracotta);
-  color: var(--ark-white);
+  color: var(--ark-charcoal);
   font-weight: 700;
   box-shadow: var(--ark-shadow-sm);
 }
@@ -703,7 +703,7 @@ body.ark-shell {
 }
 
 .ark-chip--glass {
-  background: rgb(247 245 240 / 0.92);
+  background: rgb(244 246 248 / 0.92);
   backdrop-filter: blur(12px);
   font-weight: 700;
 }
@@ -756,7 +756,7 @@ body.ark-shell {
 
 .ark-card {
   background: var(--ark-surface-low);
-  border: 1px solid rgb(196 199 196 / 0.35);
+  border: 1px solid rgb(203 213 225 / 0.35);
   border-radius: var(--ark-radius-xl);
   box-shadow: var(--ark-shadow-sm);
   padding: var(--ark-space-lg);

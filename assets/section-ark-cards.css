@@ -1,0 +1,198 @@
+/* Arkorra — Cards, steps, about (section-ark-cards.css) */
+
+.ark-cards,
+.ark-steps,
+.ark-about {
+  padding-block: var(--ark-section-pad);
+}
+
+.ark-cards--light { background: var(--ark-white); }
+.ark-cards--dark,
+.ark-about { background: var(--ark-pine-deep); color: var(--ark-white); }
+.ark-steps { background: var(--ark-surface); }
+
+.ark-cards__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 41rem;
+  margin-bottom: 3rem;
+}
+
+.ark-cards__eyebrow {
+  font-size: var(--ark-text-label-md);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ark-terracotta);
+}
+
+.ark .ark-cards__title {
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.ark-cards__lead {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--ark-neutral-600);
+}
+
+.ark-cards--dark .ark-cards__title,
+.ark-about .ark-cards__title,
+.ark-cards--dark .ark-card__title { color: var(--ark-white); }
+.ark-cards--dark .ark-cards__lead { color: var(--ark-neutral-200); }
+
+.ark-cards__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ark-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid var(--ark-outline-variant);
+  border-radius: 1.25rem;
+  background: var(--ark-white);
+}
+
+.ark-cards--dark .ark-card {
+  background: var(--ark-primary-600);
+  border-color: var(--ark-primary-500);
+}
+
+.ark-card__head { display: flex; align-items: center; gap: 0.875rem; }
+
+.ark-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  background: var(--ark-terracotta);
+  color: var(--ark-charcoal);
+
+  & .ark-icon { font-size: 1.75rem; }
+}
+
+.ark-cards--dark .ark-card__icon {
+  width: auto;
+  height: auto;
+  background: transparent;
+  color: var(--ark-terracotta);
+}
+
+.ark .ark-card__title { font-size: 1.625rem; }
+
+.ark-card__text { font-size: 1.0625rem; line-height: 1.55; color: var(--ark-neutral-600); }
+.ark-cards--dark .ark-card__text { color: var(--ark-neutral-200); }
+
+.ark-card__label {
+  margin-top: 0.25rem;
+  font-size: var(--ark-text-label-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ark-neutral-300);
+}
+
+.ark-card__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1rem;
+
+  & li { display: flex; align-items: flex-start; gap: 0.625rem; }
+  & .ark-icon { flex: none; margin-top: 0.15rem; font-size: 1.125rem; color: var(--ark-secondary); }
+}
+
+.ark-cards--dark .ark-card__points { color: var(--ark-neutral-100); }
+.ark-cards--dark .ark-card__points .ark-icon { color: var(--ark-terracotta); }
+
+.ark .ark-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-weight: 600;
+  color: var(--ark-secondary);
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.ark-cards--dark .ark-card__cta { color: var(--ark-terracotta); }
+
+/* Steps */
+.ark-steps__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 44rem;
+  margin-top: 2rem;
+}
+
+.ark-steps__item { display: flex; align-items: flex-start; gap: 1.25rem; }
+
+.ark-steps__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--ark-pine-deep);
+  color: var(--ark-terracotta);
+  font-family: var(--ark-font-heading);
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.ark .ark-steps__title { font-size: 1.375rem; }
+.ark-steps__text { margin-top: 0.25rem; font-size: 1.0625rem; line-height: 1.55; color: var(--ark-neutral-600); }
+
+/* About */
+.ark-about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}
+
+.ark-about__copy { display: flex; flex-direction: column; gap: 1.25rem; }
+.ark-about__text { display: flex; flex-direction: column; gap: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--ark-neutral-200); }
+
+.ark .ark-about__cta {
+  align-self: flex-start;
+  --ark-button-fg: var(--ark-white);
+  --ark-button-border: var(--ark-neutral-300);
+  --ark-button-bg-hover: var(--ark-primary-600);
+}
+
+.ark-about__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  background: var(--ark-primary-900);
+}
+
+.ark-about__img { width: 100%; max-width: 27.5rem; height: auto; }

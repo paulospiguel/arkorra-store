@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "intro": {
+      "type": "ark-card-grid",
+      "settings": {
+        "tone": "dark",
+        "heading": "Prepara-te com calma, em poucos passos",
+        "text": "Um guia simples para saberes o que ter em casa e o que fazer nas primeiras horas de um apagão, de um alerta de segurança ou de uma situação de emergência."
+      }
+    },
+    "checklists": {
+      "type": "ark-card-grid",
+      "blocks": {
+        "l1": { "type": "card", "settings": { "icon": "bolt", "title": "Apagão", "points": "Lanternas e pilhas de reserva; Rádio a pilhas ou manivela; Carregador portátil carregado; Água para 3 dias; Dinheiro em numerário" } },
+        "l2": { "type": "card", "settings": { "icon": "shield", "title": "Alerta de segurança", "points": "Rádio para ouvir avisos oficiais; Alimentos que não precisam de cozinhar; Kit de primeiros socorros; Medicação para vários dias; Lista de contactos em papel" } },
+        "l3": { "type": "card", "settings": { "icon": "home", "title": "Estado de emergência", "points": "Mochila de evacuação pronta; Documentos em bolsa impermeável; Medicação essencial; Roupa e calçado confortáveis; Ponto de encontro definido" } }
+      },
+      "block_order": ["l1", "l2", "l3"],
+      "settings": { "tone": "light", "heading": "Checklists por situação", "text": "" }
+    },
+    "phases": {
+      "type": "ark-card-grid",
+      "blocks": {
+        "p1": { "type": "card", "settings": { "icon": "schedule", "title": "Avalia e informa-te", "text": "Primeiras horas: liga o rádio, confirma os avisos oficiais e verifica se todos em casa estão bem." } },
+        "p2": { "type": "card", "settings": { "icon": "home", "title": "Organiza a casa", "text": "Primeiro dia: poupa a bateria dos telemóveis, usa lanternas em vez de velas e mantém a água acessível." } },
+        "p3": { "type": "card", "settings": { "icon": "check", "title": "Mantém a rotina", "text": "Até às 72 horas: planeia refeições, cuida de quem precisa de mais atenção e segue as indicações das autoridades." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": { "tone": "dark", "heading": "As primeiras 72 horas", "text": "Respira fundo. Segue por ordem." }
+    },
+    "lead_capture": {
+      "type": "ark-lead-capture",
+      "settings": {
+        "badge": "Checklist gratuita",
+        "heading": "Recebe a checklist gratuita",
+        "text": "Um PDF simples, em letra grande, para imprimir e guardar com o teu kit.",
+        "checks": "Sem spam, Podes sair quando quiseres",
+        "form_heading": "O teu email",
+        "form_text": "Enviamos o PDF para a tua caixa de entrada:",
+        "name_label": "Nome",
+        "name_placeholder": "O teu nome",
+        "email_label": "O teu email",
+        "email_placeholder": "nome@exemplo.pt",
+        "button_label": "Receber a checklist",
+        "success_message": "A checklist foi enviada para o teu email."
+      }
+    }
+  },
+  "order": ["intro", "checklists", "phases", "lead_capture"]
+}

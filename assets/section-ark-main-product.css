@@ -430,7 +430,7 @@
   gap: 0.25rem;
   padding: 0.125rem 0.5rem;
   border-radius: var(--ark-radius-sm);
-  background: rgb(46 125 91 / 0.1);
+  background: rgb(71 85 105 / 0.1);
   color: var(--ark-sage);
   font-size: var(--ark-text-label-sm);
   font-weight: 700;
@@ -473,7 +473,7 @@
 .ark-pdp-buy__saving {
   padding: 0.125rem 0.625rem;
   border-radius: var(--ark-radius-full);
-  background: rgb(255 136 67 / 0.2);
+  background: rgb(255 149 51 / 0.2);
   color: var(--ark-secondary);
   font-size: var(--ark-text-label-sm);
   font-weight: 700;
@@ -638,7 +638,7 @@
   border: 0;
   border-radius: var(--ark-radius-md);
   background: var(--ark-terracotta);
-  color: var(--ark-white);
+  color: var(--ark-charcoal);
   font-family: var(--ark-font-heading);
   font-size: var(--ark-text-label-md);
   font-weight: 700;
@@ -741,7 +741,7 @@
   background: rgb(255 255 255 / 0.95);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--ark-linen);
-  box-shadow: 0 -4px 20px rgb(30 58 52 / 0.08);
+  box-shadow: 0 -4px 20px rgb(11 30 45 / 0.08);
 }
 
 .ark-pdp-sticky__inner {
@@ -883,7 +883,7 @@
   height: 3rem;
   flex-shrink: 0;
   border-radius: var(--ark-radius-lg);
-  background: rgb(255 136 67 / 0.12);
+  background: rgb(255 149 51 / 0.12);
   color: var(--ark-secondary);
   --ark-icon-size: 1.75rem;
 }
@@ -962,7 +962,7 @@
   margin-bottom: 0.75rem;
   padding: 0.25rem 0.75rem;
   border-radius: var(--ark-radius-full);
-  background: rgb(6 36 31 / 0.1);
+  background: rgb(7 20 31 / 0.1);
   color: var(--ark-pine-deep);
   font-size: var(--ark-text-label-sm);
   font-weight: 700;
@@ -1044,7 +1044,7 @@
 }
 
 .ark-pdp-module__icon--orange {
-  background: rgb(255 219 203 / 0.55);
+  background: rgb(255 226 199 / 0.55);
   color: var(--ark-secondary);
 }
 
@@ -1589,7 +1589,7 @@
   border: 0;
   border-radius: var(--ark-radius-md);
   background: var(--ark-terracotta);
-  color: var(--ark-white);
+  color: var(--ark-charcoal);
   font-family: var(--ark-font-heading);
   font-size: var(--ark-text-label-md);
   font-weight: 700;

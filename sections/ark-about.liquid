@@ -1,0 +1,45 @@
+{{ 'section-ark-cards.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+
+<section class="ark ark-about"{% if s.anchor != blank %} id="{{ s.anchor }}"{% endif %}>
+  <div class="ark-page-width ark-about__grid">
+    <div class="ark-about__copy">
+      {%- if s.eyebrow != blank -%}
+        <p class="ark-cards__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="ark-cards__title">{{ s.heading }}</h2>
+      {%- if s.text != blank -%}
+        <div class="ark-about__text">{{ s.text }}</div>
+      {%- endif -%}
+      {%- if s.cta_label != blank -%}
+        <a href="{{ s.cta_link | default: routes.root_url }}" class="ark-button ark-button--outlined ark-button--lg ark-about__cta">{{ s.cta_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="ark-about__media">
+      {%- if s.image != blank -%}
+        {{ s.image | image_url: width: 880 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 440px, 100vw', widths: '440, 660, 880', class: 'ark-about__img' }}
+      {%- else -%}
+        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-about__img" width="440" height="440" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Sobre",
+  "tag": "div",
+  "class": "ark-about-section",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora (id)", "default": "sobre" },
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "SOBRE A ARKORRA" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Preparação não é medo. É cuidado." },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Em abril de 2025, o apagão na Península Ibérica mostrou a muita gente como é fácil ficar sem o essencial. Ter uma lanterna, água e um rádio à mão não muda o mundo, mas muda como passas essas horas.</p><p>A Arkorra reúne o que importa em kits claros, com instruções simples, para quem quer estar preparado sem complicar.</p>" },
+    { "type": "text", "id": "cta_label", "label": "Botão", "default": "Ler o guia de preparação" },
+    { "type": "url", "id": "cta_link", "label": "Ligação do botão" },
+    { "type": "image_picker", "id": "image", "label": "Imagem ou logótipo" }
+  ],
+  "presets": [{ "name": "Arkorra - Sobre" }]
+}
+{% endschema %}
