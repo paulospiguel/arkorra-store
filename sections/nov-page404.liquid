@@ -24,10 +24,6 @@
       <div class="image">
         <img class="img-fluid" src="{{ section.settings.image | img_url: '1920x' }}" alt="Image 404">
       </div>
-    {% else %}
-      <div class="image">
-        <img class="img-fluid" src="{{ '404.png' | assets_url }}" alt="Image 404">
-      </div>
     {% endif %}
     <div class="content text-center">
       {% if section.settings.title != blank %}

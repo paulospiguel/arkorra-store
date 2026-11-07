@@ -547,3 +547,32 @@
   object-position: center;
   mix-blend-mode: normal;
 }
+
+/* ---------- QA fixes: drawer contrast, anchor offset, search placeholder ---------- */
+
+/* The drawer panel is light; the navy-theme overrides above made its controls
+   white-on-white (X button 1.1:1, shipping note 1.4:1). */
+.ark .ark-header__drawer-panel .ark-header__icon-button {
+  color: var(--ark-pine-deep);
+
+  &:hover {
+    background: var(--ark-surface-high);
+  }
+}
+
+.ark .ark-header__drawer-panel .ark-header__shipping {
+  color: var(--ark-slate);
+}
+
+.ark .ark-header__search-input::placeholder {
+  color: var(--ark-neutral-300);
+}
+
+/* Sticky header covers anchor targets (e.g. #catalogo landed 34px under it). */
+html {
+  scroll-padding-top: 6rem;
+
+  @media (min-width: 990px) {
+    scroll-padding-top: 9.5rem;
+  }
+}

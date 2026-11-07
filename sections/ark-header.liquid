@@ -27,7 +27,7 @@
         <summary class="ark-header__icon-button" aria-label="Abrir menu">
           <span class="ark-icon" aria-hidden="true">menu</span>
         </summary>
-        <div class="ark-header__drawer-panel">
+        <div class="ark-header__drawer-panel" role="dialog" aria-modal="true" aria-label="Menu">
           <div class="ark-header__drawer-top">
             <span class="ark-heading-sm">Menu</span>
             <button type="button" class="ark-header__icon-button" data-ark-drawer-close aria-label="Fechar menu">
@@ -179,12 +179,42 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     if (!drawer) return;
-    close && close.addEventListener('click', () => drawer.removeAttribute('open'));
+    const summary = drawer.querySelector('summary');
+    const panel = drawer.querySelector('.ark-header__drawer-panel');
+    const closeDrawer = () => drawer.removeAttribute('open');
+    const focusables = () =>
+      [...panel.querySelectorAll('a[href], button, input, summary')].filter((el) => el.offsetParent !== null);
+    close && close.addEventListener('click', closeDrawer);
+    /* The dimmed backdrop is drawer::before, so a click on it targets the <details> itself. */
+    drawer.addEventListener('click', (e) => {
+      if (e.target === drawer) closeDrawer();
+    });
     drawer.addEventListener('toggle', () => {
       document.documentElement.style.overflow = drawer.open ? 'hidden' : '';
+      if (drawer.open) {
+        close && close.focus();
+      } else if (summary) {
+        summary.focus({ preventScroll: true });
+      }
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer.open) drawer.removeAttribute('open');
+      if (!drawer.open) return;
+      if (e.key === 'Escape') {
+        closeDrawer();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
   })();
 </script>

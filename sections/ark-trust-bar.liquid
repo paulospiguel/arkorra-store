@@ -3,6 +3,7 @@
 
 <section class="ark ark-trust-bar">
   <div class="ark-page-width">
+    <h2 class="ark-visually-hidden">{{ section.settings.heading }}</h2>
     <div class="ark-trust-bar__grid">
       {% content_for 'blocks' %}
     </div>
@@ -15,6 +16,9 @@
   "tag": "div",
   "class": "ark-trust-bar-section",
   "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título oculto (acessibilidade)", "default": "Garantias e condições de compra" }
+  ],
   "blocks": [
     { "type": "@theme" },
     { "type": "@app" }

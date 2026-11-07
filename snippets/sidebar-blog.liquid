@@ -8,7 +8,7 @@
           name="q"
           placeholder="{{ 'general.search.submit' | t }}"
           aria-label="{{ 'general.search.title' | t }}">
-        <button class="search__submit pointer" type="submit">
+        <button class="search__submit pointer" type="submit" aria-label="{{ 'general.search.submit' | t }}">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </form>
@@ -149,7 +149,7 @@
       <div class="title-block">{{ block.settings.banner_title }}</div>
       {% endif %}
       <div class="block__content">
-        {% if block.settings.banner_link != blank %}
+        {% if block.settings.banner_link != blank and block.settings.banner_link != '#' %}
           <a href="{{ block.settings.banner_link }}">
         {% endif %}
           {% if block.settings.banner_image != blank %}
@@ -165,7 +165,7 @@
           {% else %}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {% endif %}
-        {% if block.settings.banner_link != blank %}
+        {% if block.settings.banner_link != blank and block.settings.banner_link != '#' %}
           </a>
         {% endif %}
       </div>

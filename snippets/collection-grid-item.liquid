@@ -9,22 +9,12 @@
 <div class="collection-grid-item text-center">
   <a href="{% if collection.products == empty %}#{% else %}{{ collection.url }}{% endif %}" class="collection-grid-item__link">
     {% if collection_image == blank %}
-      <div class="collection-grid-item__overlay box lazyload js"
-         data-bgset="{% include 'bgset', image: collection_image %}"
-         data-sizes="auto"
-         data-parent-fit="cover"
-         style="background-image: url('{{ collection_image | img_url: '300x300' }}')">
+      <div class="collection-grid-item__overlay">
+        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
       </div>
-   {% else %}
-     {% if collection == empty %}
-        <div class="collection-grid-item__overlay">
-          {% capture current %}{% cycle 1, 2, 3 %}{% endcapture %}
-          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-        </div>
-      {% else %}
-         <img class="lazyload" data-src="{{ collection_image | img_url: '1024x1024' }}" alt="img">
-      {% endif %}
-   {% endif %}
+    {% else %}
+      <img src="{{ collection_image | img_url: '1024x1024' }}" alt="{{ collection.title | escape }}" loading="lazy" width="1024" height="1024">
+    {% endif %}
     <div class="collection-grid-item__title-wrapper">
       <div class="collection-grid-item__title mt-15">
         {% if collection.title == blank %}
