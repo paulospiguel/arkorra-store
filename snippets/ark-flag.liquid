@@ -1,0 +1,31 @@
+{%- doc -%}
+  Simplified flag for a European language code (Portugal, Spain, United
+  Kingdom, France, Germany, Italy). Inline SVG, so it renders the same on every
+  OS (emoji flags fall back to letters on Windows). Any other code gets a globe.
+
+  @param {string} code - Shopify language iso_code, e.g. pt-PT, en, es
+  @param {string} [class] - extra class on the svg
+{%- enddoc -%}
+{%- liquid
+  assign key = code | downcase | replace: '_', '-'
+  assign svg_class = 'ark-flag'
+  if class != blank
+    assign svg_class = svg_class | append: ' ' | append: class
+  endif
+-%}
+{%- case key -%}
+  {%- when 'pt', 'pt-pt' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#D80027"/><rect width="9.6" height="16" fill="#046A38"/><circle cx="9.6" cy="8" r="3" fill="#FFDA00"/><circle cx="9.6" cy="8" r="1.7" fill="#fff" stroke="#D80027" stroke-width=".7"/></svg>
+  {%- when 'es' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg>
+  {%- when 'en', 'en-gb' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#012169"/><path d="M0 0L24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0L24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.1"/><path d="M12 0V16M0 8H24" stroke="#fff" stroke-width="5.3"/><path d="M12 0V16M0 8H24" stroke="#C8102E" stroke-width="3.2"/></svg>
+  {%- when 'fr' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#fff"/><rect width="8" height="16" fill="#0055A4"/><rect x="16" width="8" height="16" fill="#EF4135"/></svg>
+  {%- when 'de' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#FFCE00"/><rect width="24" height="5.34" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#DD0000"/></svg>
+  {%- when 'it' -%}
+    <svg class="{{ svg_class }}" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false"><rect width="24" height="16" fill="#fff"/><rect width="8" height="16" fill="#009246"/><rect x="16" width="8" height="16" fill="#CE2B37"/></svg>
+  {%- else -%}
+    <span class="ark-icon ark-flag ark-flag--globe" aria-hidden="true">language</span>
+{%- endcase -%}

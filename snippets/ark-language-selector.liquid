@@ -1,0 +1,96 @@
+{%- doc -%}
+  Language selector built on Shopify's localization form. Every option is a
+  submit button, so switching works without JavaScript. The current language is
+  shown as its flag.
+
+  Only languages that are enabled in Shopify (Settings > Languages) AND listed
+  in `allowed` are offered. Portuguese is always Portugal: any pt-* code other
+  than pt-PT is dropped, even if it is enabled in the store.
+
+  With a single choice there is nothing to pick, so the pill shows a static flag
+  instead of a dropdown, and the drawer shows nothing.
+
+  @param {string} uid - unique id for the form (the header renders it twice)
+  @param {string} [allowed] - comma-separated language codes, default 'pt-PT, en'
+  @param {string} [variant] - 'dropdown' (default) or 'list' (always open, for the mobile drawer)
+{%- enddoc -%}
+{%- liquid
+  assign current = localization.language
+  assign current_lower = current.iso_code | downcase
+  assign current_first = current.endonym_name | slice: 0 | upcase
+  assign current_rest = current.endonym_name | slice: 1, 100
+  assign current_name = current_first | append: current_rest
+  assign allowed_codes = allowed | default: 'pt-PT, en' | downcase | remove: ' ' | split: ','
+  assign variant = variant | default: 'dropdown'
+
+  assign shown = ''
+  for language in localization.available_languages
+    assign iso = language.iso_code | downcase
+    # ARK-LANG-FILTER:START
+    assign keep = false
+    if allowed_codes contains iso
+      assign keep = true
+    endif
+    if iso contains 'pt-' and iso != 'pt-pt'
+      assign keep = false
+    endif
+    # ARK-LANG-FILTER:END
+    if keep
+      assign shown = shown | append: iso | append: ','
+    endif
+  endfor
+  assign shown_list = shown | split: ','
+
+  # ARK-LANG-DECIDE:START
+  assign interactive = false
+  if shown_list.size > 1
+    assign interactive = true
+  elsif shown_list.size == 1 and shown_list[0] != current_lower
+    assign interactive = true
+  endif
+  # ARK-LANG-DECIDE:END
+-%}
+{%- if shown_list.size == 0 -%}
+  {%- comment -%}No allowed language is enabled: render nothing.{%- endcomment -%}
+{%- elsif interactive == false -%}
+  {%- if variant != 'list' -%}
+    <span class="ark-nav-pill__item ark-lang__static" role="img" aria-label="Idioma: {{ current_name }}" title="Idioma: {{ current_name }}">
+      {% render 'ark-flag', code: current.iso_code %}
+    </span>
+  {%- endif -%}
+{%- else -%}
+  {%- form 'localization', id: uid, class: 'ark-lang' -%}
+    {%- if variant == 'list' -%}
+      <p class="ark-lang__label">Idioma</p>
+    {%- else -%}
+      <details class="ark-lang__menu" data-ark-lang>
+        <summary class="ark-nav-pill__item ark-lang__toggle" aria-label="Idioma: {{ current_name }}" title="Idioma: {{ current_name }}">
+          {% render 'ark-flag', code: current.iso_code %}
+        </summary>
+    {%- endif -%}
+    <ul class="ark-lang__list{% if variant == 'list' %} ark-lang__list--inline{% endif %}">
+      {%- for language in localization.available_languages -%}
+        {%- assign iso = language.iso_code | downcase -%}
+        {%- if shown_list contains iso -%}
+          {%- assign name_first = language.endonym_name | slice: 0 | upcase -%}
+          {%- assign name_rest = language.endonym_name | slice: 1, 100 -%}
+          {%- assign is_current = false -%}
+          {%- if iso == current_lower -%}{%- assign is_current = true -%}{%- endif -%}
+          <li>
+            <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}" class="ark-lang__option{% if is_current %} is-active{% endif %}"{% if is_current %} aria-current="true"{% endif %}>
+              {% render 'ark-flag', code: language.iso_code %}
+              <span class="ark-lang__name">{{ name_first }}{{ name_rest }}</span>
+              {%- if is_current -%}
+                <span class="ark-icon ark-lang__check" aria-hidden="true">check</span>
+              {%- endif -%}
+            </button>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    {%- if variant != 'list' -%}
+      </details>
+    {%- endif -%}
+    <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+  {%- endform -%}
+{%- endif -%}

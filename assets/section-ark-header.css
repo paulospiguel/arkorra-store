@@ -147,14 +147,6 @@
   }
 }
 
-.ark-header__locale {
-  display: none;
-
-  @media (min-width: 1120px) {
-    display: inline-flex;
-  }
-}
-
 .ark-header__action-label {
   display: none;
 
@@ -574,5 +566,154 @@ html {
 
   @media (min-width: 990px) {
     scroll-padding-top: calc(9.5 * var(--ark-rem));
+  }
+}
+
+/* ---------- Language selector (flag dropdown in the quick-links pill) ---------- */
+
+.ark-lang {
+  position: relative;
+  display: inline-flex;
+}
+
+.ark-lang__menu {
+  position: relative;
+
+  & > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  & > summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.ark-flag {
+  display: block;
+  flex-shrink: 0;
+  width: calc(1.375 * var(--ark-rem));
+  height: auto;
+  aspect-ratio: 3 / 2;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+.ark-flag--globe {
+  box-shadow: none;
+  --ark-icon-size: calc(1.25 * var(--ark-rem));
+}
+
+.ark .ark-lang__toggle:is(:hover, :focus-visible),
+.ark .ark-lang__menu[open] > .ark-lang__toggle {
+  background: var(--ark-primary-600);
+}
+
+.ark-lang__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ark-lang__menu > .ark-lang__list {
+  position: absolute;
+  top: calc(100% + 0.75 * var(--ark-rem));
+  right: 0;
+  z-index: 70;
+  min-width: calc(14 * var(--ark-rem));
+  padding: calc(0.375 * var(--ark-rem));
+  border: 1px solid var(--ark-linen);
+  border-radius: var(--ark-radius-lg);
+  background: var(--ark-surface);
+  box-shadow: var(--ark-shadow-xl);
+}
+
+.ark .ark-lang__option {
+  display: flex;
+  align-items: center;
+  gap: calc(0.625 * var(--ark-rem));
+  width: 100%;
+  min-height: calc(2.5 * var(--ark-rem));
+  padding: calc(0.375 * var(--ark-rem)) calc(0.625 * var(--ark-rem));
+  border: 0;
+  border-radius: var(--ark-radius-md);
+  background: transparent;
+  color: var(--ark-charcoal);
+  font-family: var(--ark-font-label);
+  font-size: var(--ark-text-label-lg);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
+
+  &:hover,
+  &:focus-visible {
+    background: var(--ark-surface-container);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ark-pine-deep);
+    outline-offset: -2px;
+  }
+
+  &.is-active {
+    font-weight: 700;
+  }
+
+  .ark-flag {
+    box-shadow: 0 0 0 1px rgb(11 30 45 / 0.16);
+  }
+}
+
+.ark-lang__name {
+  flex: 1;
+  white-space: nowrap;
+}
+
+/* One language only: a plain flag, not a button. */
+.ark .ark-lang__static {
+  cursor: default;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.ark-lang__check {
+  color: var(--ark-terracotta);
+}
+
+/* Inside the mobile drawer the list is always open (the drawer panel is light). */
+.ark-header__drawer-panel .ark-lang {
+  display: block;
+  margin-bottom: var(--ark-space-lg);
+}
+
+.ark .ark-lang__label {
+  margin: 0 0 var(--ark-space-xs);
+  font-family: var(--ark-font-label);
+  font-size: var(--ark-text-label-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ark-slate);
+}
+
+.ark-header__drawer-panel .ark-lang__list--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--ark-space-xs);
+
+  & .ark-lang__option {
+    width: auto;
+    border: 1px solid var(--ark-linen);
+    background: var(--ark-white);
+  }
+
+  & .ark-lang__option.is-active {
+    border-color: var(--ark-pine-deep);
   }
 }
