@@ -82,7 +82,7 @@
       "type": "ark-trust-bar",
       "blocks": {
         "item_1": {
-          "type": "item",
+          "type": "ark-icon-card",
           "settings": {
             "icon": "warehouse",
             "title": "Armazém Ibérico",
@@ -90,7 +90,7 @@
           }
         },
         "item_2": {
-          "type": "item",
+          "type": "ark-icon-card",
           "settings": {
             "icon": "task_alt",
             "title": "Pronto a Usar",
@@ -98,7 +98,7 @@
           }
         },
         "item_3": {
-          "type": "item",
+          "type": "ark-icon-card",
           "settings": {
             "icon": "import_contacts",
             "title": "Guia Físico PT / ES",
@@ -106,7 +106,7 @@
           }
         },
         "item_4": {
-          "type": "item",
+          "type": "ark-icon-card",
           "settings": {
             "icon": "shield_lock",
             "title": "Pagamento Seguro",

@@ -1,0 +1,69 @@
+/* Arkorra — Seção Flexível e theme blocks (Online Store 3.0) */
+.ark-flex {
+  padding-block: var(--ark-flex-pad, 64px);
+  background: var(--ark-sand, #f7f5f0);
+  color: var(--ark-pine-deep, #1e3a34);
+}
+
+.ark-flex--low {
+  background: var(--ark-surface-low);
+}
+
+.ark-flex--primary {
+  background: var(--ark-pine-deep, #1e3a34);
+  color: #fff;
+}
+
+.ark-flex__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ark-flex__content--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  align-items: start;
+}
+
+.ark-flex__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 48rem;
+}
+
+.ark-flex__text--center {
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ark-flex__rte > :first-child {
+  margin-top: 0;
+}
+
+.ark-flex__group {
+  display: flex;
+  gap: var(--ark-flex-gap, 24px);
+}
+
+.ark-flex__group--row {
+  flex-wrap: wrap;
+}
+
+.ark-flex__group--row > * {
+  flex: 1 1 14rem;
+}
+
+.ark-flex__group--column {
+  flex-direction: column;
+}
+
+/* Item de ícone usado fora da barra de garantias */
+.ark-flex .ark-trust-bar__item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}

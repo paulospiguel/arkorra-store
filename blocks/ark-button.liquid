@@ -1,0 +1,43 @@
+{%- doc -%}
+  Botão do design system Arkorra (Primary, Secondary, Inverted, Outlined ou Accent).
+
+  @example
+  {% content_for 'block', type: 'ark-button', id: 'cta' %}
+{%- enddoc -%}
+
+{%- if block.settings.label != blank -%}
+  <a
+    href="{{ block.settings.link | default: '#' }}"
+    class="ark-button ark-button--{{ block.settings.style }}"
+    {{ block.shopify_attributes }}
+  >
+    <span>{{ block.settings.label }}</span>
+    <span class="ark-icon" aria-hidden="true">arrow_forward</span>
+  </a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Botão",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Texto", "default": "Explorar kits" },
+    { "type": "url", "id": "link", "label": "Link" },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Estilo",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "inverted", "label": "Inverted" },
+        { "value": "outlined", "label": "Outlined" },
+        { "value": "accent", "label": "Accent" }
+      ],
+      "default": "primary"
+    }
+  ],
+  "presets": [
+    { "name": "Botão" }
+  ]
+}
+{% endschema %}

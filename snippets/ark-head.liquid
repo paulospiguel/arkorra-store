@@ -12,6 +12,7 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names={{ ark_icon_names }}&display=block">
 {{ 'base.css' | asset_url | stylesheet_tag }}
+{% render 'ark-structured-data' %}
 {% style %}
   :root {
     --ark-pine-deep: {{ settings.ark_color_primary | default: '#1E3A34' }};

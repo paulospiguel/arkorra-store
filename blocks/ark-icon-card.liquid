@@ -1,0 +1,50 @@
+{%- doc -%}
+  Cartão com ícone circular (Material Symbols), título e texto.
+  Usado em garantias, benefícios e pilares. Aceita ser aninhado em seções e grupos.
+
+  @example
+  {% content_for 'block', type: 'ark-icon-card', id: 'garantia' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign tone = block.settings.tone
+-%}
+
+<div class="ark-trust-bar__item" {{ block.shopify_attributes }}>
+  <span class="ark-icon-circle ark-icon-circle--{{ tone }} ark-trust-bar__icon">
+    <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+  </span>
+  <div class="ark-trust-bar__text">
+    {%- if block.settings.title != blank -%}
+      <h3 class="ark-trust-bar__title">{{ block.settings.title }}</h3>
+    {%- endif -%}
+    {%- if block.settings.text != blank -%}
+      <p>{{ block.settings.text }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cartão com ícone",
+  "settings": [
+    { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "task_alt", "info": "Nome do ícone. Ver lista em snippets/ark-head.liquid." },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Cor do ícone",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "tertiary", "label": "Tertiary" }
+      ],
+      "default": "primary"
+    },
+    { "type": "text", "id": "title", "label": "Título", "default": "Pronto a Usar" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente." }
+  ],
+  "presets": [
+    { "name": "Cartão com ícone" }
+  ]
+}
+{% endschema %}

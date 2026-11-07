@@ -1,0 +1,49 @@
+{%- doc -%}
+  Grupo (container) que aceita outros blocos aninhados (theme blocks e app blocks).
+  Permite compor layouts em linha ou em coluna diretamente no editor.
+
+  @example
+  {% content_for 'blocks' %}
+{%- enddoc -%}
+
+<div
+  class="ark-flex__group ark-flex__group--{{ block.settings.direction }}"
+  style="--ark-flex-gap: {{ block.settings.gap }}px;"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Grupo",
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direção",
+      "options": [
+        { "value": "row", "label": "Em linha" },
+        { "value": "column", "label": "Em coluna" }
+      ],
+      "default": "row"
+    },
+    { "type": "range", "id": "gap", "label": "Espaçamento", "min": 0, "max": 64, "step": 4, "unit": "px", "default": 24 }
+  ],
+  "presets": [
+    {
+      "name": "Grupo de garantias",
+      "settings": { "direction": "row" },
+      "blocks": {
+        "a": { "type": "ark-icon-card", "settings": { "icon": "warehouse", "tone": "primary", "title": "Armazém Ibérico", "text": "Expedição a partir de Lisboa e Madrid." } },
+        "b": { "type": "ark-icon-card", "settings": { "icon": "task_alt", "tone": "secondary", "title": "Pronto a Usar", "text": "Equipamentos inspecionados e selados." } }
+      },
+      "block_order": ["a", "b"]
+    }
+  ]
+}
+{% endschema %}

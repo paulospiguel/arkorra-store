@@ -1,0 +1,15 @@
+{%- comment -%}
+  robots.txt do tema Arkorra: mantém as regras padrão da Shopify (incluindo as
+  de crawlers de IA permitidos pelo lojista) e declara o sitemap.
+{%- endcomment -%}
+{%- for group in robots.default_groups -%}
+  {{- group.user_agent }}
+
+  {%- for rule in group.rules -%}
+    {{ rule }}
+  {%- endfor -%}
+
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {%- endif %}
+{% endfor -%}

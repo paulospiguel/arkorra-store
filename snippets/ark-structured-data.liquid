@@ -1,0 +1,66 @@
+{%- doc -%}
+  Dados estruturados (JSON-LD) para motores de busca e agentes de IA:
+  Organization, WebSite com SearchAction, BreadcrumbList e Product/CollectionPage.
+  Controlado por settings.ark_structured_data.
+
+  @example
+  {% render 'ark-structured-data' %}
+{%- enddoc -%}
+
+{%- if settings.ark_structured_data -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": {{ shop.url | append: '#organization' | json }},
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }}
+          {%- if settings.favicon != blank -%}
+            , "logo": {{ settings.favicon | image_url: width: 512 | prepend: 'https:' | json }}
+          {%- endif -%}
+        },
+        {
+          "@type": "WebSite",
+          "@id": {{ shop.url | append: '#website' | json }},
+          "url": {{ shop.url | json }},
+          "name": {{ shop.name | json }},
+          "inLanguage": {{ request.locale.iso_code | json }},
+          "publisher": { "@id": {{ shop.url | append: '#organization' | json }} },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }},
+            "query-input": "required name=search_term_string"
+          }
+        }
+        {%- if template.name == 'collection' and collection != blank -%}
+          ,
+          {
+            "@type": "CollectionPage",
+            "name": {{ collection.title | json }},
+            "url": {{ shop.url | append: collection.url | json }},
+            "description": {{ collection.description | strip_html | truncate: 300 | json }},
+            "mainEntity": {
+              "@type": "ItemList",
+              "numberOfItems": {{ collection.products_count | default: 0 }},
+              "itemListElement": [
+                {%- for p in collection.products limit: 12 -%}
+                  {
+                    "@type": "ListItem",
+                    "position": {{ forloop.index }},
+                    "url": {{ shop.url | append: p.url | json }},
+                    "name": {{ p.title | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            }
+          }
+        {%- endif -%}
+      ]
+    }
+  </script>
+  {%- if template.name == 'product' and product != blank -%}
+    {{ product | structured_data }}
+  {%- endif -%}
+{%- endif -%}

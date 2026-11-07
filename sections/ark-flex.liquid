@@ -1,0 +1,67 @@
+{{ 'section-ark-flex.css' | asset_url | stylesheet_tag }}
+{{ 'section-ark-trust-bar.css' | asset_url | stylesheet_tag }}
+
+
+<section
+  class="ark ark-flex ark-flex--{{ section.settings.surface }}"
+  id="ark-flex-{{ section.id }}"
+  style="--ark-flex-pad: {{ section.settings.padding }}px;"
+>
+  <div class="ark-page-width">
+    <div class="ark-flex__content ark-flex__content--{{ section.settings.layout }}">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Seção Flexível",
+  "tag": "div",
+  "class": "ark-flex-section",
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout dos blocos",
+      "options": [
+        { "value": "stack", "label": "Empilhado" },
+        { "value": "grid", "label": "Grelha responsiva" }
+      ],
+      "default": "stack"
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Fundo",
+      "options": [
+        { "value": "base", "label": "Neutral" },
+        { "value": "low", "label": "Superfície" },
+        { "value": "primary", "label": "Primary" }
+      ],
+      "default": "base"
+    },
+    { "type": "range", "id": "padding", "label": "Espaçamento vertical", "min": 16, "max": 128, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra - Seção Flexível",
+      "settings": { "layout": "stack" },
+      "blocks": {
+        "intro": { "type": "ark-text", "settings": {} },
+        "cards": { "type": "ark-group", "settings": { "direction": "row" }, "blocks": {
+          "a": { "type": "ark-icon-card", "settings": { "icon": "radio", "tone": "primary", "title": "Comunicação", "text": "Rádio FM/AM e SOS." } },
+          "b": { "type": "ark-icon-card", "settings": { "icon": "water_drop", "tone": "tertiary", "title": "Hidratação", "text": "Pastilhas e filtro homologado." } },
+          "c": { "type": "ark-icon-card", "settings": { "icon": "flash_on", "tone": "secondary", "title": "Energia", "text": "Painel solar e USB." } }
+        }, "block_order": ["a", "b", "c"] },
+        "cta": { "type": "ark-button", "settings": { "style": "primary" } }
+      },
+      "block_order": ["intro", "cards", "cta"]
+    }
+  ]
+}
+{% endschema %}

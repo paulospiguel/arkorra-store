@@ -1,0 +1,42 @@
+{%- doc -%}
+  Bloco de texto: etiqueta (eyebrow), título e parágrafo.
+
+  @example
+  {% content_for 'block', type: 'ark-text', id: 'intro' %}
+{%- enddoc -%}
+
+<div class="ark-flex__text ark-flex__text--{{ block.settings.align }}" {{ block.shopify_attributes }}>
+  {%- if block.settings.eyebrow != blank -%}
+    <span class="ark-chip ark-chip--accent">{{ block.settings.eyebrow }}</span>
+  {%- endif -%}
+  {%- if block.settings.heading != blank -%}
+    <h2 class="ark-heading-md">{{ block.settings.heading }}</h2>
+  {%- endif -%}
+  {%- if block.settings.text != blank -%}
+    <div class="ark-flex__rte">{{ block.settings.text }}</div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Texto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "Metodologia 72h" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Preparação simples para toda a família" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Equipamento técnico, testado e pronto a usar, com guias claros em português e espanhol.</p>" },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alinhamento",
+      "options": [
+        { "value": "start", "label": "Esquerda" },
+        { "value": "center", "label": "Centro" }
+      ],
+      "default": "start"
+    }
+  ],
+  "presets": [
+    { "name": "Texto" }
+  ]
+}
+{% endschema %}

@@ -1,26 +1,11 @@
 {{ 'section-ark-trust-bar.css' | asset_url | stylesheet_tag }}
 
+
 <section class="ark ark-trust-bar">
   <div class="ark-page-width">
-    <ul class="ark-trust-bar__grid">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign circle_mod = 'primary'
-          if forloop.index == 2
-            assign circle_mod = 'secondary'
-          elsif forloop.index == 3
-            assign circle_mod = 'tertiary'
-          endif
-        -%}
-        <li class="ark-trust-bar__item" {{ block.shopify_attributes }}>
-          <span class="ark-icon-circle ark-icon-circle--{{ circle_mod }} ark-trust-bar__icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
-          <div class="ark-trust-bar__text">
-            <h3 class="ark-trust-bar__title">{{ block.settings.title }}</h3>
-            <p>{{ block.settings.text }}</p>
-          </div>
-        </li>
-      {%- endfor -%}
-    </ul>
+    <div class="ark-trust-bar__grid">
+      {% content_for 'blocks' %}
+    </div>
   </div>
 </section>
 
@@ -31,25 +16,19 @@
   "class": "ark-trust-bar-section",
   "max_blocks": 4,
   "blocks": [
-    {
-      "type": "item",
-      "name": "Garantia",
-      "settings": [
-        { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "warehouse", "info": "Ver lista em snippets/ark-head.liquid." },
-        { "type": "text", "id": "title", "label": "Título", "default": "Armazém Ibérico" },
-        { "type": "textarea", "id": "text", "label": "Texto", "default": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções." }
-      ]
-    }
+    { "type": "@theme" },
+    { "type": "@app" }
   ],
   "presets": [
     {
       "name": "Arkorra - Garantias",
-      "blocks": [
-        { "type": "item", "settings": { "icon": "warehouse", "title": "Armazém Ibérico", "text": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções." } },
-        { "type": "item", "settings": { "icon": "task_alt", "title": "Pronto a Usar", "text": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente." } },
-        { "type": "item", "settings": { "icon": "import_contacts", "title": "Guia Físico PT / ES", "text": "Manual plastificado com diagramas claros para idosos e crianças sem jargão técnico." } },
-        { "type": "item", "settings": { "icon": "shield_lock", "title": "Pagamento Seguro", "text": "Liquidação instantânea via MB WAY, Multibanco, Bizum, Visa e Mastercard." } }
-      ]
+      "blocks": {
+        "item_1": { "type": "ark-icon-card", "settings": { "icon": "warehouse", "tone": "primary", "title": "Armazém Ibérico", "text": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções." } },
+        "item_2": { "type": "ark-icon-card", "settings": { "icon": "task_alt", "tone": "secondary", "title": "Pronto a Usar", "text": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente." } },
+        "item_3": { "type": "ark-icon-card", "settings": { "icon": "import_contacts", "tone": "tertiary", "title": "Guia Físico PT / ES", "text": "Manual plastificado com diagramas claros para idosos e crianças sem jargão técnico." } },
+        "item_4": { "type": "ark-icon-card", "settings": { "icon": "shield_lock", "tone": "primary", "title": "Pagamento Seguro", "text": "Liquidação instantânea via MB WAY, Multibanco, Bizum, Visa e Mastercard." } }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"]
     }
   ]
 }
