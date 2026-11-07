@@ -52,17 +52,38 @@
                 {%- if block.settings.text != blank -%}
                   <p class="ark-footer__text">{{ block.settings.text }}</p>
                 {%- endif -%}
-                {%- assign methods = block.settings.methods | split: ',' -%}
-                <ul class="ark-footer__payments">
+                {%- assign methods = block.settings.methods | replace: '/', ',' | split: ',' -%}
+                <ul class="ark-footer__payments" aria-label="{{ block.settings.heading | escape }}">
                   {%- for method in methods -%}
                     {%- assign m = method | strip -%}
+                    {%- assign key = m | downcase | replace: ' ', '' | replace: '_', '' -%}
+                    {%- assign pay_type = blank -%}
+                    {%- case key -%}
+                      {%- when 'visa' -%}{%- assign pay_type = 'visa' -%}
+                      {%- when 'mc', 'mastercard', 'master' -%}{%- assign pay_type = 'master' -%}
+                      {%- when 'maestro' -%}{%- assign pay_type = 'maestro' -%}
+                      {%- when 'americanexpress', 'amex' -%}{%- assign pay_type = 'american_express' -%}
+                      {%- when 'mbway' -%}{%- assign pay_type = 'mbway' -%}
+                      {%- when 'multibanco' -%}{%- assign pay_type = 'multibanco' -%}
+                      {%- when 'bizum' -%}{%- assign pay_type = 'bizum' -%}
+                      {%- when 'paypal' -%}{%- assign pay_type = 'paypal' -%}
+                      {%- when 'applepay' -%}{%- assign pay_type = 'apple_pay' -%}
+                      {%- when 'googlepay' -%}{%- assign pay_type = 'google_pay' -%}
+                    {%- endcase -%}
                     {%- if m != blank -%}
-                      <li class="ark-footer__payment">{{ m }}</li>
+                      {%- if pay_type != blank -%}
+                        <li class="ark-footer__payment ark-footer__payment--icon">{{ pay_type | payment_type_svg_tag: class: 'ark-footer__payment-icon' }}</li>
+                      {%- else -%}
+                        <li class="ark-footer__payment">{{ m }}</li>
+                      {%- endif -%}
                     {%- endif -%}
                   {%- endfor -%}
                 </ul>
                 {%- if block.settings.note != blank -%}
-                  <p class="ark-footer__fineprint">{{ block.settings.note }}</p>
+                  <p class="ark-footer__fineprint">
+                    <span class="ark-icon" aria-hidden="true">lock</span>
+                    {{ block.settings.note }}
+                  </p>
                 {%- endif -%}
             {%- endcase -%}
           </div>
@@ -104,9 +125,9 @@
   "class": "ark-footer-section",
   "max_blocks": 5,
   "settings": [
-    { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] Arkorra. Informação de carácter geral. Em caso de emergência, liga 112." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] ARKORRA Contingência Ibérica S.A. Todos os direitos reservados." },
     { "type": "checkbox", "id": "use_legal_fallback", "label": "Usar links legais Arkorra (Stitch)", "default": true },
-    { "type": "text", "id": "legal_fallback", "label": "Links legais (separados por vírgula)", "default": "Termos e condições, Privacidade, Livro de Reclamações" },
+    { "type": "text", "id": "legal_fallback", "label": "Links legais (separados por vírgula)", "default": "Termos & Condições, Política de Privacidade, Diretivas Oficiais" },
     { "type": "link_list", "id": "legal_menu", "label": "Menu legal", "default": "footer" }
   ],
   "blocks": [
@@ -116,8 +137,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "logo", "label": "Logótipo" },
-        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Kits e produtos de preparação para pessoas, famílias e idosos.</p>" },
-        { "type": "text", "id": "badge", "label": "Selo", "default": "" }
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>" },
+        { "type": "text", "id": "badge", "label": "Selo", "default": "Homologação e Diretrizes de Proteção Civil UE" }
       ]
     },
     {
@@ -154,30 +175,32 @@
       {
         "type": "brand",
         "settings": {
-          "text": "<p>Kits e produtos de preparação para pessoas, famílias e idosos.</p>"
+          "text": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>",
+          "badge": "Homologação e Diretrizes de Proteção Civil UE"
         }
       },
       {
         "type": "text",
         "settings": {
-          "heading": "Loja",
-          "text": "<ul><li><a href=\"/collections/all\">Todos os kits</a></li><li><a href=\"/#para-quem\">Para quem</a></li><li><a href=\"/#situacoes\">Situações</a></li></ul>"
+          "heading": "Centros Operacionais",
+          "text": "<p><strong>Pólo Logístico Lisboa:</strong><br/>Av. do Forte, Parque Empresarial do Tejo, Carnaxide, Portugal</p><p><strong>Pólo Madrid (Ibéria Central):</strong><br/>Polígono Industrial Coslada, Madrid, Espanha</p>",
+          "note": "Linha de Emergência & Despacho: +351 210 990 088"
         }
       },
       {
         "type": "text",
         "settings": {
-          "heading": "Ajuda",
-          "text": "<ul><li><a href=\"/pages/guia-de-preparacao\">Guia de preparação</a></li><li><a href=\"/policies/shipping-policy\">Envios e devoluções</a></li><li><a href=\"/pages/contact\">Contacto</a></li></ul>"
+          "heading": "Garantias de Aquisição",
+          "text": "<ul><li>Despacho Expresso em caixa neutra blindada</li><li>Manuais físicos em Português e Espanhol</li><li>Validade de 5 a 25 anos em rações e filtros</li><li>Devolução sem questões em 30 dias</li></ul>"
         }
       },
       {
         "type": "payments",
         "settings": {
-          "heading": "Pagamentos",
-          "text": "Pagamentos seguros · Envio para Portugal e Europa",
-          "methods": "",
-          "note": ""
+          "heading": "Métodos de Pagamento Seguros",
+          "text": "Transações cifradas e liquidação imediata ibérica:",
+          "methods": "MB WAY, Multibanco, Bizum, Visa / MC",
+          "note": "SSL 256-bit • Protocolo 3D Secure 2.0"
         }
       }
     ]

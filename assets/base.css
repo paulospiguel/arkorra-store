@@ -418,6 +418,13 @@ body.ark-shell {
   }
 }
 
+/* `.ark a { color: inherit }` (0,1,1) beats `.ark-button` (0,1,0), so anchor
+   buttons inherited the parent colour (navy text on navy fill). Match it. */
+.ark .ark-button,
+.ark .ark-button:hover {
+  color: var(--ark-button-fg);
+}
+
 /* Primary: #0b1e2d / #07141f */
 .ark-button--primary,
 .ark-button--pine {
