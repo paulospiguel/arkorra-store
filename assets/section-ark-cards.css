@@ -136,7 +136,7 @@
 .ark-cards--dark .ark-card__cta { color: var(--ark-terracotta); }
 
 /* Steps */
-.ark-steps__list {
+.ark .ark-steps__list {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
