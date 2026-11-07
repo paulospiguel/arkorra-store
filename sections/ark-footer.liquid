@@ -52,17 +52,38 @@
                 {%- if block.settings.text != blank -%}
                   <p class="ark-footer__text">{{ block.settings.text }}</p>
                 {%- endif -%}
-                {%- assign methods = block.settings.methods | split: ',' -%}
-                <ul class="ark-footer__payments">
+                {%- assign methods = block.settings.methods | replace: '/', ',' | split: ',' -%}
+                <ul class="ark-footer__payments" aria-label="{{ block.settings.heading | escape }}">
                   {%- for method in methods -%}
                     {%- assign m = method | strip -%}
+                    {%- assign key = m | downcase | replace: ' ', '' | replace: '_', '' -%}
+                    {%- assign pay_type = blank -%}
+                    {%- case key -%}
+                      {%- when 'visa' -%}{%- assign pay_type = 'visa' -%}
+                      {%- when 'mc', 'mastercard', 'master' -%}{%- assign pay_type = 'master' -%}
+                      {%- when 'maestro' -%}{%- assign pay_type = 'maestro' -%}
+                      {%- when 'americanexpress', 'amex' -%}{%- assign pay_type = 'american_express' -%}
+                      {%- when 'mbway' -%}{%- assign pay_type = 'mbway' -%}
+                      {%- when 'multibanco' -%}{%- assign pay_type = 'multibanco' -%}
+                      {%- when 'bizum' -%}{%- assign pay_type = 'bizum' -%}
+                      {%- when 'paypal' -%}{%- assign pay_type = 'paypal' -%}
+                      {%- when 'applepay' -%}{%- assign pay_type = 'apple_pay' -%}
+                      {%- when 'googlepay' -%}{%- assign pay_type = 'google_pay' -%}
+                    {%- endcase -%}
                     {%- if m != blank -%}
-                      <li class="ark-footer__payment">{{ m }}</li>
+                      {%- if pay_type != blank -%}
+                        <li class="ark-footer__payment ark-footer__payment--icon">{{ pay_type | payment_type_svg_tag: class: 'ark-footer__payment-icon' }}</li>
+                      {%- else -%}
+                        <li class="ark-footer__payment">{{ m }}</li>
+                      {%- endif -%}
                     {%- endif -%}
                   {%- endfor -%}
                 </ul>
                 {%- if block.settings.note != blank -%}
-                  <p class="ark-footer__fineprint">{{ block.settings.note }}</p>
+                  <p class="ark-footer__fineprint">
+                    <span class="ark-icon" aria-hidden="true">lock</span>
+                    {{ block.settings.note }}
+                  </p>
                 {%- endif -%}
             {%- endcase -%}
           </div>
