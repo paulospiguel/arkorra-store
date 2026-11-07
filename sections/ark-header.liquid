@@ -176,6 +176,9 @@
     if (!header) return;
     const drawer = header.querySelector('[data-ark-drawer]');
     const close = header.querySelector('[data-ark-drawer-close]');
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     if (!drawer) return;
     close && close.addEventListener('click', () => drawer.removeAttribute('open'));
     drawer.addEventListener('toggle', () => {

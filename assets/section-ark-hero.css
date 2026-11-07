@@ -90,3 +90,12 @@
   object-fit: cover;
   border-radius: 1.5rem;
 }
+
+/* Secondary CTA reads as a link on small screens so the main action leads */
+@media (max-width: 639px) {
+  .ark .ark-hero__cta-secondary {
+    --ark-button-border: transparent;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+}
