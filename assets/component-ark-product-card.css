@@ -6,7 +6,7 @@
   justify-content: space-between;
   gap: var(--ark-space-md);
   padding: var(--ark-space-md);
-  border: 1px solid rgb(196 199 196 / 0.45);
+  border: 1px solid rgb(203 213 225 / 0.45);
   border-radius: var(--ark-radius-xl);
   background: var(--ark-surface-low);
   box-shadow: var(--ark-shadow-sm);
@@ -99,7 +99,7 @@
   flex-direction: column;
   gap: var(--ark-space-sm);
   padding-top: var(--ark-space-sm);
-  border-top: 1px solid rgb(196 199 196 / 0.35);
+  border-top: 1px solid rgb(203 213 225 / 0.35);
 }
 
 .ark-product-card__price-row {

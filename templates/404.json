@@ -1,1 +1,35 @@
-{"sections":{"main":{"type":"nov-page404","settings":{"background_color":"#ffffff","title":"Page Not found","color_title":"#0d2235","fz_title":"3rem","subheading":"We’re sorry — something has gone wrong on our end.","color_sub":"#232630","fz_sub":"2.2rem","button_back_to_home":true,"bg_back_to_home":"#e9ebeb","bg_back_hv":"#0d2235","button_continue_shopping":true,"bg_continue_shopping":"#e9ebeb","bg_continue_shopping_hv":"#0d2235","image":"shopify:\/\/shop_images\/404-sleep-cat.gif"}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-page404",
+      "settings": {
+        "background_color": "#ffffff",
+        "title": "Page Not found",
+        "color_title": "#0d2235",
+        "fz_title": "3rem",
+        "subheading": "We’re sorry — something has gone wrong on our end.",
+        "color_sub": "#232630",
+        "fz_sub": "2.2rem",
+        "button_back_to_home": true,
+        "bg_back_to_home": "#e9ebeb",
+        "bg_back_hv": "#0d2235",
+        "button_continue_shopping": true,
+        "bg_continue_shopping": "#e9ebeb",
+        "bg_continue_shopping_hv": "#0d2235",
+        "image": "shopify://shop_images/404-sleep-cat.gif"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

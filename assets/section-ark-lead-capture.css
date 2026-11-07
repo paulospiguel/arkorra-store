@@ -22,7 +22,7 @@
     width: 24rem;
     height: 24rem;
     border-radius: 50%;
-    background: rgb(217 107 39 / 0.16);
+    background: rgb(255 122 0 / 0.16);
     filter: blur(48px);
     pointer-events: none;
   }

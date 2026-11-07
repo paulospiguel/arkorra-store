@@ -1,0 +1,97 @@
+{{ 'section-ark-cards.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+
+<section class="ark ark-cards ark-cards--{{ s.tone }}"{% if s.anchor != blank %} id="{{ s.anchor }}"{% endif %}>
+  <div class="ark-page-width">
+    <header class="ark-cards__head">
+      {%- if s.eyebrow != blank -%}
+        <p class="ark-cards__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="ark-cards__title">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.text != blank -%}
+        <p class="ark-cards__lead">{{ s.text }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ark-cards__grid">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- assign points = b.points | split: ';' -%}
+          <li class="ark-card" {{ block.shopify_attributes }}>
+            <div class="ark-card__head">
+              <span class="ark-card__icon"><span class="ark-icon" aria-hidden="true">{{ b.icon }}</span></span>
+              <h3 class="ark-card__title">{{ b.title }}</h3>
+            </div>
+            {%- if b.text != blank -%}
+              <p class="ark-card__text">{{ b.text }}</p>
+            {%- endif -%}
+            {%- if b.points_label != blank -%}
+              <p class="ark-card__label">{{ b.points_label }}</p>
+            {%- endif -%}
+            {%- if points.size > 0 and points[0] != blank -%}
+              <ul class="ark-card__points">
+                {%- for point in points -%}
+                  <li><span class="ark-icon" aria-hidden="true">check</span>{{ point | strip }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if b.cta_label != blank -%}
+              <a href="{{ b.cta_link | default: routes.all_products_collection_url }}" class="ark-card__cta">
+                {{ b.cta_label }}
+                <span class="ark-icon" aria-hidden="true">arrow_forward</span>
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Cartões",
+  "tag": "div",
+  "class": "ark-cards-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "tone", "label": "Fundo", "default": "light", "options": [
+      { "value": "light", "label": "Claro" },
+      { "value": "dark", "label": "Escuro (navy)" }
+    ] },
+    { "type": "text", "id": "anchor", "label": "Âncora (id)", "info": "Ex.: para-quem, situacoes." },
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Começa por quem vais proteger" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Cada casa é diferente. Escolhe o teu agregado e vê só o que faz sentido para ti." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Cartão",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "person", "info": "Ver lista em snippets/ark-head.liquid." },
+        { "type": "text", "id": "title", "label": "Título", "default": "Para ti" },
+        { "type": "textarea", "id": "text", "label": "Texto" },
+        { "type": "text", "id": "points_label", "label": "Etiqueta da lista" },
+        { "type": "textarea", "id": "points", "label": "Pontos (separados por ponto e vírgula)" },
+        { "type": "text", "id": "cta_label", "label": "Texto da ligação" },
+        { "type": "url", "id": "cta_link", "label": "Ligação" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arkorra - Cartões",
+      "blocks": [
+        { "type": "card", "settings": { "icon": "person", "title": "Para ti", "text": "O essencial para quem vive sozinho ou em casal, sem excessos.", "points": "Kits compactos, fáceis de guardar; Luz, água, comunicação e primeiros socorros", "cta_label": "Ver kits para pessoas" } },
+        { "type": "card", "settings": { "icon": "group", "title": "Para famílias", "text": "Quantidades pensadas para 3 a 5 pessoas, com atenção às crianças.", "points": "Reservas de água e alimentos; Itens para bebés e crianças", "cta_label": "Ver kits para famílias" } },
+        { "type": "card", "settings": { "icon": "favorite", "title": "Para idosos", "text": "Fácil de usar, fácil de ler, sem dependência de ninguém.", "points": "Guia em letra grande; Organizador de medicação", "cta_label": "Ver kits para idosos" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

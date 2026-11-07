@@ -1,62 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "ark-hero",
       "blocks": {
-        "bullet_1": {
-          "type": "bullet",
+        "check_1": {
+          "type": "check",
           "settings": {
-            "icon": "timer",
-            "title": "Zero Configuração",
-            "subtitle": "Ativação em < 90 seg"
+            "text": "Pensado para 72 horas"
           }
         },
-        "bullet_2": {
-          "type": "bullet",
+        "check_2": {
+          "type": "check",
           "settings": {
-            "icon": "menu_book",
-            "title": "Manual Físico",
-            "subtitle": "Em Português & Espanhol"
+            "text": "Sem jargão, sem alarmismo"
           }
         },
-        "bullet_3": {
-          "type": "bullet",
+        "check_3": {
+          "type": "check",
           "settings": {
-            "icon": "local_shipping",
-            "title": "Entrega 24 Horas",
-            "subtitle": "Envio seguro sem alfândega"
+            "text": "Guia de utilização em cada kit"
           }
         }
       },
       "block_order": [
-        "bullet_1",
-        "bullet_2",
-        "bullet_3"
+        "check_1",
+        "check_2",
+        "check_3"
       ],
       "settings": {
-        "badge_primary": "Diretriz Civil Europeia EN-72H",
-        "badge_secondary": "Sistemas Pré-Testados Sem Montagem",
-        "heading": "Apagões, intempéries ou falhas de rede: a sua família tem autonomia para as primeiras 72 horas?",
-        "text": "Sistemas domésticos de autossuficiência e socorro imediato concebidos para lares ibéricos. Equipamento técnico sem estética militarista, pronto a utilizar por qualquer geração da família.",
-        "cta_label": "Explorar Kits Homologados",
+        "eyebrow": "PREPARAÇÃO PARA A TUA CASA",
+        "heading": "Preparados hoje.\nTranquilos amanhã.",
+        "text": "Kits de emergência e produtos essenciais para apagões, alertas de segurança e situações de emergência. Simples de escolher, pensados para pessoas, famílias e idosos.",
+        "cta_label": "Escolher o meu kit",
         "cta_link": "#catalogo",
-        "cta2_label": "Guia de Sobrevivência 72h Grátis",
-        "cta2_link": "#guia",
-        "proof_avatars": "PT, ES, UE",
-        "proof_text": "<p>Mais de <strong>3.400 residências</strong> protegidas em Portugal e Espanha Continental.</p>",
-        "card_badge": "Lote Ibérico #04 • Apenas 3 unidades",
-        "rating_value": "4.96",
-        "rating_count": "184",
-        "rating_suffix": "avaliações",
-        "card_overlay": "Autonomia Energética & Hídrica",
-        "card_title": "Kit Família 72 Horas Pro",
-        "card_price": "189,00 €",
-        "card_compare": "229,00 €",
-        "card_text": "Desenvolvido para 3 a 4 pessoas. Inclui rádio dínamo com alertas de proteção civil, purificação de 100L de água, kit trauma e manta térmica dupla.",
-        "card_specs": "3-4 Pessoas, Validade Rações: 2045, À Prova de Água IP67",
-        "card_cta": "Garantir Unidade do Lote 04",
-        "success_label": "Adicionado!",
-        "card_shipping": "Expedição hoje garantida para pedidos até às 17h00"
+        "cta2_label": "Fazer o plano em 2 minutos",
+        "cta2_link": "/pages/guia-de-preparacao"
       }
     },
     "trust_bar": {
@@ -65,37 +52,37 @@
         "item_1": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "warehouse",
-            "title": "Armazém Ibérico",
-            "text": "Expedição a partir de Lisboa e Madrid. Sem taxas alfandegárias nem retenções.",
-            "tone": "primary"
+            "icon": "local_shipping",
+            "tone": "primary",
+            "title": "Envio para Portugal e Europa",
+            "text": ""
           }
         },
         "item_2": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "task_alt",
-            "title": "Pronto a Usar",
-            "text": "Equipamentos inspecionados, baterias carregadas a 100% e selados hermeticamente.",
-            "tone": "secondary"
+            "icon": "lock",
+            "tone": "primary",
+            "title": "Pagamento seguro",
+            "text": ""
           }
         },
         "item_3": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "import_contacts",
-            "title": "Guia Físico PT / ES",
-            "text": "Manual plastificado com diagramas claros para idosos e crianças sem jargão técnico.",
-            "tone": "tertiary"
+            "icon": "published_with_changes",
+            "tone": "primary",
+            "title": "14 dias para devolver",
+            "text": ""
           }
         },
         "item_4": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "shield_lock",
-            "title": "Pagamento Seguro",
-            "text": "Liquidação instantânea via MB WAY, Multibanco, Bizum, Visa e Mastercard.",
-            "tone": "primary"
+            "icon": "support_agent",
+            "tone": "primary",
+            "title": "Apoio em português",
+            "text": ""
           }
         }
       },
@@ -107,55 +94,178 @@
       ],
       "settings": {}
     },
+    "audiences": {
+      "type": "ark-card-grid",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "person",
+            "title": "Para ti",
+            "text": "O essencial para quem vive sozinho ou em casal, sem excessos.",
+            "points": "Kits compactos, fáceis de guardar; Luz, água, comunicação e primeiros socorros; Mochila pronta para sair, se for preciso",
+            "cta_label": "Ver kits para pessoas"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "group",
+            "title": "Para famílias",
+            "text": "Quantidades pensadas para 3 a 5 pessoas, com atenção às crianças.",
+            "points": "Reservas de água e alimentos para toda a família; Itens para bebés e crianças; Plano familiar simples de imprimir",
+            "cta_label": "Ver kits para famílias"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "favorite",
+            "title": "Para idosos",
+            "text": "Fácil de usar, fácil de ler, sem dependência de ninguém.",
+            "points": "Guia em letra grande; Organizador de medicação e lista de contactos; Lanterna de manuseamento simples",
+            "cta_label": "Ver kits para idosos"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "tone": "light",
+        "anchor": "para-quem",
+        "heading": "Começa por quem vais proteger",
+        "text": "Cada casa é diferente. Escolhe o teu agregado e vê só o que faz sentido para ti."
+      }
+    },
+    "scenarios": {
+      "type": "ark-card-grid",
+      "blocks": {
+        "s1": {
+          "type": "card",
+          "settings": {
+            "icon": "bolt",
+            "title": "Apagão",
+            "text": "Luz, comunicação e água para as primeiras 72 horas.",
+            "points": "Lanternas e pilhas; Rádio a pilhas ou manivela; Carregador portátil",
+            "cta_label": "Ver checklist completa",
+            "points_label": "O que precisas",
+            "cta_link": "/pages/guia-de-preparacao"
+          }
+        },
+        "s2": {
+          "type": "card",
+          "settings": {
+            "icon": "shield",
+            "title": "Alerta de segurança",
+            "text": "Ficar em casa com calma e bem informado.",
+            "points": "Rádio para ouvir avisos oficiais; Água e alimentos de longa duração; Kit de primeiros socorros",
+            "cta_label": "Ver checklist completa",
+            "points_label": "O que precisas",
+            "cta_link": "/pages/guia-de-preparacao"
+          }
+        },
+        "s3": {
+          "type": "card",
+          "settings": {
+            "icon": "home",
+            "title": "Estado de emergência",
+            "text": "Mochila pronta, caso seja preciso sair de casa.",
+            "points": "Mochila de evacuação; Documentos em bolsa impermeável; Medicação essencial",
+            "cta_label": "Ver checklist completa",
+            "points_label": "O que precisas",
+            "cta_link": "/pages/guia-de-preparacao"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "tone": "dark",
+        "anchor": "situacoes",
+        "eyebrow": "SITUAÇÕES",
+        "heading": "Sabe o que fazer. Tem o que precisas.",
+        "text": "Três cenários, três checklists claras. Sem alarmismo, só preparação."
+      }
+    },
     "catalog": {
       "type": "ark-featured-collection",
       "blocks": {
         "card_1": {
           "type": "card",
           "settings": {
-            "image_asset": "ark-placeholder-familia.jpg",
-            "badge": "Mais Vendido",
-            "corner": "3-4 Pessoas",
-            "meta": "Residência Principal • 72h",
-            "title": "Kit Família 72 Horas Pro",
-            "excerpt": "Comunicação contínua sem energia, filtragem hídrica avançada e suprimentos alimentares desidratados.",
-            "price": "189,00 €"
+            "image_asset": "ark-placeholder-radio.jpg",
+            "badge": "Para pessoas",
+            "corner": "",
+            "meta": "",
+            "title": "Kit Apagão Essencial",
+            "excerpt": "Luz, rádio e energia para as primeiras horas sem eletricidade.",
+            "price": ""
           }
         },
         "card_2": {
           "type": "card",
           "settings": {
             "image_asset": "ark-placeholder-senior.jpg",
-            "badge": "Linha Sénior",
-            "corner": "2 Pessoas",
-            "meta": "Acessibilidade Máxima",
-            "title": "Kit Sénior & Cuidado Fácil",
-            "excerpt": "Botões grandes, luz difusa de segurança automática e compartimento isotérmico para medicação essencial.",
-            "price": "129,00 €"
+            "badge": "Para casais",
+            "corner": "",
+            "meta": "",
+            "title": "Kit Casa 72h · 2 pessoas",
+            "excerpt": "Água, alimentos, luz e primeiros socorros para 3 dias.",
+            "price": ""
           }
         },
         "card_3": {
           "type": "card",
           "settings": {
-            "image_asset": "ark-placeholder-veiculo.jpg",
-            "badge": "Estrada & Viagem",
-            "corner": "Mobilidade",
-            "meta": "Veículo & Evacuação",
-            "title": "Kit Veículo & Deslocação",
-            "excerpt": "Ideal para isolamento em estradas e intempéries na serra. Mala compacta anti-choque para porta-bagagens.",
-            "price": "89,00 €"
+            "image_asset": "ark-placeholder-familia.jpg",
+            "badge": "Para famílias",
+            "corner": "",
+            "meta": "",
+            "title": "Kit Família 72h · 4 pessoas",
+            "excerpt": "A caixa completa para toda a família, com guia e checklist.",
+            "price": ""
           }
         },
         "card_4": {
           "type": "card",
           "settings": {
-            "image_asset": "ark-placeholder-radio.jpg",
-            "badge": "Essencial Apagão",
-            "corner": "AM/FM/SW",
-            "meta": "Energia Autónoma",
-            "title": "Rádio Dínamo Solar SOS",
-            "excerpt": "Receptor de boletins oficiais de proteção civil e powerbank integrado para carregamento de telemóveis.",
-            "price": "39,90 €"
+            "image_asset": "ark-placeholder-senior.jpg",
+            "badge": "Para idosos",
+            "corner": "",
+            "meta": "",
+            "title": "Kit Sénior Tranquilo",
+            "excerpt": "Simples de usar, com guia em letra grande e organizador de medicação.",
+            "price": ""
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-veiculo.jpg",
+            "badge": "Evacuação",
+            "corner": "",
+            "meta": "",
+            "title": "Mochila de Evacuação",
+            "excerpt": "Mochila pronta para sair em poucos minutos.",
+            "price": ""
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "image_asset": "ark-placeholder-hero.jpg",
+            "badge": "Casa",
+            "corner": "",
+            "meta": "",
+            "title": "Kit Primeiros Socorros",
+            "excerpt": "Material essencial para pequenos acidentes em casa.",
+            "price": ""
           }
         }
       },
@@ -163,189 +273,86 @@
         "card_1",
         "card_2",
         "card_3",
-        "card_4"
+        "card_4",
+        "card_5",
+        "card_6"
       ],
       "settings": {
-        "eyebrow": "Catálogo Oficial de Contingência",
-        "heading": "Kits de Autonomia Familiar 72 Horas",
-        "text": "Projetados segundo as diretivas da Direção-Geral de Emergência e Proteção Civil para assegurar água potável, telecomunicações analógicas e socorros vitais.",
-        "products_to_show": 4,
-        "filter_label": "Filtro de Aplicação:",
-        "filter_value": "Todos os Equipamentos",
+        "eyebrow": "",
+        "heading": "Kits prontos a usar",
+        "text": "Tudo o que precisas numa só caixa, com guia de utilização. Compra, guarda e fica descansado.",
+        "products_to_show": 6,
+        "filter_label": "",
+        "filter_value": "Ver todos os kits",
         "cta_label": "Adicionar ao Carrinho",
         "options_label": "Ver Opções",
         "success_label": "Adicionado!"
       }
     },
-    "protocol": {
-      "type": "ark-protocol-72h",
+    "steps": {
+      "type": "ark-steps",
       "blocks": {
-        "phase_1": {
-          "type": "phase",
+        "p1": {
+          "type": "step",
           "settings": {
-            "window": "0h — 12h • Fase de Choque",
-            "title": "Corte Imediato de Redes",
-            "text": "Sem eletricidade, sem multibancos operacionais e falha nas antenas 4G/5G. Apenas rádio analógico funciona para obter instruções das autoridades.",
-            "icon": "downloading",
-            "solution": "Rádio Dínamo + Iluminação 360°"
+            "title": "Escolhe o kit",
+            "text": "Seleciona pelo número de pessoas e pelas necessidades de cada uma."
           }
         },
-        "phase_2": {
-          "type": "phase",
+        "p2": {
+          "type": "step",
           "settings": {
-            "window": "12h — 36h • Esgotamento Hídrico",
-            "title": "Quebra de Pressão na Água",
-            "text": "As estações elevatórias municipais param sem geradores. O acesso a água não tratada obriga à microfiltração e purificação imediata.",
-            "icon": "water_bottle",
-            "solution": "Purificação 0.1 mícron + Eletrólitos"
+            "title": "Guarda num sítio acessível",
+            "text": "Num armário perto da porta, fácil de encontrar mesmo às escuras."
           }
         },
-        "phase_3": {
-          "type": "phase",
+        "p3": {
+          "type": "step",
           "settings": {
-            "window": "36h — 72h • Resgate & Apoio",
-            "title": "Triagem e Apoio Externo",
-            "text": "Proteção Civil prioriza hospitais e idosos institucionalizados. A sua habitação deve permanecer 100% autossuficiente até à reposição geral.",
-            "icon": "health_and_safety",
-            "solution": "Primeiros Socorros + Manta Térmica"
-          }
-        },
-        "pillar_1": {
-          "type": "pillar",
-          "settings": {
-            "icon": "radio",
-            "title": "Comunicação",
-            "subtitle": "Rádio FM/AM & SOS"
-          }
-        },
-        "pillar_2": {
-          "type": "pillar",
-          "settings": {
-            "icon": "water_drop",
-            "title": "Hidratação",
-            "subtitle": "Pastilhas + Filtro"
-          }
-        },
-        "pillar_3": {
-          "type": "pillar",
-          "settings": {
-            "icon": "medical_services",
-            "title": "Socorros",
-            "subtitle": "Trauma e medicação"
-          }
-        },
-        "pillar_4": {
-          "type": "pillar",
-          "settings": {
-            "icon": "device_thermostat",
-            "title": "Termorregulação",
-            "subtitle": "Mantas Mylar 90%"
-          }
-        },
-        "pillar_5": {
-          "type": "pillar",
-          "settings": {
-            "icon": "flash_on",
-            "title": "Energia",
-            "subtitle": "Painel Solar & USB"
-          }
-        },
-        "pillar_6": {
-          "type": "pillar",
-          "settings": {
-            "icon": "description",
-            "title": "Documentos",
-            "subtitle": "Bolsa estanque"
+            "title": "Revê duas vezes por ano",
+            "text": "Confirma validades de alimentos, pilhas e medicamentos."
           }
         }
       },
       "block_order": [
-        "phase_1",
-        "phase_2",
-        "phase_3",
-        "pillar_1",
-        "pillar_2",
-        "pillar_3",
-        "pillar_4",
-        "pillar_5",
-        "pillar_6"
+        "p1",
+        "p2",
+        "p3"
       ],
       "settings": {
-        "eyebrow": "Metodologia Técnica & Resiliência Civil",
-        "heading": "Por que 72 Horas? A Janela Crítica de Isolamento",
-        "text": "Em catástrofes naturais, apagões generalizados na rede ibérica ou colapsos de abastecimento, os meios de socorro demoram em média 3 dias a normalizar o apoio porta-a-porta.",
-        "pillars_heading": "Os 6 Pilares Essenciais Contidos em Cada Kit"
-      }
-    },
-    "testimonials": {
-      "type": "ark-testimonials",
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "quote": "Comprei o Kit Sénior para os meus pais que vivem numa aldeia perto de Braga. O rádio é incrivelmente simples e a lanterna acende só com um toque largo. Dá-me uma tranquilidade absoluta saber que têm isto na despensa.",
-            "author": "Marta Vasconcelos",
-            "location": "Braga, Portugal",
-            "tag": "Compra Verificada"
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "quote": "Excelente qualidade de fabrico. Longe daquelas coisas baratas de plástico militar. O rádio carrega mesmo o telemóvel à manivela sem esforço e o manual impresso em papel plastificado em português é exemplar.",
-            "author": "Carlos M. Figueira",
-            "location": "Évora, Portugal",
-            "tag": "Compra Verificada"
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "quote": "Vivo en la sierra de Guadarrama y cuando cae una nevada fuerte solemos quedarnos sin luz. El Kit Familia Pro nos salvó de un apuro el invierno pasado. El envío por Bizum fue instantáneo y llegó en 24h.",
-            "author": "Alejandro Gómez",
-            "location": "Madrid, España",
-            "tag": "Compra Verificada"
-          }
-        }
-      },
-      "block_order": [
-        "review_1",
-        "review_2",
-        "review_3"
-      ],
-      "settings": {
-        "eyebrow": "Testemunhos Reais de Lares Preparados",
-        "heading": "Confiança de Famílias em Toda a Península",
-        "badge": "Avaliações Verificadas por Terceiros Independentes"
+        "heading": "Preparar a casa em 3 passos"
       }
     },
     "lead_capture": {
       "type": "ark-lead-capture",
       "settings": {
-        "badge": "Edição Ibérica Gratuita • Atualização 2025",
-        "heading": "Baixe o Guia Oficial & Checklist de Contingência 72 Horas",
-        "text": "Um protocolo ilustrado de 28 páginas com os passos exatos para auditar a sua despensa, calcular a reserva de água por pessoa e manter crianças e seniores protegidos.",
-        "checks": "Formato PDF A4 Imprimível, Sem spam comercial, Em Português & Espanhol",
-        "form_heading": "Receba no seu e-mail",
-        "form_text": "O download do PDF é imediato após a confirmação:",
-        "name_label": "Nome Completo",
-        "name_placeholder": "Ex.: Maria Santos",
-        "email_label": "E-mail Principal",
-        "email_placeholder": "Ex.: maria.santos@email.com",
-        "button_label": "Descarregar Guia Gratuito",
-        "success_message": "O Guia de Contingência foi enviado com sucesso para a sua caixa de entrada!"
+        "badge": "Checklist gratuita",
+        "heading": "Recebe a checklist gratuita",
+        "text": "Um PDF simples, em letra grande, para imprimir e guardar com o teu kit. Enviamos também lembretes de validade.",
+        "checks": "Sem spam, Podes sair quando quiseres",
+        "form_heading": "O teu email",
+        "form_text": "Enviamos o PDF para a tua caixa de entrada:",
+        "name_label": "Nome",
+        "name_placeholder": "O teu nome",
+        "email_label": "O teu email",
+        "email_placeholder": "nome@exemplo.pt",
+        "button_label": "Receber a checklist",
+        "success_message": "A checklist foi enviada para o teu email."
       }
+    },
+    "about": {
+      "type": "ark-about",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "trust_bar",
+    "audiences",
+    "scenarios",
     "catalog",
-    "protocol",
-    "testimonials",
-    "lead_capture"
+    "steps",
+    "lead_capture",
+    "about"
   ]
 }
