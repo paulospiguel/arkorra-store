@@ -35,7 +35,7 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
           "publisher": { "@id": {{ shop.url | append: '#organization' | json }} },
           "potentialAction": {
             "@type": "SearchAction",
-            "target": {{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }},
+            "target": "{{ shop.url }}{{ routes.search_url }}?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
         }
