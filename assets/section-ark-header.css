@@ -532,3 +532,18 @@
     transition: none;
   }
 }
+
+/* Logo only: the artwork already carries the ARKORRA wordmark. It is navy on
+   white with no alpha channel, so it sits on a white chip instead of being
+   multiplied into the navy header and cropped. */
+.ark .ark-header__logo-img {
+  width: auto;
+  height: 3.25rem;
+  aspect-ratio: 4 / 3;
+  padding: 0.25rem;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-white);
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: normal;
+}
