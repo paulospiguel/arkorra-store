@@ -5,6 +5,8 @@
   assign logo_alt = section.settings.logo.alt | default: shop.name
   assign fallback_nav = section.settings.fallback_nav | split: ','
   assign use_fallback_nav = section.settings.use_fallback_nav
+  assign lang_uid = 'ArkLang-' | append: section.id
+  assign lang_uid_drawer = 'ArkLangDrawer-' | append: section.id
 -%}
 
 <header class="ark ark-header" data-section-id="{{ section.id }}">
@@ -40,6 +42,7 @@
             <input id="ArkSearchDrawer-{{ section.id }}" class="ark-header__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
             <input type="hidden" name="options[prefix]" value="last">
           </form>
+          {% render 'ark-language-selector', uid: lang_uid_drawer, variant: 'list' %}
           {%- if use_fallback_nav == false and menu.links.size > 0 -%}
             <ul class="ark-header__drawer-menu">
               {%- for link in menu.links -%}
@@ -95,20 +98,11 @@
       </form>
 
       <div class="ark-header__actions">
-        {%- if section.settings.locale_label != blank -%}
-          <span class="ark-label-btn ark-header__locale">
-            <span class="ark-icon" aria-hidden="true">language</span>
-            <span>{{ section.settings.locale_label }}</span>
-          </span>
-        {%- endif -%}
-
         <div class="ark-nav-pill" role="navigation" aria-label="Atalhos rápidos">
           <a href="{{ routes.root_url }}" class="ark-nav-pill__item{% if template.name == 'index' %} is-active{% endif %}" aria-label="Início" title="Início">
             <span class="ark-icon" aria-hidden="true">home</span>
           </a>
-          <a href="{{ routes.search_url }}" class="ark-nav-pill__item{% if template.name == 'search' %} is-active{% endif %}" aria-label="Pesquisar" title="Pesquisar">
-            <span class="ark-icon" aria-hidden="true">search</span>
-          </a>
+          {% render 'ark-language-selector', uid: lang_uid %}
           <a href="{% if customer %}{{ routes.account_url }}{% elsif shop.customer_accounts_enabled %}{{ routes.account_login_url }}{% else %}/pages/contact{% endif %}" class="ark-nav-pill__item" aria-label="{{ section.settings.account_label }}" title="{{ section.settings.account_label }}">
             <span class="ark-icon" aria-hidden="true">person</span>
           </a>
@@ -178,6 +172,23 @@
     const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* Language dropdown: close on outside click and on Escape (focus returns to the flag). */
+    const langMenus = header.querySelectorAll('[data-ark-lang]');
+    document.addEventListener('click', (e) => {
+      langMenus.forEach((menu) => {
+        if (menu.open && !menu.contains(e.target)) menu.removeAttribute('open');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      langMenus.forEach((menu) => {
+        if (!menu.open) return;
+        menu.removeAttribute('open');
+        const toggle = menu.querySelector('summary');
+        toggle && toggle.focus();
+      });
+    });
     if (!drawer) return;
     const summary = drawer.querySelector('summary');
     const panel = drawer.querySelector('.ark-header__drawer-panel');
@@ -237,7 +248,6 @@
     { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits 72h, rádios, lanternas, filtros..." },
     { "type": "text", "id": "shipping_note", "label": "Nota de expedição", "default": "Envio Hoje até às 17h" },
     { "type": "header", "content": "Ações" },
-    { "type": "text", "id": "locale_label", "label": "Etiqueta de região/moeda", "default": "PT / ES (EUR)" },
     { "type": "text", "id": "support_label", "label": "Etiqueta de apoio", "default": "Apoio Técnico Online" },
     { "type": "url", "id": "support_link", "label": "Link de apoio" },
     { "type": "text", "id": "account_label", "label": "Etiqueta da conta", "default": "Minha Conta" },

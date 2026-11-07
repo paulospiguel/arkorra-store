@@ -1,0 +1,46 @@
+{%- doc -%}
+  Language selector built on Shopify's localization form. Every option is a
+  submit button, so switching works without JavaScript. The current language is
+  shown as its flag.
+
+  @param {string} uid - unique id for the form (the header renders it twice)
+  @param {string} [variant] - 'dropdown' (default) or 'list' (always open, for the mobile drawer)
+{%- enddoc -%}
+{%- liquid
+  assign current = localization.language
+  assign current_first = current.endonym_name | slice: 0 | upcase
+  assign current_rest = current.endonym_name | slice: 1, 100
+  assign current_name = current_first | append: current_rest
+  assign variant = variant | default: 'dropdown'
+-%}
+{%- form 'localization', id: uid, class: 'ark-lang' -%}
+  {%- if variant == 'list' -%}
+    <p class="ark-lang__label">Idioma</p>
+  {%- else -%}
+    <details class="ark-lang__menu" data-ark-lang>
+      <summary class="ark-nav-pill__item ark-lang__toggle" aria-label="Idioma: {{ current_name }}" title="Idioma: {{ current_name }}">
+        {% render 'ark-flag', code: current.iso_code %}
+      </summary>
+  {%- endif -%}
+  <ul class="ark-lang__list{% if variant == 'list' %} ark-lang__list--inline{% endif %}">
+    {%- for language in localization.available_languages -%}
+      {%- assign name_first = language.endonym_name | slice: 0 | upcase -%}
+      {%- assign name_rest = language.endonym_name | slice: 1, 100 -%}
+      {%- assign is_current = false -%}
+      {%- if language.iso_code == current.iso_code -%}{%- assign is_current = true -%}{%- endif -%}
+      <li>
+        <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}" class="ark-lang__option{% if is_current %} is-active{% endif %}"{% if is_current %} aria-current="true"{% endif %}>
+          {% render 'ark-flag', code: language.iso_code %}
+          <span class="ark-lang__name">{{ name_first }}{{ name_rest }}</span>
+          {%- if is_current -%}
+            <span class="ark-icon ark-lang__check" aria-hidden="true">check</span>
+          {%- endif -%}
+        </button>
+      </li>
+    {%- endfor -%}
+  </ul>
+  {%- if variant != 'list' -%}
+    </details>
+  {%- endif -%}
+  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+{%- endform -%}
