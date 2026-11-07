@@ -1,0 +1,52 @@
+{
+  "name": "Rodapé",
+  "type": "footer",
+  "sections": {
+    "ark-footer": {
+      "type": "ark-footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {
+            "text": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>",
+            "badge": "Homologação e Diretrizes de Proteção Civil UE"
+          }
+        },
+        "centros": {
+          "type": "text",
+          "settings": {
+            "heading": "Centros Operacionais",
+            "text": "<p><strong>Pólo Logístico Lisboa:</strong><br/>Av. do Forte, Parque Empresarial do Tejo, Carnaxide, Portugal</p><p><strong>Pólo Madrid (Ibéria Central):</strong><br/>Polígono Industrial Coslada, Madrid, Espanha</p>",
+            "note": "Linha de Emergência & Despacho: +351 210 990 088"
+          }
+        },
+        "garantias": {
+          "type": "text",
+          "settings": {
+            "heading": "Garantias de Aquisição",
+            "text": "<ul><li>Despacho Expresso em caixa neutra blindada</li><li>Manuais físicos em Português e Espanhol</li><li>Validade de 5 a 25 anos em rações e filtros</li><li>Devolução sem questões em 30 dias</li></ul>"
+          }
+        },
+        "pagamentos": {
+          "type": "payments",
+          "settings": {
+            "heading": "Métodos de Pagamento Seguros",
+            "text": "Transações cifradas e liquidação imediata ibérica:",
+            "methods": "MB WAY, Multibanco, Bizum, Visa / MC",
+            "note": "SSL 256-bit • Protocolo 3D Secure 2.0"
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "centros",
+        "garantias",
+        "pagamentos"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "ark-footer"
+  ]
+}
