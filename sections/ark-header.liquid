@@ -7,6 +7,7 @@
   assign use_fallback_nav = section.settings.use_fallback_nav
   assign lang_uid = 'ArkLang-' | append: section.id
   assign lang_uid_drawer = 'ArkLangDrawer-' | append: section.id
+  assign lang_uid_mobile = 'ArkLangMobile-' | append: section.id
   assign lang_allowed = section.settings.languages | default: 'pt-PT, en'
 -%}
 
@@ -99,6 +100,9 @@
       </form>
 
       <div class="ark-header__actions">
+        <div class="ark-header__lang-mobile">
+          {% render 'ark-language-selector', uid: lang_uid_mobile, allowed: lang_allowed %}
+        </div>
         <div class="ark-nav-pill" role="navigation" aria-label="Atalhos rápidos">
           <a href="{{ routes.root_url }}" class="ark-nav-pill__item{% if template.name == 'index' %} is-active{% endif %}" aria-label="Início" title="Início">
             <span class="ark-icon" aria-hidden="true">home</span>
