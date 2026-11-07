@@ -12,7 +12,63 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names={{ ark_icon_names }}&display=block">
 {{ 'base.css' | asset_url | stylesheet_tag }}
-{% render 'ark-structured-data' %}
+{%- if settings.ark_structured_data -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": {{ shop.url | append: '#organization' | json }},
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }}
+          {%- if settings.favicon != blank -%}
+            , "logo": {{ settings.favicon | image_url: width: 512 | prepend: 'https:' | json }}
+          {%- endif -%}
+        },
+        {
+          "@type": "WebSite",
+          "@id": {{ shop.url | append: '#website' | json }},
+          "url": {{ shop.url | json }},
+          "name": {{ shop.name | json }},
+          "inLanguage": {{ request.locale.iso_code | json }},
+          "publisher": { "@id": {{ shop.url | append: '#organization' | json }} },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }},
+            "query-input": "required name=search_term_string"
+          }
+        }
+        {%- if template.name == 'collection' and collection != blank -%}
+          ,
+          {
+            "@type": "CollectionPage",
+            "name": {{ collection.title | json }},
+            "url": {{ shop.url | append: collection.url | json }},
+            "description": {{ collection.description | strip_html | truncate: 300 | json }},
+            "mainEntity": {
+              "@type": "ItemList",
+              "numberOfItems": {{ collection.products_count | default: 0 }},
+              "itemListElement": [
+                {%- for p in collection.products limit: 12 -%}
+                  {
+                    "@type": "ListItem",
+                    "position": {{ forloop.index }},
+                    "url": {{ shop.url | append: p.url | json }},
+                    "name": {{ p.title | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            }
+          }
+        {%- endif -%}
+      ]
+    }
+  </script>
+  {%- if template.name == 'product' and product != blank -%}
+    {{ product | structured_data }}
+  {%- endif -%}
+{%- endif -%}
 {% style %}
   :root {
     --ark-pine-deep: {{ settings.ark_color_primary | default: '#1E3A34' }};
