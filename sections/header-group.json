@@ -1,0 +1,13 @@
+{
+  "name": "Cabeçalho",
+  "type": "header",
+  "sections": {
+    "ark-header": {
+      "type": "ark-header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "ark-header"
+  ]
+}

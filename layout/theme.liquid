@@ -40,21 +40,21 @@
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
-    {% include 'social-meta-tags' %}
+    {% render 'social-meta-tags' %}
     {{ content_for_header }}
     {% render 'judgeme_core' %}
-    {% include 'css-variables' %}
+    {% render 'css-variables' %}
     {%- assign is_arkorra_shell = true -%}
     {%- assign needs_legacy_css = false -%}
     {%- unless template.name == 'index' or template.name == 'product' or template.name == 'collection' -%}
       {%- assign needs_legacy_css = true -%}
     {%- endunless -%}
     {%- if needs_legacy_css -%}
-      {% include 'nov-head-css' %}
+      {% render 'nov-head-css' %}
     {%- endif -%}
     {% render 'ark-head' %}
     {%- if needs_legacy_css -%}
-      {% include 'nov-head-js' %}
+      {% render 'nov-head-js' %}
       {% render 'variant-options' %}
       <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
@@ -63,7 +63,7 @@
   <body class="template-{{ template | split: '.' | first }}{% if is_arkorra_shell %} ark-shell{% endif %}">
     <a class="in-page-link hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
     {%- if is_arkorra_shell -%}
-      {% section 'ark-header' %}
+      {% sections 'header-group' %}
     {%- else -%}
       {% section 'nov-promotion-bar' %}
       {% section 'nov-header' %}
@@ -72,7 +72,7 @@
       {{ content_for_layout }}
     </main>
     {%- if is_arkorra_shell -%}
-      {% section 'ark-footer' %}
+      {% sections 'footer-group' %}
     {%- else -%}
       {% section 'nov-footer' %}
       <div class="sidebar-overlay"></div>
