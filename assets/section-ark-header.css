@@ -717,3 +717,41 @@ html {
     border-color: var(--ark-pine-deep);
   }
 }
+
+/* Mobile: the quick-links pill is hidden below 768px, so the language control
+   gets its own place in the header bar (flag, or flag + dropdown). */
+.ark-header__lang-mobile {
+  display: flex;
+  align-items: center;
+  padding: calc(0.25 * var(--ark-rem));
+  border-radius: 999px;
+  background: var(--ark-primary-600);
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  /* Nothing rendered (no allowed language enabled): do not leave an empty pill. */
+  &:not(:has(*)) {
+    display: none;
+  }
+}
+
+/* Mobile dropdown: the flag sits mid-bar, so a panel aligned to the flag would
+   spill off the left edge. Anchor it to the header bar and the page margin. */
+@media (max-width: 767px) {
+  .ark-header__main {
+    position: relative;
+  }
+
+  .ark-header__lang-mobile .ark-lang,
+  .ark-header__lang-mobile .ark-lang__menu {
+    position: static;
+  }
+
+  .ark-header__lang-mobile .ark-lang__menu > .ark-lang__list {
+    top: calc(100% - 0.25 * var(--ark-rem));
+    right: var(--ark-margin);
+    max-width: calc(100vw - 2 * var(--ark-margin));
+  }
+}
