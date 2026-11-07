@@ -92,9 +92,8 @@ Renders an Arkorra product card following the Stitch Design System.
         {%- else -%}
           <span class="ark-stock ark-stock--out"><span class="ark-icon" aria-hidden="true">remove</span> Esgotado</span>
         {%- endif -%}
-      {%- else -%}
+      {%- elsif price_text != blank -%}
         <span class="ark-price">{{ price_text }}</span>
-        <span class="ark-stock"><span class="ark-icon" aria-hidden="true">check_circle</span> Em Stock</span>
       {%- endif -%}
     </div>
 
@@ -108,10 +107,10 @@ Renders an Arkorra product card following the Stitch Design System.
         <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
       {%- endform -%}
     {%- elsif product == blank -%}
-      <button type="button" class="ark-button ark-button--primary ark-button--sm ark-button--block" data-ark-demo-add data-success-label="{{ success_label }}">
-        <span class="ark-icon" aria-hidden="true">add_shopping_cart</span>
-        <span data-ark-button-label>{{ cta_label }}</span>
-      </button>
+      <a href="{{ url }}" class="ark-button ark-button--secondary ark-button--sm ark-button--block">
+        <span>{{ view_label | default: 'Ver kit' }}</span>
+        <span class="ark-icon" aria-hidden="true">arrow_forward</span>
+      </a>
     {%- else -%}
       <a href="{{ url }}" class="ark-button ark-button--secondary ark-button--sm ark-button--block">
         <span class="ark-icon" aria-hidden="true">{% if product.available %}add_shopping_cart{% else %}arrow_forward{% endif %}</span>

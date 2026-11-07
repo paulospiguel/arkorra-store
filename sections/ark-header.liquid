@@ -85,7 +85,6 @@
         {%- else -%}
           <img src="{{ 'logo-2.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="160" height="120" loading="eager">
         {%- endif -%}
-        <span class="ark-header__logo-wordmark">ARKORRA</span>
       </a>
 
       <form action="{{ routes.search_url }}" method="get" role="search" class="ark-header__search">
@@ -176,6 +175,9 @@
     if (!header) return;
     const drawer = header.querySelector('[data-ark-drawer]');
     const close = header.querySelector('[data-ark-drawer-close]');
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     if (!drawer) return;
     close && close.addEventListener('click', () => drawer.removeAttribute('open'));
     drawer.addEventListener('toggle', () => {

@@ -90,8 +90,26 @@
 .ark-footer__payments {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--ark-space-xs);
+  gap: 0.5rem;
   margin-top: var(--ark-space-xs);
+}
+
+/* Official payment marks (Shopify payment_type_svg_tag) on white tiles */
+.ark-footer__payment--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-white);
+  box-shadow: 0 1px 2px rgb(11 30 45 / 0.06);
+}
+
+.ark-footer__payment-icon {
+  display: block;
+  width: 2.375rem;
+  height: 1.5rem;
 }
 
 .ark-footer__payment {
@@ -106,9 +124,13 @@
 }
 
 .ark .ark-footer__fineprint {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   margin-top: var(--ark-space-xs);
+  --ark-icon-size: 1rem;
 }
 
 .ark-footer__bottom {

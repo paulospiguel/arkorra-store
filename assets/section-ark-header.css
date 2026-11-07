@@ -484,3 +484,66 @@
     color: var(--ark-neutral-100);
   }
 }
+
+/* ---------- UX critique fixes: mobile header + calmer alert bar ---------- */
+
+/* Drawer already holds menu + search on small screens; the quick-links pill
+   pushed the cart off-canvas at 375px. */
+.ark-nav-pill {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: inline-flex;
+  }
+}
+
+.ark-header__cart {
+  flex-shrink: 0;
+}
+
+/* Alert bar: compact on mobile, folds away once the visitor scrolls so the
+   sticky header stays slim. */
+.ark-header__announcement {
+  max-height: 8rem;
+  padding-block: 0.375rem;
+  transition: max-height 0.25s var(--ark-ease), padding 0.25s var(--ark-ease);
+
+  @media (min-width: 768px) {
+    padding-block: 0.5rem;
+  }
+}
+
+.ark .ark-header__announcement-text {
+  font-size: var(--ark-text-label-sm);
+  text-wrap: balance;
+
+  @media (min-width: 768px) {
+    font-size: var(--ark-text-label-md);
+  }
+}
+
+.ark-header.is-scrolled .ark-header__announcement {
+  max-height: 0;
+  padding-block: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark-header__announcement {
+    transition: none;
+  }
+}
+
+/* Logo only: the artwork already carries the ARKORRA wordmark. It is navy on
+   white with no alpha channel, so it sits on a white chip instead of being
+   multiplied into the navy header and cropped. */
+.ark .ark-header__logo-img {
+  width: auto;
+  height: 3.25rem;
+  aspect-ratio: 4 / 3;
+  padding: 0.25rem;
+  border-radius: var(--ark-radius-md);
+  background: var(--ark-white);
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: normal;
+}

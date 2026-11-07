@@ -113,5 +113,6 @@
     margin-top: var(--ark-space-xs);
     --ark-button-bg: var(--ark-terracotta);
     --ark-button-bg-hover: var(--ark-terracotta-hover);
+    --ark-button-fg: var(--ark-charcoal);
   }
 }
