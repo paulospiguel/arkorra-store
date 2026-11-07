@@ -3,7 +3,7 @@
 {%- liquid
   assign menu = linklists[section.settings.menu]
   assign logo_alt = section.settings.logo.alt | default: shop.name
-  assign fallback_nav = section.settings.fallback_nav | split: ','
+  assign fallback_nav = section.settings.fallback_nav | split: ';'
   assign use_fallback_nav = section.settings.use_fallback_nav
 -%}
 
@@ -66,7 +66,8 @@
           {%- elsif fallback_nav.size > 0 -%}
             <ul class="ark-header__drawer-menu">
               {%- for item in fallback_nav -%}
-                <li><a href="{% if forloop.first %}/collections/frontpage{% elsif forloop.last %}{{ routes.root_url }}#guia{% else %}{{ routes.root_url }}#catalogo{% endif %}" class="ark-header__drawer-link">{{ item | strip }}</a></li>
+                {%- assign parts = item | split: '|' -%}
+                <li><a href="{{ parts[1] | strip | default: routes.root_url }}" class="ark-header__drawer-link">{{ parts[0] | strip }}</a></li>
               {%- endfor -%}
             </ul>
           {%- endif -%}
@@ -148,12 +149,10 @@
             {%- endfor -%}
           {%- else -%}
             {%- for item in fallback_nav -%}
+              {%- assign parts = item | split: '|' -%}
               <li class="ark-header__menu-item">
-                <a href="{% if forloop.first %}/collections/frontpage{% elsif forloop.last %}{{ routes.root_url }}#guia{% else %}{{ routes.root_url }}#catalogo{% endif %}" class="ark-header__menu-link{% if forloop.first and template.name == 'product' or forloop.first and template.name == 'collection' %} is-active{% endif %}">
-                  <span>{{ item | strip }}</span>
-                  {%- unless forloop.last -%}
-                    <span class="ark-icon" aria-hidden="true">expand_more</span>
-                  {%- endunless -%}
+                <a href="{{ parts[1] | strip | default: routes.root_url }}" class="ark-header__menu-link">
+                  <span>{{ parts[0] | strip }}</span>
                 </a>
               </li>
             {%- endfor -%}
@@ -194,21 +193,21 @@
   "settings": [
     { "type": "header", "content": "Barra de alerta" },
     { "type": "checkbox", "id": "show_announcement", "label": "Mostrar barra de alerta", "default": true },
-    { "type": "text", "id": "announcement", "label": "Texto", "default": "ALERTA DE PRONTIDÃO CIVIL IBÉRICA • LOTE IBÉRICO #04: RESTAM 9 UNIDADES • ENVIO EXPRESSO BLINDADO 24H (PT/ES)" },
+    { "type": "text", "id": "announcement", "label": "Texto", "default": "Envio para Portugal e Europa · 14 dias para devolver · Apoio em português" },
     { "type": "url", "id": "announcement_link", "label": "Link (opcional)" },
     { "type": "header", "content": "Marca" },
     { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo-2.png." },
     { "type": "header", "content": "Navegação" },
     { "type": "checkbox", "id": "use_fallback_nav", "label": "Usar categorias Arkorra (Stitch)", "default": true, "info": "Desative para usar o menu configurado em Navegação da Shopify." },
-    { "type": "text", "id": "fallback_nav", "label": "Categorias (separadas por vírgula)", "default": "Todos os Kits 72h, Apagão & Energia, Água & Sobrevivência, Linha Sénior, Veículos & Estrada, Protocolos & Guias" },
+    { "type": "text", "id": "fallback_nav", "label": "Ligações (Etiqueta|URL, separadas por ponto e vírgula)", "default": "Kits|/collections/all;Para quem|/#para-quem;Situações|/#situacoes;Guia de preparação|/pages/guia-de-preparacao;Sobre|/#sobre" },
     { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" },
-    { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits 72h, rádios, lanternas, filtros..." },
-    { "type": "text", "id": "shipping_note", "label": "Nota de expedição", "default": "Envio Hoje até às 17h" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits, rádios, lanternas..." },
+    { "type": "text", "id": "shipping_note", "label": "Nota de expedição", "default": "" },
     { "type": "header", "content": "Ações" },
-    { "type": "text", "id": "locale_label", "label": "Etiqueta de região/moeda", "default": "PT / ES (EUR)" },
-    { "type": "text", "id": "support_label", "label": "Etiqueta de apoio", "default": "Apoio Técnico Online" },
+    { "type": "text", "id": "locale_label", "label": "Etiqueta de região/moeda", "default": "" },
+    { "type": "text", "id": "support_label", "label": "Etiqueta de apoio", "default": "Apoio em português" },
     { "type": "url", "id": "support_link", "label": "Link de apoio" },
-    { "type": "text", "id": "account_label", "label": "Etiqueta da conta", "default": "Minha Conta" },
+    { "type": "text", "id": "account_label", "label": "Etiqueta da conta", "default": "Conta" },
     { "type": "text", "id": "cart_label", "label": "Etiqueta do carrinho", "default": "Carrinho" }
   ]
 }

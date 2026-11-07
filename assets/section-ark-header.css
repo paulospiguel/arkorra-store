@@ -7,7 +7,7 @@
 }
 
 .ark-header {
-  box-shadow: 0 1px 8px rgb(30 58 52 / 0.05);
+  box-shadow: 0 1px 8px rgb(11 30 45 / 0.05);
 }
 
 /* Announcement */
@@ -38,7 +38,7 @@
 
 /* Main bar */
 .ark-header__main {
-  background: rgb(247 245 240 / 0.96);
+  background: rgb(244 246 248 / 0.96);
   backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--ark-linen);
 }
@@ -189,7 +189,7 @@
   padding-inline: 0.3125rem;
   border-radius: var(--ark-radius-sm);
   background: var(--ark-terracotta);
-  color: var(--ark-white);
+  color: var(--ark-charcoal);
   font-family: var(--ark-font-label);
   font-size: 0.75rem;
   font-weight: 700;
@@ -349,7 +349,7 @@
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: rgb(6 36 31 / 0.45);
+  background: rgb(7 20 31 / 0.45);
 }
 
 .ark-header__drawer-top {
@@ -400,4 +400,87 @@
   padding: 0.5rem 0 0.5rem var(--ark-space-md);
   font-size: var(--ark-text-body-sm);
   color: var(--ark-slate);
+}
+
+/* ---------- Arkorra navy theme overrides ---------- */
+
+.ark-header__announcement {
+  background: var(--ark-terracotta);
+  color: var(--ark-charcoal);
+}
+
+.ark .ark-header__announcement-text {
+  color: var(--ark-charcoal);
+  font-size: var(--ark-text-label-md);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ark-header__announcement .ark-chip__dot {
+  display: none;
+}
+
+.ark-header__main,
+.ark-header__nav {
+  background: var(--ark-pine-deep);
+  border-bottom: 0;
+  backdrop-filter: none;
+}
+
+.ark-header__nav {
+  padding-bottom: 0.25rem;
+}
+
+.ark-header__logo,
+.ark-header__logo-wordmark {
+  color: var(--ark-white);
+}
+
+.ark .ark-header__menu-link {
+  color: var(--ark-neutral-100);
+
+  &:hover,
+  &.is-active {
+    background: transparent;
+    color: var(--ark-terracotta);
+  }
+}
+
+.ark .ark-header__search-input {
+  background: var(--ark-primary-600);
+  color: var(--ark-white);
+}
+
+.ark-header__search-icon,
+.ark .ark-header__shipping {
+  color: var(--ark-neutral-200);
+}
+
+.ark .ark-header__icon-button {
+  background: transparent;
+  color: var(--ark-white);
+}
+
+.ark .ark-header__cart {
+  background: var(--ark-terracotta);
+  color: var(--ark-charcoal);
+
+  &:hover {
+    background: var(--ark-terracotta-hover);
+    color: var(--ark-charcoal);
+  }
+}
+
+.ark-header__cart-count {
+  background: var(--ark-pine-deep);
+  color: var(--ark-white);
+}
+
+.ark-nav-pill {
+  background: var(--ark-primary-600);
+
+  & .ark-nav-pill__item {
+    color: var(--ark-neutral-100);
+  }
 }

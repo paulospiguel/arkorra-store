@@ -54,24 +54,24 @@
 }
 
 .ark-ds-swatch--primary {
-  background: #1e3a34;
+  background: #0b1e2d;
   color: #ffffff;
 }
 
 .ark-ds-swatch--secondary {
-  background: #d96b27;
+  background: #ff7a00;
   color: #ffffff;
 }
 
 .ark-ds-swatch--tertiary {
-  background: #2e7d5b;
+  background: #475569;
   color: #ffffff;
 }
 
 .ark-ds-swatch--neutral {
-  background: #f7f5f0;
-  color: #1a1c1b;
-  border: 1px solid rgb(196 199 196 / 0.5);
+  background: #f4f6f8;
+  color: #0b1e2d;
+  border: 1px solid rgb(203 213 225 / 0.5);
 }
 
 .ark-ds-swatch__top {

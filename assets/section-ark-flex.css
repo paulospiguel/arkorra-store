@@ -1,8 +1,8 @@
 /* Arkorra — Seção Flexível e theme blocks (Online Store 3.0) */
 .ark-flex {
   padding-block: var(--ark-flex-pad, 64px);
-  background: var(--ark-sand, #f7f5f0);
-  color: var(--ark-pine-deep, #1e3a34);
+  background: var(--ark-sand, #f4f6f8);
+  color: var(--ark-pine-deep, #0b1e2d);
 }
 
 .ark-flex--low {
@@ -10,7 +10,7 @@
 }
 
 .ark-flex--primary {
-  background: var(--ark-pine-deep, #1e3a34);
+  background: var(--ark-pine-deep, #0b1e2d);
   color: #fff;
 }
 

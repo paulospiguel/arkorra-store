@@ -12,7 +12,7 @@
   align-items: center;
   padding: clamp(1.5rem, 1.25rem + 1.5vw, 2.5rem);
   margin-bottom: 2rem;
-  border: 1px solid rgb(196 199 196 / 0.45);
+  border: 1px solid rgb(203 213 225 / 0.45);
   border-radius: var(--ark-radius-xl);
   background: var(--ark-surface-low);
 
@@ -34,7 +34,7 @@
   padding: 1.25rem;
   border-radius: var(--ark-radius-lg);
   background: var(--ark-surface);
-  border: 1px solid rgb(196 199 196 / 0.4);
+  border: 1px solid rgb(203 213 225 / 0.4);
 }
 
 .ark-collection__meter-row {

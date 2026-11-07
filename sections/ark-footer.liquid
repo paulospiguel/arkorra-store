@@ -104,9 +104,9 @@
   "class": "ark-footer-section",
   "max_blocks": 5,
   "settings": [
-    { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] ARKORRA Contingência Ibérica S.A. Todos os direitos reservados." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "info": "Use [year] para o ano atual.", "default": "© [year] Arkorra. Informação de carácter geral. Em caso de emergência, liga 112." },
     { "type": "checkbox", "id": "use_legal_fallback", "label": "Usar links legais Arkorra (Stitch)", "default": true },
-    { "type": "text", "id": "legal_fallback", "label": "Links legais (separados por vírgula)", "default": "Termos & Condições, Política de Privacidade, Diretivas Oficiais" },
+    { "type": "text", "id": "legal_fallback", "label": "Links legais (separados por vírgula)", "default": "Termos e condições, Privacidade, Livro de Reclamações" },
     { "type": "link_list", "id": "legal_menu", "label": "Menu legal", "default": "footer" }
   ],
   "blocks": [
@@ -116,8 +116,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "logo", "label": "Logótipo" },
-        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>" },
-        { "type": "text", "id": "badge", "label": "Selo", "default": "Homologação e Diretrizes de Proteção Civil UE" }
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Kits e produtos de preparação para pessoas, famílias e idosos.</p>" },
+        { "type": "text", "id": "badge", "label": "Selo", "default": "" }
       ]
     },
     {
@@ -154,32 +154,30 @@
       {
         "type": "brand",
         "settings": {
-          "text": "<p>Engenharia civil de contingência e sistemas autónomos de 72 horas para habitações e famílias na Península Ibérica.</p>",
-          "badge": "Homologação e Diretrizes de Proteção Civil UE"
+          "text": "<p>Kits e produtos de preparação para pessoas, famílias e idosos.</p>"
         }
       },
       {
         "type": "text",
         "settings": {
-          "heading": "Centros Operacionais",
-          "text": "<p><strong>Pólo Logístico Lisboa:</strong><br/>Av. do Forte, Parque Empresarial do Tejo, Carnaxide, Portugal</p><p><strong>Pólo Madrid (Ibéria Central):</strong><br/>Polígono Industrial Coslada, Madrid, Espanha</p>",
-          "note": "Linha de Emergência & Despacho: +351 210 990 088"
+          "heading": "Loja",
+          "text": "<ul><li><a href=\"/collections/all\">Todos os kits</a></li><li><a href=\"/#para-quem\">Para quem</a></li><li><a href=\"/#situacoes\">Situações</a></li></ul>"
         }
       },
       {
         "type": "text",
         "settings": {
-          "heading": "Garantias de Aquisição",
-          "text": "<ul><li>Despacho Expresso em caixa neutra blindada</li><li>Manuais físicos em Português e Espanhol</li><li>Validade de 5 a 25 anos em rações e filtros</li><li>Devolução sem questões em 30 dias</li></ul>"
+          "heading": "Ajuda",
+          "text": "<ul><li><a href=\"/pages/guia-de-preparacao\">Guia de preparação</a></li><li><a href=\"/policies/shipping-policy\">Envios e devoluções</a></li><li><a href=\"/pages/contact\">Contacto</a></li></ul>"
         }
       },
       {
         "type": "payments",
         "settings": {
-          "heading": "Métodos de Pagamento Seguros",
-          "text": "Transações cifradas e liquidação imediata ibérica:",
-          "methods": "MB WAY, Multibanco, Bizum, Visa / MC",
-          "note": "SSL 256-bit • Protocolo 3D Secure 2.0"
+          "heading": "Pagamentos",
+          "text": "Pagamentos seguros · Envio para Portugal e Europa",
+          "methods": "",
+          "note": ""
         }
       }
     ]
