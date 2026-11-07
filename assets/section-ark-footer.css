@@ -3,7 +3,7 @@
 .ark-footer {
   background: var(--ark-surface-low);
   border-top: 1px solid var(--ark-linen);
-  padding: 4rem 0 3rem;
+  padding: calc(4 * var(--ark-rem)) 0 calc(3 * var(--ark-rem));
   color: var(--ark-slate);
 }
 
@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--ark-space-xl);
-  padding-bottom: 3rem;
+  padding-bottom: calc(3 * var(--ark-rem));
   border-bottom: 1px solid var(--ark-linen);
 
   @media (min-width: 768px) {
@@ -36,13 +36,13 @@
 .ark-footer__logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: calc(0.5 * var(--ark-rem));
   margin-bottom: var(--ark-space-xs);
 }
 
 .ark .ark-footer__logo-img {
-  width: 2.5rem;
-  height: 1.875rem;
+  width: calc(2.5 * var(--ark-rem));
+  height: calc(1.875 * var(--ark-rem));
   object-fit: cover;
   object-position: center 22%;
   mix-blend-mode: multiply;
@@ -64,7 +64,7 @@
   font-size: var(--ark-text-label-sm);
   font-weight: 600;
   color: var(--ark-tertiary);
-  --ark-icon-size: 1.125rem;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 }
 
 .ark .ark-footer__note {
@@ -90,7 +90,7 @@
 .ark-footer__payments {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: calc(0.5 * var(--ark-rem));
   margin-top: var(--ark-space-xs);
 }
 
@@ -99,8 +99,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.25rem;
-  padding: 0.25rem 0.5rem;
+  min-height: calc(2.25 * var(--ark-rem));
+  padding: calc(0.25 * var(--ark-rem)) calc(0.5 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   background: var(--ark-white);
   box-shadow: 0 1px 2px rgb(11 30 45 / 0.06);
@@ -108,12 +108,12 @@
 
 .ark-footer__payment-icon {
   display: block;
-  width: 2.375rem;
-  height: 1.5rem;
+  width: calc(2.375 * var(--ark-rem));
+  height: calc(1.5 * var(--ark-rem));
 }
 
 .ark-footer__payment {
-  padding: 0.375rem 0.75rem;
+  padding: calc(0.375 * var(--ark-rem)) calc(0.75 * var(--ark-rem));
   border: 1px solid var(--ark-outline-variant);
   border-radius: var(--ark-radius-sm);
   background: var(--ark-surface);
@@ -126,11 +126,11 @@
 .ark .ark-footer__fineprint {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: calc(0.375 * var(--ark-rem));
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   margin-top: var(--ark-space-xs);
-  --ark-icon-size: 1rem;
+  --ark-icon-size: calc(1 * var(--ark-rem));
 }
 
 .ark-footer__bottom {
@@ -139,7 +139,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--ark-space-md);
-  padding-top: 2rem;
+  padding-top: calc(2 * var(--ark-rem));
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   text-align: center;

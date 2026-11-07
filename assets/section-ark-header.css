@@ -14,7 +14,7 @@
 .ark-header__announcement {
   background: var(--ark-pine-deep);
   color: var(--ark-white);
-  padding-block: 0.5rem;
+  padding-block: calc(0.5 * var(--ark-rem));
   overflow: hidden;
 }
 
@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--ark-space-md);
-  min-height: 5rem;
+  min-height: calc(5 * var(--ark-rem));
 
   @media (min-width: 768px) {
     gap: var(--ark-space-lg);
@@ -58,7 +58,7 @@
 .ark-header__logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: calc(0.625 * var(--ark-rem));
   flex-shrink: 0;
   margin-right: auto;
 
@@ -68,8 +68,8 @@
 }
 
 .ark .ark-header__logo-img {
-  width: 2.75rem;
-  height: 2.125rem;
+  width: calc(2.75 * var(--ark-rem));
+  height: calc(2.125 * var(--ark-rem));
   object-fit: cover;
   object-position: center 22%;
   mix-blend-mode: multiply;
@@ -88,7 +88,7 @@
   position: relative;
   display: none;
   flex: 1;
-  max-width: 34rem;
+  max-width: calc(34 * var(--ark-rem));
   align-items: center;
 
   @media (min-width: 768px) {
@@ -104,15 +104,15 @@
 
 .ark-header__search-icon {
   position: absolute;
-  left: 1rem;
+  left: calc(1 * var(--ark-rem));
   color: var(--ark-neutral-600);
   pointer-events: none;
 }
 
 .ark .ark-header__search-input {
   width: 100%;
-  height: 3rem;
-  padding: 0 1rem 0 3rem;
+  height: calc(3 * var(--ark-rem));
+  padding: 0 calc(1 * var(--ark-rem)) 0 calc(3 * var(--ark-rem));
   border: 1px solid var(--ark-outline-variant);
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-low);
@@ -143,7 +143,7 @@
   flex-shrink: 0;
 
   @media (min-width: 768px) {
-    gap: 0.75rem;
+    gap: calc(0.75 * var(--ark-rem));
   }
 }
 
@@ -164,8 +164,8 @@
 }
 
 .ark .ark-header__cart {
-  min-height: 2.875rem;
-  padding: 0.5rem 1.125rem;
+  min-height: calc(2.875 * var(--ark-rem));
+  padding: calc(0.5 * var(--ark-rem)) calc(1.125 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   background: var(--ark-pine-deep);
   color: var(--ark-white);
@@ -184,14 +184,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.375rem;
-  height: 1.375rem;
-  padding-inline: 0.3125rem;
+  min-width: calc(1.375 * var(--ark-rem));
+  height: calc(1.375 * var(--ark-rem));
+  padding-inline: calc(0.3125 * var(--ark-rem));
   border-radius: var(--ark-radius-sm);
   background: var(--ark-terracotta);
   color: var(--ark-charcoal);
   font-family: var(--ark-font-label);
-  font-size: 0.75rem;
+  font-size: calc(0.75 * var(--ark-rem));
   font-weight: 700;
   line-height: 1;
 }
@@ -219,7 +219,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--ark-space-xs);
-  padding-block: 0.5rem;
+  padding-block: calc(0.5 * var(--ark-rem));
 }
 
 .ark-header__menu-item {
@@ -230,14 +230,14 @@
   display: inline-flex;
   align-items: center;
   gap: var(--ark-space-xs);
-  padding: 0.4375rem 0.75rem;
+  padding: calc(0.4375 * var(--ark-rem)) calc(0.75 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-md);
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--ark-slate);
-  --ark-icon-size: 1rem;
+  --ark-icon-size: calc(1 * var(--ark-rem));
 
   &:hover {
     background: var(--ark-surface-container);
@@ -252,10 +252,10 @@
 
 .ark-header__dropdown {
   position: absolute;
-  top: calc(100% + 0.25rem);
+  top: calc(100% + calc(0.25 * var(--ark-rem)));
   left: 0;
   z-index: 10;
-  min-width: 15rem;
+  min-width: calc(15 * var(--ark-rem));
   padding: var(--ark-space-sm);
   border: 1px solid var(--ark-linen);
   border-radius: var(--ark-radius-lg);
@@ -275,7 +275,7 @@
 
 .ark .ark-header__dropdown-link {
   display: block;
-  padding: 0.5rem 0.75rem;
+  padding: calc(0.5 * var(--ark-rem)) calc(0.75 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-md);
@@ -297,7 +297,7 @@
   font-size: var(--ark-text-label-sm);
   font-weight: 600;
   color: var(--ark-tertiary);
-  --ark-icon-size: 1.125rem;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 }
 
 /* Mobile drawer */
@@ -319,14 +319,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: calc(2.75 * var(--ark-rem));
+  height: calc(2.75 * var(--ark-rem));
   border: 0;
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-high);
   color: var(--ark-pine-deep);
   cursor: pointer;
-  --ark-icon-size: 1.5rem;
+  --ark-icon-size: calc(1.5 * var(--ark-rem));
 
   &:hover {
     background: var(--ark-surface-highest);
@@ -337,7 +337,7 @@
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 100;
-  width: min(22rem, 88vw);
+  width: min(calc(22 * var(--ark-rem)), 88vw);
   overflow-y: auto;
   padding: var(--ark-space-lg);
   background: var(--ark-surface);
@@ -374,7 +374,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.875rem 0;
+  padding: calc(0.875 * var(--ark-rem)) 0;
   font-family: var(--ark-font-heading);
   font-size: var(--ark-text-label-lg);
   font-weight: 600;
@@ -397,7 +397,7 @@
 
 .ark .ark-header__drawer-sublink {
   display: block;
-  padding: 0.5rem 0 0.5rem var(--ark-space-md);
+  padding: calc(0.5 * var(--ark-rem)) 0 calc(0.5 * var(--ark-rem)) var(--ark-space-md);
   font-size: var(--ark-text-body-sm);
   color: var(--ark-slate);
 }
@@ -429,7 +429,7 @@
 }
 
 .ark-header__nav {
-  padding-bottom: 0.25rem;
+  padding-bottom: calc(0.25 * var(--ark-rem));
 }
 
 .ark-header__logo,
@@ -504,12 +504,12 @@
 /* Alert bar: compact on mobile, folds away once the visitor scrolls so the
    sticky header stays slim. */
 .ark-header__announcement {
-  max-height: 8rem;
-  padding-block: 0.375rem;
+  max-height: calc(8 * var(--ark-rem));
+  padding-block: calc(0.375 * var(--ark-rem));
   transition: max-height 0.25s var(--ark-ease), padding 0.25s var(--ark-ease);
 
   @media (min-width: 768px) {
-    padding-block: 0.5rem;
+    padding-block: calc(0.5 * var(--ark-rem));
   }
 }
 
@@ -538,9 +538,9 @@
    multiplied into the navy header and cropped. */
 .ark .ark-header__logo-img {
   width: auto;
-  height: 3.25rem;
+  height: calc(3.25 * var(--ark-rem));
   aspect-ratio: 4 / 3;
-  padding: 0.25rem;
+  padding: calc(0.25 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   background: var(--ark-white);
   object-fit: contain;
@@ -570,9 +570,9 @@
 
 /* Sticky header covers anchor targets (e.g. #catalogo landed 34px under it). */
 html {
-  scroll-padding-top: 6rem;
+  scroll-padding-top: calc(6 * var(--ark-rem));
 
   @media (min-width: 990px) {
-    scroll-padding-top: 9.5rem;
+    scroll-padding-top: calc(9.5 * var(--ark-rem));
   }
 }

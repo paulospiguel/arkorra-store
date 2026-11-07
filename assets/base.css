@@ -9,6 +9,10 @@
 */
 
 :root {
+  /* Fixed unit for ark components: the legacy novstyle.css resets html{font-size} to
+     55-62.5%, which shrank the shared header/footer on inner pages. */
+  --ark-rem: 16px;
+
   /* Primary scale (#0b1e2d) */
   --ark-primary-950: #040d14;
   --ark-primary-900: #07141f;
@@ -100,34 +104,34 @@
   --ark-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ark-font-label: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --ark-text-headline-xl: clamp(2rem, 1.35rem + 2vw, 2.75rem);
-  --ark-text-headline-lg: clamp(1.625rem, 1.4rem + 0.8vw, 2rem);
-  --ark-text-headline-md: 1.5rem;
-  --ark-text-headline-sm: 1.25rem;
-  --ark-text-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --ark-text-body-md: 1.0625rem;
-  --ark-text-body-sm: 0.9375rem;
-  --ark-text-label-lg: 1rem;
-  --ark-text-label-md: 0.875rem;
-  --ark-text-label-sm: 0.8125rem;
+  --ark-text-headline-xl: clamp(calc(2 * var(--ark-rem)), calc(1.35 * var(--ark-rem)) + 2vw, calc(2.75 * var(--ark-rem)));
+  --ark-text-headline-lg: clamp(calc(1.625 * var(--ark-rem)), calc(1.4 * var(--ark-rem)) + 0.8vw, calc(2 * var(--ark-rem)));
+  --ark-text-headline-md: calc(1.5 * var(--ark-rem));
+  --ark-text-headline-sm: calc(1.25 * var(--ark-rem));
+  --ark-text-body-lg: clamp(calc(1.0625 * var(--ark-rem)), calc(1 * var(--ark-rem)) + 0.3vw, calc(1.1875 * var(--ark-rem)));
+  --ark-text-body-md: calc(1.0625 * var(--ark-rem));
+  --ark-text-body-sm: calc(0.9375 * var(--ark-rem));
+  --ark-text-label-lg: calc(1 * var(--ark-rem));
+  --ark-text-label-md: calc(0.875 * var(--ark-rem));
+  --ark-text-label-sm: calc(0.8125 * var(--ark-rem));
 
   /* Spacing */
-  --ark-space-xs: 0.25rem;
-  --ark-space-sm: 0.5rem;
-  --ark-space-md: 1rem;
-  --ark-space-lg: 1.5rem;
-  --ark-space-xl: 2.5rem;
-  --ark-gutter: 1.5rem;
-  --ark-margin: clamp(1.25rem, 0.8rem + 1.6vw, 2rem);
-  --ark-section-pad: clamp(4rem, 2.5rem + 4vw, 6rem);
-  --ark-page-width: 80rem;
+  --ark-space-xs: calc(0.25 * var(--ark-rem));
+  --ark-space-sm: calc(0.5 * var(--ark-rem));
+  --ark-space-md: calc(1 * var(--ark-rem));
+  --ark-space-lg: calc(1.5 * var(--ark-rem));
+  --ark-space-xl: calc(2.5 * var(--ark-rem));
+  --ark-gutter: calc(1.5 * var(--ark-rem));
+  --ark-margin: clamp(calc(1.25 * var(--ark-rem)), calc(0.8 * var(--ark-rem)) + 1.6vw, calc(2 * var(--ark-rem)));
+  --ark-section-pad: clamp(calc(4 * var(--ark-rem)), calc(2.5 * var(--ark-rem)) + 4vw, calc(6 * var(--ark-rem)));
+  --ark-page-width: calc(80 * var(--ark-rem));
 
   /* Shape & depth */
-  --ark-radius-sm: 0.375rem;
-  --ark-radius-md: 0.5rem;
-  --ark-radius-lg: 0.75rem;
-  --ark-radius-xl: 1rem;
-  --ark-radius-2xl: 1.5rem;
+  --ark-radius-sm: calc(0.375 * var(--ark-rem));
+  --ark-radius-md: calc(0.5 * var(--ark-rem));
+  --ark-radius-lg: calc(0.75 * var(--ark-rem));
+  --ark-radius-xl: calc(1 * var(--ark-rem));
+  --ark-radius-2xl: calc(1.5 * var(--ark-rem));
   --ark-radius-full: 9999px;
   --ark-shadow-sm: 0 1px 2px rgb(11 30 45 / 0.05);
   --ark-shadow-md: 0 4px 8px -2px rgb(11 30 45 / 0.08), 0 2px 4px -2px rgb(11 30 45 / 0.05);
@@ -268,7 +272,7 @@ body.ark-shell {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  font-size: var(--ark-icon-size, 1.25rem);
+  font-size: var(--ark-icon-size, calc(1.25 * var(--ark-rem)));
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -369,7 +373,7 @@ body.ark-shell {
   display: flex;
   flex-direction: column;
   gap: var(--ark-space-xs);
-  max-width: 42rem;
+  max-width: calc(42 * var(--ark-rem));
 }
 
 .ark-section-head__aside {
@@ -391,8 +395,8 @@ body.ark-shell {
   align-items: center;
   justify-content: center;
   gap: var(--ark-space-sm);
-  min-height: 2.875rem;
-  padding: 0.6875rem 1.5rem;
+  min-height: calc(2.875 * var(--ark-rem));
+  padding: calc(0.6875 * var(--ark-rem)) calc(1.5 * var(--ark-rem));
   border: 1px solid var(--ark-button-border);
   border-radius: var(--ark-radius-md);
   background: var(--ark-button-bg);
@@ -475,8 +479,8 @@ body.ark-shell {
 }
 
 .ark-button--lg {
-  min-height: 3.375rem;
-  padding-inline: 1.75rem;
+  min-height: calc(3.375 * var(--ark-rem));
+  padding-inline: calc(1.75 * var(--ark-rem));
   font-weight: 600;
   box-shadow: var(--ark-shadow-md);
 
@@ -486,8 +490,8 @@ body.ark-shell {
 }
 
 .ark-button--sm {
-  min-height: 2.75rem;
-  padding-inline: 1rem;
+  min-height: calc(2.75 * var(--ark-rem));
+  padding-inline: calc(1 * var(--ark-rem));
   font-size: var(--ark-text-label-md);
   font-weight: 600;
 }
@@ -519,14 +523,14 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.25rem;
-  height: 3.25rem;
+  width: calc(3.25 * var(--ark-rem));
+  height: calc(3.25 * var(--ark-rem));
   border: 0;
   border-radius: var(--ark-radius-md);
   background: var(--ark-tertiary-900);
   color: var(--ark-tertiary-400);
   transition: transform 0.2s var(--ark-ease), background-color 0.2s var(--ark-ease);
-  --ark-icon-size: 1.375rem;
+  --ark-icon-size: calc(1.375 * var(--ark-rem));
 
   &:hover {
     background: var(--ark-pine-deep);
@@ -538,9 +542,9 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.5rem 1.125rem;
+  gap: calc(0.5 * var(--ark-rem));
+  min-height: calc(2.75 * var(--ark-rem));
+  padding: calc(0.5 * var(--ark-rem)) calc(1.125 * var(--ark-rem));
   border: 0;
   border-radius: var(--ark-radius-sm);
   background: var(--ark-pine-deep);
@@ -549,7 +553,7 @@ body.ark-shell {
   font-size: var(--ark-text-label-md);
   font-weight: 500;
   transition: background-color 0.2s var(--ark-ease), color 0.2s var(--ark-ease);
-  --ark-icon-size: 1.125rem;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 
   &:hover {
     background: var(--ark-primary);
@@ -561,14 +565,14 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: calc(2.75 * var(--ark-rem));
+  height: calc(2.75 * var(--ark-rem));
   border: 0;
   border-radius: 50%;
   background: var(--ark-primary);
   color: var(--ark-white);
   transition: transform 0.2s var(--ark-ease), opacity 0.2s var(--ark-ease);
-  --ark-icon-size: 1.25rem;
+  --ark-icon-size: calc(1.25 * var(--ark-rem));
 
   &:hover {
     transform: translateY(-1px);
@@ -597,8 +601,8 @@ body.ark-shell {
 .ark-nav-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.375rem 0.625rem;
+  gap: calc(0.5 * var(--ark-rem));
+  padding: calc(0.375 * var(--ark-rem)) calc(0.625 * var(--ark-rem));
   border-radius: var(--ark-radius-full);
   background: var(--ark-surface-high);
 }
@@ -607,14 +611,14 @@ body.ark-shell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: calc(2.5 * var(--ark-rem));
+  height: calc(2.5 * var(--ark-rem));
   border: 0;
   border-radius: 50%;
   background: transparent;
   color: var(--ark-charcoal);
   transition: background-color 0.2s var(--ark-ease), color 0.2s var(--ark-ease);
-  --ark-icon-size: 1.25rem;
+  --ark-icon-size: calc(1.25 * var(--ark-rem));
 
   &:hover {
     background: var(--ark-surface-highest);
@@ -632,13 +636,13 @@ body.ark-shell {
 .ark-progress-stack {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: calc(0.875 * var(--ark-rem));
   width: 100%;
 }
 
 .ark-progress {
   width: 100%;
-  height: 0.375rem;
+  height: calc(0.375 * var(--ark-rem));
   overflow: hidden;
   border-radius: var(--ark-radius-full);
   background: var(--ark-surface-high);
@@ -668,8 +672,8 @@ body.ark-shell {
 .ark-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.75rem;
+  gap: calc(0.375 * var(--ark-rem));
+  padding: calc(0.25 * var(--ark-rem)) calc(0.75 * var(--ark-rem));
   border-radius: var(--ark-radius-sm);
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
@@ -678,7 +682,7 @@ body.ark-shell {
   letter-spacing: 0.02em;
   background: var(--ark-surface-container);
   color: var(--ark-pine-deep);
-  --ark-icon-size: 1rem;
+  --ark-icon-size: calc(1 * var(--ark-rem));
 }
 
 .ark-chip--accent {
@@ -717,13 +721,13 @@ body.ark-shell {
 
 .ark-chip--square {
   border-radius: var(--ark-radius-sm);
-  padding: 0.25rem 0.625rem;
+  padding: calc(0.25 * var(--ark-rem)) calc(0.625 * var(--ark-rem));
   background: var(--ark-surface-low);
 }
 
 .ark-chip__dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: calc(0.5 * var(--ark-rem));
+  height: calc(0.5 * var(--ark-rem));
   border-radius: 50%;
   background: var(--ark-terracotta);
   flex-shrink: 0;
@@ -774,9 +778,9 @@ body.ark-shell {
 .ark-stars {
   display: inline-flex;
   align-items: center;
-  gap: 0.125rem;
+  gap: calc(0.125 * var(--ark-rem));
   color: var(--ark-terracotta);
-  --ark-icon-size: 1.125rem;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 }
 
 .ark-stock {
@@ -787,7 +791,7 @@ body.ark-shell {
   font-size: var(--ark-text-label-sm);
   font-weight: 600;
   color: var(--ark-tertiary);
-  --ark-icon-size: 0.875rem;
+  --ark-icon-size: calc(0.875 * var(--ark-rem));
 }
 
 .ark-stock--out {
@@ -832,8 +836,8 @@ body.ark-shell {
 .ark .ark-search__input {
   display: block;
   width: 100%;
-  height: 3rem;
-  padding: 0 1rem;
+  height: calc(3 * var(--ark-rem));
+  padding: 0 calc(1 * var(--ark-rem));
   border: 1px solid var(--ark-outline-variant);
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-low);
@@ -864,28 +868,28 @@ body.ark-shell {
 
 .ark-search__icon {
   position: absolute;
-  left: 0.875rem;
+  left: calc(0.875 * var(--ark-rem));
   color: var(--ark-neutral-600);
   pointer-events: none;
-  --ark-icon-size: 1.25rem;
+  --ark-icon-size: calc(1.25 * var(--ark-rem));
 }
 
 .ark .ark-search__input {
-  padding-left: 2.75rem;
+  padding-left: calc(2.75 * var(--ark-rem));
 }
 
 .ark-notice {
   display: flex;
   align-items: center;
   gap: var(--ark-space-sm);
-  padding: 0.75rem;
+  padding: calc(0.75 * var(--ark-rem));
   border-radius: var(--ark-radius-md);
   background: var(--ark-surface-container);
   color: var(--ark-tertiary);
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-sm);
   font-weight: 500;
-  --ark-icon-size: 1.125rem;
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 }
 
 .ark-notice--error {
