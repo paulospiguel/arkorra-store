@@ -517,3 +517,57 @@ h4,
 .ark-steps__num {
   color: #ffffff;
 }
+
+/* ---------- Comparison fixes ---------- */
+.ark.ark-footer {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(h2, h3, h4, .ark-footer__col-title, .ark-footer__heading),
+.ark.ark-footer .ark-footer__col > :is(p, span, strong):first-child {
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(p, li, span, address) {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.ark.ark-footer a {
+  color: #ffffff;
+}
+
+.ark.ark-footer a:hover {
+  color: #ff9100;
+}
+
+/* Shipping note collides with the centered logo */
+.ark.ark-header .ark-header__shipping {
+  display: none;
+}
+
+/* Product cards: flat */
+.ark .ark-product-card,
+.ark .ark-catalog__grid .ark-product-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* Hero secondary button readable on the light photo */
+.ark.ark-hero .ark-hero__cta-secondary {
+  color: var(--hk-navy);
+  border-color: var(--hk-navy);
+  background: transparent;
+}
+
+.ark.ark-hero .ark-hero__cta-secondary:hover {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(strong, b) {
+  color: #ffffff;
+}
