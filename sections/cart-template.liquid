@@ -1,4 +1,5 @@
 {% include 'nov-breadcrumb', class_br: 'breadcrumb_inner' %}
+<script src="{{ 'ark-cart-page.js' | asset_url }}" defer="defer"></script>
 <div data-section-id="{{ section.id }}" data-section-type="cart-template">
   <div class="container">
     {% if cart.item_count > 0 %}
@@ -20,7 +21,7 @@
                   <div class="row spacing-0 align-items-center line{{ forloop.index }} cart-flex cart_item">
                     <div class="col-md-1 cart__remove-wrapper text-center mb-sm-20">
                       <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
-                        <i class="rbb-icon-delete-outline-2" aria-hidden="true"></i>
+                        <span class="ark-icon" aria-hidden="true">delete</span><span class="ark-visually-hidden">Remover</span>
                       </a>
                     </div>
                     <div class="col-md-5 cart__image-wrapper d-flex align-items-center mb-sm-20">
@@ -72,7 +73,7 @@
                     <div class="col-md-2 cart__update-wrapper mb-sm-20">
                       <div class="cart__qty">
                         <input type="button" class="js-qty__adjust minus js-qty__adjust--minus" value="-" />
-                        <input class="cart__qty-input" data-price="{{ item.price }}" data-line="{{ forloop.index }}" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" step="1" min="1" max="{{ item.variant.inventory_quantity }}" pattern="[0-9]*">
+                        <input class="cart__qty-input" data-price="{{ item.price }}" data-line="{{ forloop.index }}" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" step="1" min="1"{% if item.variant.inventory_management and item.variant.inventory_policy == 'deny' %} max="{{ item.variant.inventory_quantity }}" data-max="{{ item.variant.inventory_quantity }}"{% endif %} pattern="[0-9]*">
                       	<input type="button" class="js-qty__adjust plus js-qty__adjust--plus" value="+" /> 
                       </div>
                     </div>
