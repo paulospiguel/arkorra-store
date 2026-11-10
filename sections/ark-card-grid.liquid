@@ -23,7 +23,7 @@
           {%- assign points = b.points | split: ';' -%}
           <li class="ark-card" {{ block.shopify_attributes }}>
             <div class="ark-card__head">
-              <span class="ark-card__icon"><span class="ark-icon" aria-hidden="true">{{ b.icon }}</span></span>
+              <span class="ark-card__icon">{% render 'ark-art-icon', name: b.icon %}</span>
               <h3 class="ark-card__title">{{ b.title }}</h3>
             </div>
             {%- if b.text != blank -%}

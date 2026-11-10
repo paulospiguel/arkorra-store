@@ -65,7 +65,7 @@
         <ul class="ark-protocol__pillars">
           {%- for block in pillars -%}
             <li class="ark-protocol__pillar" {{ block.shopify_attributes }}>
-              <span class="ark-action-square ark-protocol__pillar-icon"><span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span></span>
+              <span class="ark-action-square ark-protocol__pillar-icon">{% render 'ark-art-icon', name: block.settings.icon %}</span>
               <strong class="ark-protocol__pillar-name">{{ block.settings.title }}</strong>
               <span class="ark-protocol__pillar-sub">{{ block.settings.subtitle }}</span>
             </li>
@@ -119,11 +119,11 @@
         { "type": "phase", "settings": { "window": "12h — 36h • Esgotamento Hídrico", "title": "Quebra de Pressão na Água", "text": "As estações elevatórias municipais param sem geradores. O acesso a água não tratada obriga à microfiltração e purificação imediata.", "icon": "water_bottle", "solution": "Purificação 0.1 mícron + Eletrólitos" } },
         { "type": "phase", "settings": { "window": "36h — 72h • Resgate & Apoio", "title": "Triagem e Apoio Externo", "text": "Proteção Civil prioriza hospitais e idosos institucionalizados. A sua habitação deve permanecer 100% autossuficiente até à reposição geral.", "icon": "health_and_safety", "solution": "Primeiros Socorros + Manta Térmica" } },
         { "type": "pillar", "settings": { "icon": "radio", "title": "Comunicação", "subtitle": "Rádio FM/AM & SOS" } },
-        { "type": "pillar", "settings": { "icon": "water_drop", "title": "Hidratação", "subtitle": "Pastilhas + Filtro" } },
-        { "type": "pillar", "settings": { "icon": "medical_services", "title": "Socorros", "subtitle": "Trauma e medicação" } },
-        { "type": "pillar", "settings": { "icon": "device_thermostat", "title": "Termorregulação", "subtitle": "Mantas Mylar 90%" } },
-        { "type": "pillar", "settings": { "icon": "flash_on", "title": "Energia", "subtitle": "Painel Solar & USB" } },
-        { "type": "pillar", "settings": { "icon": "description", "title": "Documentos", "subtitle": "Bolsa estanque" } }
+        { "type": "pillar", "settings": { "icon": "agua", "title": "Hidratação", "subtitle": "Pastilhas + Filtro" } },
+        { "type": "pillar", "settings": { "icon": "socorros", "title": "Socorros", "subtitle": "Trauma e medicação" } },
+        { "type": "pillar", "settings": { "icon": "termo", "title": "Termorregulação", "subtitle": "Mantas Mylar 90%" } },
+        { "type": "pillar", "settings": { "icon": "energia", "title": "Energia", "subtitle": "Painel Solar & USB" } },
+        { "type": "pillar", "settings": { "icon": "documentos", "title": "Documentos", "subtitle": "Bolsa estanque" } }
       ]
     }
   ]

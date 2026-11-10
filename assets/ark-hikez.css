@@ -1060,3 +1060,36 @@ html {
 .ark.ark-header .ark-header__actions {
   gap: 0.5rem;
 }
+
+/* ---------- Illustrated brand icons (assets/ark-ic-*.png via snippets/ark-art-icon) ---------- */
+.ark .ark-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ark .ark-card__icon:has(> .ark-art),
+.ark .ark-icon-circle:has(> .ark-art) {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ark .ark-icon-circle:has(> .ark-art) {
+  transform: none;
+  opacity: 1;
+}
+
+/* dark backgrounds: give the art its own white tile */
+.ark .ark-cards--dark .ark-card__icon:has(> .ark-art),
+.ark .ark-action-square:has(> .ark-art) {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}

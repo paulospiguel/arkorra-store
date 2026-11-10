@@ -52,7 +52,7 @@
         "item_1": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "local_shipping",
+            "icon": "envio",
             "tone": "primary",
             "title": "Envio para Portugal e Europa",
             "text": ""
@@ -62,7 +62,7 @@
         "item_2": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "lock",
+            "icon": "pagamento",
             "tone": "primary",
             "title": "Pagamento seguro",
             "text": ""
@@ -72,7 +72,7 @@
         "item_3": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "published_with_changes",
+            "icon": "devolucoes",
             "tone": "primary",
             "title": "14 dias para devolver",
             "text": ""
@@ -82,7 +82,7 @@
         "item_4": {
           "type": "ark-icon-card",
           "settings": {
-            "icon": "support_agent",
+            "icon": "apoio",
             "tone": "primary",
             "title": "Apoio em português",
             "text": ""
@@ -106,7 +106,7 @@
         "c1": {
           "type": "card",
           "settings": {
-            "icon": "person",
+            "icon": "solteiro",
             "title": "Para ti",
             "text": "O essencial para quem vive sozinho ou em casal, sem excessos.",
             "points_label": "",
@@ -118,7 +118,7 @@
         "c2": {
           "type": "card",
           "settings": {
-            "icon": "group",
+            "icon": "familia",
             "title": "Para famílias",
             "text": "Quantidades pensadas para 3 a 5 pessoas, com atenção às crianças.",
             "points_label": "",
@@ -130,7 +130,7 @@
         "c3": {
           "type": "card",
           "settings": {
-            "icon": "favorite",
+            "icon": "idoso",
             "title": "Para idosos",
             "text": "Fácil de usar, fácil de ler, sem dependência de ninguém.",
             "points_label": "",
@@ -159,7 +159,7 @@
         "s1": {
           "type": "card",
           "settings": {
-            "icon": "bolt",
+            "icon": "energia",
             "title": "Apagão",
             "text": "Luz, comunicação e água para as primeiras 72 horas.",
             "points_label": "O que precisas",
@@ -171,7 +171,7 @@
         "s2": {
           "type": "card",
           "settings": {
-            "icon": "shield",
+            "icon": "radio",
             "title": "Alerta de segurança",
             "text": "Ficar em casa com calma e bem informado.",
             "points_label": "O que precisas",
@@ -183,7 +183,7 @@
         "s3": {
           "type": "card",
           "settings": {
-            "icon": "home",
+            "icon": "socorros",
             "title": "Estado de emergência",
             "text": "Mochila pronta, caso seja preciso sair de casa.",
             "points_label": "O que precisas",
@@ -321,7 +321,7 @@
         "guide_idoso": {
           "type": "guide",
           "settings": {
-            "icon": "health_and_safety",
+            "icon": "idoso",
             "title": "Guia para idosos",
             "text": "Letra grande, passos simples e a medicação em primeiro lugar. Para quem vive sozinho ou com apoio de terceiros.",
             "points": "Plano de medicação e receitas em papel; Contactos de emergência em letra grande; Luz, calor e água sem depender de ninguém; Quando e como pedir ajuda",
@@ -332,7 +332,7 @@
         "guide_familia": {
           "type": "guide",
           "settings": {
-            "icon": "group",
+            "icon": "familia",
             "title": "Guia para famílias",
             "text": "Reservas, rotinas e papéis para cada pessoa de casa, incluindo crianças e bebés.",
             "points": "Lista de reservas para 3 a 5 pessoas; Plano de casa e ponto de encontro; Kit para crianças e bebés; Como manter a calma e organizar a casa",
@@ -343,7 +343,7 @@
         "guide_solteiro": {
           "type": "guide",
           "settings": {
-            "icon": "person",
+            "icon": "solteiro",
             "title": "Guia para quem vive sozinho",
             "text": "O essencial, sem excessos: o que guardar, o que saber fazer e como não ficar isolado.",
             "points": "Kit compacto e fácil de guardar; Rede de contactos e plano de saída; Poupar bateria e comunicar sem rede; Cozinhar e conservar sem eletricidade",
@@ -354,7 +354,7 @@
         "guide_mulher": {
           "type": "guide",
           "settings": {
-            "icon": "shield",
+            "icon": "mulher",
             "title": "Guia para mulheres sozinhas",
             "text": "Segurança pessoal e da casa, deslocações e comunicação, com atenção aos riscos específicos.",
             "points": "Segurança da casa e das deslocações; Sinais de alerta e rede de apoio; Higiene e saúde com recursos limitados; Plano de saída rápido",
@@ -365,10 +365,21 @@
         "guide_casal": {
           "type": "guide",
           "settings": {
-            "icon": "favorite",
+            "icon": "casal",
             "title": "Guia para casais",
             "text": "Dividir tarefas, decidir juntos e ter um plano comum, em casa e em viagem.",
             "points": "Reservas para duas pessoas; Plano de emergência a dois; Divisão de tarefas e pontos de encontro; Mochila de evacuação do casal",
+            "product": "",
+            "cta_label": "Ver guia"
+          }
+        },
+        "guide_pet": {
+          "type": "guide",
+          "settings": {
+            "icon": "pet",
+            "title": "Guia para o teu animal",
+            "text": "Cães, gatos e outros animais também precisam de um plano: comida, água, medicação e como sair de casa com eles.",
+            "points": "Reservas de 7 a 14 dias para o animal; Mochila e kit de primeiros socorros; Como evacuar com cães, gatos e animais pequenos; Ficha do animal para preencher à mão",
             "product": "",
             "cta_label": "Ver guia"
           }
@@ -379,7 +390,8 @@
         "guide_familia",
         "guide_solteiro",
         "guide_mulher",
-        "guide_casal"
+        "guide_casal",
+        "guide_pet"
       ],
       "settings": {
         "anchor": "guias",
@@ -388,7 +400,7 @@
         "text": "Quando falha a luz ou a internet, o papel continua a funcionar. Compra, descarrega em PDF e guarda uma cópia impressa em casa. Há um guia para cada perfil.",
         "bundle_badge": "Mais completo",
         "bundle_title": "Guia completo de preparação",
-        "bundle_text": "Os cinco guias num só PDF, com tudo o que precisas de saber antes, durante e depois de uma emergência.",
+        "bundle_text": "Os seis guias num só PDF, com tudo o que precisas de saber antes, durante e depois de uma emergência.",
         "bundle_points": "O que estocar e quanto; Como usar cada material; Como proteger-te em apagões, ciberataques e calamidades; Telefones de emergência e plano para imprimir",
         "bundle_product": "",
         "bundle_cta": "Comprar o guia completo",

@@ -62,6 +62,16 @@
   text-transform: uppercase;
 }
 
+.ark-guide__cover-art {
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+
+  & .ark-icon {
+    font-size: 3rem;
+  }
+}
+
 .ark .ark-guide__cover-title {
   margin: 0;
   font-family: var(--hk-font-display, inherit);
