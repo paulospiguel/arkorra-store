@@ -1,3 +1,19 @@
+{%- liquid
+  assign ark_is_guide = false
+  assign handle_down = product.handle | downcase
+  for tag in product.tags
+    assign tag_down = tag | downcase
+    if tag_down contains 'guia-' or tag_down == 'digital' or tag_down == 'guia'
+      assign ark_is_guide = true
+    endif
+  endfor
+  if product.type contains 'Guia' or product.type contains 'guia' or handle_down contains 'guia-'
+    assign ark_is_guide = true
+  endif
+-%}
+{%- if ark_is_guide -%}
+  {% render 'ark-guide-detail', s: blank, blocks: blank %}
+{%- else -%}
 {{ 'section-ark-main-product.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -715,6 +731,7 @@
 </div>
 
 <script src="{{ 'ark-product.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 
 {% schema %}
 {
