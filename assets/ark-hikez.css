@@ -639,9 +639,16 @@ h4,
 /* ---------- Contrast, buttons, logo, kit images ---------- */
 
 /* Own logo (white artwork) sits on the light hero: multiply drops the white box */
-.ark .ark-header__logo-img {
-  mix-blend-mode: multiply;
-  height: calc(5.25 * var(--ark-rem));
+.ark.ark-header .ark-header__logo-img {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  mix-blend-mode: normal;
+  /* white lettering needs a navy keyline to read on the light hero and the white scrolled bar */
+  filter: drop-shadow(0 0 1px #04335e) drop-shadow(0 0 1px #04335e) drop-shadow(0 1px 3px rgb(4 51 94 / 0.45));
+  height: calc(6.25 * var(--ark-rem));
   width: auto;
   aspect-ratio: auto;
   object-fit: contain;
