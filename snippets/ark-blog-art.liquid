@@ -1,0 +1,15 @@
+{% doc %}
+  URL da capa ilustrada de um artigo (assets/ark-blog-<handle>-cover.jpg), ou vazio.
+  Usada quando o artigo não tem imagem de destaque, para nunca ficar só texto.
+
+  @param {object} article - artigo Shopify
+
+  @example
+  {% capture cover %}{% render 'ark-blog-art', article: article %}{% endcapture %}
+{% enddoc %}
+{%- liquid
+  assign art_handles = 'apagao-primeiras-72-horas,o-que-guardar-em-casa,porque-imprimir-o-guia,sem-internet-como-manter-te-informado,o-teu-animal-tambem-precisa-de-um-plano,estado-de-emergencia-o-que-significa,escassez-de-itens-basicos,agua-e-comida-quando-faltam' | split: ','
+  if art_handles contains article.handle
+    echo 'ark-blog-' | append: article.handle | append: '-cover.jpg' | asset_url
+  endif
+-%}

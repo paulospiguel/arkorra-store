@@ -9,8 +9,12 @@
 {% enddoc %}
 <article class="ark-post">
   <a href="{{ article.url }}" class="ark-post__media" tabindex="-1" aria-hidden="true">
+    {%- capture art_cover %}{% render 'ark-blog-art', article: article %}{% endcapture -%}
+    {%- assign art_cover = art_cover | strip -%}
     {%- if article.image != blank -%}
       {{ article.image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', sizes: '(min-width: 1024px) 360px, 100vw', alt: article.image.alt | default: article.title, class: 'ark-post__img' }}
+    {%- elsif art_cover != blank -%}
+      <img class="ark-post__img" src="{{ art_cover }}" alt="" width="720" height="405" loading="lazy">
     {%- else -%}
       <span class="ark-post__ph"><img class="ark-art" src="{{ 'ark-ic-guia.png' | asset_url }}" alt="" width="128" height="128" loading="lazy"></span>
     {%- endif -%}

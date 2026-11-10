@@ -277,3 +277,23 @@
 .ark-article__more {
   margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
 }
+
+/* illustrations inside articles */
+.ark-article__content figure {
+  margin: 2rem 0;
+}
+
+.ark-article__content figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #04335e;
+  box-shadow: 6px 6px 0 rgb(4 51 94 / 0.12);
+}
+
+.ark-article__content figcaption {
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--hk-muted, #5f6b6a);
+}
