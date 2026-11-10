@@ -1,0 +1,41 @@
+{{ 'section-ark-blog.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+{%- assign source = s.blog | default: blogs.first -%}
+{%- if source != blank and source.articles_count > 0 -%}
+<section class="ark ark-blog-latest">
+  <div class="ark-page-width">
+    <div class="ark-section-head">
+      <div class="ark-section-head__text">
+        {%- if s.eyebrow != blank -%}<span class="ark-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="ark-heading-xl">{{ s.heading }}</h2>
+        {%- if s.text != blank -%}<p class="ark-lede">{{ s.text }}</p>{%- endif -%}
+      </div>
+    </div>
+    <div class="ark-blog__grid">
+      {%- for article in source.articles limit: s.count -%}
+        {% render 'ark-article-card', article: article, read_label: s.read_label %}
+      {%- endfor -%}
+    </div>
+    <p class="ark-blog-latest__cta"><a href="{{ source.url }}" class="ark-button ark-button--outlined ark-button--lg">{{ s.all_label }}</a></p>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Arkorra - Últimos artigos",
+  "tag": "div",
+  "class": "ark-blog-latest-section",
+  "settings": [
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "BLOG" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Ler para estar preparado" },
+    { "type": "textarea", "id": "text", "label": "Texto" },
+    { "type": "range", "id": "count", "label": "Artigos", "min": 3, "max": 9, "step": 3, "default": 3 },
+    { "type": "text", "id": "read_label", "label": "Texto da ligação", "default": "Ler artigo" },
+    { "type": "text", "id": "all_label", "label": "Texto do botão", "default": "Ver todos os artigos" }
+  ],
+  "presets": [{ "name": "Arkorra - Últimos artigos" }]
+}
+{% endschema %}
