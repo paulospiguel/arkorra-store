@@ -1,0 +1,89 @@
+{{ 'section-ark-blog.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+<article class="ark ark-article">
+  <div class="ark-page-width ark-article__wrap">
+    <nav class="ark-guide__crumbs" aria-label="Navegação">
+      <a href="{{ routes.root_url }}">{{ s.home_label }}</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ article.title }}</span>
+    </nav>
+
+    <header class="ark-article__head">
+      <p class="ark-post__meta">
+        {%- for tag in article.tags limit: 3 -%}<a class="ark-post__tag" href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a>{%- endfor -%}
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | time_tag: '%d/%m/%Y' }}</time>
+        {%- if s.show_author and article.author != blank -%}<span>{{ article.author }}</span>{%- endif -%}
+      </p>
+      <h1 class="ark-article__title">{{ article.title }}</h1>
+    </header>
+
+    {%- capture art_cover %}{% render 'ark-blog-art', article: article %}{% endcapture -%}
+    {%- assign art_cover = art_cover | strip -%}
+    {%- if article.image != blank -%}
+      <div class="ark-article__cover">
+        {{ article.image | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width: 900px) 880px, 100vw', alt: article.image.alt | default: article.title }}
+      </div>
+    {%- elsif art_cover != blank -%}
+      <div class="ark-article__cover">
+        <img src="{{ art_cover }}" alt="" width="1200" height="675" loading="eager">
+      </div>
+    {%- endif -%}
+
+    {%- comment -%}
+      Imagens do corpo: o HTML do artigo usa src="ark-img/<ficheiro>" e aqui é resolvido
+      para o URL do asset do tema (assets/ark-blog-*.jpg).
+    {%- endcomment -%}
+    {%- assign art_root = 'ark-blog-apagao-primeiras-72-horas-cover.jpg' | asset_url | split: 'ark-blog-' | first -%}
+    {%- assign art_src = 'src="' | append: art_root -%}
+    <div class="ark-article__content rte">{{ article.content | replace: 'src="ark-img/', art_src }}</div>
+
+    <footer class="ark-article__foot">
+      <a href="{{ blog.url }}" class="ark-button ark-button--outlined"><span class="ark-icon" aria-hidden="true">arrow_forward</span>{{ s.back_label }}</a>
+    </footer>
+
+    {%- if blog.articles_count > 1 -%}
+      <section class="ark-article__more">
+        <h2 class="ark-guide__h2">{{ s.more_heading }}</h2>
+        <div class="ark-blog__grid">
+          {%- assign shown = 0 -%}
+          {%- for a in blog.articles -%}
+            {%- if a.id != article.id and shown < 3 -%}
+              {% render 'ark-article-card', article: a, read_label: s.read_label %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
+  </div>
+</article>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ article.title | json }},
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "author": { "@type": "Person", "name": {{ article.author | default: shop.name | json }} },
+    "mainEntityOfPage": {{ shop.url | append: article.url | json }}
+    {%- if article.image != blank -%}, "image": {{ article.image | image_url: width: 1200 | prepend: 'https:' | json }}{%- endif -%}
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Arkorra - Artigo",
+  "tag": "div",
+  "class": "ark-article-section",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Mostrar autor", "default": true },
+    { "type": "text", "id": "home_label", "label": "Texto 'Início'", "default": "Início" },
+    { "type": "text", "id": "back_label", "label": "Texto do botão de voltar", "default": "Ver todos os artigos" },
+    { "type": "text", "id": "more_heading", "label": "Título de outros artigos", "default": "Continua a ler" },
+    { "type": "text", "id": "read_label", "label": "Texto da ligação", "default": "Ler artigo" }
+  ]
+}
+{% endschema %}

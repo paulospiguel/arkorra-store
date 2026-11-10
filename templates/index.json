@@ -355,7 +355,7 @@
           "type": "guide",
           "settings": {
             "icon": "mulher",
-            "title": "Guia para mulheres sozinhas",
+            "title": "Guia para mulheres independentes",
             "text": "Segurança pessoal e da casa, deslocações e comunicação, com atenção aos riscos específicos.",
             "points": "Segurança da casa e das deslocações; Sinais de alerta e rede de apoio; Higiene e saúde com recursos limitados; Plano de saída rápido",
             "product": "",
@@ -461,6 +461,17 @@
         "pdf_url": ""
       }
     },
+    "blog": {
+      "type": "ark-blog-latest",
+      "settings": {
+        "eyebrow": "BLOG",
+        "heading": "Ler para estar preparado",
+        "text": "Guias práticos, notícias e dicas para quando falha a luz, a água ou a internet.",
+        "count": 3,
+        "read_label": "Ler artigo",
+        "all_label": "Ver todos os artigos"
+      }
+    },
     "about": {
       "type": "ark-about",
       "settings": {
@@ -482,6 +493,8 @@
     "guides",
     "steps",
     "lead_capture",
+    "blog",
     "about"
   ]
 }
+

@@ -310,10 +310,10 @@ SOZINHO = {
 }
 
 MULHER = {
-    "id": "mulher-sozinha",
-    "title": "Guia de preparação<br>para mulheres sozinhas",
+    "id": "mulher-independente",
+    "title": "Guia de preparação<br>para mulheres independentes",
     "lead": "Segurança pessoal e da casa, deslocações, comunicação e saúde, com atenção aos riscos específicos de quem vive só. Sem alarmismo, com um plano claro.",
-    "who_short": "Mulheres sozinhas",
+    "who_short": "Mulheres independentes",
     "css": "",
     "estocar": estocar(
         1, "1 pessoa",
@@ -666,7 +666,7 @@ def build_completo():
         parts.extend(p["chapters"])
     parts += [CONTACTOS, MEDICACAO, INVENTARIO]
     body = cover("Guia completo<br>de preparação",
-                 "Todos os guias num só: idosos, famílias, quem vive sozinho, mulheres sozinhas, casais e animais de companhia. O que estocar, como usar cada material, como te proteger e o que fazer antes, durante e depois de uma emergência.",
+                 "Todos os guias num só: idosos, famílias, quem vive sozinho, mulheres independentes, casais e animais de companhia. O que estocar, como usar cada material, como te proteger e o que fazer antes, durante e depois de uma emergência.",
                  "Guia completo · PDF para imprimir") + "\n".join(h2_renumber(parts))
     html = page("Guia completo de preparação", body, "Arkorra · Guia completo de preparação")
     path = HERE / "guia-completo.html"
