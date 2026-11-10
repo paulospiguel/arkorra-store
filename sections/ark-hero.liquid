@@ -45,7 +45,7 @@
       {%- if s.image != blank -%}
         {{ s.image | image_url: width: 1100 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 1024px) 520px, 100vw', widths: '480, 720, 1100', class: 'ark-hero__img', alt: s.image.alt | default: s.heading | strip_newlines }}
       {%- else -%}
-        <img src="{{ 'ark-placeholder-hero.jpg' | asset_url }}" alt="" class="ark-hero__img" width="1100" height="1000" loading="eager" fetchpriority="high">
+        <img src="{{ 'ark-hikez-hero.jpg' | asset_url }}" alt="" class="ark-hero__img" width="1920" height="1007" loading="eager" fetchpriority="high">
       {%- endif -%}
     </div>
   </div>

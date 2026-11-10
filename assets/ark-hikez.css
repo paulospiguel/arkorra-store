@@ -1,0 +1,794 @@
+/*
+  Hikez look (ark-hikez.css)
+  Design tokens extracted from https://hikez-theme.myshopify.com/ with rea:
+  - Fonts: Nunito Sans (UI + headings), Fenix (serif hero copy), Oswald, Poller One
+  - Colors: navy #04335e, green #549064, black #000, white #fff
+  Loaded after base.css; overrides the --ark-* tokens so every section follows.
+*/
+
+:root {
+  /* Hikez palette */
+  --hk-navy: #04335e;
+  --hk-navy-dark: #022848;
+  --hk-green: #549064;
+  --hk-green-dark: #447853;
+  --hk-black: #000000;
+  --hk-ink: #121212;
+  --hk-muted: #5f6b6a;
+  --hk-line: #e6e6e6;
+
+  /* Remap Arkorra tokens */
+  --ark-primary: var(--hk-navy);
+  --ark-pine-deep: var(--hk-navy);
+  --ark-pine-light: var(--hk-navy-dark);
+  --ark-terracotta: var(--hk-green);
+  --ark-terracotta-hover: var(--hk-green-dark);
+  --ark-secondary: var(--hk-green-dark);
+  --ark-secondary-container: var(--hk-green);
+  --ark-tertiary: var(--hk-muted);
+  --ark-sage: var(--hk-green);
+  --ark-charcoal: var(--hk-ink);
+  --ark-inverted: var(--hk-black);
+  --ark-on-surface: var(--hk-ink);
+  --ark-surface: #ffffff;
+  --ark-surface-low: #f7f7f5;
+  --ark-surface-container: #f1f1ee;
+  --ark-surface-high: #ebebe7;
+  --ark-sand: #ffffff;
+  --ark-linen: var(--hk-line);
+  --ark-outline-variant: var(--hk-line);
+  --ark-secondary-fixed: #e4f0e8;
+
+  /* Typography */
+  --ark-font-heading: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ark-font-body: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ark-font-label: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --hk-font-serif: 'Fenix', Georgia, 'Times New Roman', serif;
+  --hk-font-display: 'Oswald', 'Nunito Sans', sans-serif;
+
+  /* Square corners, soft shadows */
+  --ark-radius-sm: 0;
+  --ark-radius-md: 0;
+  --ark-radius-lg: 0;
+  --ark-radius-xl: 0;
+  --ark-page-width: calc(80 * var(--ark-rem));
+}
+
+body {
+  font-family: var(--ark-font-body);
+  color: var(--hk-ink);
+  background: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+.ark-heading-xl,
+.ark-heading-lg,
+.ark-heading-md,
+.ark-heading-sm {
+  font-family: var(--ark-font-heading);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* Buttons: square, bold, green primary / navy secondary */
+.ark-button {
+  border-radius: 0;
+  font-family: var(--ark-font-body);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ark-button--primary {
+  background: var(--hk-green);
+  border-color: var(--hk-green);
+  color: #fff;
+}
+
+.ark-button--primary:hover {
+  background: var(--hk-green-dark);
+  border-color: var(--hk-green-dark);
+}
+
+.ark-button--secondary,
+.ark-button--dark {
+  background: var(--hk-navy);
+  border-color: var(--hk-navy);
+  color: #fff;
+}
+
+.ark-button--secondary:hover,
+.ark-button--dark:hover {
+  background: var(--hk-navy-dark);
+}
+
+/* ---------- Header: white bar over the hero, logo centered, menu left, utilities right ---------- */
+.ark.ark-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.ark.ark-header > .ark-header__announcement {
+  grid-row: 1;
+}
+
+.ark.ark-header > .ark-header__main,
+.ark.ark-header > .ark-header__nav {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+/* Hero slides up under the transparent header bar */
+.ark-hero-section {
+  margin-top: calc(-7.5 * var(--ark-rem));
+}
+
+.ark.ark-header .ark-header__announcement {
+  background: var(--hk-navy);
+}
+
+.ark.ark-header .ark-header__main,
+.ark.ark-header .ark-header__nav {
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  padding: 0;
+}
+
+.ark.ark-header .ark-header__main-inner {
+  min-height: calc(7.5 * var(--ark-rem));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (min-width: 990px) {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    pointer-events: none;
+  }
+}
+
+.ark.ark-header .ark-header__main-inner > * {
+  pointer-events: auto;
+}
+
+/* Menu sits on the left of the logo, on the same row */
+.ark.ark-header .ark-header__nav {
+  @media (min-width: 990px) {
+    width: 50%;
+    justify-self: start;
+    align-self: center;
+    z-index: 2;
+  }
+}
+
+.ark.ark-header .ark-header__nav-inner {
+  padding-inline: var(--ark-margin);
+}
+
+.ark.ark-header .ark-header__menu {
+  flex-wrap: wrap;
+  gap: 0;
+  padding-block: 0;
+  max-width: calc(50vw - 5rem);
+}
+
+.ark.ark-header .ark-header__menu-link {
+  font-family: var(--ark-font-body);
+  font-size: calc(0.9375 * var(--ark-rem));
+  padding-inline: calc(0.5 * var(--ark-rem));
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--hk-ink);
+  letter-spacing: 0;
+  border-radius: 0;
+}
+
+.ark.ark-header .ark-header__menu-link:hover,
+.ark.ark-header .ark-header__menu-link.is-active {
+  color: var(--hk-navy);
+  background: transparent;
+}
+
+.ark.ark-header .ark-header__logo {
+  grid-column: 2;
+  justify-self: center;
+  color: var(--hk-ink);
+}
+
+.ark .ark-header__logo-img {
+  height: calc(5.5 * var(--ark-rem));
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+
+.ark.ark-header .ark-header__search {
+  display: none;
+}
+
+.ark.ark-header .ark-header__actions {
+  grid-column: 3;
+  justify-self: end;
+  gap: calc(0.75 * var(--ark-rem));
+}
+
+.ark .ark-header__icon-button,
+.ark-nav-pill .ark-nav-pill__item {
+  color: var(--hk-ink);
+  background: transparent;
+}
+
+.ark-nav-pill {
+  background: transparent;
+}
+
+.ark.ark-header .ark-header__cart {
+  background: transparent;
+  color: var(--hk-ink);
+  padding-inline: 0.5rem;
+}
+
+.ark.ark-header .ark-header__cart:hover {
+  background: transparent;
+  color: var(--hk-navy);
+}
+
+.ark.ark-header .ark-header__cart-count {
+  background: var(--hk-navy);
+  color: #fff;
+}
+
+.ark.ark-header [data-ark-lang] > summary {
+  background: var(--hk-black);
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  font-weight: 700;
+}
+
+/* ---------- Hero: full-bleed photo, text on the right, light fade at the bottom ---------- */
+.ark-hero {
+  position: relative;
+  isolation: isolate;
+  background: #ffffff;
+  color: var(--hk-ink);
+  min-height: min(56.25rem, 100svh);
+  padding-block: calc(12 * var(--ark-rem)) calc(7 * var(--ark-rem));
+  display: flex;
+  align-items: center;
+}
+
+.ark-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.ark-hero__media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: none;
+  z-index: 1;
+}
+
+.ark-hero__media::after {
+  z-index: 2;
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #ffffff);
+}
+
+.ark-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+  aspect-ratio: auto;
+}
+
+.ark-hero .ark-hero__grid {
+  display: block;
+  width: 100%;
+}
+
+.ark-hero .ark-hero__content {
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: clamp(0rem, 6vw, 5rem);
+  gap: calc(1.25 * var(--ark-rem));
+
+  @media (max-width: 989px) {
+    margin-inline: 0;
+  }
+}
+
+.ark .ark-hero__eyebrow {
+  font-family: var(--hk-font-serif);
+  font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--hk-ink);
+}
+
+.ark.ark-hero .ark-hero__title {
+  font-family: var(--ark-font-heading);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 2rem + 2.6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--hk-green);
+}
+
+.ark.ark-hero .ark-hero__text {
+  font-family: var(--hk-font-serif);
+  font-size: calc(1.125 * var(--ark-rem));
+  color: var(--hk-ink);
+  max-width: none;
+}
+
+.ark-hero__checks,
+.ark-hero__check {
+  color: var(--hk-ink);
+}
+
+.ark .ark-hero__cta-secondary {
+  --ark-button-fg: var(--hk-navy);
+  --ark-button-border: var(--hk-navy);
+}
+
+/* ---------- Sections below the hero (Hikez section rhythm) ---------- */
+
+/* Section titles: Oswald, 30px, uppercase, centered, navy */
+.ark .ark-heading-xl,
+.ark .ark-cards__title,
+.ark .ark-section-head .ark-heading-xl {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.875 * var(--ark-rem));
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--hk-navy);
+}
+
+.ark .ark-section-head,
+.ark .ark-cards__head {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.ark .ark-section-head__aside {
+  display: none;
+}
+
+/* Eyebrows become a short green rule under the title instead of small caps */
+.ark .ark-eyebrow,
+.ark .ark-cards__eyebrow {
+  font-family: var(--ark-font-body);
+  color: var(--hk-green);
+  letter-spacing: 1px;
+}
+
+.ark .ark-lede,
+.ark .ark-cards__lead {
+  color: var(--hk-muted);
+  margin-inline: auto;
+}
+
+/* Trust bar: white strip, thin dividers */
+.ark-trust-bar {
+  background: #ffffff;
+  border-block: 1px solid var(--hk-line);
+}
+
+/* Cards and product cards: flat, square, no border/shadow, centered text */
+.ark .ark-card,
+.ark-product-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ark-product-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.ark-product-card__media {
+  border-radius: 0;
+  background: #f4f4f2;
+}
+
+.ark-product-card__body {
+  text-align: center;
+  align-items: center;
+}
+
+.ark .ark-product-card__title,
+.ark .ark-card__title,
+.ark .ark-product-card__body :is(h2, h3, h4) {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.125 * var(--ark-rem));
+  font-weight: 400;
+  color: var(--hk-black);
+}
+
+.ark-product-card__price,
+.ark .ark-price {
+  font-weight: 600;
+  font-size: calc(1.125 * var(--ark-rem));
+  color: var(--hk-black);
+}
+
+/* Catalog filter pills: square, navy when active */
+.ark-catalog__filter-pill {
+  border-radius: 0;
+}
+
+.ark-catalog__filter-pill.is-active,
+.ark-catalog__filter-pill[aria-pressed='true'] {
+  background: var(--hk-navy);
+  border-color: var(--hk-navy);
+  color: #fff;
+}
+
+/* Buttons: 14px 30px, capitalized */
+.ark .ark-button {
+  padding: 0.875rem 1.875rem;
+  text-transform: capitalize;
+}
+
+/* Steps: numbers as navy squares */
+.ark-steps__num {
+  background: var(--hk-navy);
+  color: #fff;
+  border-radius: 0;
+}
+
+/* Lead capture / newsletter: navy block, square fields */
+.ark-lead__card,
+.ark-lead__banner,
+.ark .ark-field__input {
+  border-radius: 0;
+}
+
+.ark .ark-field__input {
+  background: rgb(233 233 233 / 0.15);
+}
+
+/* Testimonials: centered quote cards with orange accent title */
+.ark-testimonials__grid .ark-card {
+  text-align: center;
+  background: #f7f7f5;
+  padding: calc(1.5 * var(--ark-rem));
+}
+
+.ark .ark-stars {
+  color: #ff9100;
+}
+
+/* Footer: navy, Oswald column headings, white links */
+.ark-footer {
+  background: var(--hk-navy);
+  color: #fff;
+}
+
+.ark-footer a,
+.ark-footer__text,
+.ark-footer__note,
+.ark-footer__fineprint {
+  color: #ffffff;
+}
+
+.ark-footer :is(h2, h3, h4),
+.ark-footer__col > :first-child {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.5 * var(--ark-rem));
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.ark-footer a:hover {
+  color: #ff9100;
+}
+
+/* Once the page scrolls the header becomes a solid white bar (it is transparent only over the hero) */
+.ark.ark-header.is-scrolled {
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.08);
+}
+
+.ark-steps__num {
+  color: #ffffff;
+}
+
+/* ---------- Comparison fixes ---------- */
+.ark.ark-footer {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(h2, h3, h4, .ark-footer__col-title, .ark-footer__heading),
+.ark.ark-footer .ark-footer__col > :is(p, span, strong):first-child {
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(p, li, span, address) {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.ark.ark-footer a {
+  color: #ffffff;
+}
+
+.ark.ark-footer a:hover {
+  color: #ff9100;
+}
+
+/* Shipping note collides with the centered logo */
+.ark.ark-header .ark-header__shipping {
+  display: none;
+}
+
+/* Product cards: flat */
+.ark .ark-product-card,
+.ark .ark-catalog__grid .ark-product-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* Hero secondary button readable on the light photo */
+.ark.ark-hero .ark-hero__cta-secondary {
+  color: var(--hk-navy);
+  border-color: var(--hk-navy);
+  background: transparent;
+}
+
+.ark.ark-hero .ark-hero__cta-secondary:hover {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+.ark.ark-footer :is(strong, b) {
+  color: #ffffff;
+}
+
+/* ---------- Fidelity pass: container, rhythm, torn hero edge ---------- */
+:root {
+  --ark-page-width: 1260px; /* Hikez content width: 1230px + 15px gutters */
+  --ark-gutter: 1.875rem; /* 30px grid gap */
+  --ark-section-pad: clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+
+/* Hero height matches the reference (~760px at 1440) */
+.ark-hero {
+  min-height: min(47.5rem, 100svh);
+}
+
+/* Hero slider arrows: navy squares on both edges */
+.ark-hero::before,
+.ark-hero::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--hk-navy);
+  z-index: 3;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1rem;
+}
+
+.ark-hero::before {
+  left: 0.625rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M15 4l-8 8 8 8'/%3E%3C/svg%3E");
+}
+
+.ark-hero::after {
+  right: 0.625rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M9 4l8 8-8 8'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 989px) {
+  .ark-hero::before,
+  .ark-hero::after {
+    display: none;
+  }
+}
+
+/* Grids use a 30px gap like the reference */
+.ark-cards__grid,
+.ark-catalog__grid,
+.ark-testimonials__grid,
+.ark-steps__list {
+  gap: 1.875rem;
+}
+
+/* Section titles get the small green underline the reference uses */
+.ark .ark-heading-xl::after,
+.ark .ark-cards__title::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 2px;
+  margin: 0.75rem auto 0;
+  background: var(--hk-green);
+}
+
+/* ---------- Contrast, buttons, logo, kit images ---------- */
+
+/* Own logo (white artwork) sits on the light hero: multiply drops the white box */
+.ark.ark-header .ark-header__logo-img {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  mix-blend-mode: normal;
+  /* white lettering needs a navy keyline to read on the light hero and the white scrolled bar */
+  filter: drop-shadow(0 0 1px #04335e) drop-shadow(0 0 1px #04335e) drop-shadow(0 1px 3px rgb(4 51 94 / 0.45));
+  height: calc(6.25 * var(--ark-rem));
+  width: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.ark.ark-header.is-scrolled .ark-header__logo-img {
+  height: calc(3.75 * var(--ark-rem));
+}
+
+/* Footer logo: transparent artwork with white lettering on the navy footer */
+.ark.ark-footer .ark-footer__logo-img {
+  width: calc(8 * var(--ark-rem));
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: normal;
+}
+
+.ark-footer__logo-wordmark {
+  display: none;
+}
+
+/* Buttons: white label on navy/green fills, navy label on outlined ones */
+.ark .ark-button {
+  --ark-button-fg: #ffffff;
+}
+
+.ark .ark-button--primary,
+.ark .ark-button--secondary,
+.ark .ark-button--pine,
+.ark .ark-button--dark,
+.ark .ark-button--accent,
+.ark .ark-button--terracotta {
+  color: #ffffff;
+}
+
+.ark .ark-button--accent,
+.ark .ark-button--terracotta {
+  background: var(--hk-green);
+  border-color: var(--hk-green);
+}
+
+.ark .ark-button--accent:hover,
+.ark .ark-button--terracotta:hover {
+  background: var(--hk-green-dark);
+  border-color: var(--hk-green-dark);
+}
+
+.ark .ark-button--outlined,
+.ark .ark-button--ghost {
+  color: var(--hk-navy);
+  border-color: var(--hk-navy);
+  background: transparent;
+}
+
+.ark .ark-button--outlined:hover,
+.ark .ark-button--ghost:hover {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+/* On navy sections the outlined button flips to white */
+:is(.ark-cards--dark, .ark-about, .ark-lead__card) .ark-button--outlined,
+:is(.ark-cards--dark, .ark-about) .ark-button--ghost {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) .ark-button--outlined:hover {
+  background: #ffffff;
+  color: var(--hk-navy);
+}
+
+/* Dark (navy) sections: lighter green accent, white copy */
+:is(.ark-cards--dark, .ark-about) {
+  --hk-accent-on-dark: #8fd3a0;
+  color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) :is(.ark-cards__eyebrow, .ark-eyebrow, .ark-icon, .ark-card__cta) {
+  color: var(--hk-accent-on-dark);
+}
+
+:is(.ark-cards--dark, .ark-about) :is(.ark-cards__title, .ark-heading-xl) {
+  color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) :is(p, li, .ark-card__text, .ark-cards__lead, .ark-about__text) {
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* Section eyebrows on white: darker green for AA */
+.ark-cards--light :is(.ark-cards__eyebrow, .ark-eyebrow),
+.ark-catalog .ark-eyebrow {
+  color: #2f6b40;
+}
+
+/* Hero checks and badges on the photo */
+.ark.ark-hero .ark-hero__check .ark-icon {
+  color: #2f6b40;
+}
+
+.ark.ark-hero .ark-hero__check {
+  font-weight: 600;
+}
+
+/* Step numbers */
+.ark .ark-steps__num {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+/* Trust bar text */
+.ark-trust-bar {
+  color: var(--hk-ink);
+}
+
+/* Header announcement text stays white on navy */
+.ark.ark-header .ark-header__announcement-text,
+.ark.ark-header .ark-header__announcement a {
+  color: #ffffff;
+}
+
+/* Kit photos: some carry a printed caption along the top edge; crop toward the product */
+.ark-product-card__media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.ark .ark-product-card__img {
+  object-fit: cover;
+  object-position: 50% 85%;
+  transform: scale(1.32);
+  transform-origin: 50% 85%;
+}
+
+/* Product badges: white on green */
+.ark-product-card__badge,
+.ark-badge {
+  background: var(--hk-green-dark);
+  color: #ffffff;
+  border-radius: 0;
+}

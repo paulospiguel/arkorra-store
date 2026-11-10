@@ -87,7 +87,7 @@
         {%- if section.settings.logo != blank -%}
           {{ section.settings.logo | image_url: width: 320 | image_tag: alt: logo_alt, class: 'ark-header__logo-img', loading: 'eager', widths: '160, 240, 320' }}
         {%- else -%}
-          <img src="{{ 'logo-2.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="160" height="120" loading="eager">
+          <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-header__logo-img" width="160" height="120" loading="eager">
         {%- endif -%}
       </a>
 
@@ -241,7 +241,7 @@
     { "type": "text", "id": "announcement", "label": "Texto", "default": "ALERTA DE PRONTIDÃO CIVIL IBÉRICA • LOTE IBÉRICO #04: RESTAM 9 UNIDADES • ENVIO EXPRESSO BLINDADO 24H (PT/ES)" },
     { "type": "url", "id": "announcement_link", "label": "Link (opcional)" },
     { "type": "header", "content": "Marca" },
-    { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo-2.png." },
+    { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo.png (transparente)." },
     { "type": "header", "content": "Navegação" },
     { "type": "checkbox", "id": "use_fallback_nav", "label": "Usar categorias Arkorra (Stitch)", "default": true, "info": "Desative para usar o menu configurado em Navegação da Shopify." },
     { "type": "text", "id": "fallback_nav", "label": "Categorias (separadas por vírgula)", "default": "Todos os Kits 72h, Apagão & Energia, Água & Sobrevivência, Linha Sénior, Veículos & Estrada, Protocolos & Guias" },
