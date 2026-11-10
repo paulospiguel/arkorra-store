@@ -72,6 +72,7 @@
               {%- for item in fallback_nav -%}
                 <li><a href="{% if forloop.first %}/collections/frontpage{% elsif forloop.last %}{{ routes.root_url }}#guia{% else %}{{ routes.root_url }}#catalogo{% endif %}" class="ark-header__drawer-link">{{ item | strip }}</a></li>
               {%- endfor -%}
+              <li><a href="{{ section.settings.blog.url | default: blogs.first.url | default: '/blogs/news' }}" class="ark-header__drawer-link">{{ section.settings.blog_label }}</a></li>
             </ul>
           {%- endif -%}
           {%- if section.settings.shipping_note != blank -%}
@@ -151,6 +152,9 @@
                 </a>
               </li>
             {%- endfor -%}
+            <li class="ark-header__menu-item">
+              <a href="{{ section.settings.blog.url | default: blogs.first.url | default: '/blogs/news' }}" class="ark-header__menu-link{% if template.directory == 'blog' or template.name == 'blog' or template.name == 'article' %} is-active{% endif %}"><span>{{ section.settings.blog_label }}</span></a>
+            </li>
           {%- endif -%}
         </ul>
       </nav>
@@ -244,6 +248,8 @@
     { "type": "image_picker", "id": "logo", "label": "Logótipo", "info": "Sem imagem, é usado assets/logo.png (transparente)." },
     { "type": "header", "content": "Navegação" },
     { "type": "checkbox", "id": "use_fallback_nav", "label": "Usar categorias Arkorra (Stitch)", "default": true, "info": "Desative para usar o menu configurado em Navegação da Shopify." },
+    { "type": "blog", "id": "blog", "label": "Blog (ligação no menu)" },
+    { "type": "text", "id": "blog_label", "label": "Texto da ligação do blog", "default": "Blog" },
     { "type": "text", "id": "fallback_nav", "label": "Categorias (separadas por vírgula)", "default": "Todos os Kits 72h, Apagão & Energia, Água & Sobrevivência, Linha Sénior, Veículos & Estrada, Protocolos & Guias" },
     { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" },
     { "type": "text", "id": "search_placeholder", "label": "Placeholder da pesquisa", "default": "Procurar kits 72h, rádios, lanternas, filtros..." },

@@ -10,7 +10,7 @@
 {%- comment -%}
   Product page for the printable PDF guides.
   Tag each guide product with one of: guia-idosos, guia-familia, guia-solteiro,
-  guia-mulher-sozinha, guia-casal, guia-pet, guia-completo. The tag selects the guide
+  guia-mulher-independente, guia-casal, guia-pet, guia-completo. The tag selects the guide
   details below; untagged products still render with generic copy.
 {%- endcomment -%}
 
@@ -22,12 +22,13 @@
     {%- break -%}
   {%- endif -%}
 {%- endfor -%}
+{%- if guide == 'mulher-sozinha' -%}{%- assign guide = 'mulher-independente' -%}{%- endif -%}
 {%- if guide == 'generic' -%}
   {%- assign h = product.handle | downcase -%}
   {%- if h contains 'idoso' -%}{%- assign guide = 'idosos' -%}
   {%- elsif h contains 'famil' -%}{%- assign guide = 'familia' -%}
   {%- elsif h contains 'solteir' or h contains 'sozinho' -%}{%- assign guide = 'solteiro' -%}
-  {%- elsif h contains 'mulher' -%}{%- assign guide = 'mulher-sozinha' -%}
+  {%- elsif h contains 'mulher' -%}{%- assign guide = 'mulher-independente' -%}
   {%- elsif h contains 'casal' -%}{%- assign guide = 'casal' -%}
   {%- elsif h contains 'pet' or h contains 'animal' or h contains 'cao' or h contains 'gato' -%}{%- assign guide = 'pet' -%}
   {%- elsif h contains 'completo' -%}{%- assign guide = 'completo' -%}
@@ -54,10 +55,10 @@
       assign who = 'Quem vive só e quer estar pronto sem ocupar uma casa inteira com stock.'
       assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1 pessoa;Como usar cada material;Cozinhar e comer com pouco espaço;Não ficar isolado: rede e check-in;Trabalhar e comunicar sem internet;Mochila de evacuação;Folhas: contactos, inventário' | split: ';'
       assign highlights = 'Kit compacto que cabe numa caixa;Menu de 3 dias sem eletricidade;Rede de contactos e check-in diário;Trabalhar e pagar sem internet' | split: ';'
-    when 'mulher-sozinha'
+    when 'mulher-independente'
       assign pages = 12
-      assign cover_title = 'Guia de preparação para mulheres sozinhas'
-      assign who = 'Mulheres que vivem sozinhas e querem um plano de segurança, saúde e comunicação.'
+      assign cover_title = 'Guia de preparação para mulheres independentes'
+      assign who = 'Mulheres independentes que vivem sozinhas e querem um plano de segurança, saúde e comunicação.'
       assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1 pessoa;Como usar cada material;Segurança da casa;Deslocações e comunicação;Saúde e higiene em crise;Apoio e linhas de ajuda;Folhas: contactos, inventário' | split: ';'
       assign highlights = 'Segurança da casa e das deslocações;Palavra-código e partilha de localização;Higiene e saúde íntima com recursos limitados;Linhas de apoio e plano de saída rápido' | split: ';'
     when 'casal'
@@ -76,7 +77,7 @@
       assign pages = 38
       assign cover_title = 'Guia completo de preparação'
       assign who = 'Para quem quer tudo: os seis guias num só PDF, ideal para oferecer ou partilhar com a família.'
-      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1, 2 e 4 pessoas;Como usar cada material;Perfil idosos: saúde, quedas, burlas, evacuação;Perfil famílias: crianças, bebés, plano da casa;Perfil quem vive sozinho: cozinha, rede, trabalho;Perfil mulheres sozinhas: segurança, saúde, apoio;Perfil casais: papéis, separação, relação;Folhas: contactos, medicação, inventário' | split: ';'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1, 2 e 4 pessoas;Como usar cada material;Perfil idosos: saúde, quedas, burlas, evacuação;Perfil famílias: crianças, bebés, plano da casa;Perfil quem vive sozinho: cozinha, rede, trabalho;Perfil mulheres independentes: segurança, saúde, apoio;Perfil casais: papéis, separação, relação;Folhas: contactos, medicação, inventário' | split: ';'
       assign highlights = 'Os seis guias por perfil num só PDF;Tabela de estoque para 1, 2 e 4 pessoas;Capítulos de saúde, segurança e comunicação;38 páginas para imprimir' | split: ';'
     else
       assign pages = 0
@@ -88,7 +89,7 @@
   case guide
     when 'idosos'
       assign cover_art = 'idoso'
-    when 'mulher-sozinha'
+    when 'mulher-independente'
       assign cover_art = 'mulher'
     when 'completo'
       assign cover_art = 'guia'

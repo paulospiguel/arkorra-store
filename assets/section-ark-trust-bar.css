@@ -22,7 +22,7 @@
 
 .ark-trust-bar__item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.875rem;
   padding: var(--ark-space-sm);
 }

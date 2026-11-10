@@ -20,7 +20,7 @@
       {%- if s.image != blank -%}
         {{ s.image | image_url: width: 880 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 440px, 100vw', widths: '440, 660, 880', class: 'ark-about__img' }}
       {%- else -%}
-        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-about__img" width="440" height="440" loading="lazy">
+        <img src="{{ 'ark-about-seguro.jpg' | asset_url }}" alt="{{ s.image_alt | default: 'Pessoa tranquila em casa a ler o guia, com a lanterna, o kit de emergência e o cão por perto' | escape }}" class="ark-about__img" width="480" height="480" loading="lazy">
       {%- endif -%}
     </div>
   </div>

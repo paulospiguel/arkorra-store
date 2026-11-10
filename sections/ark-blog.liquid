@@ -1,0 +1,65 @@
+{{ 'section-ark-blog.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+{%- paginate blog.articles by s.per_page -%}
+<section class="ark ark-blog">
+  <div class="ark-page-width">
+    <header class="ark-blog__head">
+      <p class="ark-eyebrow">{{ s.eyebrow }}</p>
+      <h1 class="ark-blog__title">{% if s.title != blank %}{{ s.title }}{% else %}{{ blog.title }}{% endif %}</h1>
+      {%- if s.text != blank -%}<p class="ark-lede">{{ s.text }}</p>{%- endif -%}
+    </header>
+
+    {%- if s.show_tags and blog.all_tags.size > 0 -%}
+      <nav class="ark-blog__tags" aria-label="{{ s.tags_label | escape }}">
+        <a href="{{ blog.url }}" class="ark-blog__tag{% unless current_tags %} is-active{% endunless %}">{{ s.all_label }}</a>
+        {%- for tag in blog.all_tags -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="ark-blog__tag{% if current_tags contains tag %} is-active{% endif %}">{{ tag }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- if blog.articles.size > 0 -%}
+      <div class="ark-blog__grid">
+        {%- for article in blog.articles -%}
+          {% render 'ark-article-card', article: article, read_label: s.read_label %}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="ark-blog__pages" aria-label="Paginação">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="ark-blog__page">&larr;</a>{%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}<a href="{{ part.url }}" class="ark-blog__page">{{ part.title }}</a>
+            {%- else -%}<span class="ark-blog__page is-active">{{ part.title }}</span>{%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="ark-blog__page">&rarr;</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- else -%}
+      <div class="ark-blog__empty">
+        <img class="ark-art" src="{{ 'ark-ic-guia.png' | asset_url }}" alt="" width="128" height="128" loading="lazy">
+        <p>{{ s.empty_text }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Arkorra - Blog",
+  "tag": "div",
+  "class": "ark-blog-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "BLOG" },
+    { "type": "text", "id": "title", "label": "Título (vazio = nome do blog)" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Guias práticos, notícias e dicas para estares preparado quando falha a luz, a água ou a internet." },
+    { "type": "range", "id": "per_page", "label": "Artigos por página", "min": 3, "max": 24, "step": 3, "default": 9 },
+    { "type": "checkbox", "id": "show_tags", "label": "Mostrar etiquetas", "default": true },
+    { "type": "text", "id": "all_label", "label": "Texto de 'todos'", "default": "Todos" },
+    { "type": "text", "id": "tags_label", "label": "Rótulo acessível das etiquetas", "default": "Filtrar por tema" },
+    { "type": "text", "id": "read_label", "label": "Texto da ligação", "default": "Ler artigo" },
+    { "type": "text", "id": "empty_text", "label": "Texto sem artigos", "default": "Ainda não há artigos. Volta em breve." }
+  ]
+}
+{% endschema %}
