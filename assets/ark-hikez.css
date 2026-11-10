@@ -1047,3 +1047,16 @@ html {
   background: transparent;
   color: var(--hk-ink);
 }
+
+/* Flag + caret sit together; no fixed toggle width */
+.ark.ark-header .ark-lang__toggle {
+  width: auto;
+  min-width: 0;
+  gap: 0.25rem;
+  justify-content: flex-start;
+  padding-inline: 0.25rem;
+}
+
+.ark.ark-header .ark-header__actions {
+  gap: 0.5rem;
+}
