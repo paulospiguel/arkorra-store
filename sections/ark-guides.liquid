@@ -56,7 +56,7 @@
           {%- assign points = b.points | split: ';' -%}
           <li class="ark-guides__card" {{ block.shopify_attributes }}>
             <div class="ark-card__head">
-              <span class="ark-card__icon"><span class="ark-icon" aria-hidden="true">{{ b.icon | default: 'menu_book' }}</span></span>
+              <span class="ark-card__icon">{%- assign guide_icon = b.icon | default: 'guia' -%}{% render 'ark-art-icon', name: guide_icon %}</span>
               <h3 class="ark-card__title">{{ b.title }}</h3>
             </div>
             {%- if b.text != blank -%}

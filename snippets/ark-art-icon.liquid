@@ -1,0 +1,23 @@
+{% doc %}
+  Ícone ilustrado da marca (PNG gerado em assets/ark-ic-*.png), com recurso ao Material Symbols.
+
+  @param {string} name - nome do ícone ilustrado (ex.: pet, familia) ou nome Material Symbols
+  @param {string} [class] - classes extra para a imagem
+
+  @example
+  {% render 'ark-art-icon', name: 'pet' %}
+{% enddoc %}
+{%- liquid
+  assign art_names = 'solteiro,familia,idoso,mulher,casal,pet,guia,pdf,radio,agua,socorros,termo,energia,documentos,armazem,pronto,manual,envio,pagamento,devolucoes,apoio' | split: ','
+  assign art_key = name | strip | downcase
+  if art_names contains art_key
+    assign art_file = 'ark-ic-' | append: art_key | append: '.png'
+  else
+    assign art_file = blank
+  endif
+-%}
+{%- if art_file != blank -%}
+  <img class="ark-art {{ class }}" src="{{ art_file | asset_url }}" alt="" width="128" height="128" loading="lazy" aria-hidden="true">
+{%- else -%}
+  <span class="ark-icon" aria-hidden="true">{{ name }}</span>
+{%- endif -%}

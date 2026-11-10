@@ -10,7 +10,7 @@
 {%- comment -%}
   Product page for the printable PDF guides.
   Tag each guide product with one of: guia-idosos, guia-familia, guia-solteiro,
-  guia-mulher-sozinha, guia-casal, guia-completo. The tag selects the guide
+  guia-mulher-sozinha, guia-casal, guia-pet, guia-completo. The tag selects the guide
   details below; untagged products still render with generic copy.
 {%- endcomment -%}
 
@@ -29,6 +29,7 @@
   {%- elsif h contains 'solteir' or h contains 'sozinho' -%}{%- assign guide = 'solteiro' -%}
   {%- elsif h contains 'mulher' -%}{%- assign guide = 'mulher-sozinha' -%}
   {%- elsif h contains 'casal' -%}{%- assign guide = 'casal' -%}
+  {%- elsif h contains 'pet' or h contains 'animal' or h contains 'cao' or h contains 'gato' -%}{%- assign guide = 'pet' -%}
   {%- elsif h contains 'completo' -%}{%- assign guide = 'completo' -%}
   {%- endif -%}
 {%- endif -%}
@@ -65,18 +66,34 @@
       assign who = 'Casais que querem um plano comum, com tarefas divididas e decisões acordadas.'
       assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 2 pessoas;Como usar cada material;Decidir em conjunto: papéis e plano a dois;Separados durante a crise;Cuidar da relação em crise;Mochila de evacuação do casal;Folhas: contactos, inventário' | split: ';'
       assign highlights = 'Quem faz o quê, escrito e acordado;O que fazer se estiverem separados;Como cuidar da relação sob pressão;Mochila de evacuação a dois' | split: ';'
+    when 'pet'
+      assign pages = 13
+      assign cover_title = 'Guia de preparação para o teu animal'
+      assign who = 'Quem tem cães, gatos ou outros animais de companhia e quer saber como os proteger num apagão, calamidade ou evacuação.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar para o animal;Como usar cada material;Proteger o animal em casa;Mochila do animal e primeiros socorros;Evacuar com o animal;Outros animais de casa;Folhas: ficha do animal, contactos, inventário' | split: ';'
+      assign highlights = 'Água, comida e medicação para 7 a 14 dias;Mochila do animal e kit de primeiros socorros;Como evacuar com cães, gatos e animais pequenos;Ficha do animal para preencher à mão' | split: ';'
     when 'completo'
-      assign pages = 33
+      assign pages = 38
       assign cover_title = 'Guia completo de preparação'
-      assign who = 'Para quem quer tudo: os cinco guias num só PDF, ideal para oferecer ou partilhar com a família.'
+      assign who = 'Para quem quer tudo: os seis guias num só PDF, ideal para oferecer ou partilhar com a família.'
       assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1, 2 e 4 pessoas;Como usar cada material;Perfil idosos: saúde, quedas, burlas, evacuação;Perfil famílias: crianças, bebés, plano da casa;Perfil quem vive sozinho: cozinha, rede, trabalho;Perfil mulheres sozinhas: segurança, saúde, apoio;Perfil casais: papéis, separação, relação;Folhas: contactos, medicação, inventário' | split: ';'
-      assign highlights = 'Os cinco guias por perfil num só PDF;Tabela de estoque para 1, 2 e 4 pessoas;Capítulos de saúde, segurança e comunicação;33 páginas para imprimir' | split: ';'
+      assign highlights = 'Os seis guias por perfil num só PDF;Tabela de estoque para 1, 2 e 4 pessoas;Capítulos de saúde, segurança e comunicação;38 páginas para imprimir' | split: ';'
     else
       assign pages = 0
       assign cover_title = product.title
       assign who = ''
       assign chapters = '' | split: ';'
       assign highlights = '' | split: ';'
+  endcase
+  case guide
+    when 'idosos'
+      assign cover_art = 'idoso'
+    when 'mulher-sozinha'
+      assign cover_art = 'mulher'
+    when 'completo'
+      assign cover_art = 'guia'
+    else
+      assign cover_art = guide
   endcase
   assign variant = product.selected_or_first_available_variant
 -%}
@@ -95,6 +112,7 @@
       <div class="ark-guide__cover-wrap">
         <div class="ark-guide__cover" role="img" aria-label="Capa do guia: {{ cover_title | escape }}">
           <span class="ark-guide__cover-tag">Guia para imprimir · PDF</span>
+          <span class="ark-guide__cover-art">{% render 'ark-art-icon', name: cover_art %}</span>
           <p class="ark-guide__cover-title">{{ cover_title }}</p>
           <p class="ark-guide__cover-lines" aria-hidden="true"><span></span><span></span><span></span></p>
           <p class="ark-guide__cover-brand">Arkorra</p>

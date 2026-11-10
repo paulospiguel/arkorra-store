@@ -470,7 +470,111 @@ FAMILIA = {
     "sheets": [],
 }
 
-PROFILES = [IDOSO, SOZINHO, MULHER, CASAL]
+FICHA_ANIMAL = """<section>
+  <h2>Ficha do animal</h2>
+  <p class="small">Preenche uma por animal. Guarda uma cópia na mochila e uma foto recente no telemóvel (de frente e de lado).</p>
+  <table>
+    <tr><th>Nome</th><td class="line"></td><th>Espécie / raça</th><td class="line"></td></tr>
+    <tr><th>Idade</th><td class="line"></td><th>Peso</th><td class="line"></td></tr>
+    <tr><th>Cor / sinais</th><td class="line"></td><th>N.º do microchip</th><td class="line"></td></tr>
+    <tr><th>Vacinas até</th><td class="line"></td><th>Desparasitação</th><td class="line"></td></tr>
+    <tr><th>Alergias</th><td class="line"></td><th>Medicação (dose e horas)</th><td class="line"></td></tr>
+    <tr><th>Alimentação</th><td class="line"></td><th>Comportamento (medos, mordidelas)</th><td class="line"></td></tr>
+  </table>
+  <div class="grid2">
+    <div class="box"><h3>Veterinário habitual</h3><div class="line"></div><div class="line"></div></div>
+    <div class="box"><h3>Veterinário de urgência 24 h</h3><div class="line"></div><div class="line"></div></div>
+    <div class="box"><h3>Quem fica com o animal se eu não puder</h3><div class="line"></div><div class="line"></div></div>
+    <div class="box"><h3>Local alternativo que aceita animais</h3><div class="line"></div><div class="line"></div></div>
+  </div>
+</section>"""
+
+PET = {
+    "id": "pet",
+    "title": "Guia de preparação<br>para o teu animal",
+    "lead": "Cães, gatos e outros animais de companhia também sentem um apagão, uma calamidade ou uma evacuação. Como estocar para eles, como sair de casa com eles e como os manter calmos, seguros e identificados.",
+    "who_short": "Animais de companhia",
+    "css": "",
+    "estocar": """<section>
+  <h2>O que estocar para o animal</h2>
+  <p>Reserva para <b>7 a 14 dias</b> (num apagão curto bastam 3, mas o abastecimento pode falhar mais tempo). Valores base para um cão ou gato adulto; ajusta ao peso e ao veterinário.</p>
+  <table>
+    <tr><th>Categoria</th><th>Quantidade (por animal)</th><th>Notas</th></tr>
+    <tr><td>Água</td><td>Cerca de 50 ml por kg e por dia (cães e gatos)</td><td>Mais com calor, ração seca ou lactação. Contas à parte da água das pessoas. Renova a cada 6 meses.</td></tr>
+    <tr><td>Comida</td><td>7 a 14 dias da dieta habitual</td><td>Troca por entradas novas e usa as antigas primeiro. Mudar de comida de repente causa diarreia: guarda a que ele já come.</td></tr>
+    <tr><td>Recipientes</td><td>Taça de água e de comida, dobráveis</td><td>Abre-latas manual se for comida húmida.</td></tr>
+    <tr><td>Medicação</td><td>14 dias, com dose e horas escritas</td><td>Fala com o veterinário sobre uma reserva. Nunca dês medicamentos humanos.</td></tr>
+    <tr><td>Higiene</td><td>Sacos para dejetos, areia do gato, toalhitas, toalha</td><td>Areia para 7 dias e recipiente com tampa.</td></tr>
+    <tr><td>Transporte</td><td>Caixa de transporte ou arnês + trela curta</td><td>Cães e gatos devem estar habituados à caixa <b>antes</b>.</td></tr>
+    <tr><td>Identificação</td><td>Coleira com nome e telefone, microchip atualizado</td><td>Verifica que os teus dados no microchip estão certos.</td></tr>
+    <tr><td>Conforto</td><td>Manta, brinquedo ou peça com o teu cheiro</td><td>Ajuda a baixar o stress.</td></tr>
+    <tr><td>Documentos</td><td>Boletim de vacinas, ficha do animal, foto recente</td><td>Cópias em saco impermeável e no telemóvel.</td></tr>
+  </table>
+</section>""",
+    "chapters": [
+        """<section>
+  <h2>Proteger o animal em casa</h2>
+  <ul class="chk">
+    <li><b>Identificação sempre:</b> coleira com nome e telefone, mais o microchip registado com o teu contacto atual.</li>
+    <li><b>Casa segura:</b> portas e janelas fechadas, o animal junto de ti. Em stress, cães e gatos fogem.</li>
+    <li><b>Calor sem eletricidade:</b> sem ventilador nem ar condicionado, dá água fresca, sombra e um pano húmido. <b>Nunca</b> o deixes no carro parado.</li>
+    <li><b>Frio:</b> manta, cama longe do chão e abrigo sem correntes de ar.</li>
+    <li><b>Ruído, sirenes e trovoada:</b> um canto tranquilo, voz calma, brinquedo ou petisco. Não castigues o medo.</li>
+    <li><b>Comida e água em lugar fixo:</b> a rotina tranquiliza.</li>
+    <li><b>Velas e fogareiros:</b> fora do alcance do animal. Cuidado com cabos, pilhas e produtos de limpeza.</li>
+    <li><b>Alimentos perigosos:</b> chocolate, uvas e passas, cebola, alho, xilitol (adoçante) e ossos cozinhados. Fecha o lixo.</li>
+  </ul>
+  <div class="box"><h3>Sinais de que precisa de veterinário</h3>
+    <p style="margin:0">Vómitos ou diarreia repetidos, não beber, respiração ofegante e muito rápida, gengivas pálidas, apatia, convulsões, barriga inchada, tentar urinar sem conseguir (sobretudo gatos machos). Liga ao veterinário de urgência; se não conseguires, vai ou pede ajuda.</p></div>
+</section>""",
+        """<section>
+  <h2>Mochila do animal e primeiros socorros</h2>
+  <div class="grid2">
+    <ul class="chk small">
+      <li>Comida e água para 3 dias</li><li>Taças dobráveis</li><li>Medicação e dose escritas</li><li>Trela, arnês e coleira de reserva</li><li>Caixa de transporte</li><li>Manta e brinquedo</li>
+    </ul>
+    <ul class="chk small">
+      <li>Boletim de vacinas e ficha do animal</li><li>Foto recente (e cópia impressa)</li><li>Sacos de dejetos, areia, toalhitas</li><li>Cartão com contactos do veterinário</li><li>Focinheira (cães), toalha para envolver (gatos)</li><li>Kit de primeiros socorros</li>
+    </ul>
+  </div>
+  <h3>Kit de primeiros socorros do animal</h3>
+  <ul>
+    <li>Compressas e ligadura autoadesiva (não a aperta demasiado)</li>
+    <li>Soro fisiológico para lavar feridas e olhos</li>
+    <li>Pinça, tesoura de pontas redondas e termómetro de uso veterinário</li>
+    <li>Luvas descartáveis e uma toalha limpa</li>
+    <li>Número do veterinário e o do centro antivenenos veterinário, se existir na tua zona</li>
+  </ul>
+  <div class="box alert"><p style="margin:0"><b>Não dês medicamentos humanos</b> (paracetamol, ibuprofeno) a cães ou gatos: podem ser fatais. Em caso de dúvida, fala com um veterinário.</p></div>
+</section>""",
+        """<section>
+  <h2>Evacuar com o animal</h2>
+  <p><b>Se tens de sair, ele vai contigo.</b> Deixar um animal para trás ou preso põe-no em risco.</p>
+  <ol class="steps">
+    <li><b>Planeia antes.</b> Descobre agora onde podes ficar com ele: familiares, amigos, hotéis, alojamentos locais ou parques de campismo que aceitem animais. Muitos abrigos de emergência não aceitam, por isso confirma.</li>
+    <li><b>Caixa ou trela, sempre.</b> Gatos e animais pequenos na caixa, fechada. Cães com trela curta e arnês bem ajustado.</li>
+    <li><b>Mantém a calma.</b> O animal sente a tua tensão. Fala devagar, sem gritar.</li>
+    <li><b>No carro:</b> caixa presa ou arnês de segurança. Não o deixes sozinho dentro do carro, mesmo por pouco tempo. Pára para água e para fazer as necessidades.</li>
+    <li><b>Se te separares do animal:</b> avisa as autoridades e o veterinário, mostra a foto e o número do microchip, e deixa o teu contacto.</li>
+  </ol>
+  <h3>Ensaia uma vez por ano</h3>
+  <p>Treina a entrada na caixa, o arnês e o carro. Um animal habituado fica muito mais calmo no dia em que for a sério.</p>
+</section>""",
+        """<section>
+  <h2>Outros animais de casa</h2>
+  <table>
+    <tr><th>Animal</th><th>O essencial</th></tr>
+    <tr><td>Aves</td><td>Transportadora pequena, tapada com um pano para acalmar. Água e semente para 7 dias. Longe de fumos, velas e correntes de ar. Sensíveis ao frio.</td></tr>
+    <tr><td>Coelhos e roedores</td><td>Transportadora com feno e esconderijo. Água fresca sempre, sem calor extremo. Feno e ração para 14 dias.</td></tr>
+    <tr><td>Peixes</td><td>Sem eletricidade o oxigénio acaba. Bomba de ar a pilhas ou manual e baldes de água do aquário. Não alimentes em excesso.</td></tr>
+    <tr><td>Répteis</td><td>Dependem de calor: manta térmica, caixa isolada e fonte de calor segura. Fala com o teu veterinário de exóticos.</td></tr>
+  </table>
+</section>""",
+    ],
+    "sheets": [FICHA_ANIMAL, CONTACTOS, INVENTARIO],
+}
+
+PROFILES = [IDOSO, SOZINHO, MULHER, CASAL, PET]
 
 
 def cover(title, lead, tag="Guia para imprimir · PDF"):
@@ -552,7 +656,7 @@ def build_completo():
   <p>Também: higiene (papel higiénico, toalhitas, sabão, sacos do lixo), cópias dos documentos em saco impermeável, canivete, fita adesiva, apito e luvas.</p>
 </section>""")
     parts.append(COMMON_MATERIAIS)
-    for p in [IDOSO, FAMILIA, SOZINHO, MULHER, CASAL]:
+    for p in [IDOSO, FAMILIA, SOZINHO, MULHER, CASAL, PET]:
         intro = f"""<section>
   <h2>Perfil: {p['who_short']}</h2>
   <p class="lead" style="font-size:14pt">{p['lead']}</p>
@@ -562,7 +666,7 @@ def build_completo():
         parts.extend(p["chapters"])
     parts += [CONTACTOS, MEDICACAO, INVENTARIO]
     body = cover("Guia completo<br>de preparação",
-                 "Todos os guias num só: idosos, famílias, quem vive sozinho, mulheres sozinhas e casais. O que estocar, como usar cada material, como te proteger e o que fazer antes, durante e depois de uma emergência.",
+                 "Todos os guias num só: idosos, famílias, quem vive sozinho, mulheres sozinhas, casais e animais de companhia. O que estocar, como usar cada material, como te proteger e o que fazer antes, durante e depois de uma emergência.",
                  "Guia completo · PDF para imprimir") + "\n".join(h2_renumber(parts))
     html = page("Guia completo de preparação", body, "Arkorra · Guia completo de preparação")
     path = HERE / "guia-completo.html"

@@ -12,7 +12,7 @@
 
 <div class="ark-trust-bar__item" {{ block.shopify_attributes }}>
   <span class="ark-icon-circle ark-icon-circle--{{ tone }} ark-trust-bar__icon">
-    <span class="ark-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+    {% render 'ark-art-icon', name: block.settings.icon %}
   </span>
   <div class="ark-trust-bar__text">
     {%- if block.settings.title != blank -%}

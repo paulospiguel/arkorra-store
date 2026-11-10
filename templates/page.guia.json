@@ -20,9 +20,9 @@
     "checklists": {
       "type": "ark-card-grid",
       "blocks": {
-        "l1": { "type": "card", "settings": { "icon": "bolt", "title": "Apagão", "points": "Lanternas e pilhas de reserva; Rádio a pilhas ou manivela; Carregador portátil carregado; Água para 3 dias; Dinheiro em numerário" } },
-        "l2": { "type": "card", "settings": { "icon": "shield", "title": "Alerta de segurança", "points": "Rádio para ouvir avisos oficiais; Alimentos que não precisam de cozinhar; Kit de primeiros socorros; Medicação para vários dias; Lista de contactos em papel" } },
-        "l3": { "type": "card", "settings": { "icon": "home", "title": "Estado de emergência", "points": "Mochila de evacuação pronta; Documentos em bolsa impermeável; Medicação essencial; Roupa e calçado confortáveis; Ponto de encontro definido" } }
+        "l1": { "type": "card", "settings": { "icon": "energia", "title": "Apagão", "points": "Lanternas e pilhas de reserva; Rádio a pilhas ou manivela; Carregador portátil carregado; Água para 3 dias; Dinheiro em numerário" } },
+        "l2": { "type": "card", "settings": { "icon": "radio", "title": "Alerta de segurança", "points": "Rádio para ouvir avisos oficiais; Alimentos que não precisam de cozinhar; Kit de primeiros socorros; Medicação para vários dias; Lista de contactos em papel" } },
+        "l3": { "type": "card", "settings": { "icon": "socorros", "title": "Estado de emergência", "points": "Mochila de evacuação pronta; Documentos em bolsa impermeável; Medicação essencial; Roupa e calçado confortáveis; Ponto de encontro definido" } }
       },
       "block_order": ["l1", "l2", "l3"],
       "settings": { "tone": "light", "heading": "Checklists por situação", "text": "" }
