@@ -1060,3 +1060,30 @@ html {
 .ark.ark-header .ark-header__actions {
   gap: 0.5rem;
 }
+
+/* Cart page: remove button and quantity stepper */
+.cart__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--hk-navy);
+}
+
+.cart__remove:hover {
+  color: #ba1a1a;
+}
+
+.cart__remove .ark-icon {
+  font-size: 1.5rem;
+}
+
+.cart__qty .js-qty__adjust {
+  cursor: pointer;
+}
+
+.ark-cart-busy .cart__body {
+  opacity: 0.55;
+  pointer-events: none;
+}
