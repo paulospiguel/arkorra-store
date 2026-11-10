@@ -73,7 +73,7 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
     }
   </script>
   {%- if template.name == 'product' and product != blank -%}
-    {{ product | structured_data }}
+    <script type="application/ld+json">{{ product | structured_data }}</script>
   {%- endif -%}
 {%- endif -%}
 {% style %}
