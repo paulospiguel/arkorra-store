@@ -1498,5 +1498,18 @@
         }
       }
     }
+  },
+  "ark_404": {
+      "art_label": "Illustration of a lost hiker next to a compass and a signpost, with the number 404",
+      "code": "Error 404",
+      "title": "Page not found",
+      "lead": "This path leads nowhere. The page may have moved, or it never existed.",
+      "search_label": "Search the store",
+      "search_placeholder": "Search kits, guides, flashlights...",
+      "search_button": "Search",
+      "home": "Back to home",
+      "shop": "See the kits",
+      "guides": "Printable guides",
+      "help": "Don't worry: with the compass in hand, it's easy to find your way back."
   }
 }
