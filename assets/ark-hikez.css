@@ -107,7 +107,8 @@ h4,
 
 /* ---------- Header: white bar over the hero, logo centered, menu left, utilities right ---------- */
 .ark.ark-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
   display: grid;
   grid-template-columns: 1fr;
@@ -346,4 +347,173 @@ h4,
 .ark .ark-hero__cta-secondary {
   --ark-button-fg: var(--hk-navy);
   --ark-button-border: var(--hk-navy);
+}
+
+/* ---------- Sections below the hero (Hikez section rhythm) ---------- */
+
+/* Section titles: Oswald, 30px, uppercase, centered, navy */
+.ark .ark-heading-xl,
+.ark .ark-cards__title,
+.ark .ark-section-head .ark-heading-xl {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.875 * var(--ark-rem));
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--hk-navy);
+}
+
+.ark .ark-section-head,
+.ark .ark-cards__head {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.ark .ark-section-head__aside {
+  display: none;
+}
+
+/* Eyebrows become a short green rule under the title instead of small caps */
+.ark .ark-eyebrow,
+.ark .ark-cards__eyebrow {
+  font-family: var(--ark-font-body);
+  color: var(--hk-green);
+  letter-spacing: 1px;
+}
+
+.ark .ark-lede,
+.ark .ark-cards__lead {
+  color: var(--hk-muted);
+  margin-inline: auto;
+}
+
+/* Trust bar: white strip, thin dividers */
+.ark-trust-bar {
+  background: #ffffff;
+  border-block: 1px solid var(--hk-line);
+}
+
+/* Cards and product cards: flat, square, no border/shadow, centered text */
+.ark .ark-card,
+.ark-product-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ark-product-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.ark-product-card__media {
+  border-radius: 0;
+  background: #f4f4f2;
+}
+
+.ark-product-card__body {
+  text-align: center;
+  align-items: center;
+}
+
+.ark .ark-product-card__title,
+.ark .ark-card__title,
+.ark .ark-product-card__body :is(h2, h3, h4) {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.125 * var(--ark-rem));
+  font-weight: 400;
+  color: var(--hk-black);
+}
+
+.ark-product-card__price,
+.ark .ark-price {
+  font-weight: 600;
+  font-size: calc(1.125 * var(--ark-rem));
+  color: var(--hk-black);
+}
+
+/* Catalog filter pills: square, navy when active */
+.ark-catalog__filter-pill {
+  border-radius: 0;
+}
+
+.ark-catalog__filter-pill.is-active,
+.ark-catalog__filter-pill[aria-pressed='true'] {
+  background: var(--hk-navy);
+  border-color: var(--hk-navy);
+  color: #fff;
+}
+
+/* Buttons: 14px 30px, capitalized */
+.ark .ark-button {
+  padding: 0.875rem 1.875rem;
+  text-transform: capitalize;
+}
+
+/* Steps: numbers as navy squares */
+.ark-steps__num {
+  background: var(--hk-navy);
+  color: #fff;
+  border-radius: 0;
+}
+
+/* Lead capture / newsletter: navy block, square fields */
+.ark-lead__card,
+.ark-lead__banner,
+.ark .ark-field__input {
+  border-radius: 0;
+}
+
+.ark .ark-field__input {
+  background: rgb(233 233 233 / 0.15);
+}
+
+/* Testimonials: centered quote cards with orange accent title */
+.ark-testimonials__grid .ark-card {
+  text-align: center;
+  background: #f7f7f5;
+  padding: calc(1.5 * var(--ark-rem));
+}
+
+.ark .ark-stars {
+  color: #ff9100;
+}
+
+/* Footer: navy, Oswald column headings, white links */
+.ark-footer {
+  background: var(--hk-navy);
+  color: #fff;
+}
+
+.ark-footer a,
+.ark-footer__text,
+.ark-footer__note,
+.ark-footer__fineprint {
+  color: #ffffff;
+}
+
+.ark-footer :is(h2, h3, h4),
+.ark-footer__col > :first-child {
+  font-family: var(--hk-font-display);
+  font-size: calc(1.5 * var(--ark-rem));
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.ark-footer a:hover {
+  color: #ff9100;
+}
+
+/* Once the page scrolls the header becomes a solid white bar (it is transparent only over the hero) */
+.ark.ark-header.is-scrolled {
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.08);
+}
+
+.ark-steps__num {
+  color: #ffffff;
 }
