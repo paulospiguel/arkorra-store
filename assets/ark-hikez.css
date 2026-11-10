@@ -792,3 +792,197 @@ h4,
   color: #ffffff;
   border-radius: 0;
 }
+
+/* ---------- Hero proportions: photo stays inside the hero, calmer type scale ---------- */
+.ark.ark-hero .ark-hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.ark.ark-hero .ark-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 30% 40%;
+  border-radius: 0;
+}
+
+.ark.ark-hero {
+  min-height: clamp(34rem, 52vw, 47.5rem);
+  padding-block: calc(9.5 * var(--ark-rem)) calc(5 * var(--ark-rem));
+}
+
+.ark.ark-hero .ark-hero__title {
+  font-size: clamp(2.5rem, 1.7rem + 2.2vw, 3.75rem);
+}
+
+.ark .ark-hero__eyebrow {
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+.ark.ark-hero .ark-hero__text {
+  font-size: calc(1.0625 * var(--ark-rem));
+}
+
+.ark.ark-hero .ark-hero__content {
+  max-width: 34rem;
+}
+
+/* ---------- Large screens: scale the whole UI so content isn't tiny next to the hero ---------- */
+html {
+  font-size: clamp(100%, 0.3vw + 11.5px, 112.5%);
+}
+
+:root {
+  --ark-rem: 1rem;
+  --ark-page-width: clamp(1260px, 70vw, 1480px);
+}
+
+/* ---------- Header menu: logo + utilities on top, links in one centered row below ---------- */
+@media (min-width: 990px) {
+  .ark.ark-header > .ark-header__main {
+    grid-row: 2;
+  }
+
+  .ark.ark-header > .ark-header__nav {
+    grid-row: 3;
+    grid-column: 1;
+    width: 100%;
+    height: auto;
+    justify-self: stretch;
+    align-self: start;
+    display: block;
+    margin-top: calc(-0.5 * var(--ark-rem));
+    padding-bottom: calc(0.5 * var(--ark-rem));
+    pointer-events: auto;
+  }
+
+  .ark.ark-header .ark-header__nav-inner {
+    justify-content: center;
+  }
+
+  .ark.ark-header .ark-header__menu {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: calc(1.75 * var(--ark-rem));
+    max-width: none;
+  }
+
+  .ark.ark-header .ark-header__menu-link {
+    padding: calc(0.375 * var(--ark-rem)) 0;
+    font-size: var(--ark-text-body-sm);
+    font-weight: 700;
+    position: relative;
+  }
+
+  /* green underline on hover / current, like the reference */
+  .ark.ark-header .ark-header__menu-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--hk-green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .ark.ark-header .ark-header__menu-link:hover::after,
+  .ark.ark-header .ark-header__menu-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .ark.ark-header .ark-header__main-inner {
+    min-height: calc(6.5 * var(--ark-rem));
+  }
+
+  /* header (logo row + link row) overlays the hero */
+  .ark-hero-section {
+    margin-top: calc(-9.5 * var(--ark-rem));
+  }
+
+  .ark.ark-hero {
+    padding-top: calc(11 * var(--ark-rem));
+  }
+}
+
+/* ---------- Language selector + quick-link pill: one navy family ---------- */
+.ark.ark-header [data-ark-lang] > summary,
+.ark.ark-header .ark-lang > summary {
+  background: var(--hk-navy);
+  color: #ffffff;
+  border: 0;
+  border-radius: 0;
+}
+
+.ark.ark-header [data-ark-lang] > summary:hover {
+  background: var(--hk-navy-dark);
+}
+
+.ark.ark-header .ark-nav-pill {
+  background: var(--hk-navy);
+  border-radius: 0;
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item {
+  color: #ffffff;
+  border-radius: 0;
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item.is-active,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover {
+  background: var(--hk-green);
+  color: #ffffff;
+}
+
+/* language toggle: summary/span with the code + flag */
+.ark.ark-header .ark-lang__toggle {
+  background: var(--hk-navy);
+  color: #ffffff;
+  border: 0;
+  border-radius: 0;
+}
+
+.ark.ark-header .ark-lang__toggle:hover,
+.ark.ark-header .ark-lang__menu[open] > .ark-lang__toggle {
+  background: var(--hk-navy-dark);
+}
+
+.ark.ark-header .ark-lang__code,
+.ark.ark-header .ark-lang__caret {
+  color: #ffffff;
+  border-color: currentColor;
+}
+
+/* dropdown panel */
+.ark.ark-header .ark-lang__list {
+  background: #ffffff;
+  border: 1px solid var(--hk-line);
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgb(4 51 94 / 0.15);
+}
+
+.ark.ark-header .ark-lang__option {
+  color: var(--hk-ink);
+  border-radius: 0;
+}
+
+.ark.ark-header .ark-lang__option:hover,
+.ark.ark-header .ark-lang__option.is-active {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+.ark.ark-header .ark-lang__option:hover .ark-lang__code,
+.ark.ark-header .ark-lang__option.is-active .ark-lang__code,
+.ark.ark-header .ark-lang__option:hover .ark-lang__name,
+.ark.ark-header .ark-lang__option.is-active .ark-lang__name {
+  color: #ffffff;
+}

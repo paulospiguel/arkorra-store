@@ -1,0 +1,195 @@
+/* Arkorra — Motion (ark-motion.css)
+   Progressive enhancement: hidden states only apply when <html> has .ark-motion,
+   which ark-motion.js sets. Without JS, or with reduced motion, everything is visible. */
+
+:root {
+  --ark-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ark-motion-dur: 0.7s;
+  --ark-motion-dist: 24px;
+}
+
+/* ---- Page entrance ---- */
+@keyframes ark-fade-up {
+  from { opacity: 0; transform: translate3d(0, var(--ark-motion-dist), 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ark-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ark-scale-in {
+  from { opacity: 0; transform: scale(1.06); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ark-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: staggered entrance on load */
+  .ark-motion .ark-hero__content > * {
+    animation: ark-fade-up var(--ark-motion-dur) var(--ark-motion-ease) both;
+    animation-delay: calc(0.08s + var(--ark-i, 0) * 0.09s);
+  }
+
+  .ark-motion .ark-hero__media {
+    animation: ark-scale-in 1.1s var(--ark-motion-ease) 0.15s both;
+    overflow: hidden;
+  }
+
+  .ark-motion .ark-header-section {
+    animation: ark-fade-in 0.6s ease-out both;
+  }
+
+  /* Scroll reveal */
+  .ark-motion [data-ark-reveal] {
+    opacity: 0;
+    transform: translate3d(0, var(--ark-motion-dist), 0);
+    transition:
+      opacity var(--ark-motion-dur) var(--ark-motion-ease),
+      transform var(--ark-motion-dur) var(--ark-motion-ease);
+    transition-delay: calc(var(--ark-i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+
+  .ark-motion [data-ark-reveal="scale"] {
+    transform: scale(0.96);
+  }
+
+  .ark-motion [data-ark-reveal="left"] {
+    transform: translate3d(calc(var(--ark-motion-dist) * -1.5), 0, 0);
+  }
+
+  .ark-motion [data-ark-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Progress bars fill when they enter */
+  .ark-motion .ark-progress__bar[data-ark-bar] {
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 1.1s var(--ark-motion-ease) 0.2s;
+  }
+
+  .ark-motion .ark-progress__bar[data-ark-bar].is-in {
+    transform: scaleX(1);
+  }
+
+  /* ---- Hover / focus micro-interactions ---- */
+  .ark-product-card,
+  .ark-card,
+  .ark-testimonials__grid > *,
+  .ark-trust-bar__grid > *,
+  .ark-steps__list > * {
+    transition:
+      transform 0.35s var(--ark-motion-ease),
+      box-shadow 0.35s var(--ark-motion-ease),
+      border-color 0.2s var(--ark-ease, ease);
+  }
+
+  .ark-product-card:hover,
+  .ark-card:hover,
+  .ark-testimonials__grid > *:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 14px 32px -14px rgba(10, 25, 47, 0.28);
+  }
+
+  /* Revealed items must not fight the hover transform */
+  .ark-motion [data-ark-reveal].is-in.ark-product-card:hover,
+  .ark-motion [data-ark-reveal].is-in.ark-card:hover {
+    transform: translate3d(0, -4px, 0);
+  }
+
+  .ark-product-card__media {
+    overflow: hidden;
+  }
+
+  .ark-product-card__img,
+  .ark-hero__img {
+    transition: transform 0.8s var(--ark-motion-ease);
+  }
+
+  .ark-product-card:hover .ark-product-card__img,
+  .ark-hero__media:hover .ark-hero__img {
+    transform: scale(1.05);
+  }
+
+  .ark .ark-button {
+    transition:
+      background-color 0.2s var(--ark-ease, ease),
+      color 0.2s var(--ark-ease, ease),
+      border-color 0.2s var(--ark-ease, ease),
+      transform 0.25s var(--ark-motion-ease),
+      box-shadow 0.25s var(--ark-motion-ease);
+  }
+
+  .ark .ark-button:hover {
+    transform: translate3d(0, -2px, 0);
+    box-shadow: 0 10px 22px -10px rgba(10, 25, 47, 0.45);
+  }
+
+  .ark .ark-button:active {
+    transform: translate3d(0, 0, 0) scale(0.98);
+    box-shadow: none;
+  }
+
+  /* Arrow icons inside buttons slide on hover */
+  .ark-button .ark-icon {
+    transition: transform 0.25s var(--ark-motion-ease);
+  }
+
+  .ark-button:hover .ark-icon {
+    transform: translate3d(3px, 0, 0);
+  }
+
+  .ark-icon-circle {
+    transition: transform 0.4s var(--ark-motion-ease), background-color 0.2s var(--ark-ease, ease);
+  }
+
+  .ark-card:hover .ark-icon-circle,
+  .ark-steps__list > *:hover .ark-icon-circle {
+    transform: scale(1.1) rotate(-4deg);
+  }
+
+  /* Header pill items */
+  .ark-nav-pill__item {
+    transition: background-color 0.2s var(--ark-ease, ease), color 0.2s var(--ark-ease, ease), transform 0.25s var(--ark-motion-ease);
+  }
+
+  .ark-nav-pill__item:hover {
+    transform: translate3d(0, -1px, 0);
+  }
+
+  /* Language dropdown + drawer open softly */
+  .ark-lang__menu[open] .ark-lang__list {
+    animation: ark-fade-up 0.25s var(--ark-motion-ease) both;
+    --ark-motion-dist: 8px;
+  }
+
+  /* Trust bar icons: gentle float, staggered */
+  .ark-trust-bar .ark-icon {
+    animation: ark-float 5s ease-in-out infinite;
+    animation-delay: calc(var(--ark-i, 0) * -0.8s);
+  }
+
+  /* Smooth anchor scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---- Reduced motion: no movement, content always visible ---- */
+@media (prefers-reduced-motion: reduce) {
+  .ark-motion [data-ark-reveal],
+  .ark-motion .ark-progress__bar[data-ark-bar] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
