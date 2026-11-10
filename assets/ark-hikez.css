@@ -792,3 +792,53 @@ h4,
   color: #ffffff;
   border-radius: 0;
 }
+
+/* ---------- Hero proportions: photo stays inside the hero, calmer type scale ---------- */
+.ark.ark-hero .ark-hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.ark.ark-hero .ark-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 30% 40%;
+  border-radius: 0;
+}
+
+.ark.ark-hero {
+  min-height: clamp(34rem, 52vw, 47.5rem);
+  padding-block: calc(9.5 * var(--ark-rem)) calc(5 * var(--ark-rem));
+}
+
+.ark.ark-hero .ark-hero__title {
+  font-size: clamp(2.5rem, 1.7rem + 2.2vw, 3.75rem);
+}
+
+.ark .ark-hero__eyebrow {
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+.ark.ark-hero .ark-hero__text {
+  font-size: calc(1.0625 * var(--ark-rem));
+}
+
+.ark.ark-hero .ark-hero__content {
+  max-width: 34rem;
+}
+
+/* ---------- Large screens: scale the whole UI so content isn't tiny next to the hero ---------- */
+html {
+  font-size: clamp(100%, 0.3vw + 11.5px, 112.5%);
+}
+
+:root {
+  --ark-rem: 1rem;
+  --ark-page-width: clamp(1260px, 70vw, 1480px);
+}
