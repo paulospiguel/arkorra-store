@@ -955,10 +955,9 @@ html {
   background: var(--hk-navy-dark);
 }
 
-.ark.ark-header .ark-lang__code,
-.ark.ark-header .ark-lang__caret {
-  color: #ffffff;
-  border-color: currentColor;
+.ark.ark-header .ark-lang__option .ark-lang__code,
+.ark.ark-header .ark-lang__option .ark-lang__name {
+  color: var(--hk-ink);
 }
 
 /* dropdown panel */
@@ -985,4 +984,79 @@ html {
 .ark.ark-header .ark-lang__option:hover .ark-lang__name,
 .ark.ark-header .ark-lang__option.is-active .ark-lang__name {
   color: #ffffff;
+}
+
+/* ---------- Language toggle: flag only, no fill and no code ---------- */
+.ark.ark-header .ark-lang__toggle,
+.ark.ark-header .ark-lang__toggle:hover,
+.ark.ark-header .ark-lang__menu[open] > .ark-lang__toggle {
+  background: transparent;
+  color: var(--hk-ink);
+  padding-inline: 0.375rem;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-lang__code {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-lang__caret {
+  color: var(--hk-ink);
+  border-color: currentColor;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-flag {
+  width: 1.75rem;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* ---------- Quick-link pill: icons only, theme navy, no fill ---------- */
+.ark.ark-header .ark-nav-pill,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item.is-active,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.ark.ark-header .ark-nav-pill {
+  padding: 0;
+  gap: 0.25rem;
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item .ark-icon {
+  color: var(--hk-navy);
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover .ark-icon {
+  color: var(--hk-green);
+}
+
+/* Same flag-only treatment when the toggle is a <summary> (several languages enabled) */
+.ark.ark-header [data-ark-lang] > summary,
+.ark.ark-header [data-ark-lang] > summary:hover,
+.ark.ark-header [data-ark-lang][open] > summary,
+.ark.ark-header .ark-lang > summary {
+  background: transparent;
+  color: var(--hk-ink);
+}
+
+/* Flag + caret sit together; no fixed toggle width */
+.ark.ark-header .ark-lang__toggle {
+  width: auto;
+  min-width: 0;
+  gap: 0.25rem;
+  justify-content: flex-start;
+  padding-inline: 0.25rem;
+}
+
+.ark.ark-header .ark-header__actions {
+  gap: 0.5rem;
 }

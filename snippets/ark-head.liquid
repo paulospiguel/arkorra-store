@@ -5,7 +5,7 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
 {% render 'ark-head' %}
 {% enddoc %}
 {%- liquid
-  assign ark_icon_names = 'ac_unit,add,add_shopping_cart,arrow_forward,auto_fix_high,auto_stories,bolt,category,check,check_circle,chevron_left,chevron_right,close,delete,description,device_thermostat,download,downloading,edit,emergency_home,error,expand_more,favorite,filter_list,flash_on,grid_view,group,handyman,headset_mic,health_and_safety,home,import_contacts,inventory_2,label,language,local_shipping,lock,mark_email_read,medical_services,menu,menu_book,notification_important,person,phone,picture_as_pdf,power_off,published_with_changes,radio,remove,schedule,schedule_send,search,sell,shield,shield_lock,shopping_bag,star,star_half,support_agent,sync_saved_locally,task_alt,thermostat,timer,tune,verified,verified_user,warehouse,water_bottle,water_drop,water_loss,zoom_in'
+  assign ark_icon_names = 'ac_unit,add,add_shopping_cart,arrow_forward,auto_fix_high,auto_stories,bolt,category,check,check_circle,chevron_left,chevron_right,close,delete,description,device_thermostat,download,downloading,edit,emergency_home,error,expand_more,favorite,filter_list,flash_on,grid_view,group,handyman,headset_mic,health_and_safety,home,import_contacts,inventory_2,label,language,local_shipping,lock,mark_email_read,medical_services,menu,menu_book,notification_important,person,phone,picture_as_pdf,power_off,published_with_changes,radio,remove,schedule,schedule_send,search,sell,shield,shield_lock,shopping_bag,shopping_cart,star,star_half,support_agent,sync_saved_locally,task_alt,thermostat,timer,tune,verified,verified_user,warehouse,water_bottle,water_drop,water_loss,zoom_in'
 -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@ Loads Arkorra Design System fonts, Material Symbols subset, base stylesheet, dyn
     }
   </script>
   {%- if template.name == 'product' and product != blank -%}
-    {{ product | structured_data }}
+    <script type="application/ld+json">{{ product | structured_data }}</script>
   {%- endif -%}
 {%- endif -%}
 {% style %}

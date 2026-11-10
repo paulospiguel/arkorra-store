@@ -1,0 +1,233 @@
+{{ 'section-ark-guide-detail.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Product page for the printable PDF guides.
+  Tag each guide product with one of: guia-idosos, guia-familia, guia-solteiro,
+  guia-mulher-sozinha, guia-casal, guia-completo. The tag selects the guide
+  details below; untagged products still render with generic copy.
+{%- endcomment -%}
+
+{%- assign s = section.settings -%}
+{%- assign guide = 'generic' -%}
+{%- for tag in product.tags -%}
+  {%- assign t = tag | downcase -%}
+  {%- if t contains 'guia-' -%}
+    {%- assign guide = t | remove: 'guia-' -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- liquid
+  case guide
+    when 'idosos'
+      assign pages = 18
+      assign cover_title = 'Guia de preparação para idosos'
+      assign who = 'Idosos que vivem sozinhos ou acompanhados, e familiares que querem deixá-los preparados.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1 a 2 pessoas;Como usar cada material;Medicação e equipamentos de saúde;Sinais de alarme: AVC, enfarte, quedas, calor e frio;Segurança em casa sem luz;Solidão e rede de apoio;Burlas e golpes nas crises;Plano de evacuação com apoio;Folhas: contactos, medicação, inventário' | split: ';'
+      assign highlights = 'Letra grande, passos simples;Medicação e equipamentos que dependem de eletricidade;Sinais de AVC e enfarte, e o que fazer numa queda;Como não ficar isolado e evitar burlas' | split: ';'
+    when 'familia'
+      assign pages = 11
+      assign cover_title = 'Guia de preparação para famílias'
+      assign who = 'Casas com 3 a 5 pessoas, incluindo crianças e bebés.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 4 pessoas;Como usar cada material;Crianças, bebés e animais;Plano da casa e mochila de evacuação;Folhas: contactos, saúde por pessoa, inventário' | split: ';'
+      assign highlights = 'Reservas para 4 pessoas durante 72 horas e mais;Como falar com crianças e manter a calma;Plano da casa, pontos de encontro e mochila;Folhas para preencher à mão' | split: ';'
+    when 'solteiro'
+      assign pages = 12
+      assign cover_title = 'Guia de preparação para quem vive sozinho'
+      assign who = 'Quem vive só e quer estar pronto sem ocupar uma casa inteira com stock.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1 pessoa;Como usar cada material;Cozinhar e comer com pouco espaço;Não ficar isolado: rede e check-in;Trabalhar e comunicar sem internet;Mochila de evacuação;Folhas: contactos, inventário' | split: ';'
+      assign highlights = 'Kit compacto que cabe numa caixa;Menu de 3 dias sem eletricidade;Rede de contactos e check-in diário;Trabalhar e pagar sem internet' | split: ';'
+    when 'mulher-sozinha'
+      assign pages = 12
+      assign cover_title = 'Guia de preparação para mulheres sozinhas'
+      assign who = 'Mulheres que vivem sozinhas e querem um plano de segurança, saúde e comunicação.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1 pessoa;Como usar cada material;Segurança da casa;Deslocações e comunicação;Saúde e higiene em crise;Apoio e linhas de ajuda;Folhas: contactos, inventário' | split: ';'
+      assign highlights = 'Segurança da casa e das deslocações;Palavra-código e partilha de localização;Higiene e saúde íntima com recursos limitados;Linhas de apoio e plano de saída rápido' | split: ';'
+    when 'casal'
+      assign pages = 11
+      assign cover_title = 'Guia de preparação para casais'
+      assign who = 'Casais que querem um plano comum, com tarefas divididas e decisões acordadas.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 2 pessoas;Como usar cada material;Decidir em conjunto: papéis e plano a dois;Separados durante a crise;Cuidar da relação em crise;Mochila de evacuação do casal;Folhas: contactos, inventário' | split: ';'
+      assign highlights = 'Quem faz o quê, escrito e acordado;O que fazer se estiverem separados;Como cuidar da relação sob pressão;Mochila de evacuação a dois' | split: ';'
+    when 'completo'
+      assign pages = 33
+      assign cover_title = 'Guia completo de preparação'
+      assign who = 'Para quem quer tudo: os cinco guias num só PDF, ideal para oferecer ou partilhar com a família.'
+      assign chapters = 'Telefones e regras de ouro;Cenários: apagão, ciberataque, calamidades, falta de comida;O que estocar, para 1, 2 e 4 pessoas;Como usar cada material;Perfil idosos: saúde, quedas, burlas, evacuação;Perfil famílias: crianças, bebés, plano da casa;Perfil quem vive sozinho: cozinha, rede, trabalho;Perfil mulheres sozinhas: segurança, saúde, apoio;Perfil casais: papéis, separação, relação;Folhas: contactos, medicação, inventário' | split: ';'
+      assign highlights = 'Os cinco guias por perfil num só PDF;Tabela de estoque para 1, 2 e 4 pessoas;Capítulos de saúde, segurança e comunicação;33 páginas para imprimir' | split: ';'
+    else
+      assign pages = 0
+      assign cover_title = product.title
+      assign who = ''
+      assign chapters = '' | split: ';'
+      assign highlights = '' | split: ';'
+  endcase
+  assign variant = product.selected_or_first_available_variant
+-%}
+
+<div class="ark ark-guide" data-ark-guide>
+  <div class="ark-page-width">
+    <nav class="ark-guide__crumbs" aria-label="Navegação">
+      <a href="{{ routes.root_url }}">Início</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ routes.root_url }}#{{ s.back_anchor | default: 'guias' }}">Guias de preparação</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ product.title }}</span>
+    </nav>
+
+    <div class="ark-guide__top">
+      <div class="ark-guide__cover-wrap">
+        <div class="ark-guide__cover" role="img" aria-label="Capa do guia: {{ cover_title | escape }}">
+          <span class="ark-guide__cover-tag">Guia para imprimir · PDF</span>
+          <p class="ark-guide__cover-title">{{ cover_title }}</p>
+          <p class="ark-guide__cover-lines" aria-hidden="true"><span></span><span></span><span></span></p>
+          <p class="ark-guide__cover-brand">Arkorra</p>
+        </div>
+        {%- if pages > 0 -%}
+          <p class="ark-guide__pages"><span class="ark-icon" aria-hidden="true">description</span>{{ pages }} páginas A4</p>
+        {%- endif -%}
+      </div>
+
+      <div class="ark-guide__buy">
+        <p class="ark-cards__eyebrow">{{ s.eyebrow | default: 'GUIA DIGITAL' }}</p>
+        <h1 class="ark-guide__title">{{ product.title }}</h1>
+        {%- if who != blank -%}
+          <p class="ark-guide__who">{{ who }}</p>
+        {%- endif -%}
+
+        <ul class="ark-guide__bullets">
+          {%- for h in highlights -%}
+            <li><span class="ark-icon" aria-hidden="true">check</span>{{ h | strip }}</li>
+          {%- endfor -%}
+        </ul>
+
+        <div class="ark-guide__priceline">
+          <span class="ark-guide__price">{{ variant.price | money }}</span>
+          {%- if variant.compare_at_price > variant.price -%}
+            <s class="ark-guide__compare">{{ variant.compare_at_price | money }}</s>
+          {%- endif -%}
+          <span class="ark-guide__vat">PDF · acesso imediato</span>
+        </div>
+
+        {%- form 'product', product, data-ark-add-form: '', class: 'ark-guide__form' -%}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" name="add" class="ark-button ark-button--accent ark-button--lg ark-button--block" data-success-label="Adicionado ao carrinho" {% unless variant.available %}disabled{% endunless %}>
+            <span class="ark-icon" aria-hidden="true">download</span>
+            <span data-ark-button-label>{% if variant.available %}{{ s.cta | default: 'Comprar e descarregar' }}{% else %}Indisponível{% endif %}</span>
+          </button>
+          <p class="ark-notice ark-notice--error" data-ark-form-error hidden></p>
+        {%- endform -%}
+
+        <ul class="ark-guide__trust">
+          <li><span class="ark-icon" aria-hidden="true">download</span>Descarregas logo após o pagamento</li>
+          <li><span class="ark-icon" aria-hidden="true">lock</span>Pagamento seguro</li>
+          <li><span class="ark-icon" aria-hidden="true">support_agent</span>Apoio em português</li>
+        </ul>
+      </div>
+    </div>
+
+    {%- if product.description != blank -%}
+      <section class="ark-guide__block">
+        <h2 class="ark-guide__h2">Sobre este guia</h2>
+        <div class="ark-guide__rte">{{ product.description }}</div>
+      </section>
+    {%- endif -%}
+
+    {%- if chapters.size > 0 -%}
+      <section class="ark-guide__block">
+        <h2 class="ark-guide__h2">O que vais encontrar</h2>
+        <ol class="ark-guide__toc">
+          {%- for c in chapters -%}
+            <li><span class="ark-guide__toc-n">{{ forloop.index }}</span><span>{{ c | strip }}</span></li>
+          {%- endfor -%}
+        </ol>
+      </section>
+    {%- endif -%}
+
+    <section class="ark-guide__block ark-guide__how">
+      <h2 class="ark-guide__h2">Como funciona</h2>
+      <ol class="ark-guide__steps">
+        <li><span class="ark-guide__step-n">1</span><strong>Compras</strong><p>Pagas em segurança e recebes o acesso ao PDF.</p></li>
+        <li><span class="ark-guide__step-n">2</span><strong>Imprimes</strong><p>Preto e branco, letra grande, em folhas A4. O papel funciona sem luz.</p></li>
+        <li><span class="ark-guide__step-n">3</span><strong>Preenches e guardas</strong><p>Escreves contactos e plano à mão e guardas a pasta junto da lanterna.</p></li>
+      </ol>
+    </section>
+
+    <section class="ark-guide__block">
+      <h2 class="ark-guide__h2">Uma amostra do guia</h2>
+      <div class="ark-guide__sample" aria-label="Amostra de uma página do guia">
+        <h3>Apagão: primeiros 10 minutos</h3>
+        <ul class="ark-guide__check">
+          <li>Verifica se é só a tua casa (quadro elétrico) ou a rua toda.</li>
+          <li>Pega na lanterna. <strong>Não uses velas</strong> se puderes evitar.</li>
+          <li>Desliga aparelhos ligados à corrente e deixa uma lâmpada acesa como aviso.</li>
+          <li>Não abras o frigorífico nem o congelador sem necessidade.</li>
+          <li>Liga o rádio a pilhas ou manivela e procura as indicações oficiais.</li>
+        </ul>
+        <p class="ark-guide__sample-note">Página 3 do guia. Em papel, com caixas para assinalar a caneta.</p>
+      </div>
+    </section>
+
+    <section class="ark-guide__block">
+      <h2 class="ark-guide__h2">Perguntas frequentes</h2>
+      <div class="ark-guide__faq">
+        {%- for block in section.blocks -%}
+          <details class="ark-guide__qa" {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.question }}<span class="ark-icon" aria-hidden="true">expand_more</span></summary>
+            <p>{{ block.settings.answer }}</p>
+          </details>
+        {%- endfor -%}
+      </div>
+    </section>
+
+    {%- assign related = s.related_collection -%}
+    {%- if related != blank and related.products.size > 1 -%}
+      <section class="ark-guide__block">
+        <h2 class="ark-guide__h2">Outros guias</h2>
+        <ul class="ark-guide__related">
+          {%- for p in related.products -%}
+            {%- if p.id != product.id -%}
+              <li>
+                <a href="{{ p.url }}" class="ark-guide__related-card">
+                  <span class="ark-guide__related-title">{{ p.title }}</span>
+                  <span class="ark-guide__related-price">{{ p.price | money }}</span>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+
+    <p class="ark-guide__disclaimer">
+      {{ s.disclaimer | default: 'Informação geral de preparação. Não substitui formação em primeiros socorros nem as ordens das autoridades. Em perigo imediato, liga 112.' }}
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Arkorra - Guia digital",
+  "tag": "div",
+  "class": "ark-guide-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "GUIA DIGITAL" },
+    { "type": "text", "id": "cta", "label": "Texto do botão", "default": "Comprar e descarregar" },
+    { "type": "text", "id": "back_anchor", "label": "Âncora da seção de guias na home", "default": "guias" },
+    { "type": "collection", "id": "related_collection", "label": "Coleção dos guias (para 'Outros guias')" },
+    { "type": "textarea", "id": "disclaimer", "label": "Aviso legal" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Pergunta",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pergunta" },
+        { "type": "textarea", "id": "answer", "label": "Resposta" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Arkorra - Guia digital" }]
+}
+{% endschema %}
