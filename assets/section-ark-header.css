@@ -569,11 +569,12 @@ html {
   }
 }
 
-/* ---------- Language selector (flag dropdown in the quick-links pill) ---------- */
+/* ---------- Language selector (solid button + flag, dropdown below) ---------- */
 
 .ark-lang {
   position: relative;
   display: inline-flex;
+  flex-shrink: 0;
 }
 
 .ark-lang__menu {
@@ -589,83 +590,124 @@ html {
   }
 }
 
+.ark .ark-lang__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(0.5 * var(--ark-rem));
+  min-width: calc(5.25 * var(--ark-rem));
+  height: calc(2.5 * var(--ark-rem));
+  padding: 0 calc(0.875 * var(--ark-rem));
+  border-radius: 0;
+  background: var(--ark-primary-900);
+  color: var(--ark-white);
+  font-family: var(--ark-font-label);
+  font-size: var(--ark-text-label-lg);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  transition: background-color 0.2s ease;
+
+  &:is(:hover, :focus-visible),
+  .ark-lang__menu[open] > & {
+    background: var(--ark-primary-600);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ark-terracotta);
+    outline-offset: 2px;
+  }
+}
+
+.ark .ark-lang__static {
+  cursor: default;
+
+  &:hover {
+    background: var(--ark-primary-900);
+  }
+}
+
+.ark-lang__caret {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin-left: auto;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+
+  .ark-lang__menu[open] & {
+    transform: translateY(1px) rotate(225deg);
+  }
+}
+
 .ark-flag {
   display: block;
   flex-shrink: 0;
-  width: calc(1.375 * var(--ark-rem));
+  width: calc(1.125 * var(--ark-rem));
   height: auto;
   aspect-ratio: 3 / 2;
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18);
+  border-radius: 2px;
 }
 
 .ark-flag--globe {
-  box-shadow: none;
-  --ark-icon-size: calc(1.25 * var(--ark-rem));
-}
-
-.ark .ark-lang__toggle:is(:hover, :focus-visible),
-.ark .ark-lang__menu[open] > .ark-lang__toggle {
-  background: var(--ark-primary-600);
+  --ark-icon-size: calc(1.125 * var(--ark-rem));
 }
 
 .ark-lang__list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Dropdown: same width as the button, flush underneath, offset shadow. */
 .ark-lang__menu > .ark-lang__list {
   position: absolute;
-  top: calc(100% + 0.75 * var(--ark-rem));
+  top: calc(100% + 0.5 * var(--ark-rem));
   right: 0;
+  left: 0;
   z-index: 70;
-  min-width: calc(14 * var(--ark-rem));
-  padding: calc(0.375 * var(--ark-rem));
-  border: 1px solid var(--ark-linen);
-  border-radius: var(--ark-radius-lg);
-  background: var(--ark-surface);
-  box-shadow: var(--ark-shadow-xl);
+  background: var(--ark-terracotta);
+  box-shadow: 6px 6px 10px rgb(0 0 0 / 0.2);
 }
 
 .ark .ark-lang__option {
   display: flex;
   align-items: center;
-  gap: calc(0.625 * var(--ark-rem));
+  gap: calc(0.5 * var(--ark-rem));
   width: 100%;
-  min-height: calc(2.5 * var(--ark-rem));
-  padding: calc(0.375 * var(--ark-rem)) calc(0.625 * var(--ark-rem));
+  min-height: calc(2.25 * var(--ark-rem));
+  padding: calc(0.375 * var(--ark-rem)) calc(0.875 * var(--ark-rem));
   border: 0;
-  border-radius: var(--ark-radius-md);
   background: transparent;
-  color: var(--ark-charcoal);
+  color: var(--ark-white);
   font-family: var(--ark-font-label);
   font-size: var(--ark-text-label-lg);
   font-weight: 500;
+  letter-spacing: 0.04em;
   text-align: left;
   cursor: pointer;
   --ark-icon-size: calc(1.125 * var(--ark-rem));
 
-  &:hover,
-  &:focus-visible {
-    background: var(--ark-surface-container);
+  &:is(:hover, :focus-visible) {
+    background: rgb(0 0 0 / 0.14);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--ark-pine-deep);
+    outline: 2px solid var(--ark-white);
     outline-offset: -2px;
   }
 
   &.is-active {
     font-weight: 700;
   }
+}
 
-  .ark-flag {
-    box-shadow: 0 0 0 1px rgb(11 30 45 / 0.16);
-  }
+/* Dropdown shows the code; the full name lives in title/aria-label. */
+.ark-lang__menu .ark-lang__name,
+.ark-lang__menu .ark-lang__check {
+  display: none;
 }
 
 .ark-lang__name {
@@ -673,20 +715,7 @@ html {
   white-space: nowrap;
 }
 
-/* One language only: a plain flag, not a button. */
-.ark .ark-lang__static {
-  cursor: default;
-
-  &:hover {
-    background: transparent;
-  }
-}
-
-.ark-lang__check {
-  color: var(--ark-terracotta);
-}
-
-/* Inside the mobile drawer the list is always open (the drawer panel is light). */
+/* Mobile drawer: always-open list of full names on the light panel. */
 .ark-header__drawer-panel .ark-lang {
   display: block;
   margin-bottom: var(--ark-space-lg);
@@ -702,6 +731,10 @@ html {
   color: var(--ark-slate);
 }
 
+.ark-lang__list--inline .ark-lang__code {
+  display: none;
+}
+
 .ark-header__drawer-panel .ark-lang__list--inline {
   flex-direction: row;
   flex-wrap: wrap;
@@ -711,47 +744,27 @@ html {
     width: auto;
     border: 1px solid var(--ark-linen);
     background: var(--ark-white);
+    color: var(--ark-charcoal);
+    border-radius: var(--ark-radius-md);
+
+    &:is(:hover, :focus-visible) {
+      background: var(--ark-surface-container);
+    }
   }
 
   & .ark-lang__option.is-active {
     border-color: var(--ark-pine-deep);
   }
-}
 
-/* Mobile: the quick-links pill is hidden below 768px, so the language control
-   gets its own place in the header bar (flag, or flag + dropdown). */
-.ark-header__lang-mobile {
-  display: flex;
-  align-items: center;
-  padding: calc(0.25 * var(--ark-rem));
-  border-radius: 999px;
-  background: var(--ark-primary-600);
-
-  @media (min-width: 768px) {
-    display: none;
-  }
-
-  /* Nothing rendered (no allowed language enabled): do not leave an empty pill. */
-  &:not(:has(*)) {
-    display: none;
+  & .ark-flag {
+    box-shadow: 0 0 0 1px rgb(11 30 45 / 0.16);
   }
 }
 
-/* Mobile dropdown: the flag sits mid-bar, so a panel aligned to the flag would
-   spill off the left edge. Anchor it to the header bar and the page margin. */
-@media (max-width: 767px) {
-  .ark-header__main {
-    position: relative;
-  }
-
-  .ark-header__lang-mobile .ark-lang,
-  .ark-header__lang-mobile .ark-lang__menu {
-    position: static;
-  }
-
-  .ark-header__lang-mobile .ark-lang__menu > .ark-lang__list {
-    top: calc(100% - 0.25 * var(--ark-rem));
-    right: var(--ark-margin);
-    max-width: calc(100vw - 2 * var(--ark-margin));
+/* Tight phones: keep the cart on screen. */
+@media (max-width: 479px) {
+  .ark .ark-lang__toggle {
+    min-width: 0;
+    padding: 0 calc(0.625 * var(--ark-rem));
   }
 }
