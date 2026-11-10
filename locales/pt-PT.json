@@ -810,5 +810,18 @@
     "sizeguide": {
       "jump_to": "Jump To"
     }
+  },
+  "ark_404": {
+      "art_label": "Ilustração de um caminhante perdido junto a uma bússola e a um poste de sinalização, com o número 404",
+      "code": "Erro 404",
+      "title": "Página não encontrada",
+      "lead": "Este caminho não leva a lado nenhum. A página pode ter mudado de sítio ou nunca ter existido.",
+      "search_label": "Pesquisar na loja",
+      "search_placeholder": "Pesquisar kits, guias, lanternas...",
+      "search_button": "Pesquisar",
+      "home": "Voltar ao início",
+      "shop": "Ver os kits",
+      "guides": "Guias para imprimir",
+      "help": "Não faz mal: com a bússola na mão, é fácil encontrar o caminho de volta."
   }
 }

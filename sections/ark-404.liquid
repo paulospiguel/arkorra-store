@@ -1,0 +1,138 @@
+{{ 'section-ark-404.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+
+<section class="ark ark-404">
+  <div class="ark-page-width ark-404__inner">
+    <svg class="ark-404__art" viewBox="0 0 800 340" role="img" aria-label="{{ 'ark_404.art_label' | t }}" focusable="false">
+      <defs>
+        <linearGradient id="ark404-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#eaf2f9"/>
+          <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="800" height="340" fill="url(#ark404-sky)"/>
+      <circle class="ark-404__sun" cx="640" cy="92" r="38" fill="#ff9100" opacity="0.92"/>
+
+      <!-- clouds -->
+      <g fill="#ffffff" opacity="0.95">
+        <ellipse cx="120" cy="70" rx="46" ry="14"/><ellipse cx="150" cy="60" rx="30" ry="12"/>
+        <ellipse cx="470" cy="46" rx="40" ry="11"/><ellipse cx="500" cy="38" rx="24" ry="9"/>
+      </g>
+
+      <!-- mountains -->
+      <polygon points="0,250 110,140 190,215 270,120 380,250" fill="#cfe0ee"/>
+      <polygon points="260,260 400,110 470,190 540,130 700,260" fill="#9fbdd6"/>
+      <polygon points="470,270 610,150 700,230 800,170 800,270" fill="#6f98bd"/>
+      <polygon points="400,110 372,152 400,140 424,158" fill="#ffffff" opacity="0.9"/>
+      <polygon points="270,120 246,154 270,146 292,160" fill="#ffffff" opacity="0.9"/>
+
+      <!-- hills -->
+      <path d="M0 270 C120 235 230 250 340 268 C470 290 600 250 800 272 L800 340 L0 340 Z" fill="#549064"/>
+      <path d="M0 300 C140 276 260 292 400 304 C540 316 660 290 800 300 L800 340 L0 340 Z" fill="#447853"/>
+
+      <!-- path -->
+      <path d="M360 340 C372 312 392 296 420 284 C452 270 500 266 548 262" fill="none" stroke="#e8d9b8" stroke-width="16" stroke-linecap="round" opacity="0.95"/>
+
+      <!-- pines -->
+      <g fill="#2f6b40">
+        <polygon points="70,272 88,226 106,272"/><polygon points="76,252 88,214 100,252"/>
+        <polygon points="112,282 126,244 140,282"/>
+        <polygon points="700,268 718,222 736,268"/><polygon points="706,248 718,210 730,248"/>
+      </g>
+      <g fill="#6b4a2f"><rect x="86" y="272" width="4" height="10"/><rect x="124" y="282" width="4" height="8"/><rect x="716" y="268" width="4" height="10"/></g>
+
+      <!-- tent -->
+      <g>
+        <polygon points="210,300 252,258 294,300" fill="#ff9100"/>
+        <polygon points="252,258 252,300 294,300" fill="#d97a00"/>
+        <polygon points="238,300 252,278 266,300" fill="#7a4300"/>
+      </g>
+
+      <!-- 404 with a compass as the zero -->
+      <g class="ark-404__digits" font-family="Oswald, 'Arial Narrow', sans-serif" font-weight="700" font-size="190" fill="#04335e" text-anchor="middle">
+        <text x="270" y="228">4</text>
+        <text x="530" y="228">4</text>
+      </g>
+      <g class="ark-404__compass" transform="translate(400 160)">
+        <circle r="74" fill="#ffffff" stroke="#04335e" stroke-width="12"/>
+        <circle r="60" fill="none" stroke="#9fbdd6" stroke-width="2" stroke-dasharray="3 7"/>
+        <g font-family="Nunito Sans, Arial, sans-serif" font-weight="800" font-size="15" fill="#04335e" text-anchor="middle">
+          <text y="-44">N</text><text y="56">S</text><text x="-48" y="5">W</text><text x="48" y="5">E</text>
+        </g>
+        <g class="ark-404__needle">
+          <polygon points="0,-36 9,0 -9,0" fill="#ff9100"/>
+          <polygon points="0,36 9,0 -9,0" fill="#549064"/>
+          <circle r="5" fill="#04335e"/>
+        </g>
+      </g>
+
+      <!-- signpost -->
+      <g>
+        <rect x="738" y="198" width="7" height="100" fill="#6b4a2f"/>
+        <polygon points="700,206 742,206 756,216 742,226 700,226" fill="#ffffff" stroke="#04335e" stroke-width="3"/>
+        <polygon points="784,238 742,238 728,248 742,258 784,258" fill="#ffffff" stroke="#04335e" stroke-width="3"/>
+        <text x="710" y="221" font-family="Nunito Sans, Arial, sans-serif" font-size="11" font-weight="800" fill="#04335e">?</text>
+        <text x="760" y="253" font-family="Nunito Sans, Arial, sans-serif" font-size="11" font-weight="800" fill="#04335e">?</text>
+      </g>
+
+      <!-- hiker -->
+      <g class="ark-404__hiker" transform="translate(470 218)">
+        <ellipse cx="2" cy="70" rx="22" ry="5" fill="#000000" opacity="0.15"/>
+        <rect x="-16" y="-12" width="14" height="34" rx="6" fill="#04335e"/>
+        <rect x="-12" y="-14" width="26" height="38" rx="8" fill="#549064"/>
+        <circle cx="2" cy="-26" r="11" fill="#f1c9a5"/>
+        <path d="M-9 -30 Q2 -44 13 -30 Z" fill="#ff9100"/>
+        <line x1="-4" y1="24" x2="-10" y2="66" stroke="#04335e" stroke-width="7" stroke-linecap="round"/>
+        <line x1="8" y1="24" x2="16" y2="66" stroke="#04335e" stroke-width="7" stroke-linecap="round"/>
+        <line x1="22" y1="-2" x2="30" y2="66" stroke="#6b4a2f" stroke-width="4" stroke-linecap="round"/>
+        <g class="ark-404__q">
+          <circle cx="34" cy="-52" r="16" fill="#ffffff" stroke="#04335e" stroke-width="3"/>
+          <text x="34" y="-46" font-family="Oswald, Arial, sans-serif" font-size="20" font-weight="700" fill="#04335e" text-anchor="middle">?</text>
+        </g>
+      </g>
+    </svg>
+
+    <p class="ark-404__code">{{ 'ark_404.code' | t }}</p>
+    <h1 class="ark-404__title">{% if s.title != blank %}{{ s.title }}{% else %}{{ 'ark_404.title' | t }}{% endif %}</h1>
+    <p class="ark-404__lead">{{ 'ark_404.lead' | t }}</p>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="ark-404__search">
+      <label class="ark-visually-hidden" for="Ark404Search">{{ 'ark_404.search_label' | t }}</label>
+      <input id="Ark404Search" type="search" name="q" placeholder="{{ 'ark_404.search_placeholder' | t }}" autocomplete="off">
+      <button type="submit" class="ark-button ark-button--primary">{{ 'ark_404.search_button' | t }}</button>
+    </form>
+
+    <div class="ark-404__actions">
+      <a href="{{ routes.root_url }}" class="ark-button ark-button--accent ark-button--lg">
+        <span class="ark-icon" aria-hidden="true">home</span>{{ 'ark_404.home' | t }}
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="ark-button ark-button--outlined ark-button--lg">
+        <span class="ark-icon" aria-hidden="true">inventory_2</span>{{ 'ark_404.shop' | t }}
+      </a>
+      <a href="{{ routes.root_url }}#guias" class="ark-button ark-button--outlined ark-button--lg">
+        <span class="ark-icon" aria-hidden="true">menu_book</span>{{ 'ark_404.guides' | t }}
+      </a>
+    </div>
+
+    <p class="ark-404__help">{{ 'ark_404.help' | t }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - 404",
+  "tag": "div",
+  "class": "ark-404-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título (opcional)",
+      "info": "Deixa vazio para usar a tradução do idioma atual."
+    }
+  ],
+  "presets": [{ "name": "Arkorra - 404" }]
+}
+{% endschema %}

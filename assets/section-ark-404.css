@@ -1,0 +1,126 @@
+/* Arkorra — 404 page (section-ark-404.css) */
+
+.ark-404 {
+  padding-block: calc(2.5 * var(--ark-rem)) var(--ark-section-pad);
+  background: #ffffff;
+}
+
+.ark-404__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ark-404__art {
+  width: min(100%, 52rem);
+  height: auto;
+  margin-bottom: 1.5rem;
+  border: 2px solid #04335e;
+  box-shadow: 10px 10px 0 rgb(4 51 94 / 0.12);
+  background: #ffffff;
+}
+
+.ark-404__code {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2f6b40;
+}
+
+.ark .ark-404__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--hk-font-display, inherit);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--hk-navy, #04335e);
+
+  &::after {
+    content: '';
+    display: block;
+    width: 3.75rem;
+    height: 2px;
+    margin: 0.75rem auto 0;
+    background: var(--hk-green, #549064);
+  }
+}
+
+.ark-404__lead {
+  max-width: 36rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.125rem;
+  color: var(--hk-muted, #5f6b6a);
+}
+
+.ark-404__search {
+  display: flex;
+  width: min(100%, 30rem);
+  margin-bottom: 1.5rem;
+
+  & input[type='search'] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--hk-navy, #04335e);
+    border-right: 0;
+    border-radius: 0;
+    font: inherit;
+    background: #ffffff;
+  }
+
+  & .ark-button {
+    flex-shrink: 0;
+  }
+}
+
+.ark-404__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.ark-404__help {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--hk-muted, #5f6b6a);
+}
+
+/* Gentle motion: compass needle swings, hiker's question bubble bobs */
+@media (prefers-reduced-motion: no-preference) {
+  .ark-404__needle {
+    transform-origin: 0 0;
+    animation: ark404-needle 4s ease-in-out infinite;
+  }
+
+  .ark-404__q {
+    animation: ark404-bob 2.4s ease-in-out infinite;
+  }
+
+  .ark-404__sun {
+    transform-origin: 640px 92px;
+    animation: ark404-sun 6s ease-in-out infinite;
+  }
+}
+
+@keyframes ark404-needle {
+  0%, 100% { transform: rotate(-28deg); }
+  25% { transform: rotate(34deg); }
+  50% { transform: rotate(-12deg); }
+  75% { transform: rotate(22deg); }
+}
+
+@keyframes ark404-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes ark404-sun {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
