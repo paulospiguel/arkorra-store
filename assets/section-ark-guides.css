@@ -1,0 +1,164 @@
+/* Arkorra — Digital guides (section-ark-guides.css) */
+
+.ark-guides {
+  padding-block: var(--ark-section-pad);
+  background: #ffffff;
+}
+
+.ark-guides__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 44rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+/* Featured bundle */
+.ark-guides__bundle {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  margin-bottom: 1.875rem;
+  background: var(--hk-navy, #04335e);
+  color: #ffffff;
+
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+.ark-guides__badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #8fd3a0;
+  color: #04335e;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ark .ark-guides__bundle-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--hk-font-display, inherit);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.ark-guides__bundle-text {
+  margin: 0 0 1rem;
+  color: rgb(255 255 255 / 0.9);
+}
+
+.ark-guides__bundle-buy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+
+  @media (min-width: 900px) {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.ark-guides__note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.85);
+}
+
+/* Profile cards */
+.ark-guides__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.875rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ark-guides__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f7f7f5;
+  border-top: 3px solid var(--hk-green, #549064);
+}
+
+.ark-guides__points {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+
+  & li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  & .ark-icon {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    font-size: 1.125rem;
+    color: #2f6b40;
+  }
+}
+
+.ark-guides__points--light .ark-icon {
+  color: #8fd3a0;
+}
+
+.ark-guides__buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hk-line, #e6e6e6);
+}
+
+.ark-guides__price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--hk-ink, #121212);
+}
+
+.ark-guides__bundle .ark-guides__price {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.ark-guides__footnote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--hk-muted, #5f6b6a);
+
+  & .ark-icon {
+    color: #2f6b40;
+  }
+}

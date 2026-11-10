@@ -1,0 +1,135 @@
+{{ 'section-ark-guides.css' | asset_url | stylesheet_tag }}
+
+{%- assign s = section.settings -%}
+{%- assign bundle = s.bundle_product -%}
+
+<section class="ark ark-guides"{% if s.anchor != blank %} id="{{ s.anchor }}"{% endif %}>
+  <div class="ark-page-width">
+    <header class="ark-guides__head">
+      {%- if s.eyebrow != blank -%}
+        <p class="ark-cards__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="ark-cards__title">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.text != blank -%}
+        <p class="ark-cards__lead">{{ s.text }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if s.bundle_title != blank -%}
+      <article class="ark-guides__bundle">
+        <div class="ark-guides__bundle-copy">
+          <span class="ark-guides__badge">{{ s.bundle_badge }}</span>
+          <h3 class="ark-guides__bundle-title">{{ s.bundle_title }}</h3>
+          {%- if s.bundle_text != blank -%}
+            <p class="ark-guides__bundle-text">{{ s.bundle_text }}</p>
+          {%- endif -%}
+          {%- assign bundle_points = s.bundle_points | split: ';' -%}
+          {%- if bundle_points.size > 0 and bundle_points[0] != blank -%}
+            <ul class="ark-guides__points ark-guides__points--light">
+              {%- for point in bundle_points -%}
+                <li><span class="ark-icon" aria-hidden="true">check</span>{{ point | strip }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+        <div class="ark-guides__bundle-buy">
+          {%- if bundle != blank -%}
+            <p class="ark-guides__price">{{ bundle.price | money }}</p>
+            <a href="{{ bundle.url }}" class="ark-button ark-button--accent ark-button--lg">{{ s.bundle_cta | default: 'Comprar o guia completo' }}</a>
+          {%- else -%}
+            <a href="{{ s.fallback_link | default: '/pages/guia-de-preparacao' }}" class="ark-button ark-button--accent ark-button--lg">{{ s.bundle_cta | default: 'Comprar o guia completo' }}</a>
+          {%- endif -%}
+          {%- if s.bundle_note != blank -%}
+            <p class="ark-guides__note">{{ s.bundle_note }}</p>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ark-guides__grid">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- assign p = b.product -%}
+          {%- assign points = b.points | split: ';' -%}
+          <li class="ark-guides__card" {{ block.shopify_attributes }}>
+            <div class="ark-card__head">
+              <span class="ark-card__icon"><span class="ark-icon" aria-hidden="true">{{ b.icon | default: 'menu_book' }}</span></span>
+              <h3 class="ark-card__title">{{ b.title }}</h3>
+            </div>
+            {%- if b.text != blank -%}
+              <p class="ark-card__text">{{ b.text }}</p>
+            {%- endif -%}
+            {%- if points.size > 0 and points[0] != blank -%}
+              <ul class="ark-guides__points">
+                {%- for point in points -%}
+                  <li><span class="ark-icon" aria-hidden="true">check</span>{{ point | strip }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            <div class="ark-guides__buy">
+              {%- if p != blank -%}
+                <span class="ark-guides__price">{{ p.price | money }}</span>
+                <a href="{{ p.url }}" class="ark-button ark-button--primary ark-button--sm">{{ b.cta_label | default: 'Ver guia' }}</a>
+              {%- else -%}
+                <a href="{{ s.fallback_link | default: '/pages/guia-de-preparacao' }}" class="ark-button ark-button--primary ark-button--sm">{{ b.cta_label | default: 'Ver guia' }}</a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if s.footnote != blank -%}
+      <p class="ark-guides__footnote">
+        <span class="ark-icon" aria-hidden="true">download</span>
+        {{ s.footnote }}
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arkorra - Guias digitais",
+  "tag": "div",
+  "class": "ark-guides-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora (id)", "default": "guias" },
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "GUIAS DIGITAIS" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Guias de preparação para imprimir" },
+    { "type": "textarea", "id": "text", "label": "Texto" },
+    { "type": "header", "content": "Guia completo (destaque)" },
+    { "type": "text", "id": "bundle_badge", "label": "Selo", "default": "Mais completo" },
+    { "type": "text", "id": "bundle_title", "label": "Título", "default": "Guia completo de preparação" },
+    { "type": "textarea", "id": "bundle_text", "label": "Texto" },
+    { "type": "textarea", "id": "bundle_points", "label": "Pontos (separados por ;)" },
+    { "type": "product", "id": "bundle_product", "label": "Produto digital" },
+    { "type": "text", "id": "bundle_cta", "label": "Texto do botão", "default": "Comprar o guia completo" },
+    { "type": "text", "id": "bundle_note", "label": "Nota abaixo do botão" },
+    { "type": "header", "content": "Geral" },
+    { "type": "url", "id": "fallback_link", "label": "Ligação enquanto não houver produto" },
+    { "type": "text", "id": "footnote", "label": "Nota final" }
+  ],
+  "blocks": [
+    {
+      "type": "guide",
+      "name": "Guia por perfil",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ícone (Material Symbols)", "default": "menu_book" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Guia" },
+        { "type": "textarea", "id": "text", "label": "Texto" },
+        { "type": "textarea", "id": "points", "label": "Pontos (separados por ;)" },
+        { "type": "product", "id": "product", "label": "Produto digital" },
+        { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Ver guia" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Arkorra - Guias digitais" }
+  ]
+}
+{% endschema %}
