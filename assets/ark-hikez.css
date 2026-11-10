@@ -986,3 +986,56 @@ html {
 .ark.ark-header .ark-lang__option.is-active .ark-lang__name {
   color: #ffffff;
 }
+
+/* ---------- Language toggle: flag only, no fill and no code ---------- */
+.ark.ark-header .ark-lang__toggle,
+.ark.ark-header .ark-lang__toggle:hover,
+.ark.ark-header .ark-lang__menu[open] > .ark-lang__toggle {
+  background: transparent;
+  color: var(--hk-ink);
+  padding-inline: 0.375rem;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-lang__code {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-lang__caret {
+  color: var(--hk-ink);
+  border-color: currentColor;
+}
+
+.ark.ark-header .ark-lang__toggle .ark-flag {
+  width: 1.75rem;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* ---------- Quick-link pill: icons only, theme navy, no fill ---------- */
+.ark.ark-header .ark-nav-pill,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item.is-active,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.ark.ark-header .ark-nav-pill {
+  padding: 0;
+  gap: 0.25rem;
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item,
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item .ark-icon {
+  color: var(--hk-navy);
+}
+
+.ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover .ark-icon {
+  color: var(--hk-green);
+}
