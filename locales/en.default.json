@@ -93,7 +93,8 @@
       "product_preferences": "Product Preferences",
       "men": "Men's",
       "women": "Women's",
-      "i_want_it_all": "I Want It All"
+      "i_want_it_all": "I Want It All",
+      "newsletter_email": "Join our mailing list"
     },
     "filters": {
       "show_more": "Show More",
@@ -160,12 +161,22 @@
       "hours": "Hours",
       "minutes": "Minutes",
       "seconds": "Seconds"
+    },
+    "404": {
+      "title": "404 Page Not Found",
+      "subtext": "The page you requested does not exist.",
+      "link": "Continue shopping"
     }
   },
   "sections": {
     "slideshow": {
       "watch_video": "Watch video",
-      "close_video": "Close video"
+      "close_video": "Close video",
+      "next_slide": "Next slide",
+      "previous_slide": "Previous slide",
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow",
+      "play_video": "Video playback"
     },
     "map": {
       "address_error": "Error looking up that address",
@@ -238,7 +249,8 @@
       "print": "Print",
       "share": "Share",
       "size_guide": "Size Guide",
-      "readmore": "Read More"
+      "readmore": "Read More",
+      "read_more": "Read more"
     },
     "related": "Related",
     "comments": {
@@ -501,18 +513,29 @@
       "sign_up": "No Account ?",
       "log_in": "Login Here",
       "checkbox_newsletter": "Sign up for our newsletter",
-      "bank_login": "If you have an account, please "
+      "bank_login": "If you have an account, please ",
+      "submit": "Create"
     }
   },
   "homepage": {
     "onboarding": {
       "collection_title": "Your collection's name",
-      "no_content": "This section doesn’t currently include any content. Add content to this section using the sidebar."
+      "no_content": "This section doesn’t currently include any content. Add content to this section using the sidebar.",
+      "product_title": "Your product name",
+      "product_description": "This area is used to describe your product in detail. Inform the customer about the look, feel and style of your product. Add details about the color, materials used, sizes and where it was manufactured.",
+      "blog_title": "The title of your post",
+      "blog_excerpt": "Your store hasn't published any blog posts yet. A blog can be used to talk about new product launches, tips, and other news you want to share with your customers. You can check out Shopify's merchant blog for inspiration and advice for your own store and blog.",
+      "blog_author": "Author's name"
     }
   },
   "layout": {
     "cart": {
-      "title_cart": "Cart"
+      "title_cart": "Cart",
+      "title": "Shopping Cart",
+      "items_count": {
+        "one": "item",
+        "other": "items"
+      }
     },
     "customer": {
       "account": "Account",
@@ -521,7 +544,8 @@
       "create_account": "Register",
       "checkout": "Check out",
       "sign_in": "Sign in",
-      "wishlists": "Wishlist"
+      "wishlists": "Wishlist",
+      "my_wishlists": "My Wish List"
     },
     "footer": {
       "payment": "Payment Accept",
@@ -541,6 +565,22 @@
       "sidebarmenu_title": "Categories",
       "topbar": "Call our customer service team on:",
       "my_account": "My account"
+    },
+    "navigation": {
+      "search": "Search",
+      "toggle": "expand/hide",
+      "expand": "more",
+      "collapse": "less"
+    },
+    "wishlist": {
+      "title": "Wishlist"
+    },
+    "mainmenu": {
+      "title_box_mobile": "Main menu",
+      "btn_close_mobile": "Close"
+    },
+    "verticalmenu": {
+      "title": "Categories"
     }
   },
   "products": {
@@ -1097,7 +1137,145 @@
         },
         "reveal_more_label": {
           "many": "Show %{count} more locations"
+        },
+        "all_stores_far_away": {
+          "title_with_item": {
+            "many": "The nearest location with your items is more than %{distance} from %{location}"
+          }
+        },
+        "location_information_far_away": {
+          "many": "There are %{count} locations with your item"
+        },
+        "location_nearby": {
+          "many": "There are %{count} nearby locations with your item"
+        },
+        "location_nearby_short": {
+          "many": "%{count} nearby locations with your item"
+        },
+        "location_far_away": {
+          "many": "%{count} locations with your item"
+        },
+        "toggle_more_locations": {
+          "many": "More %{count} locations"
+        },
+        "pickup_unavailable_banner_title": {
+          "many": "There are no locations with your items"
+        },
+        "pickup_unavailable_banner_title_with_country": {
+          "many": "There are no locations in %{country} with your items"
+        },
+        "location_information_far_away_one_item": {
+          "many": "There are %{count} locations with the item"
+        },
+        "location_information_far_away_other_items": {
+          "many": "There are %{count} locations with the items"
+        },
+        "location_nearby_one_item": {
+          "many": "There are %{count} nearby locations with the item"
+        },
+        "location_nearby_other_items": {
+          "many": "There are %{count} nearby locations with the items"
+        },
+        "location_nearby_short_one_item": {
+          "many": "%{count} nearby locations with the item"
+        },
+        "location_nearby_short_other_items": {
+          "many": "%{count} nearby locations with the items"
+        },
+        "location_far_away_one_item": {
+          "many": "%{count} locations with the item"
+        },
+        "location_far_away_other_items": {
+          "many": "%{count} locations with the items"
+        },
+        "stock_details": {
+          "ship_separately": {
+            "many": "They will be sent separately"
+          },
+          "remove_items": {
+            "many": "They will be removed from the order"
+          }
+        },
+        "unavailable_item_count": {
+          "many": "%{count} items unavailable"
+        },
+        "ship_separately_notice": {
+          "many": "%{count} items will be shipped separately"
+        },
+        "stock_details_modal": {
+          "can_ship_description": {
+            "many": "These items are out of stock at the selected pickup location."
+          },
+          "cannot_ship_description": {
+            "many": "These items are out of stock at the selected pickup location and cannot be shipped."
+          },
+          "cannot_ship_bundle_description": {
+            "many": "These items are out of stock at the selected pickup location and cannot be shipped. The items in the package will also be removed."
+          }
+        },
+        "stock_details_banner": {
+          "heading": {
+            "many": "%{count} items are not available for collection at %{location}"
+          },
+          "ship_separately": {
+            "many": "send them separately"
+          }
         }
+      },
+      "split_delivery": {
+        "inventory_issue_banner": {
+          "heading": {
+            "cannot_be_picked_up": {
+              "many": "%{count} items cannot be picked up"
+            },
+            "cannot_be_shipped": {
+              "many": "%{count} items cannot be sent"
+            }
+          },
+          "remove_item": {
+            "many": "remove items"
+          },
+          "ship_separately": {
+            "many": "Send them separately"
+          },
+          "pick_them_up_in_store": {
+            "many": "Pick them up at the store"
+          },
+          "remove_item_only": {
+            "many": "Remove items"
+          }
+        },
+        "pickup_items_count": {
+          "many": "Pick up %{count} items"
+        },
+        "ship_items_count": {
+          "many": "Send %{count} items"
+        },
+        "items_count": {
+          "many": "%{count} items"
+        }
+      },
+      "merchandise_unavailable_in_buyer_location": {
+        "remove_items_action": {
+          "many": "remove unavailable items"
+        }
+      },
+      "remote_merchandise_only": {
+        "detail_item_label": {
+          "many": "{{count}} items"
+        }
+      }
+    },
+    "notices": {
+      "order": {
+        "cancel_reason": {
+          "many": "Others"
+        }
+      }
+    },
+    "page_titles": {
+      "search_results": {
+        "many": "Search: %{count} results found for \"%{terms}\""
       }
     }
   },
@@ -1160,5 +1338,165 @@
     "forgot_password": "Forgot password?",
     "give_a_title_for_review": "Give a title for review",
     "share_button": "Post"
+  },
+  "customer_accounts": {
+    "navigation_and_structure": {
+      "store_credit_multi_currency_accessibility_label": {
+        "many": "{{formattedBalance}} and store credit in {{count}} more currencies"
+      }
+    },
+    "orders": {
+      "order_status": {
+        "delivered_description_gift_card": {
+          "many": "The gift cards have been sent by email."
+        },
+        "confirmed_gift_card_additional_description": {
+          "many": "Each gift card will be sent in a separate email."
+        },
+        "delivered_description_gift_card_text": {
+          "many": "The gift cards were sent by message."
+        },
+        "confirmed_gift_card_additional_description_text": {
+          "many": "Each gift card will be sent in a separate message."
+        },
+        "gift_resend_success": {
+          "many": "Resent gift cards"
+        },
+        "gift_resend_failure": {
+          "many": "There was a problem resending your gift cards. Please try again or contact us."
+        },
+        "tracking_number": {
+          "many": "Tracking numbers"
+        },
+        "gift_card_resend_button": {
+          "many": "Resend gift cards"
+        },
+        "fulfillment_tracking": {
+          "gift_card_sent_to_recipient": {
+            "many": "The gift cards have been sent to the recipients."
+          }
+        }
+      },
+      "buy_again_review": {
+        "unavailable_in_market": {
+          "body": {
+            "many": "These products were not added to the cart because they are not available in the country/region."
+          },
+          "none_body": {
+            "many": "These products are not available in the country/region."
+          },
+          "heading": {
+            "many": "Unavailable products"
+          }
+        },
+        "quantity_added": {
+          "many": "{{added}} of {{count}} items added"
+        },
+        "item_count": {
+          "many": "{{count}} items"
+        }
+      }
+    },
+    "order_details": {
+      "image_gallery": {
+        "additional_items": {
+          "many": "+ {{count}} additional items"
+        }
+      },
+      "edit_summary": {
+        "updated_count": {
+          "many": "The order was updated {{count}} times"
+        }
+      },
+      "subtotal_label_with_quantity": {
+        "many": "Subtotal · {{count}} items"
+      },
+      "discount_order_stacking": {
+        "many": "Discounts on the order"
+      }
+    },
+    "B2B": {
+      "orders": {
+        "draft_order_list": {
+          "pending_tab_accessibility_label": {
+            "pending_orders": {
+              "many": "You have {{count}} pending orders"
+            }
+          }
+        }
+      },
+      "draft_order_details": {
+        "payment_status": {
+          "pending": {
+            "banner_overdue": {
+              "many": "Your payment has been overdue for {{count}} days"
+            },
+            "banner_due": {
+              "many": "Your payment expires in {{count}} days"
+            },
+            "banner_overdue_for_single_fulfillment": {
+              "many": "The payment of {{amount}} is {{count}} days overdue. {{link}}"
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "banner_title": {
+        "many": "There are {{count}} errors"
+      }
+    },
+    "payment_methods": {
+      "add_payment_method": {
+        "subscription_contracts": {
+          "more_items": {
+            "many": "more {{count}} products"
+          },
+          "product_count": {
+            "many": "{{count}} products"
+          }
+        }
+      }
+    },
+    "ui_components": {
+      "autocompleteOptionsAvailable": {
+        "many": "{{count}} items available"
+      },
+      "mapClusterTitle": {
+        "many": "Cluster of {{number}} markers"
+      }
+    },
+    "date": {
+      "humanize": {
+        "lessThanOneHourAgo": {
+          "many": "{{count}} minutes ago"
+        }
+      }
+    },
+    "returns_and_cancellations": {
+      "request_withdrawal_page": {
+        "review_changes_modal": {
+          "items_to_cancel": {
+            "many": "{{count}} items to cancel"
+          },
+          "items_to_return": {
+            "many": "{{count}} items to return"
+          }
+        },
+        "line_items": {
+          "ineligible_items": {
+            "many": "{{count}} items are not eligible"
+          }
+        }
+      },
+      "estimated_refund_summary_card": {
+        "subtotal_with_count": {
+          "many": "Subtotal · {{count}} items"
+        },
+        "item_selected": {
+          "many": "{{count}} items"
+        }
+      }
+    }
   }
 }
