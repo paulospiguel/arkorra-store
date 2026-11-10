@@ -635,3 +635,153 @@ h4,
   margin: 0.75rem auto 0;
   background: var(--hk-green);
 }
+
+/* ---------- Contrast, buttons, logo, kit images ---------- */
+
+/* Own logo (white artwork) sits on the light hero: multiply drops the white box */
+.ark .ark-header__logo-img {
+  mix-blend-mode: multiply;
+  height: calc(5.25 * var(--ark-rem));
+  width: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.ark.ark-header.is-scrolled .ark-header__logo-img {
+  height: calc(3.75 * var(--ark-rem));
+}
+
+/* Footer logo: transparent artwork with white lettering on the navy footer */
+.ark.ark-footer .ark-footer__logo-img {
+  width: calc(8 * var(--ark-rem));
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: normal;
+}
+
+.ark-footer__logo-wordmark {
+  display: none;
+}
+
+/* Buttons: white label on navy/green fills, navy label on outlined ones */
+.ark .ark-button {
+  --ark-button-fg: #ffffff;
+}
+
+.ark .ark-button--primary,
+.ark .ark-button--secondary,
+.ark .ark-button--pine,
+.ark .ark-button--dark,
+.ark .ark-button--accent,
+.ark .ark-button--terracotta {
+  color: #ffffff;
+}
+
+.ark .ark-button--accent,
+.ark .ark-button--terracotta {
+  background: var(--hk-green);
+  border-color: var(--hk-green);
+}
+
+.ark .ark-button--accent:hover,
+.ark .ark-button--terracotta:hover {
+  background: var(--hk-green-dark);
+  border-color: var(--hk-green-dark);
+}
+
+.ark .ark-button--outlined,
+.ark .ark-button--ghost {
+  color: var(--hk-navy);
+  border-color: var(--hk-navy);
+  background: transparent;
+}
+
+.ark .ark-button--outlined:hover,
+.ark .ark-button--ghost:hover {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+/* On navy sections the outlined button flips to white */
+:is(.ark-cards--dark, .ark-about, .ark-lead__card) .ark-button--outlined,
+:is(.ark-cards--dark, .ark-about) .ark-button--ghost {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) .ark-button--outlined:hover {
+  background: #ffffff;
+  color: var(--hk-navy);
+}
+
+/* Dark (navy) sections: lighter green accent, white copy */
+:is(.ark-cards--dark, .ark-about) {
+  --hk-accent-on-dark: #8fd3a0;
+  color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) :is(.ark-cards__eyebrow, .ark-eyebrow, .ark-icon, .ark-card__cta) {
+  color: var(--hk-accent-on-dark);
+}
+
+:is(.ark-cards--dark, .ark-about) :is(.ark-cards__title, .ark-heading-xl) {
+  color: #ffffff;
+}
+
+:is(.ark-cards--dark, .ark-about) :is(p, li, .ark-card__text, .ark-cards__lead, .ark-about__text) {
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* Section eyebrows on white: darker green for AA */
+.ark-cards--light :is(.ark-cards__eyebrow, .ark-eyebrow),
+.ark-catalog .ark-eyebrow {
+  color: #2f6b40;
+}
+
+/* Hero checks and badges on the photo */
+.ark.ark-hero .ark-hero__check .ark-icon {
+  color: #2f6b40;
+}
+
+.ark.ark-hero .ark-hero__check {
+  font-weight: 600;
+}
+
+/* Step numbers */
+.ark .ark-steps__num {
+  background: var(--hk-navy);
+  color: #ffffff;
+}
+
+/* Trust bar text */
+.ark-trust-bar {
+  color: var(--hk-ink);
+}
+
+/* Header announcement text stays white on navy */
+.ark.ark-header .ark-header__announcement-text,
+.ark.ark-header .ark-header__announcement a {
+  color: #ffffff;
+}
+
+/* Kit photos: some carry a printed caption along the top edge; crop toward the product */
+.ark-product-card__media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.ark .ark-product-card__img {
+  object-fit: cover;
+  object-position: 50% 85%;
+  transform: scale(1.32);
+  transform-origin: 50% 85%;
+}
+
+/* Product badges: white on green */
+.ark-product-card__badge,
+.ark-badge {
+  background: var(--hk-green-dark);
+  color: #ffffff;
+  border-radius: 0;
+}

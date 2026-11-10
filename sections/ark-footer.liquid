@@ -12,7 +12,7 @@
                   {%- if block.settings.logo != blank -%}
                     {{ block.settings.logo | image_url: width: 320 | image_tag: alt: shop.name, class: 'ark-footer__logo-img', loading: 'lazy' }}
                   {%- else -%}
-                    <img src="{{ 'logo-2.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-footer__logo-img" width="160" height="120" loading="lazy">
+                    <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="ark-footer__logo-img" width="160" height="120" loading="lazy">
                   {%- endif -%}
                   <span class="ark-footer__logo-wordmark">ARKORRA</span>
                 </a>
