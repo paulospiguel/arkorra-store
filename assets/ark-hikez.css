@@ -571,3 +571,77 @@ h4,
 .ark.ark-footer :is(strong, b) {
   color: #ffffff;
 }
+
+/* ---------- Fidelity pass: container, rhythm, torn hero edge ---------- */
+:root {
+  --ark-page-width: 1260px; /* Hikez content width: 1230px + 15px gutters */
+  --ark-gutter: 1.875rem; /* 30px grid gap */
+  --ark-section-pad: clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+
+/* Hero height matches the reference (~760px at 1440) */
+.ark-hero {
+  min-height: min(47.5rem, 100svh);
+}
+
+/* Torn, cloud-like white edge at the bottom of the hero */
+.ark-hero__media::after {
+  height: 7rem;
+  background: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 120V78c40-14 70 6 110-8s60-26 100-14 70 22 110 8 50-30 96-22 62 20 104 10 66-30 112-18 70 22 112 8 58-26 100-14 66 22 110 12 60-24 104-14 70 20 112 8 58-20 100-12 66 16 100 8V120z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+/* Hero slider arrows: navy squares on both edges */
+.ark-hero::before,
+.ark-hero::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--hk-navy);
+  z-index: 3;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1rem;
+}
+
+.ark-hero::before {
+  left: 0.625rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M15 4l-8 8 8 8'/%3E%3C/svg%3E");
+}
+
+.ark-hero::after {
+  right: 0.625rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M9 4l8 8-8 8'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 989px) {
+  .ark-hero::before,
+  .ark-hero::after {
+    display: none;
+  }
+}
+
+/* Grids use a 30px gap like the reference */
+.ark-cards__grid,
+.ark-catalog__grid,
+.ark-testimonials__grid,
+.ark-steps__list {
+  gap: 1.875rem;
+}
+
+/* Section titles get the small green underline the reference uses */
+.ark .ark-heading-xl::after,
+.ark .ark-cards__title::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 2px;
+  margin: 0.75rem auto 0;
+  background: var(--hk-green);
+}
