@@ -1,0 +1,408 @@
+/* Arkorra — Digital guide product page (section-ark-guide-detail.css) */
+
+.ark-guide {
+  padding-block: calc(2 * var(--ark-rem)) var(--ark-section-pad);
+  background: #ffffff;
+}
+
+.ark-guide__crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--hk-muted, #5f6b6a);
+
+  & a {
+    color: var(--hk-navy, #04335e);
+  }
+}
+
+.ark-guide__top {
+  display: grid;
+  gap: 2rem;
+
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+/* Printed-paper cover mockup */
+.ark-guide__cover-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: #f1f1ee;
+  padding: clamp(1.5rem, 1rem + 3vw, 3rem);
+}
+
+.ark-guide__cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: min(100%, 22rem);
+  aspect-ratio: 210 / 297;
+  padding: 1.5rem;
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 10px 10px 0 rgb(4 51 94 / 0.18);
+}
+
+.ark-guide__cover-tag {
+  align-self: flex-start;
+  padding: 0.25rem 0.625rem;
+  border: 2px solid #000000;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ark .ark-guide__cover-title {
+  margin: 0;
+  font-family: var(--hk-font-display, inherit);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.ark-guide__cover-lines {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+
+  & span {
+    display: block;
+    height: 3px;
+    background: #000000;
+  }
+
+  & span:nth-child(2) {
+    width: 80%;
+  }
+
+  & span:nth-child(3) {
+    width: 55%;
+  }
+}
+
+.ark-guide__cover-brand {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ark-guide__pages {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-weight: 700;
+  color: var(--hk-navy, #04335e);
+}
+
+/* Buy column */
+.ark .ark-guide__title {
+  margin: 0.25rem 0 0.75rem;
+  font-family: var(--hk-font-display, inherit);
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--hk-navy, #04335e);
+}
+
+.ark-guide__who {
+  margin: 0 0 1rem;
+  font-size: 1.0625rem;
+  color: var(--hk-muted, #5f6b6a);
+}
+
+.ark-guide__bullets,
+.ark-guide__trust {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  list-style: none;
+
+  & li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  & .ark-icon {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    font-size: 1.125rem;
+    color: #2f6b40;
+  }
+}
+
+.ark-guide__priceline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ark-guide__price {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--hk-ink, #121212);
+}
+
+.ark-guide__compare {
+  color: var(--hk-muted, #5f6b6a);
+}
+
+.ark-guide__vat {
+  font-size: 0.875rem;
+  color: var(--hk-muted, #5f6b6a);
+}
+
+.ark-guide__form {
+  margin-bottom: 1.25rem;
+}
+
+.ark-guide__trust {
+  padding-top: 1rem;
+  margin: 0;
+  border-top: 1px solid var(--hk-line, #e6e6e6);
+  font-size: 0.9375rem;
+}
+
+/* Content blocks */
+.ark-guide__block {
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+}
+
+.ark .ark-guide__h2 {
+  margin: 0 0 1.25rem;
+  font-family: var(--hk-font-display, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--hk-navy, #04335e);
+
+  &::after {
+    content: '';
+    display: block;
+    width: 3.75rem;
+    height: 2px;
+    margin-top: 0.625rem;
+    background: var(--hk-green, #549064);
+  }
+}
+
+.ark-guide__rte {
+  max-width: 48rem;
+  line-height: 1.65;
+}
+
+.ark-guide__toc {
+  display: grid;
+  gap: 0.5rem 2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  & li {
+    display: flex;
+    gap: 0.875rem;
+    align-items: baseline;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--hk-line, #e6e6e6);
+  }
+}
+
+.ark-guide__toc-n {
+  flex-shrink: 0;
+  min-width: 1.75rem;
+  font-family: var(--hk-font-display, inherit);
+  font-size: 1.125rem;
+  color: var(--hk-green-dark, #447853);
+}
+
+.ark-guide__steps {
+  display: grid;
+  gap: 1.875rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  & li {
+    padding: 1.5rem;
+    background: #f7f7f5;
+    border-top: 3px solid var(--hk-green, #549064);
+  }
+
+  & p {
+    margin: 0.375rem 0 0;
+  }
+}
+
+.ark-guide__step-n {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+  background: var(--hk-navy, #04335e);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* Sample page, styled like the printed sheet */
+.ark-guide__sample {
+  max-width: 40rem;
+  padding: clamp(1.25rem, 1rem + 2vw, 2.25rem);
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 8px 8px 0 rgb(4 51 94 / 0.15);
+
+  & h3 {
+    margin: 0 0 1rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 3px solid #000000;
+    font-family: var(--hk-font-display, inherit);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    color: #000000;
+  }
+}
+
+.ark-guide__check {
+  display: grid;
+  gap: 0.625rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  & li {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  & li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.3em;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 2px solid #000000;
+  }
+}
+
+.ark-guide__sample-note {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  color: #555555;
+}
+
+/* FAQ */
+.ark-guide__faq {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 48rem;
+}
+
+.ark-guide__qa {
+  border: 1px solid var(--hk-line, #e6e6e6);
+  background: #ffffff;
+
+  & summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  & summary::-webkit-details-marker {
+    display: none;
+  }
+
+  & p {
+    margin: 0;
+    padding: 0 1.25rem 1.25rem;
+    color: var(--hk-muted, #5f6b6a);
+  }
+
+  &[open] summary .ark-icon {
+    transform: rotate(180deg);
+  }
+}
+
+/* Related guides */
+.ark-guide__related {
+  display: grid;
+  gap: 1.25rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ark-guide__related-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f7f7f5;
+  border-top: 3px solid var(--hk-green, #549064);
+  color: var(--hk-ink, #121212);
+
+  &:hover {
+    background: #ecece8;
+  }
+}
+
+.ark-guide__related-title {
+  font-weight: 700;
+}
+
+.ark-guide__related-price {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ark-guide__disclaimer {
+  max-width: 48rem;
+  margin: 3rem 0 0;
+  font-size: 0.875rem;
+  color: var(--hk-muted, #5f6b6a);
+}

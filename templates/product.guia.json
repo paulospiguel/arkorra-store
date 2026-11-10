@@ -1,0 +1,59 @@
+{
+  "sections": {
+    "main": {
+      "type": "ark-guide-detail",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Como recebo o PDF?",
+            "answer": "Depois do pagamento recebes o acesso para descarregar o ficheiro, na página de confirmação e por e-mail. O acesso é imediato."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Posso imprimir o guia?",
+            "answer": "Sim, foi desenhado para imprimir em A4, a preto e branco, com letra grande. Imprime uma cópia e guarda-a numa pasta junto da lanterna."
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Preciso de internet para o usar?",
+            "answer": "Só para descarregar. Depois de impresso, o guia funciona sem eletricidade nem internet. Guarda também o PDF no telemóvel e num pen."
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "O guia dá conselhos médicos?",
+            "answer": "Não. É informação geral de preparação e primeiros socorros básicos. Não substitui formação certificada nem as ordens das autoridades. Em perigo imediato, liga 112."
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "E se tiver um problema com o ficheiro?",
+            "answer": "Escreve-nos e resolvemos. Por se tratar de conteúdo digital com acesso imediato, aplicam-se as regras próprias de conteúdo digital."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
+      "settings": {
+        "eyebrow": "GUIA DIGITAL",
+        "cta": "Comprar e descarregar",
+        "back_anchor": "guias"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
