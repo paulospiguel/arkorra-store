@@ -1,0 +1,31 @@
+@page { size: A4; margin: 16mm 16mm 20mm;
+  @bottom-left { content: "Arkorra · Guia de Preparação para Famílias"; font: 9pt Arial, sans-serif; }
+  @bottom-right { content: "Página " counter(page); font: 9pt Arial, sans-serif; } }
+  * { box-sizing: border-box; }
+  body { font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 11.8pt; line-height: 1.4; color: #000; }
+  h1, h2, h3 { font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #000; margin: 0 0 .4em; }
+  h1 { font-size: 34pt; line-height: 1.05; }
+  h2 { font-size: 20pt; border-bottom: 3px solid #000; padding-bottom: 4px; margin-top: 0; }
+  h3 { font-size: 14pt; margin-top: 1.2em; }
+  p { margin: 0 0 .7em; }
+  ul, ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  li { margin-bottom: .18em; }
+  section { page-break-before: always; }
+  .cover { page-break-before: auto; min-height: 240mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover .tag { font-size: 13pt; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border: 3px solid #000; display: inline-block; padding: 4px 12px; }
+  .cover .lead { font-size: 15pt; max-width: 150mm; }
+  .box { border: 2.5px solid #000; padding: 10px 14px; margin: 0 0 12px; page-break-inside: avoid; }
+  .box.alert { border-width: 4px; }
+  .box h3 { margin-top: 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 12px; page-break-inside: avoid; }
+  th, td { border: 1.5px solid #000; padding: 5px 8px; text-align: left; vertical-align: top; font-size: 11.5pt; }
+  th { background: #e6e6e6; text-transform: uppercase; font-size: 10.5pt; letter-spacing: .4px; }
+  .chk li { list-style: none; position: relative; padding-left: 1.5em; }
+  .chk li::before { content: ''; position: absolute; left: 0; top: .28em; width: .85em; height: .85em; border: 2px solid #000; }
+  .line { border-bottom: 1.5px solid #000; height: 1.9em; }
+  .small { font-size: 10pt; }
+  .big { font-size: 15pt; font-weight: 800; }
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps li { counter-increment: s; padding-left: 2.2em; position: relative; margin-bottom: .5em; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 1.6em; height: 1.6em; border: 2.5px solid #000; border-radius: 50%; text-align: center; font-weight: 800; line-height: 1.45em; }
