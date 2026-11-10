@@ -955,10 +955,9 @@ html {
   background: var(--hk-navy-dark);
 }
 
-.ark.ark-header .ark-lang__code,
-.ark.ark-header .ark-lang__caret {
-  color: #ffffff;
-  border-color: currentColor;
+.ark.ark-header .ark-lang__option .ark-lang__code,
+.ark.ark-header .ark-lang__option .ark-lang__name {
+  color: var(--hk-ink);
 }
 
 /* dropdown panel */
@@ -1038,4 +1037,13 @@ html {
 
 .ark.ark-header .ark-nav-pill .ark-nav-pill__item:hover .ark-icon {
   color: var(--hk-green);
+}
+
+/* Same flag-only treatment when the toggle is a <summary> (several languages enabled) */
+.ark.ark-header [data-ark-lang] > summary,
+.ark.ark-header [data-ark-lang] > summary:hover,
+.ark.ark-header [data-ark-lang][open] > summary,
+.ark.ark-header .ark-lang > summary {
+  background: transparent;
+  color: var(--hk-ink);
 }
